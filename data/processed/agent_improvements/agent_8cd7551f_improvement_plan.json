@@ -1,0 +1,39 @@
+{
+  "agent_id": "8cd7551f00000000000000000000000000000000",
+  "current_performance": {
+    "average_qci": 65.0,
+    "total_calls_analyzed": 1,
+    "qci_range": {
+      "min": 65,
+      "max": 65
+    },
+    "performance_distribution": {
+      "excellent": 0,
+      "good": 1,
+      "average": 0,
+      "poor": 0,
+      "failed": 0
+    }
+  },
+  "successful_patterns": {
+    "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  "failure_patterns": {
+    "patterns": [],
+    "error": "No failed calls to analyze"
+  },
+  "improvement_recommendations": {
+    "priority_actions": [
+      "Масштабировать успешные паттерны",
+      "Тонко настроить работу с возражениями",
+      "Оптимизировать время звонка"
+    ],
+    "script_improvements": {},
+    "training_focus": [],
+    "performance_targets": {
+      "target_qci": 80,
+      "timeline": "1 месяц",
+      "key_metric": "Стабилизировать высокое качество"
+    }
+  }
+}

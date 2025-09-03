@@ -1,0 +1,18 @@
+call_id,transcript,status,end_reason,duration,cost,created_at
+79cc8910-7f90-408f-8d34-7a3685c13dba,"AI: Thank you for calling Wellness Partners. This is Riley, your scheduling assistant. How may I help you today?
+User: I want to schedule a booking.
+AI: I'd be happy to help you with scheduling. Let me get some information from you so we can find the right appointment. What type of appointment are you looking to schedule today?
+User: Going to gym.
+AI: Wellness Partners specializes in medical and wellness services. But we don't offer gym memberships or fitness classes If you're looking for a wellness related appointment, such as physical therapy or nutrition counseling, I'd be happy to assist you. Could you clarify what type of service you need?
+User: Okay. Let's go physical therapy.
+AI: Great choice. Do you have a specific provider you'd like to see for physical therapy, or would you prefer the first available appointment?
+User: Okay. I want nice doctor. Good looking.
+AI: I can help you find a great physical therapist. While I can't guarantee appearance, all of our providers are highly qualified and dedicated to patient care. Do you have any other preferences such as a specific day or time that works best for you?
+User: I want right now. I have only 10 minutes.
+AI: I understand your urgency, but physical therapy appointments typically require more time and preparation. The shortest appointment duration is usually around 30 minutes. Let me check our schedule for the earliest available appointments that fits within our typical session lengths. Just a moment while I look at the schedule. Pause to check availability. For physical therapy, the earliest available appointment is on date at time. Would that work for you?
+User: I didn't hear date and time. Just so you say tell me bullshit.
+AI: I apologize if there was any confusion. Let me clarify. The earliest available appointment for physical therapy is on date, at time, Would that work for you?
+User: Oh, fuck yourself, bro.
+AI: I'm sorry to hear you're upset. There's anything specific I can do to assist you or improve your experience, please let me know.
+User: No. No call. Go call. You're good. Right.
+AI: Thank you for your understanding. If you need any assistance, the future, feel free to call Wellness Partners.",ended,customer-ended-call,0,0.4173,2025-09-01T07:59:53.023Z

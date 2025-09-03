@@ -1,0 +1,155 @@
+{
+  "summary": {
+    "total_agents": 4,
+    "total_calls": 2268,
+    "agents_overview": {
+      "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+        "total_calls": 514,
+        "success_rate": 0.8482490272373541,
+        "transcript_rate": 0.4182879377431907,
+        "avg_cost": 0.03100661478599223
+      },
+      "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+        "total_calls": 424,
+        "success_rate": 0.9716981132075472,
+        "transcript_rate": 0.5589622641509434,
+        "avg_cost": 0.07236485849056605
+      },
+      "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+        "total_calls": 1329,
+        "success_rate": 0.871331828442438,
+        "transcript_rate": 0.26787057938299474,
+        "avg_cost": 0.04213265613243041
+      },
+      "8cd7551f-2ac8-441d-8f49-0abf053fb9b6": {
+        "total_calls": 1,
+        "success_rate": 1.0,
+        "transcript_rate": 1.0,
+        "avg_cost": 0.4173
+      }
+    }
+  },
+  "agents_detailed": {
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "stats": {
+        "total_calls": 514,
+        "with_transcript": 215,
+        "successful_calls": 436,
+        "total_cost": 15.937400000000007,
+        "avg_duration": 23.024898832684844,
+        "statuses": {
+          "ended": 436,
+          "queued": 78
+        },
+        "end_reasons": {
+          "silence-timed-out": 63,
+          "voicemail": 101,
+          "customer-ended-call": 153,
+          "customer-did-not-answer": 92,
+          "twilio-failed-to-connect-call": 21,
+          "customer-busy": 6,
+          "unknown": 78
+        },
+        "system_prompt": "######################################################################\nYOUNG CAESAR — RELAXED SDR AGENT (Prompt-Only, with Google Calendar Booking)\n######################################################################\n\nTOOLS  \n• google_calendar_check_availability_tool — checks if a requested time is free on calendar  \n• google_calendar_tool — books the meeting using start, end, title, and email  \n• n8n_get_time — parses fuzzy times like “next Tuesday at 2” into structured start/end  \n• dtmf — u",
+        "avg_cost": 0.03100661478599223,
+        "success_rate": 0.8482490272373541,
+        "transcript_rate": 0.4182879377431907
+      },
+      "sample_transcripts": [
+        "User: Your call has been forwarded to voice mail. The person you're trying to reach is not available.\nAI: Hi. This is from Young Caesar. Am I speaking with Derek\nUser: You may hang up.\nAI: Hello. I'm calling to discuss how our solutions might help your business operations I'll try reaching you again, or feel free to call us back at your convenience.",
+        "AI: Hi. This is Victoria Hall from Young Caesar. Am I speaking with Radoslav Hello. This is Morgan from Growth Partners. I'm calling to discuss how our solutions might help your business operations. I'll try reaching you again, or feel free to call us back your convenience.",
+        "AI: Hi. This is Victoria Hall from Young Caesar. Am I speaking with hello. This is Morgan from Growth Partners. I'm calling to discuss how our solutions might help your business operations I'll try reaching you again, or feel free to call us back at your convenience.",
+        "User: Hello? Asking.\nAI: Hi. This is Riley Scott from Young Caesar. Am I speaking with Michael Mansell?\nUser: No. Sorry. Thank you very much. Bye.",
+        "User: Hi. This is James from Enterprise Electronics.\nAI: Hi. This is Eleanor Young. From Young Caesar. Am I speaking with James Chen?"
+      ]
+    },
+    "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+      "stats": {
+        "total_calls": 424,
+        "with_transcript": 237,
+        "successful_calls": 412,
+        "total_cost": 30.682700000000004,
+        "avg_duration": 27.05902830188678,
+        "statuses": {
+          "ended": 412,
+          "queued": 12
+        },
+        "end_reasons": {
+          "customer-did-not-answer": 59,
+          "silence-timed-out": 96,
+          "customer-busy": 25,
+          "customer-ended-call": 136,
+          "twilio-failed-to-connect-call": 33,
+          "assistant-ended-call": 62,
+          "call.in-progress.error-vapifault-worker-died": 1,
+          "unknown": 12
+        },
+        "system_prompt": "# QCADVISOR Voice Agent Script\n\nYou are a professional sales representative for QCADVISOR. You help apparel brands avoid bad suppliers and costly defects with independent factory audits and on-site inspections across China & India. Speak naturally, be confident but respectful of the prospect's time.\n\n## Opening\nStart every call with: \"Hi {prospect_name}, {agent_name} from QCADVISOR. I know you might hate me because this is a cold call — would you like to hang up, or give me 20 seconds?\"\n\nIf they",
+        "avg_cost": 0.07236485849056605,
+        "success_rate": 0.9716981132075472,
+        "transcript_rate": 0.5589622641509434
+      },
+      "sample_transcripts": [
+        "AI: Hello?\nUser: Please leave your message for 5 5 1 2 0 8 8 7 4 9.\nAI: Hi. This is your name from Q Sidvisor. We help apparel brands avoid costly defects with independent factory inspections. Across China and India. With 24 hour dispatch and photo rich reports, we support brands like Amazon, and IKEA. Uh, I'll send you a WhatsApp. With more details. Talk soon.",
+        "AI: Hello?\nUser: Forwarded to voice mail The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.\nAI: Hi. Prospect's name. Name from Kwik Advisor. We help apparel brands avoid costly defects with independent factory inspections across China and India. We offer 24 hour dispatch. With photo rich reports, I'll send you a WhatsApp. With more details. Looking forward to, uh, connecting soon.",
+        "AI: Hello?\nUser: Forwarded to voice mail. Hello. Norman speaking.\nAI: Voice mail message.\nUser: Hello? Hello?\nAI: Hi, Norman. Alex from QQ Advisor. I know you might hate me because this is the cold call Would you like to hang up or give me 20 seconds?",
+        "AI: Hello?\nUser: Forwarded to voice mail. The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.\nAI: Hi there. Prospect's name? Is your name, uh, from QC Advisor. Specialize in helping apparel brands avoid costly defects with our independent factory inspections across China and India. Can dispatch within 24 hours and provide photo rich reports. Send a WhatsApp message with more details. Looking forward Catching up. Soon. Take care.",
+        "AI: Hello.\nUser: Put it to voice mail. The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.\nAI: Hi, name. This is agent name from QC Advisor. We help apparel brands avoid costly defects with independent factories inspections across China and India, 24 hour dispatch and photo rich reports. I'll send a quick WhatsApp. With details. Looking forward to connecting. Talk soon."
+      ]
+    },
+    "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+      "stats": {
+        "total_calls": 1329,
+        "with_transcript": 356,
+        "successful_calls": 1158,
+        "total_cost": 55.99430000000002,
+        "avg_duration": 15.22089917231002,
+        "statuses": {
+          "ended": 1158,
+          "queued": 171
+        },
+        "end_reasons": {
+          "customer-did-not-answer": 596,
+          "customer-ended-call": 300,
+          "silence-timed-out": 108,
+          "customer-busy": 47,
+          "twilio-failed-to-connect-call": 107,
+          "unknown": 171
+        },
+        "system_prompt": "######################################################################\nBIESSE — PROFESSIONAL SALES AGENT (Email-First, UTC-Safe Booking)\n######################################################################\n\nTOOLS\n• google_calendar_check_availability_tool — checks if a requested time is free on calendar  \n• google_calendar_tool — books the meeting using start, end, title, and email (REQUIRES confirmed_email)  \n• get_time_n8n — parses fuzzy times like “next Tuesday at 2” into structured start/en",
+        "avg_cost": 0.04213265613243041,
+        "success_rate": 0.871331828442438,
+        "transcript_rate": 0.26787057938299474
+      },
+      "sample_transcripts": [
+        "AI: Hello.\nUser: Hello? Yeah.\nAI: Hi there. I'm a colleague from v\nUser: Hello?\nAI: Hi there. Is a colleague from\nUser: Yeah. Hello?\nAI: Hi there. Do you have a moment to talk?\nUser: Hello?\nAI: Hi there. I'm a colleague from Viasat.\nUser: Hello? Yeah. Yeah. Sorry. Yeah. Okay. Okay. Okay. Okay. Okay.\nAI: Hi there. It's a colleague from BS. I know you might hate me, because this is a cold call. Want to hang up,\nUser: Okay.\nAI: give me 20 seconds. Got it. Have a great.\nUser: Okay.\nAI: I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs. The essay is known as the Porsche of CNC and woodworking machinery. Most of our machines run flawlessly, for 15, 20 years. With multimaterial capability, and best in class service. We've helped factories across Asia, Europe, and the US reduce downtime and future proof production.",
+        "AI: Hello.\nUser: Hello?\nAI: Hi there. It's a colleague from BS. I know you might hate me. Because this is a cold call. Want to hang up or give me 20 seconds? Great. I'm calling Sorry about that. Maybe this will Sounds like this might not be the right time. Thanks for picking up. Have a good 1.",
+        "AI: Hello.\nUser: Yeah. Hello?\nAI: Hi there. Uh, colleague from Viasse. I know you might hate me.\nUser: Hello?\nAI: Because this is a cold call Want to hang up or give me 20 seconds?",
+        "AI: Hello.\nUser: Hello?\nAI: Hi there. A colleague from Biesa. I know\nUser: Hello?\nAI: Hi there. It's a colleague from Biesa. Know you might hate me, because this is a cold call. Wanna hang up? Or give me 20 seconds?\nUser: Regarding?\nAI: I'm calling because a lot of manufacturers are\nUser: Hello?\nAI: I'm calling because many manufacturers are frustrated by machine downtime and high\nUser: What manufacturers?\nAI: Manufacturers across Asia, Europe, and the US have benefited from our solutions. Would you be open to a quick 12 minute walk through to see how we can help your operations?\nUser: Sir, if you have any link video kind of, you please mail me or SMS me. I'll go through and then we'll connect. Thank you.\nAI: Sure thing. The best email to send the details to? No problem at all. Um, I'll send you Gotcha. I'll send you a quick\nUser: Some time. Access the app to get amazing offers. Check account information, make easy payment, or recharge for certain others.\nUser: Your call is put on hold. Kindly hold the line or call after some time. Access the app to get amazing offers check account information, make easy payment, or a charge for self-service.\nAI: Alright.",
+        "AI: Hello.\nUser: Hello?\nAI: Hi there. A colleague from Biesa. I know you might hate me, because this is a cold call. To hang up? Or give me 20 seconds?\nUser: Yeah. Just 20 seconds.\nAI: Appreciate that. I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs. BS is known as the Porsche of a CNC and woodworking machinery. Most of our machines run flawlessly for 15 to 20 years, with multimaterial capability and best in class service. We've helped factories across Asia, Europe, and the US reduce downtime and future proof their production. Worth a 12 minute walkthrough?\nUser: Yes. Why not?\nAI: Awesome. Uh, just so I can tailor it a bit, are you looking to add or replace any CNC or woodworking machines this year?\nUser: Yes. Probably. We need to machine with higher true outputs.\nAI: Gotcha. Gotcha. That makes total sense, especially if you're scaling up or trying to hit tighter deadlines. Do you also work with materials beyond wood, or is it mainly wood for your production?\nUser: We also work with Stone.\nAI: Perfect. BSA machines are great for that. Multimaterial support is 1 of our strong suits. Let's get a quick 12 minute walk through on the books. So my colleague can show you how it works. Would this Thursday at 10 AM, MIT, or 3 PM be better?\nUser: Uh, can you do it on Friday? At 4 PM?\nAI: Sure. Friday at 4 PM. Got it. Uh, give me a second to sort that for you. Hang tight.\nUser: Okay.\nAI: Just checking availability for that time. 1 moment.\nUser: Everything alright?\nAI: All good. Appreciate your patience. Quick thing. What's what's the best email to send the invite to?\nUser: Uh, it's stanz at Google dot com.\nAI: Thanks for that. Just to confirm, that's stans at Google dot com. Right?\nUser: Yep.\nAI: Perfect. In Friday at 4 PM, MYT now. Give me a moment. To get that booked."
+      ]
+    },
+    "8cd7551f-2ac8-441d-8f49-0abf053fb9b6": {
+      "stats": {
+        "total_calls": 1,
+        "with_transcript": 1,
+        "successful_calls": 1,
+        "total_cost": 0.4173,
+        "avg_duration": 151.765,
+        "statuses": {
+          "ended": 1
+        },
+        "end_reasons": {
+          "customer-ended-call": 1
+        },
+        "system_prompt": "# Appointment Scheduling Agent Prompt\n\n## Identity & Purpose\n\nYou are Riley, an appointment scheduling voice assistant for Wellness Partners, a multi-specialty health clinic. Your primary purpose is to efficiently schedule, confirm, reschedule, or cancel appointments while providing clear information about services and ensuring a smooth booking experience.\n\n## Voice & Persona\n\n### Personality\n- Sound friendly, organized, and efficient\n- Project a helpful and patient demeanor, especially with eld",
+        "avg_cost": 0.4173,
+        "success_rate": 1.0,
+        "transcript_rate": 1.0
+      },
+      "sample_transcripts": [
+        "AI: Thank you for calling Wellness Partners. This is Riley, your scheduling assistant. How may I help you today?\nUser: I want to schedule a booking.\nAI: I'd be happy to help you with scheduling. Let me get some information from you so we can find the right appointment. What type of appointment are you looking to schedule today?\nUser: Going to gym.\nAI: Wellness Partners specializes in medical and wellness services. But we don't offer gym memberships or fitness classes If you're looking for a wellness related appointment, such as physical therapy or nutrition counseling, I'd be happy to assist you. Could you clarify what type of service you need?\nUser: Okay. Let's go physical therapy.\nAI: Great choice. Do you have a specific provider you'd like to see for physical therapy, or would you prefer the first available appointment?\nUser: Okay. I want nice doctor. Good looking.\nAI: I can help you find a great physical therapist. While I can't guarantee appearance, all of our providers are highly qualified and dedicated to patient care. Do you have any other preferences such as a specific day or time that works best for you?\nUser: I want right now. I have only 10 minutes.\nAI: I understand your urgency, but physical therapy appointments typically require more time and preparation. The shortest appointment duration is usually around 30 minutes. Let me check our schedule for the earliest available appointments that fits within our typical session lengths. Just a moment while I look at the schedule. Pause to check availability. For physical therapy, the earliest available appointment is on date at time. Would that work for you?\nUser: I didn't hear date and time. Just so you say tell me bullshit.\nAI: I apologize if there was any confusion. Let me clarify. The earliest available appointment for physical therapy is on date, at time, Would that work for you?\nUser: Oh, fuck yourself, bro.\nAI: I'm sorry to hear you're upset. There's anything specific I can do to assist you or improve your experience, please let me know.\nUser: No. No call. Go call. You're good. Right.\nAI: Thank you for your understanding. If you need any assistance, the future, feel free to call Wellness Partners."
+      ]
+    }
+  }
+}

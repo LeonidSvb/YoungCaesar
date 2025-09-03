@@ -1,0 +1,1051 @@
+{
+  "summary": {
+    "agent_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+    "total_analyzed": 10,
+    "successful_analyses": 10,
+    "failed_analyses": 0,
+    "average_qci": 41.9,
+    "qci_range": {
+      "min": 18,
+      "max": 68
+    },
+    "analysis_timestamp": "2025-09-03T15:23:14.437317"
+  },
+  "detailed_results": [
+    {
+      "call_id": "0d911064-8adb-46c0-afeb-6d4313617efe",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0513,
+        "created_at": "2025-08-07T18:43:33.286Z",
+        "duration_estimate": 47
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "customer",
+            "message": "Your call has been forwarded to voice mail. The person you're trying to reach is not available.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is from Young Caesar. Am I speaking with Derek",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "customer",
+            "message": "You may hang up.",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hello. I'm calling to discuss how our solutions might help your business operations I'll try reaching you again, or feel free to call us back at your convenience.",
+            "timestamp": "4"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "4",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "no_answer",
+          "objections_raised": [
+            "Your call has been forwarded to voice mail. The person you're trying to reach is not available.",
+            "You may hang up."
+          ],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is from Young Caesar. Am I speaking with Derek",
+          "value_proposition": "I'm calling to discuss how our solutions might help your business operations",
+          "closing_attempt": "I'll try reaching you again, or feel free to call us back at your convenience.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 4,
+            "first_cta_score": 2,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 4,
+            "compliance_time_score": 4,
+            "alternative_offered_score": 2
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 4,
+            "language_match_score": 2
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 4,
+            "wrap_up_score": 3,
+            "tool_hygiene_score": 3
+          }
+        },
+        "coaching_tips": [
+          "Ensure to engage the customer before delivering the value proposition.",
+          "Try to handle objections more effectively.",
+          "Improve on the call to action."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hello. I'm calling to discuss how our solutions might help your business operations",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Your call has been forwarded to voice mail. The person you're trying to reach is not available.",
+              "issue": "Failed to engage the customer"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Ensure to engage the customer before delivering the value proposition.",
+        "Try to handle objections more effectively.",
+        "Improve on the call to action."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:19:20.495689"
+    },
+    {
+      "call_id": "3a1f87e8-b51c-4983-be6d-cbb5e3e05d9f",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "voicemail",
+        "cost": 0.0231,
+        "created_at": "2025-08-11T13:46:05.037Z",
+        "duration_estimate": 19
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Victoria Hall",
+          "customer": "Radoslav"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with Radoslav",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hello. This is Morgan from Growth Partners. I'm calling to discuss how our solutions might help your business operations. I'll try reaching you again, or feel free to call us back your convenience.",
+            "timestamp": "2"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "2",
+          "agent_talk_ratio": "1.0",
+          "call_outcome": "callback_requested",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with Radoslav",
+          "value_proposition": "I'm calling to discuss how our solutions might help your business operations.",
+          "closing_attempt": "I'll try reaching you again, or feel free to call us back your convenience.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 50,
+        "breakdown": {
+          "dynamics": {
+            "score": 8,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 8,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 12,
+            "recognition_score": 6,
+            "compliance_time_score": 6,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 8,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 22,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 11
+          }
+        },
+        "coaching_tips": [
+          "Ensure to maintain a balanced conversation. The agent talk ratio was 100%, which is not ideal.",
+          "The brand name was inconsistent. Stick to one name throughout the conversation.",
+          "There was no customer engagement in the conversation. Try to involve the customer more."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'm calling to discuss how our solutions might help your business operations.",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "This is Victoria Hall from Young Caesar. Hello. This is Morgan from Growth Partners.",
+              "issue": "Inconsistent brand name"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 50,
+      "coaching_tips": [
+        "Ensure to maintain a balanced conversation. The agent talk ratio was 100%, which is not ideal.",
+        "The brand name was inconsistent. Stick to one name throughout the conversation.",
+        "There was no customer engagement in the conversation. Try to involve the customer more."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:19:44.104520"
+    },
+    {
+      "call_id": "fbbb7c32-ab5a-4c4e-ad0e-3588af492c08",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "voicemail",
+        "cost": 0.0225,
+        "created_at": "2025-08-11T13:44:04.751Z",
+        "duration_estimate": 19
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Victoria Hall",
+          "customer": "Morgan"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "This is Morgan from Growth Partners.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "I'm calling to discuss how our solutions might help your business operations I'll try reaching you again, or feel free to call us back at your convenience.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "callback_requested",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with hello.",
+          "value_proposition": "I'm calling to discuss how our solutions might help your business operations",
+          "closing_attempt": "I'll try reaching you again, or feel free to call us back at your convenience.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 68,
+        "breakdown": {
+          "dynamics": {
+            "score": 16,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 8,
+            "first_cta_score": 8,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 14,
+            "recognition_score": 6,
+            "compliance_time_score": 8,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 12,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 4,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 26,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 15
+          }
+        },
+        "coaching_tips": [
+          "Try to balance the conversation more evenly. The agent should not dominate the conversation.",
+          "Make sure to offer an alternative before ending the call.",
+          "Ensure the language used matches the customer's language."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'm calling to discuss how our solutions might help your business operations",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with hello.",
+              "issue": "The opening line is confusing and does not match the customer's language."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 68,
+      "coaching_tips": [
+        "Try to balance the conversation more evenly. The agent should not dominate the conversation.",
+        "Make sure to offer an alternative before ending the call.",
+        "Ensure the language used matches the customer's language."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:20:06.977986"
+    },
+    {
+      "call_id": "340bd366-f4fa-4ae5-b099-eafa59a75e5f",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.0254,
+        "created_at": "2025-08-11T13:02:04.770Z",
+        "duration_estimate": 11
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Riley Scott",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "customer",
+            "message": "Hello? Asking.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Riley Scott from Young Caesar. Am I speaking with Michael Mansell?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "customer",
+            "message": "No. Sorry. Thank you very much. Bye.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.33",
+          "call_outcome": "rejection",
+          "objections_raised": [
+            "Wrong person"
+          ],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Riley Scott from Young Caesar. Am I speaking with Michael Mansell?",
+          "value_proposition": "",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 30,
+        "breakdown": {
+          "dynamics": {
+            "score": 8,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 8,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 6,
+            "recognition_score": 6,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 8,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 8,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 8
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer more to increase your talk ratio.",
+          "Offer an alternative before ending the call.",
+          "Ensure brand consistency throughout the call."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hi. This is Riley Scott from Young Caesar. Am I speaking with Michael Mansell?",
+              "reason": "Good opening line with brand mention"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "No. Sorry. Thank you very much. Bye.",
+              "issue": "Failed to offer an alternative before ending the call"
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 30,
+      "coaching_tips": [
+        "Try to engage the customer more to increase your talk ratio.",
+        "Offer an alternative before ending the call.",
+        "Ensure brand consistency throughout the call."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:20:29.277590"
+    },
+    {
+      "call_id": "b7df3aec-ebe2-4a0c-8b47-30a4be0ab97a",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "voicemail",
+        "cost": 0.0147,
+        "created_at": "2025-08-11T12:54:04.708Z",
+        "duration_estimate": 12
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Eleanor Young",
+          "customer": "James from Enterprise Electronics"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "customer",
+            "message": "Hi. This is James from Enterprise Electronics.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Eleanor Young. From Young Caesar. Am I speaking with James Chen?",
+            "timestamp": "2"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "2",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "короткий"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Eleanor Young. From Young Caesar. Am I speaking with James Chen?",
+          "value_proposition": "",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 8,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 4,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 0,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 16,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 8,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 16,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 16
+          }
+        },
+        "coaching_tips": [
+          "Попробуйте включить призыв к действию в начале разговора.",
+          "Убедитесь, что вы используете единый язык с клиентом.",
+          "Подтвердите результат звонка перед его завершением."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hi. This is Eleanor Young. From Young Caesar.",
+              "reason": "Быстрое упоминание бренда и представление себя."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Am I speaking with James Chen?",
+              "issue": "Нет подтверждения результата звонка."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Попробуйте включить призыв к действию в начале разговора.",
+        "Убедитесь, что вы используете единый язык с клиентом.",
+        "Подтвердите результат звонка перед его завершением."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:20:58.918779"
+    },
+    {
+      "call_id": "b51ee401-26e5-4670-a2af-0917a37f29fd",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0743,
+        "created_at": "2025-08-11T12:42:56.659Z",
+        "duration_estimate": 65
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Aria Clark",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "customer",
+            "message": "Press 9 to continue in English.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Aria Clark from Young Caesar. Am I speaking with Christina Martinez? No worries at all. Do you happen to know the best way to reach Christina Martinez? Maybe an email or direct line.",
+            "timestamp": "2"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "2",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Aria Clark from Young Caesar. Am I speaking with Christina Martinez?",
+          "value_proposition": "Do you happen to know the best way to reach Christina Martinez? Maybe an email or direct line.",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 45,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 4,
+            "first_cta_score": 2,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 4,
+            "compliance_time_score": 4,
+            "alternative_offered_score": 2
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 4,
+            "language_match_score": 2
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 4
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer more to increase the agent talk ratio.",
+          "Ensure to recognize and respond to objections in a timely manner.",
+          "Maintain consistency in brand language."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hi. This is Aria Clark from Young Caesar.",
+              "reason": "Good opening line with brand mention"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Press 9 to continue in English.",
+              "issue": "Agent did not respond to customer's language preference"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 45,
+      "coaching_tips": [
+        "Try to engage the customer more to increase the agent talk ratio.",
+        "Ensure to recognize and respond to objections in a timely manner.",
+        "Maintain consistency in brand language."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:21:21.197380"
+    },
+    {
+      "call_id": "16d85778-5df2-49cd-a4ff-b2d0de096a64",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "voicemail",
+        "cost": 0.0346,
+        "created_at": "2025-08-11T12:39:56.804Z",
+        "duration_estimate": 24
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Victoria Hall",
+          "customer": "Rado Swamin"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with Rado Swamin",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hello. This is Morgan from Growth Partners. I'm calling to discuss how our solutions might help your business operations",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "I'll try reaching you again, or feel free to call us back at your convenience.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "1.0",
+          "call_outcome": "callback_requested",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with Rado Swamin",
+          "value_proposition": "I'm calling to discuss how our solutions might help your business operations",
+          "closing_attempt": "I'll try reaching you again, or feel free to call us back at your convenience.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 60,
+        "breakdown": {
+          "dynamics": {
+            "score": 8,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 8,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 6,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 6
+          },
+          "brand_language": {
+            "score": 12,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 4
+          },
+          "outcome_hygiene": {
+            "score": 34,
+            "outcome_score": 6,
+            "wrap_up_score": 4,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Убедитесь, что вы не доминируете в разговоре. Позвольте клиенту высказаться.",
+          "Упоминайте название вашего бренда единообразно во время всего звонка.",
+          "Попытайтесь сделать призыв к действию раньше в разговоре."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'm calling to discuss how our solutions might help your business operations",
+              "reason": "Хорошо сформулированное предложение о ценности"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi. This is Victoria Hall from Young Caesar. Am I speaking with Rado Swamin Hello. This is Morgan from Growth Partners.",
+              "issue": "Несоответствие в названии бренда"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 60,
+      "coaching_tips": [
+        "Убедитесь, что вы не доминируете в разговоре. Позвольте клиенту высказаться.",
+        "Упоминайте название вашего бренда единообразно во время всего звонка.",
+        "Попытайтесь сделать призыв к действию раньше в разговоре."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:21:50.215097"
+    },
+    {
+      "call_id": "78603274-6722-45f7-92e6-76e385cbbc13",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "voicemail",
+        "cost": 0.023,
+        "created_at": "2025-08-11T12:36:57.086Z",
+        "duration_estimate": 20
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Victoria Hall",
+          "customer": "Morgan"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hi. This is Victoria Hall from Young Caesar.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hello. This is Morgan from Growth Partners. I'm calling to discuss how our solutions might help your business operations.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "I I'll try reaching you again, or feel free to call us back at your convenience.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "1.0",
+          "call_outcome": "callback_requested",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is Victoria Hall from Young Caesar.",
+          "value_proposition": "I'm calling to discuss how our solutions might help your business operations.",
+          "closing_attempt": "I I'll try reaching you again, or feel free to call us back at your convenience.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 50,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 2,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 20,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 9
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer more in the conversation to improve the agent talk ratio.",
+          "Ensure to use the correct brand name consistently throughout the call.",
+          "Try to match the language and tone of the customer for better rapport."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I I'll try reaching you again, or feel free to call us back at your convenience.",
+              "reason": "Good closing attempt with an alternative offered."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi. This is Victoria Hall from Young Caesar. Hello. This is Morgan from Growth Partners.",
+              "issue": "Inconsistent brand name usage and agent talk ratio is too high."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 50,
+      "coaching_tips": [
+        "Try to engage the customer more in the conversation to improve the agent talk ratio.",
+        "Ensure to use the correct brand name consistently throughout the call.",
+        "Try to match the language and tone of the customer for better rapport."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:22:22.739109"
+    },
+    {
+      "call_id": "f560f842-e57e-40fc-bd4e-446d3b0adcc7",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0383,
+        "created_at": "2025-08-11T11:49:18.414Z",
+        "duration_estimate": 36
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is from Young Caesar. Am I speaking with?",
+            "timestamp": "2"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "2",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "короткий"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is from Young Caesar. Am I speaking with?",
+          "value_proposition": "",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 18,
+        "breakdown": {
+          "dynamics": {
+            "score": 4,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 0,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 0,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 8,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 6,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 6
+          }
+        },
+        "coaching_tips": [
+          "Агент должен был представиться и уточнить, с кем он говорит.",
+          "Агент должен был быстрее перейти к предложению ценности для клиента.",
+          "Агент должен был предложить действие или следующие шаги в разговоре."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hi. This is from Young Caesar.",
+              "reason": "Агент упомянул бренд в начале разговора, что хорошо для узнаваемости бренда."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Am I speaking with?",
+              "issue": "Агент не завершил свою фразу, оставив вопрос открытым. Это может вызвать путаницу у клиента."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 18,
+      "coaching_tips": [
+        "Агент должен был представиться и уточнить, с кем он говорит.",
+        "Агент должен был быстрее перейти к предложению ценности для клиента.",
+        "Агент должен был предложить действие или следующие шаги в разговоре."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:22:46.932848"
+    },
+    {
+      "call_id": "4d991da9-1ad4-48ef-8ca2-91a3d6b0da61",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.0289,
+        "created_at": "2025-08-11T11:48:44.034Z",
+        "duration_estimate": 26
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is from Young Caesar. Am I speaking with?",
+            "timestamp": "2"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "2",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "короткий"
+        },
+        "key_moments": {
+          "opening_line": "Hi. This is from Young Caesar. Am I speaking with?",
+          "value_proposition": "",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 18,
+        "breakdown": {
+          "dynamics": {
+            "score": 4,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 0,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 0,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 8,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 6,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 6
+          }
+        },
+        "coaching_tips": [
+          "AI should provide value proposition in the conversation",
+          "AI should make a call to action",
+          "AI should confirm or wrap up the conversation"
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hi. This is from Young Caesar. Am I speaking with?",
+              "reason": "AI mentioned the brand name at the beginning of the conversation"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi. This is from Young Caesar. Am I speaking with?",
+              "issue": "AI did not provide value proposition or make a call to action"
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 18,
+      "coaching_tips": [
+        "AI should provide value proposition in the conversation",
+        "AI should make a call to action",
+        "AI should confirm or wrap up the conversation"
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:23:12.434317"
+    }
+  ]
+}

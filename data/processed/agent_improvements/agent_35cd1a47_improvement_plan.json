@@ -1,0 +1,65 @@
+{
+  "agent_id": "35cd1a4700000000000000000000000000000000",
+  "current_performance": {
+    "average_qci": 45.0,
+    "total_calls_analyzed": 10,
+    "qci_range": {
+      "min": 10,
+      "max": 85
+    },
+    "performance_distribution": {
+      "excellent": 1,
+      "good": 3,
+      "average": 4,
+      "poor": 0,
+      "failed": 2
+    }
+  },
+  "successful_patterns": {
+    "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  "failure_patterns": {
+    "problem_patterns": {
+      "opening_problems": [
+        {
+          "problem": "Агент не предложил ценность клиенту и не предложил первое действие.",
+          "frequency": 2,
+          "impact": "высокий",
+          "solution": "Агент должен быстрее переходить к ценности для клиента и предлагать первое действие."
+        }
+      ],
+      "objection_handling_problems": [],
+      "general_issues": []
+    },
+    "avoid_phrases": [
+      {
+        "phrase": "Hello.",
+        "reason": "Это открывающее приветствие не предлагает ценности клиенту и не ведет к действию.",
+        "alternative": "Привет, я звоню из компании X. Мы помогаем компаниям, таким как ваша, улучшить свои продажи. Могу я уделить вам пару минут, чтобы обсудить это?"
+      }
+    ],
+    "improvement_priorities": [
+      {
+        "priority": 1,
+        "area": "Открывающее приветствие",
+        "action": "Агент должен быстрее переходить к ценности для клиента и предлагать первое действие."
+      }
+    ]
+  },
+  "improvement_recommendations": {
+    "priority_actions": [
+      "Улучшить предложение ценности",
+      "Работать над техникой закрытия",
+      "Персонализировать подход к клиентам"
+    ],
+    "script_improvements": {},
+    "training_focus": [
+      "Техника открытия звонка"
+    ],
+    "performance_targets": {
+      "target_qci": 70,
+      "timeline": "3 недели",
+      "key_metric": "Повысить конверсию в назначенные встречи"
+    }
+  }
+}

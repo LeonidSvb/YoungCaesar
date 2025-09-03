@@ -1,0 +1,53 @@
+{
+  "name": "vapi-self-learning-agents",
+  "version": "1.0.0",
+  "description": "AI-Powered Call Analytics & Self-Learning Agent Platform for VAPI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node scripts/collection/vapi_all_calls_collector.js",
+    "collect": "node scripts/collection/vapi_all_calls_collector.js",
+    "analyze": "python scripts/analysis/transcript_analyzer.py",
+    "vectorize": "python scripts/training/vector_embedder.py",
+    "train": "python scripts/training/agent_trainer.py",
+    "dashboard": "open dashboards/vapi_dashboard.html",
+    "setup": "npm install && pip install -r requirements.txt",
+    "airtable-setup": "node scripts/upload/create_airtable_table.js",
+    "airtable-test": "node scripts/upload/test_airtable_upload.js",
+    "airtable-upload": "node scripts/upload/airtable_uploader.js upload",
+    "airtable-clear": "node scripts/upload/airtable_uploader.js clear",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vapi",
+    "ai",
+    "machine-learning",
+    "call-analytics",
+    "self-learning",
+    "vector-database",
+    "conversation-ai"
+  ],
+  "author": "VAPI Self-Learning Team",
+  "license": "MIT",
+  "dependencies": {
+    "airtable": "^0.12.2",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "node-fetch": "^2.7.0",
+    "playwright": "^1.55.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/vapi-self-learning-agents.git"
+  },
+  "type": "commonjs"
+}

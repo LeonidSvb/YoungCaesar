@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPI Call Analytics Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(107, 115, 255, 0.3);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(107, 115, 255, 0.4);
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            box-shadow: 0 10px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .stat-card.cost {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);
+        }
+
+        .stat-card.duration {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .metric-title {
+            font-size: 1.1rem;
+            color: #34495e;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .metric-label {
+            color: #7f8c8d;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .success-rate {
+            color: #27ae60;
+        }
+
+        .transcript-rate {
+            color: #3498db;
+        }
+
+        .engagement-rate {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+
+        .date-range {
+            background: rgba(52, 73, 94, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 10px;
+            color: #34495e;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>📞 VAPI Call Analytics Dashboard</h1>
+            <p class="subtitle">Comprehensive Analysis & Performance Insights</p>
+            <div class="date-range" id="dateRange">Loading data...</div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+            <div class="loading">Loading statistics...</div>
+        </div>
+
+        <div class="metrics-grid" id="metricsGrid">
+            <div class="loading">Loading metrics...</div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3 class="chart-title">📊 Daily Call Volume</h3>
+                <canvas id="dailyCallsChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h3 class="chart-title">📝 Transcript Success Rate</h3>
+                <canvas id="transcriptChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">⏱️ Call Duration Distribution</h3>
+                <canvas id="durationChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">💰 Daily Cost Analysis</h3>
+                <canvas id="costChart"></canvas>
+            </div>
+
+            <div class="chart-container full-width">
+                <h3 class="chart-title">🎯 Success Rate vs Volume Correlation</h3>
+                <canvas id="correlationChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data from the analytics report
+        const analyticsData = {
+            "summary": {
+                "dateRange": "2025-08-01 to 2025-09-03",
+                "totalDays": 33,
+                "totalCalls": 2268,
+                "totalWithTranscript": 910,
+                "totalSuccessful": 2007,
+                "total30SecPlus": 549,
+                "total60SecPlus": 273,
+                "totalCost": 103.03
+            },
+            // Filtered to show only days with calls
+            "dailyStats": [
+                {"date": "2025-08-07", "totalCalls": 1, "withTranscript": 1, "successfulCalls": 1, "duration30Plus": 1, "duration60Plus": 0, "totalCost": 0.05, "avgDuration": 48},
+                {"date": "2025-08-08", "totalCalls": 16, "withTranscript": 11, "successfulCalls": 16, "duration30Plus": 9, "duration60Plus": 2, "totalCost": 0.95, "avgDuration": 32},
+                {"date": "2025-08-11", "totalCalls": 67, "withTranscript": 60, "successfulCalls": 67, "duration30Plus": 45, "duration60Plus": 37, "totalCost": 7.10, "avgDuration": 53},
+                {"date": "2025-08-12", "totalCalls": 59, "withTranscript": 37, "successfulCalls": 59, "duration30Plus": 26, "duration60Plus": 20, "totalCost": 4.00, "avgDuration": 44},
+                {"date": "2025-08-13", "totalCalls": 23, "withTranscript": 16, "successfulCalls": 23, "duration30Plus": 7, "duration60Plus": 5, "totalCost": 1.21, "avgDuration": 37},
+                {"date": "2025-08-15", "totalCalls": 26, "withTranscript": 26, "successfulCalls": 26, "duration30Plus": 0, "duration60Plus": 0, "totalCost": 0.36, "avgDuration": 6},
+                {"date": "2025-08-16", "totalCalls": 38, "withTranscript": 37, "successfulCalls": 38, "duration30Plus": 11, "duration60Plus": 5, "totalCost": 2.65, "avgDuration": 21},
+                {"date": "2025-08-18", "totalCalls": 149, "withTranscript": 72, "successfulCalls": 149, "duration30Plus": 51, "duration60Plus": 25, "totalCost": 11.08, "avgDuration": 26},
+                {"date": "2025-08-19", "totalCalls": 62, "withTranscript": 44, "successfulCalls": 62, "duration30Plus": 25, "duration60Plus": 17, "totalCost": 3.61, "avgDuration": 44},
+                {"date": "2025-08-20", "totalCalls": 7, "withTranscript": 6, "successfulCalls": 7, "duration30Plus": 6, "duration60Plus": 4, "totalCost": 0.66, "avgDuration": 70},
+                {"date": "2025-08-21", "totalCalls": 20, "withTranscript": 3, "successfulCalls": 20, "duration30Plus": 3, "duration60Plus": 2, "totalCost": 0.60, "avgDuration": 23},
+                {"date": "2025-08-23", "totalCalls": 64, "withTranscript": 2, "successfulCalls": 64, "duration30Plus": 24, "duration60Plus": 1, "totalCost": 1.27, "avgDuration": 18},
+                {"date": "2025-08-25", "totalCalls": 269, "withTranscript": 206, "successfulCalls": 269, "duration30Plus": 89, "duration60Plus": 45, "totalCost": 18.10, "avgDuration": 27},
+                {"date": "2025-08-26", "totalCalls": 395, "withTranscript": 145, "successfulCalls": 308, "duration30Plus": 102, "duration60Plus": 50, "totalCost": 19.66, "avgDuration": 21},
+                {"date": "2025-08-27", "totalCalls": 37, "withTranscript": 18, "successfulCalls": 37, "duration30Plus": 4, "duration60Plus": 1, "totalCost": 1.51, "avgDuration": 11},
+                {"date": "2025-08-28", "totalCalls": 751, "withTranscript": 190, "successfulCalls": 730, "duration30Plus": 127, "duration60Plus": 52, "totalCost": 26.46, "avgDuration": 12},
+                {"date": "2025-09-01", "totalCalls": 2, "withTranscript": 2, "successfulCalls": 2, "duration30Plus": 2, "duration60Plus": 2, "totalCost": 0.72, "avgDuration": 180},
+                {"date": "2025-09-02", "totalCalls": 282, "withTranscript": 34, "successfulCalls": 129, "duration30Plus": 17, "duration60Plus": 5, "totalCost": 3.04, "avgDuration": 8}
+            ]
+        };
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
+
+        function initializeDashboard() {
+            renderHeader();
+            renderStats();
+            renderMetrics();
+            renderCharts();
+        }
+
+        function renderHeader() {
+            document.getElementById('dateRange').textContent = `Analysis Period: ${analyticsData.summary.dateRange}`;
+        }
+
+        function renderStats() {
+            const { summary } = analyticsData;
+            const successRate = ((summary.totalSuccessful / summary.totalCalls) * 100).toFixed(1);
+            const transcriptRate = ((summary.totalWithTranscript / summary.totalCalls) * 100).toFixed(1);
+            const engagementRate = ((summary.total30SecPlus / summary.totalCalls) * 100).toFixed(1);
+            const avgCostPerCall = (summary.totalCost / summary.totalCalls).toFixed(3);
+
+            const statsHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${summary.totalCalls.toLocaleString()}</div>
+                    <div class="stat-label">Total Calls</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-value">${successRate}%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-card cost">
+                    <div class="stat-value">$${summary.totalCost.toFixed(2)}</div>
+                    <div class="stat-label">Total Cost</div>
+                </div>
+                <div class="stat-card duration">
+                    <div class="stat-value">${summary.total30SecPlus}</div>
+                    <div class="stat-label">30+ Second Calls</div>
+                </div>
+            `;
+
+            document.getElementById('statsGrid').innerHTML = statsHTML;
+        }
+
+        function renderMetrics() {
+            const { summary } = analyticsData;
+            const avgCallsPerDay = (summary.totalCalls / summary.totalDays).toFixed(1);
+            const transcriptRate = ((summary.totalWithTranscript / summary.totalCalls) * 100).toFixed(1);
+            const engagementRate = ((summary.total30SecPlus / summary.totalCalls) * 100).toFixed(1);
+            const qualityScore = ((summary.total60SecPlus / summary.totalCalls) * 100).toFixed(1);
+
+            const metricsHTML = `
+                <div class="metric-box">
+                    <div class="metric-title">📈 Volume Metrics</div>
+                    <div class="metric-item">
+                        <span class="metric-label">Average Calls/Day:</span>
+                        <span class="metric-value">${avgCallsPerDay}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Peak Day Volume:</span>
+                        <span class="metric-value">751 calls</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Active Days:</span>
+                        <span class="metric-value">18 / 33</span>
+                    </div>
+                </div>
+
+                <div class="metric-box">
+                    <div class="metric-title">🎯 Quality Metrics</div>
+                    <div class="metric-item">
+                        <span class="metric-label">Transcript Rate:</span>
+                        <span class="metric-value transcript-rate">${transcriptRate}%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Engagement Rate (30s+):</span>
+                        <span class="metric-value engagement-rate">${engagementRate}%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Quality Score (60s+):</span>
+                        <span class="metric-value success-rate">${qualityScore}%</span>
+                    </div>
+                </div>
+
+                <div class="metric-box">
+                    <div class="metric-title">💰 Cost Analysis</div>
+                    <div class="metric-item">
+                        <span class="metric-label">Average Cost/Call:</span>
+                        <span class="metric-value">$${(summary.totalCost / summary.totalCalls).toFixed(3)}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Cost/Transcript:</span>
+                        <span class="metric-value">$${(summary.totalCost / summary.totalWithTranscript).toFixed(3)}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Highest Day Cost:</span>
+                        <span class="metric-value">$26.46</span>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('metricsGrid').innerHTML = metricsHTML;
+        }
+
+        function renderCharts() {
+            renderDailyCallsChart();
+            renderTranscriptChart();
+            renderDurationChart();
+            renderCostChart();
+            renderCorrelationChart();
+        }
+
+        function renderDailyCallsChart() {
+            const ctx = document.getElementById('dailyCallsChart').getContext('2d');
+            const data = analyticsData.dailyStats;
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'Total Calls',
+                        data: data.map(d => d.totalCalls),
+                        backgroundColor: 'rgba(107, 115, 255, 0.8)',
+                        borderColor: 'rgba(107, 115, 255, 1)',
+                        borderWidth: 2,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTranscriptChart() {
+            const ctx = document.getElementById('transcriptChart').getContext('2d');
+            const { summary } = analyticsData;
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['With Transcript', 'Without Transcript'],
+                    datasets: [{
+                        data: [summary.totalWithTranscript, summary.totalCalls - summary.totalWithTranscript],
+                        backgroundColor: ['#4ECDC4', '#FFB6C1'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderDurationChart() {
+            const ctx = document.getElementById('durationChart').getContext('2d');
+            const { summary } = analyticsData;
+            
+            const under30 = summary.totalCalls - summary.total30SecPlus;
+            const between30And60 = summary.total30SecPlus - summary.total60SecPlus;
+            const over60 = summary.total60SecPlus;
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['<30 sec', '30-60 sec', '>60 sec'],
+                    datasets: [{
+                        label: 'Number of Calls',
+                        data: [under30, between30And60, over60],
+                        backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderCostChart() {
+            const ctx = document.getElementById('costChart').getContext('2d');
+            const data = analyticsData.dailyStats;
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: 'Daily Cost ($)',
+                        data: data.map(d => d.totalCost),
+                        borderColor: '#FF6B6B',
+                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toFixed(2);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderCorrelationChart() {
+            const ctx = document.getElementById('correlationChart').getContext('2d');
+            const data = analyticsData.dailyStats;
+            
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Calls vs Success Rate',
+                        data: data.map(d => ({
+                            x: d.totalCalls,
+                            y: (d.successfulCalls / d.totalCalls) * 100
+                        })),
+                        backgroundColor: 'rgba(107, 115, 255, 0.6)',
+                        borderColor: 'rgba(107, 115, 255, 1)',
+                        borderWidth: 2,
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Daily Call Volume'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Success Rate (%)'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1365 @@
+{
+  "summary": {
+    "agent_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+    "total_analyzed": 10,
+    "successful_analyses": 10,
+    "failed_analyses": 0,
+    "average_qci": 45.0,
+    "qci_range": {
+      "min": 10,
+      "max": 85
+    },
+    "analysis_timestamp": "2025-09-03T15:34:02.806995"
+  },
+  "detailed_results": [
+    {
+      "call_id": "2455e247-6cdd-4304-a0c2-dfaae34ec405",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.2931,
+        "created_at": "2025-08-18T07:00:31.355Z",
+        "duration_estimate": 58
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello? Yeah.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. I'm a colleague from v",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. Is a colleague from",
+            "timestamp": "5"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yeah. Hello?",
+            "timestamp": "6"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. Do you have a moment to talk?",
+            "timestamp": "7"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "8"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. I'm a colleague from Viasat.",
+            "timestamp": "9"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello? Yeah. Yeah. Sorry. Yeah. Okay. Okay. Okay. Okay. Okay.",
+            "timestamp": "10"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. It's a colleague from BS. I know you might hate me, because this is a cold call. Want to hang up,",
+            "timestamp": "11"
+          },
+          {
+            "speaker": "customer",
+            "message": "Okay.",
+            "timestamp": "12"
+          },
+          {
+            "speaker": "agent",
+            "message": "give me 20 seconds. Got it. Have a great.",
+            "timestamp": "13"
+          },
+          {
+            "speaker": "customer",
+            "message": "Okay.",
+            "timestamp": "14"
+          },
+          {
+            "speaker": "agent",
+            "message": "I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs. The essay is known as the Porsche of CNC and woodworking machinery. Most of our machines run flawlessly, for 15, 20 years. With multimaterial capability, and best in class service. We've helped factories across Asia, Europe, and the US reduce downtime and future proof production.",
+            "timestamp": "15"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "15",
+          "agent_talk_ratio": "0.6",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "medium"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs. The essay is known as the Porsche of CNC and woodworking machinery. Most of our machines run flawlessly, for 15, 20 years. With multimaterial capability, and best in class service. We've helped factories across Asia, Europe, and the US reduce downtime and future proof production.",
+          "closing_attempt": "give me 20 seconds. Got it. Have a great.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 5,
+            "alternative_offered_score": 5
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 0,
+            "language_match_score": 5
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Улучшите соотношение речи агента и клиента, чтобы обеспечить более сбалансированный диалог.",
+          "Убедитесь, что вы упоминаете бренд в начале разговора и используете его единообразно в течение всего звонка.",
+          "Постарайтесь быстрее перейти к основной ценности вашего предложения."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs.",
+              "reason": "Хорошо сформулированное предложение ценности"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi there. I'm a colleague from v",
+              "issue": "Недостаточное упоминание бренда и его неконсистентное использование"
+            },
+            {
+              "quote": "Hi there. It's a colleague from BS.",
+              "issue": "Неконсистентное использование бренда"
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Улучшите соотношение речи агента и клиента, чтобы обеспечить более сбалансированный диалог.",
+        "Убедитесь, что вы упоминаете бренд в начале разговора и используете его единообразно в течение всего звонка.",
+        "Постарайтесь быстрее перейти к основной ценности вашего предложения."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:29:03.659935"
+    },
+    {
+      "call_id": "cf1b909d-8339-4004-ab54-5c9d0c0bfb52",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.1757,
+        "created_at": "2025-08-18T07:00:29.762Z",
+        "duration_estimate": 93
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. It's a colleague from BS. I know you might hate me. Because this is a cold call. Want to hang up or give me 20 seconds? Great. I'm calling Sorry about that. Maybe this will Sounds like this might not be the right time. Thanks for picking up. Have a good 1.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "It's a colleague from BS. I know you might hate me. Because this is a cold call. Want to hang up or give me 20 seconds?",
+          "closing_attempt": "Sounds like this might not be the right time. Thanks for picking up. Have a good 1.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 45,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 5,
+            "compliance_time_score": 5,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Try to maintain a balanced conversation. The agent talk ratio was too high.",
+          "The agent should recognize and respond to objections more effectively.",
+          "The agent should use consistent and professional language."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "It's a colleague from BS. I know you might hate me. Because this is a cold call. Want to hang up or give me 20 seconds?",
+              "reason": "Good opening line and value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi there. It's a colleague from BS. I know you might hate me. Because this is a cold call. Want to hang up or give me 20 seconds? Great. I'm calling Sorry about that. Maybe this will Sounds like this might not be the right time. Thanks for picking up. Have a good 1.",
+              "issue": "The agent's language was inconsistent and unprofessional"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 45,
+      "coaching_tips": [
+        "Try to maintain a balanced conversation. The agent talk ratio was too high.",
+        "The agent should recognize and respond to objections more effectively.",
+        "The agent should use consistent and professional language."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:29:29.184722"
+    },
+    {
+      "call_id": "bcd522c3-07d2-43f7-96b3-7183084d6d7e",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.0456,
+        "created_at": "2025-08-18T06:59:30.802Z",
+        "duration_estimate": 21
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yeah. Hello?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. Uh, colleague from Viasse. I know you might hate me.",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "Because this is a cold call Want to hang up or give me 20 seconds?",
+            "timestamp": "5"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "5",
+          "agent_talk_ratio": "0.6",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "Hi there. Uh, colleague from Viasse. I know you might hate me.",
+          "closing_attempt": "Because this is a cold call Want to hang up or give me 20 seconds?",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 5,
+            "alternative_offered_score": 5
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer more effectively at the beginning of the call.",
+          "Ensure to recognize and address customer objections promptly.",
+          "Maintain consistency in brand language."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Because this is a cold call Want to hang up or give me 20 seconds?",
+              "reason": "The agent was honest about the nature of the call and gave the customer an option to continue or not."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi there. Uh, colleague from Viasse. I know you might hate me.",
+              "issue": "The agent's introduction was not clear and could potentially put off the customer."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Try to engage the customer more effectively at the beginning of the call.",
+        "Ensure to recognize and address customer objections promptly.",
+        "Maintain consistency in brand language."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:29:53.152978"
+    },
+    {
+      "call_id": "f6d9f26a-1400-42cb-9c11-2d436e695fb0",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.4526,
+        "created_at": "2025-08-18T06:59:29.257Z",
+        "duration_estimate": 163
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. A colleague from Biesa. I know",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. It's a colleague from Biesa. Know you might hate me, because this is a cold call. Wanna hang up? Or give me 20 seconds?",
+            "timestamp": "5"
+          },
+          {
+            "speaker": "customer",
+            "message": "Regarding?",
+            "timestamp": "6"
+          },
+          {
+            "speaker": "agent",
+            "message": "I'm calling because a lot of manufacturers are",
+            "timestamp": "7"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "8"
+          },
+          {
+            "speaker": "agent",
+            "message": "I'm calling because many manufacturers are frustrated by machine downtime and high",
+            "timestamp": "9"
+          },
+          {
+            "speaker": "customer",
+            "message": "What manufacturers?",
+            "timestamp": "10"
+          },
+          {
+            "speaker": "agent",
+            "message": "Manufacturers across Asia, Europe, and the US have benefited from our solutions. Would you be open to a quick 12 minute walk through to see how we can help your operations?",
+            "timestamp": "11"
+          },
+          {
+            "speaker": "customer",
+            "message": "Sir, if you have any link video kind of, you please mail me or SMS me. I'll go through and then we'll connect. Thank you.",
+            "timestamp": "12"
+          },
+          {
+            "speaker": "agent",
+            "message": "Sure thing. The best email to send the details to? No problem at all. Um, I'll send you Gotcha. I'll send you a quick",
+            "timestamp": "13"
+          },
+          {
+            "speaker": "customer",
+            "message": "Some time. Access the app to get amazing offers. Check account information, make easy payment, or recharge for certain others.",
+            "timestamp": "14"
+          },
+          {
+            "speaker": "customer",
+            "message": "Your call is put on hold. Kindly hold the line or call after some time. Access the app to get amazing offers check account information, make easy payment, or a charge for self-service.",
+            "timestamp": "15"
+          },
+          {
+            "speaker": "agent",
+            "message": "Alright.",
+            "timestamp": "16"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "16",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "callback_requested",
+          "objections_raised": [
+            "What manufacturers?"
+          ],
+          "call_length_estimate": "medium"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "I'm calling because many manufacturers are frustrated by machine downtime and high",
+          "closing_attempt": "Sure thing. The best email to send the details to? No problem at all. Um, I'll send you Gotcha. I'll send you a quick",
+          "objection_handling": [
+            "Manufacturers across Asia, Europe, and the US have benefited from our solutions. Would you be open to a quick 12 minute walk through to see how we can help your operations?"
+          ]
+        }
+      },
+      "step2_qci": {
+        "qci_score": 60,
+        "breakdown": {
+          "dynamics": {
+            "score": 15,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 4,
+            "first_cta_score": 4,
+            "dead_air_penalty": 3
+          },
+          "objections_compliance": {
+            "score": 15,
+            "recognition_score": 5,
+            "compliance_time_score": 5,
+            "alternative_offered_score": 5
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 3,
+            "language_match_score": 3
+          },
+          "outcome_hygiene": {
+            "score": 20,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 9
+          }
+        },
+        "coaching_tips": [
+          "Улучшите свою скорость до ценности, упомянув преимущества вашего продукта или услуги раньше.",
+          "Постарайтесь улучшить свою реакцию на возражения, предлагая альтернативы или решения быстрее.",
+          "Улучшите свою последовательность в упоминании бренда, чтобы усилить его восприятие."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Manufacturers across Asia, Europe, and the US have benefited from our solutions. Would you be open to a quick 12 minute walk through to see how we can help your operations?",
+              "reason": "Хорошо обработанное возражение, предложение альтернативы и упоминание бренда."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hi there. A colleague from Biesa. I know",
+              "issue": "Неполное предложение, неясное сообщение. Необходимо улучшить ясность и полноту сообщений."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 60,
+      "coaching_tips": [
+        "Улучшите свою скорость до ценности, упомянув преимущества вашего продукта или услуги раньше.",
+        "Постарайтесь улучшить свою реакцию на возражения, предлагая альтернативы или решения быстрее.",
+        "Улучшите свою последовательность в упоминании бренда, чтобы усилить его восприятие."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:30:38.437597"
+    },
+    {
+      "call_id": "fce4856d-5075-45d8-b044-aec198b5c181",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.4103,
+        "created_at": "2025-08-18T06:32:34.040Z",
+        "duration_estimate": 180
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. A colleague from Biesa. I know you might hate me, because this is a cold call. To hang up? Or give me 20 seconds?",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yeah. Just 20 seconds.",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "Appreciate that. I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs. BS is known as the Porsche of a CNC and woodworking machinery. Most of our machines run flawlessly for 15 to 20 years, with multimaterial capability and best in class service. We've helped factories across Asia, Europe, and the US reduce downtime and future proof their production. Worth a 12 minute walkthrough?",
+            "timestamp": "5"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yes. Why not?",
+            "timestamp": "6"
+          },
+          {
+            "speaker": "agent",
+            "message": "Awesome. Uh, just so I can tailor it a bit, are you looking to add or replace any CNC or woodworking machines this year?",
+            "timestamp": "7"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yes. Probably. We need to machine with higher true outputs.",
+            "timestamp": "8"
+          },
+          {
+            "speaker": "agent",
+            "message": "Gotcha. Gotcha. That makes total sense, especially if you're scaling up or trying to hit tighter deadlines. Do you also work with materials beyond wood, or is it mainly wood for your production?",
+            "timestamp": "9"
+          },
+          {
+            "speaker": "customer",
+            "message": "We also work with Stone.",
+            "timestamp": "10"
+          },
+          {
+            "speaker": "agent",
+            "message": "Perfect. BSA machines are great for that. Multimaterial support is 1 of our strong suits. Let's get a quick 12 minute walk through on the books. So my colleague can show you how it works. Would this Thursday at 10 AM, MIT, or 3 PM be better?",
+            "timestamp": "11"
+          },
+          {
+            "speaker": "customer",
+            "message": "Uh, can you do it on Friday? At 4 PM?",
+            "timestamp": "12"
+          },
+          {
+            "speaker": "agent",
+            "message": "Sure. Friday at 4 PM. Got it. Uh, give me a second to sort that for you. Hang tight.",
+            "timestamp": "13"
+          },
+          {
+            "speaker": "customer",
+            "message": "Okay.",
+            "timestamp": "14"
+          },
+          {
+            "speaker": "agent",
+            "message": "Just checking availability for that time. 1 moment.",
+            "timestamp": "15"
+          },
+          {
+            "speaker": "customer",
+            "message": "Everything alright?",
+            "timestamp": "16"
+          },
+          {
+            "speaker": "agent",
+            "message": "All good. Appreciate your patience. Quick thing. What's what's the best email to send the invite to?",
+            "timestamp": "17"
+          },
+          {
+            "speaker": "customer",
+            "message": "Uh, it's stanz at Google dot com.",
+            "timestamp": "18"
+          },
+          {
+            "speaker": "agent",
+            "message": "Thanks for that. Just to confirm, that's stans at Google dot com. Right?",
+            "timestamp": "19"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yep.",
+            "timestamp": "20"
+          },
+          {
+            "speaker": "agent",
+            "message": "Perfect. In Friday at 4 PM, MYT now. Give me a moment. To get that booked.",
+            "timestamp": "21"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "21",
+          "agent_talk_ratio": "0.6",
+          "call_outcome": "meeting_scheduled",
+          "objections_raised": [],
+          "call_length_estimate": "medium"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs. BS is known as the Porsche of a CNC and woodworking machinery. Most of our machines run flawlessly for 15 to 20 years, with multimaterial capability and best in class service. We've helped factories across Asia, Europe, and the US reduce downtime and future proof their production.",
+          "closing_attempt": "Let's get a quick 12 minute walk through on the books. So my colleague can show you how it works. Would this Thursday at 10 AM, MIT, or 3 PM be better?",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 85,
+        "breakdown": {
+          "dynamics": {
+            "score": 22,
+            "agent_talk_ratio_score": 6,
+            "time_to_value_score": 8,
+            "first_cta_score": 8,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 20,
+            "recognition_score": 6,
+            "compliance_time_score": 8,
+            "alternative_offered_score": 6
+          },
+          "brand_language": {
+            "score": 18,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 6,
+            "language_match_score": 4
+          },
+          "outcome_hygiene": {
+            "score": 25,
+            "outcome_score": 15,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Try to maintain a balanced conversation. The agent talk ratio was a bit high.",
+          "Ensure to maintain brand consistency throughout the call.",
+          "Improve on tool hygiene."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'm calling because a lot of manufacturers are frustrated by machine downtime and high maintenance costs.",
+              "reason": "Good value proposition"
+            },
+            {
+              "quote": "Let's get a quick 12 minute walk through on the books.",
+              "reason": "Effective call to action"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "BS is known as the Porsche of a CNC and woodworking machinery.",
+              "issue": "Inconsistent brand naming"
+            },
+            {
+              "quote": "Sure. Friday at 4 PM. Got it. Uh, give me a second to sort that for you. Hang tight.",
+              "issue": "Tool hygiene could be improved"
+            }
+          ]
+        },
+        "call_classification": "good"
+      },
+      "qci_score": 85,
+      "coaching_tips": [
+        "Try to maintain a balanced conversation. The agent talk ratio was a bit high.",
+        "Ensure to maintain brand consistency throughout the call.",
+        "Improve on tool hygiene."
+      ],
+      "call_classification": "good",
+      "analysis_timestamp": "2025-09-03T15:31:30.107660"
+    },
+    {
+      "call_id": "2430a3ee-d896-49a8-8a0a-a5a5ee773471",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.1049,
+        "created_at": "2025-08-18T07:51:54.593Z",
+        "duration_estimate": 49
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yes? Hello?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. Hi there. Just calling from Versus. I know these cold calls can be annoying. Do you wanna hang up or give me 20 seconds?",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "May I know who's on the line?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "It's a wage and name. It's from Besse.",
+            "timestamp": "5"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "5",
+          "agent_talk_ratio": "0.6",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "Just calling from Versus. I know these cold calls can be annoying. Do you wanna hang up or give me 20 seconds?",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 6,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 2
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Убедитесь, что вы правильно представляете себя и вашу компанию. В этом звонке было некоторое недопонимание относительно имени агента и названия компании.",
+          "Попытайтесь увлечь клиента с самого начала разговора. В этом звонке не было ясного призыва к действию.",
+          "Постарайтесь улучшить свою реакцию на возражения. В этом звонке не было ясной реакции на вопрос клиента о том, кто на линии."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Just calling from Versus. I know these cold calls can be annoying. Do you wanna hang up or give me 20 seconds?",
+              "reason": "Агент понимает, что холодные звонки могут быть раздражающими, и предлагает клиенту возможность прервать разговор."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "It's a wage and name. It's from Besse.",
+              "issue": "Агент не ясно представил себя и свою компанию, что могло вызвать путаницу у клиента."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Убедитесь, что вы правильно представляете себя и вашу компанию. В этом звонке было некоторое недопонимание относительно имени агента и названия компании.",
+        "Попытайтесь увлечь клиента с самого начала разговора. В этом звонке не было ясного призыва к действию.",
+        "Постарайтесь улучшить свою реакцию на возражения. В этом звонке не было ясной реакции на вопрос клиента о том, кто на линии."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:32:03.277121"
+    },
+    {
+      "call_id": "6159bf76-6c31-47d2-b645-1d2d958c1ca1",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0326,
+        "created_at": "2025-08-18T07:50:06.973Z",
+        "duration_estimate": 31
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "1",
+          "agent_talk_ratio": "1.0",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "короткий"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 10,
+        "breakdown": {
+          "dynamics": {
+            "score": 0,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 0,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 0,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 0,
+            "brand_mention_score": 0,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Агент должен говорить меньше и слушать больше, чтобы улучшить соотношение речи агента.",
+          "Агент должен быстрее переходить к ценности для клиента, чтобы улучшить Time-To-Value.",
+          "Агент должен быстрее предлагать первое действие, чтобы улучшить время до первого призыва к действию."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "AI: Hello.",
+              "reason": "Агент начал разговор, что является хорошим началом."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "AI: Hello.",
+              "issue": "Агент не предложил ценность клиенту и не предложил первое действие."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 10,
+      "coaching_tips": [
+        "Агент должен говорить меньше и слушать больше, чтобы улучшить соотношение речи агента.",
+        "Агент должен быстрее переходить к ценности для клиента, чтобы улучшить Time-To-Value.",
+        "Агент должен быстрее предлагать первое действие, чтобы улучшить время до первого призыва к действию."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:32:33.913974"
+    },
+    {
+      "call_id": "79e1e997-6df4-46bb-b632-d84c525f990a",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.1611,
+        "created_at": "2025-08-18T07:50:01.471Z",
+        "duration_estimate": 66
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "0 1 3 8 8 0 9.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "customer",
+            "message": "0",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Please leave a voice message after the tone.",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. This is a colleague from BS. I wanted to reach out to discuss how our CNC and woodworking machines can help reduce downtime and maintenance costs They're known for running flawlessly for 1520 years. You're interested in learning more, please reply with your email, and we can, uh, set up a quick 12 minute walk through. Thanks.",
+            "timestamp": "5"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "5",
+          "agent_talk_ratio": "0.4",
+          "call_outcome": "callback_requested",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "Our CNC and woodworking machines can help reduce downtime and maintenance costs. They're known for running flawlessly for 1520 years.",
+          "closing_attempt": "You're interested in learning more, please reply with your email, and we can, uh, set up a quick 12 minute walk through. Thanks.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 60,
+        "breakdown": {
+          "dynamics": {
+            "score": 12,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 4,
+            "first_cta_score": 8,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 6,
+            "compliance_time_score": 4,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 12,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 4,
+            "language_match_score": 4
+          },
+          "outcome_hygiene": {
+            "score": 26,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 15
+          }
+        },
+        "coaching_tips": [
+          "Try to balance the conversation more evenly between the agent and the customer.",
+          "Recognize and respond to objections more quickly.",
+          "Ensure the brand is mentioned early in the call."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Our CNC and woodworking machines can help reduce downtime and maintenance costs. They're known for running flawlessly for 1520 years.",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello.",
+              "issue": "The brand was not mentioned early in the call."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 60,
+      "coaching_tips": [
+        "Try to balance the conversation more evenly between the agent and the customer.",
+        "Recognize and respond to objections more quickly.",
+        "Ensure the brand is mentioned early in the call."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:33:08.905736"
+    },
+    {
+      "call_id": "0e78c28b-c1b2-41ca-9ed4-c2469f134be2",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.2501,
+        "created_at": "2025-08-18T07:49:42.569Z",
+        "duration_estimate": 86
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yes?",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there, uh, colleague",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "hi there. A colleague from BSA. I know you might hate me, because is a cold call. Want to hang up? Or give me 20 seconds.",
+            "timestamp": "5"
+          },
+          {
+            "speaker": "customer",
+            "message": "We got Regarding what?",
+            "timestamp": "6"
+          },
+          {
+            "speaker": "agent",
+            "message": "I'm calling because a lot of manufacturers get frustrated by machine downtime and high maintenance costs. BSA, known as the Porsche of CNC, and Woodworking Machinery, offers solutions that run flawlessly for a variety of 20 years. We provide multimaterial capability, and best in class service. Would you be interested in a 12 minute walk through?",
+            "timestamp": "7"
+          },
+          {
+            "speaker": "customer",
+            "message": "I think we're done at this moment. Thanks a lot your calling.",
+            "timestamp": "8"
+          },
+          {
+            "speaker": "agent",
+            "message": "No problem at all. I'll send over a quick summary",
+            "timestamp": "9"
+          },
+          {
+            "speaker": "customer",
+            "message": "K. Thanks.",
+            "timestamp": "10"
+          },
+          {
+            "speaker": "agent",
+            "message": "Sure thing. Sounds good. Have a great day.",
+            "timestamp": "11"
+          },
+          {
+            "speaker": "customer",
+            "message": "Okay. Thanks.",
+            "timestamp": "12"
+          },
+          {
+            "speaker": "agent",
+            "message": "You're welcome. Have a great day.",
+            "timestamp": "13"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "13",
+          "agent_talk_ratio": "0.54",
+          "call_outcome": "rejection",
+          "objections_raised": [
+            "I think we're done at this moment."
+          ],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "I'm calling because a lot of manufacturers get frustrated by machine downtime and high maintenance costs. BSA, known as the Porsche of CNC, and Woodworking Machinery, offers solutions that run flawlessly for a variety of 20 years. We provide multimaterial capability, and best in class service. Would you be interested in a 12 minute walk through?",
+          "closing_attempt": "No problem at all. I'll send over a quick summary",
+          "objection_handling": [
+            "No problem at all. I'll send over a quick summary"
+          ]
+        }
+      },
+      "step2_qci": {
+        "qci_score": 60,
+        "breakdown": {
+          "dynamics": {
+            "score": 20,
+            "agent_talk_ratio_score": 6,
+            "time_to_value_score": 6,
+            "first_cta_score": 6,
+            "dead_air_penalty": 2
+          },
+          "objections_compliance": {
+            "score": 15,
+            "recognition_score": 5,
+            "compliance_time_score": 5,
+            "alternative_offered_score": 5
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 4,
+            "language_match_score": 2
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 5,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Try to mention the brand name earlier in the conversation to establish credibility.",
+          "Work on reducing the amount of dead air in the conversation.",
+          "Try to offer an alternative solution before ending the call."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'm calling because a lot of manufacturers get frustrated by machine downtime and high maintenance costs. BSA, known as the Porsche of CNC, and Woodworking Machinery, offers solutions that run flawlessly for a variety of 20 years. We provide multimaterial capability, and best in class service. Would you be interested in a 12 minute walk through?",
+              "reason": "Good value proposition and clear call to action."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello.",
+              "issue": "Brand name should be mentioned earlier in the conversation."
+            },
+            {
+              "quote": "I think we're done at this moment. Thanks a lot your calling.",
+              "issue": "Agent should try to offer an alternative solution before ending the call."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 60,
+      "coaching_tips": [
+        "Try to mention the brand name earlier in the conversation to establish credibility.",
+        "Work on reducing the amount of dead air in the conversation.",
+        "Try to offer an alternative solution before ending the call."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:33:41.646447"
+    },
+    {
+      "call_id": "8e5feca3-802c-4f9d-ab3d-054b099a3e0b",
+      "assistant_id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0326,
+        "created_at": "2025-08-18T07:49:05.784Z",
+        "duration_estimate": 31
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "1",
+          "agent_talk_ratio": "1.0",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "короткий"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 10,
+        "breakdown": {
+          "dynamics": {
+            "score": 0,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 0,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 0,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 0,
+            "brand_mention_score": 0,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Агент должен говорить меньше и слушать больше.",
+          "Агент должен быстрее переходить к предложению ценности.",
+          "Агент должен быстрее делать первый призыв к действию."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hello.",
+              "reason": "Положительное начало разговора."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello.",
+              "issue": "Агент не предложил ценности и не сделал призыва к действию."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 10,
+      "coaching_tips": [
+        "Агент должен говорить меньше и слушать больше.",
+        "Агент должен быстрее переходить к предложению ценности.",
+        "Агент должен быстрее делать первый призыв к действию."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:34:00.806134"
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "summary": {
+    "agent_id": "8cd7551f-2ac8-441d-8f49-0abf053fb9b6",
+    "total_analyzed": 1,
+    "successful_analyses": 1,
+    "failed_analyses": 0,
+    "average_qci": 65.0,
+    "qci_range": {
+      "min": 65,
+      "max": 65
+    },
+    "analysis_timestamp": "2025-09-03T15:34:49.782318"
+  },
+  "detailed_results": [
+    {
+      "call_id": "79cc8910-7f90-408f-8d34-7a3685c13dba",
+      "assistant_id": "8cd7551f-2ac8-441d-8f49-0abf053fb9b6",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.4173,
+        "created_at": "2025-09-01T07:59:53.023Z",
+        "duration_estimate": 151
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Riley",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Thank you for calling Wellness Partners. This is Riley, your scheduling assistant. How may I help you today?",
+            "timestamp": 1
+          },
+          {
+            "speaker": "customer",
+            "message": "I want to schedule a booking.",
+            "timestamp": 2
+          },
+          {
+            "speaker": "agent",
+            "message": "I'd be happy to help you with scheduling. Let me get some information from you so we can find the right appointment. What type of appointment are you looking to schedule today?",
+            "timestamp": 3
+          },
+          {
+            "speaker": "customer",
+            "message": "Going to gym.",
+            "timestamp": 4
+          },
+          {
+            "speaker": "agent",
+            "message": "Wellness Partners specializes in medical and wellness services. But we don't offer gym memberships or fitness classes If you're looking for a wellness related appointment, such as physical therapy or nutrition counseling, I'd be happy to assist you. Could you clarify what type of service you need?",
+            "timestamp": 5
+          },
+          {
+            "speaker": "customer",
+            "message": "Okay. Let's go physical therapy.",
+            "timestamp": 6
+          },
+          {
+            "speaker": "agent",
+            "message": "Great choice. Do you have a specific provider you'd like to see for physical therapy, or would you prefer the first available appointment?",
+            "timestamp": 7
+          },
+          {
+            "speaker": "customer",
+            "message": "Okay. I want nice doctor. Good looking.",
+            "timestamp": 8
+          },
+          {
+            "speaker": "agent",
+            "message": "I can help you find a great physical therapist. While I can't guarantee appearance, all of our providers are highly qualified and dedicated to patient care. Do you have any other preferences such as a specific day or time that works best for you?",
+            "timestamp": 9
+          },
+          {
+            "speaker": "customer",
+            "message": "I want right now. I have only 10 minutes.",
+            "timestamp": 10
+          },
+          {
+            "speaker": "agent",
+            "message": "I understand your urgency, but physical therapy appointments typically require more time and preparation. The shortest appointment duration is usually around 30 minutes. Let me check our schedule for the earliest available appointments that fits within our typical session lengths. Just a moment while I look at the schedule. Pause to check availability. For physical therapy, the earliest available appointment is on date at time. Would that work for you?",
+            "timestamp": 11
+          },
+          {
+            "speaker": "customer",
+            "message": "I didn't hear date and time. Just so you say tell me bullshit.",
+            "timestamp": 12
+          },
+          {
+            "speaker": "agent",
+            "message": "I apologize if there was any confusion. Let me clarify. The earliest available appointment for physical therapy is on date, at time, Would that work for you?",
+            "timestamp": 13
+          },
+          {
+            "speaker": "customer",
+            "message": "Oh, fuck yourself, bro.",
+            "timestamp": 14
+          },
+          {
+            "speaker": "agent",
+            "message": "I'm sorry to hear you're upset. There's anything specific I can do to assist you or improve your experience, please let me know.",
+            "timestamp": 15
+          },
+          {
+            "speaker": "customer",
+            "message": "No. No call. Go call. You're good. Right.",
+            "timestamp": 16
+          },
+          {
+            "speaker": "agent",
+            "message": "Thank you for your understanding. If you need any assistance, the future, feel free to call Wellness Partners.",
+            "timestamp": 17
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": 17,
+          "agent_talk_ratio": 0.53,
+          "call_outcome": "rejection",
+          "objections_raised": [
+            "I want right now. I have only 10 minutes.",
+            "I didn't hear date and time. Just so you say tell me bullshit.",
+            "Oh, fuck yourself, bro."
+          ],
+          "call_length_estimate": "medium"
+        },
+        "key_moments": {
+          "opening_line": "Thank you for calling Wellness Partners. This is Riley, your scheduling assistant. How may I help you today?",
+          "value_proposition": "I'd be happy to help you with scheduling. Let me get some information from you so we can find the right appointment.",
+          "closing_attempt": "The earliest available appointment for physical therapy is on date, at time, Would that work for you?",
+          "objection_handling": [
+            "I understand your urgency, but physical therapy appointments typically require more time and preparation.",
+            "I apologize if there was any confusion. Let me clarify.",
+            "I'm sorry to hear you're upset. There's anything specific I can do to assist you or improve your experience, please let me know."
+          ]
+        }
+      },
+      "step2_qci": {
+        "qci_score": 65,
+        "breakdown": {
+          "dynamics": {
+            "score": 20,
+            "agent_talk_ratio_score": 6,
+            "time_to_value_score": 6,
+            "first_cta_score": 6,
+            "dead_air_penalty": 2
+          },
+          "objections_compliance": {
+            "score": 15,
+            "recognition_score": 5,
+            "compliance_time_score": 5,
+            "alternative_offered_score": 5
+          },
+          "brand_language": {
+            "score": 15,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 4,
+            "language_match_score": 3
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 5,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Try to maintain a balanced conversation with the customer. Too much agent talk time can make the customer feel unheard.",
+          "Always clarify the date and time of the appointment to avoid confusion.",
+          "Maintain professionalism and patience even when the customer is upset or uses inappropriate language."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "I'd be happy to help you with scheduling. Let me get some information from you so we can find the right appointment.",
+              "reason": "The agent was proactive and helpful in assisting the customer with their request."
+            },
+            {
+              "quote": "I'm sorry to hear you're upset. There's anything specific I can do to assist you or improve your experience, please let me know.",
+              "reason": "The agent handled the customer's frustration professionally and offered to help improve their experience."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "I want right now. I have only 10 minutes.",
+              "issue": "The agent could have better managed the customer's expectations about the duration of physical therapy appointments."
+            },
+            {
+              "quote": "I didn't hear date and time. Just so you say tell me bullshit.",
+              "issue": "The agent failed to clearly communicate the date and time of the appointment, leading to confusion and frustration for the customer."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 65,
+      "coaching_tips": [
+        "Try to maintain a balanced conversation with the customer. Too much agent talk time can make the customer feel unheard.",
+        "Always clarify the date and time of the appointment to avoid confusion.",
+        "Maintain professionalism and patience even when the customer is upset or uses inappropriate language."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:34:47.780893"
+    }
+  ]
+}

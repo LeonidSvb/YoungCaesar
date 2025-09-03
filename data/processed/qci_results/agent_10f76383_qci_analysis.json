@@ -1,0 +1,1122 @@
+{
+  "summary": {
+    "agent_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+    "total_analyzed": 10,
+    "successful_analyses": 10,
+    "failed_analyses": 0,
+    "average_qci": 43.0,
+    "qci_range": {
+      "min": 30,
+      "max": 60
+    },
+    "analysis_timestamp": "2025-09-03T15:28:22.400358"
+  },
+  "detailed_results": [
+    {
+      "call_id": "37ba804a-4b3f-4402-b011-cc544bef5fe9",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0829,
+        "created_at": "2025-08-08T12:54:37.824Z",
+        "duration_estimate": 60
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Please leave your message for 5 5 1 2 0 8 8 7 4 9.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. This is your name from Q Sidvisor. We help apparel brands avoid costly defects with independent factory inspections. Across China and India. With 24 hour dispatch and photo rich reports, we support brands like Amazon, and IKEA. Uh, I'll send you a WhatsApp. With more details. Talk soon.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "callback_requested",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "We help apparel brands avoid costly defects with independent factory inspections. Across China and India. With 24 hour dispatch and photo rich reports, we support brands like Amazon, and IKEA.",
+          "closing_attempt": "I'll send you a WhatsApp. With more details. Talk soon.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 60,
+        "breakdown": {
+          "dynamics": {
+            "score": 16,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 8,
+            "first_cta_score": 8,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 14,
+            "recognition_score": 6,
+            "compliance_time_score": 8,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 12,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 4,
+            "language_match_score": 4
+          },
+          "outcome_hygiene": {
+            "score": 18,
+            "outcome_score": 6,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 7
+          }
+        },
+        "coaching_tips": [
+          "Try to balance the conversation more evenly between the agent and the customer.",
+          "Offer an alternative before ending the call.",
+          "Mention the brand earlier in the conversation."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "We help apparel brands avoid costly defects with independent factory inspections. Across China and India. With 24 hour dispatch and photo rich reports, we support brands like Amazon, and IKEA.",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello?",
+              "issue": "The opening line could be more engaging."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 60,
+      "coaching_tips": [
+        "Try to balance the conversation more evenly between the agent and the customer.",
+        "Offer an alternative before ending the call.",
+        "Mention the brand earlier in the conversation."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:23:37.715925"
+    },
+    {
+      "call_id": "58c28773-959c-4859-93d8-d8f85af1ec27",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.0625,
+        "created_at": "2025-08-08T12:48:37.788Z",
+        "duration_estimate": 43
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Forwarded to voice mail The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. Prospect's name. Name from Kwik Advisor. We help apparel brands avoid costly defects with independent factory inspections across China and India. We offer 24 hour dispatch. With photo rich reports, I'll send you a WhatsApp. With more details. Looking forward to, uh, connecting soon.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "We help apparel brands avoid costly defects with independent factory inspections across China and India. We offer 24 hour dispatch. With photo rich reports.",
+          "closing_attempt": "I'll send you a WhatsApp. With more details. Looking forward to, uh, connecting soon.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 45,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Улучшите соотношение речи агента и клиента, чтобы увеличить вовлеченность клиента.",
+          "Упоминайте бренд в начале разговора, чтобы увеличить узнаваемость.",
+          "Улучшите соответствие языка, чтобы увеличить понимание клиента."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "We help apparel brands avoid costly defects with independent factory inspections across China and India. We offer 24 hour dispatch. With photo rich reports.",
+              "reason": "Хорошо сформулированное предложение ценности"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello?",
+              "issue": "Начало разговора не впечатляет и не привлекает внимание клиента."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 45,
+      "coaching_tips": [
+        "Улучшите соотношение речи агента и клиента, чтобы увеличить вовлеченность клиента.",
+        "Упоминайте бренд в начале разговора, чтобы увеличить узнаваемость.",
+        "Улучшите соответствие языка, чтобы увеличить понимание клиента."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:24:03.736262"
+    },
+    {
+      "call_id": "76f36fae-55cc-4fd8-9f44-292fe5326be1",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.0846,
+        "created_at": "2025-08-08T12:45:37.809Z",
+        "duration_estimate": 17
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "Norman"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Forwarded to voice mail. Hello. Norman speaking.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Voice mail message.",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello? Hello?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi, Norman. Alex from QQ Advisor. I know you might hate me because this is the cold call Would you like to hang up or give me 20 seconds?",
+            "timestamp": "5"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "5",
+          "agent_talk_ratio": "0.6",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "Alex from QQ Advisor.",
+          "closing_attempt": "Would you like to hang up or give me 20 seconds?",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 45,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 10,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer more to balance the agent talk ratio.",
+          "Recognize and respond to customer objections more quickly.",
+          "Ensure brand is mentioned earlier in the conversation."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Would you like to hang up or give me 20 seconds?",
+              "reason": "Good use of alternative close."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "I know you might hate me because this is the cold call",
+              "issue": "Negative language can create a negative perception."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 45,
+      "coaching_tips": [
+        "Try to engage the customer more to balance the agent talk ratio.",
+        "Recognize and respond to customer objections more quickly.",
+        "Ensure brand is mentioned earlier in the conversation."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:24:25.183114"
+    },
+    {
+      "call_id": "b2c1995a-75cf-464c-9aff-474917b4891a",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.1078,
+        "created_at": "2025-08-08T12:42:37.869Z",
+        "duration_estimate": 61
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Forwarded to voice mail. The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. Prospect's name? Is your name, uh, from QC Advisor. Specialize in helping apparel brands avoid costly defects with our independent factory inspections across China and India. Can dispatch within 24 hours and provide photo rich reports. Send a WhatsApp message with more details. Looking forward Catching up. Soon. Take care.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "Specialize in helping apparel brands avoid costly defects with our independent factory inspections across China and India. Can dispatch within 24 hours and provide photo rich reports.",
+          "closing_attempt": "Send a WhatsApp message with more details. Looking forward Catching up. Soon. Take care.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Улучшите соотношение речи агента и клиента, чтобы увеличить вовлеченность клиента.",
+          "Упоминайте бренд в начале разговора, чтобы увеличить узнаваемость.",
+          "Убедитесь, что вы используете язык, соответствующий вашему бренду и аудитории."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Specialize in helping apparel brands avoid costly defects with our independent factory inspections across China and India. Can dispatch within 24 hours and provide photo rich reports.",
+              "reason": "Хорошо сформулированное предложение ценности"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello?",
+              "issue": "Начало разговора не включает упоминание бренда"
+            },
+            {
+              "quote": "Hi there. Prospect's name? Is your name, uh, from QC Advisor.",
+              "issue": "Несоответствие языка и некорректное использование имени клиента"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Улучшите соотношение речи агента и клиента, чтобы увеличить вовлеченность клиента.",
+        "Упоминайте бренд в начале разговора, чтобы увеличить узнаваемость.",
+        "Убедитесь, что вы используете язык, соответствующий вашему бренду и аудитории."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:25:04.420495"
+    },
+    {
+      "call_id": "68846679-fe68-46e6-94f6-cf67e28ad0f2",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0982,
+        "created_at": "2025-08-08T12:39:37.772Z",
+        "duration_estimate": 56
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "QC Advisor",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Put it to voice mail. The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi, name. This is agent name from QC Advisor. We help apparel brands avoid costly defects with independent factories inspections across China and India, 24 hour dispatch and photo rich reports. I'll send a quick WhatsApp. With details. Looking forward to connecting. Talk soon.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "We help apparel brands avoid costly defects with independent factories inspections across China and India, 24 hour dispatch and photo rich reports.",
+          "closing_attempt": "I'll send a quick WhatsApp. With details. Looking forward to connecting. Talk soon.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 50,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 20,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 15
+          }
+        },
+        "coaching_tips": [
+          "Убедитесь, что вы говорите не больше 55% времени разговора.",
+          "Постарайтесь упомянуть бренд в течение первых 10 секунд разговора.",
+          "Попытайтесь улучшить соответствие языка."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "We help apparel brands avoid costly defects with independent factories inspections across China and India, 24 hour dispatch and photo rich reports.",
+              "reason": "Хорошо сформулированное предложение ценности"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Put it to voice mail. The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+              "issue": "Необходимо улучшить распознавание возражений и соответствующую реакцию на них"
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 50,
+      "coaching_tips": [
+        "Убедитесь, что вы говорите не больше 55% времени разговора.",
+        "Постарайтесь упомянуть бренд в течение первых 10 секунд разговора.",
+        "Попытайтесь улучшить соответствие языка."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:25:29.893613"
+    },
+    {
+      "call_id": "511d406d-ce70-428c-b656-7df7655425aa",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0998,
+        "created_at": "2025-08-08T12:36:38.014Z",
+        "duration_estimate": 58
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Q Sidvisor Agent",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Call has been forwarded to voice mail. Person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. This is agent name from Q Sidvisor. We help apparel brands avoid costly defects, with independent factories inspections. Across China and India. We offer 24 hour dispatch and deliver photo rich reports follow-up with a WhatsApp message with more details. Hope to connect soon. Take care.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "We help apparel brands avoid costly defects, with independent factories inspections. Across China and India. We offer 24 hour dispatch and deliver photo rich reports follow-up with a WhatsApp message with more details.",
+          "closing_attempt": "Hope to connect soon. Take care.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 45,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer in conversation before delivering the value proposition.",
+          "Ensure to mention the brand name at the beginning of the call.",
+          "Try to keep the agent talk ratio within the 35-55% range."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "We help apparel brands avoid costly defects, with independent factories inspections. Across China and India. We offer 24 hour dispatch and deliver photo rich reports follow-up with a WhatsApp message with more details.",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello?",
+              "issue": "The agent should mention the brand name at the beginning of the call."
+            },
+            {
+              "quote": "Hi there. This is agent name from Q Sidvisor.",
+              "issue": "The agent talk ratio is too high."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 45,
+      "coaching_tips": [
+        "Try to engage the customer in conversation before delivering the value proposition.",
+        "Ensure to mention the brand name at the beginning of the call.",
+        "Try to keep the agent talk ratio within the 35-55% range."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:25:59.222833"
+    },
+    {
+      "call_id": "936cbd46-8ede-4b02-9fff-b02d63714602",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.1129,
+        "created_at": "2025-08-08T12:33:37.802Z",
+        "duration_estimate": 56
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "QS Advisor",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Forwarded to voice mail. The person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi, name. This is agent name from QS Advisor. We help apparel brands avoid costly defects with independent factory inspections. Across China and India. We offer 24 hour dispatch and deliver photo rich reports I'll send a WhatsApp with more details. Talk soon.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "We help apparel brands avoid costly defects with independent factory inspections. Across China and India. We offer 24 hour dispatch and deliver photo rich reports",
+          "closing_attempt": "I'll send a WhatsApp with more details. Talk soon.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 40,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 10,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 5
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer in conversation before launching into your pitch.",
+          "Ensure you are speaking to the customer, not their voicemail.",
+          "Try to mention the brand name earlier in the conversation."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "We help apparel brands avoid costly defects with independent factory inspections. Across China and India. We offer 24 hour dispatch and deliver photo rich reports",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Forwarded to voice mail. The person you're trying to reach is not available.",
+              "issue": "Agent did not recognize that they were speaking to a voicemail, not a person."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 40,
+      "coaching_tips": [
+        "Try to engage the customer in conversation before launching into your pitch.",
+        "Ensure you are speaking to the customer, not their voicemail.",
+        "Try to mention the brand name earlier in the conversation."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:26:31.898906"
+    },
+    {
+      "call_id": "51a1f52a-8965-4718-971f-d3be46b9e995",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.0933,
+        "created_at": "2025-08-08T12:30:37.871Z",
+        "duration_estimate": 54
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "QSIDVIZER",
+          "customer": "Customer"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "To voice mail. Person you're trying to reach is not available. At the tone, please record your message. When you have finished recording, you may hang up.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi. Prospect name, agent name from QSIDVIZER. We help apparel brands avoid costly defects with independent factory inspections. Across China and India. 24 hour dispatch photo rich reports, send a WhatsApp with details. Talk soon.",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "no_answer",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "We help apparel brands avoid costly defects with independent factory inspections. Across China and India. 24 hour dispatch photo rich reports.",
+          "closing_attempt": "send a WhatsApp with details. Talk soon.",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 45,
+        "breakdown": {
+          "dynamics": {
+            "score": 10,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 5,
+            "first_cta_score": 5,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 10,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 10
+          },
+          "brand_language": {
+            "score": 10,
+            "brand_mention_score": 5,
+            "brand_consistency_score": 5,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 15,
+            "outcome_score": 0,
+            "wrap_up_score": 5,
+            "tool_hygiene_score": 10
+          }
+        },
+        "coaching_tips": [
+          "Try to engage the customer in conversation before delivering the value proposition.",
+          "Ensure to mention the brand name at the beginning of the call.",
+          "Try to maintain a balanced agent talk ratio."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "We help apparel brands avoid costly defects with independent factory inspections. Across China and India. 24 hour dispatch photo rich reports.",
+              "reason": "Good value proposition"
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Hello?",
+              "issue": "The opening line could be more engaging."
+            },
+            {
+              "quote": "Hi. Prospect name, agent name from QSIDVIZER.",
+              "issue": "The brand name should be mentioned at the beginning of the call."
+            }
+          ]
+        },
+        "call_classification": "average"
+      },
+      "qci_score": 45,
+      "coaching_tips": [
+        "Try to engage the customer in conversation before delivering the value proposition.",
+        "Ensure to mention the brand name at the beginning of the call.",
+        "Try to maintain a balanced agent talk ratio."
+      ],
+      "call_classification": "average",
+      "analysis_timestamp": "2025-09-03T15:27:03.692196"
+    },
+    {
+      "call_id": "29b39142-0968-4762-927b-6e2f4689aab0",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "customer-ended-call",
+        "cost": 0.1151,
+        "created_at": "2025-08-08T12:27:37.757Z",
+        "duration_estimate": 26
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "Agent",
+          "customer": "Mikko"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello?",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Mikko's. Mikko's Hovink. Yeah.",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi, Miko. Just",
+            "timestamp": "3"
+          },
+          {
+            "speaker": "customer",
+            "message": "Hello?",
+            "timestamp": "4"
+          },
+          {
+            "speaker": "agent",
+            "message": "hi, Miko. This is agent",
+            "timestamp": "5"
+          },
+          {
+            "speaker": "customer",
+            "message": "Yeah. Who who who who who's talking?",
+            "timestamp": "6"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi, Miko. This is agent name. From QSuiteVizor. Um, I know you might hate me because this is a cold call.",
+            "timestamp": "7"
+          },
+          {
+            "speaker": "customer",
+            "message": "No. I'm not I'm not Miko. Okay. Please don't call me anymore. Yeah. Okay. Thank you. Bye.",
+            "timestamp": "8"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "8",
+          "agent_talk_ratio": "0.5",
+          "call_outcome": "rejection",
+          "objections_raised": [
+            "I'm not Miko",
+            "Please don't call me anymore"
+          ],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello?",
+          "value_proposition": "This is agent name. From QSuiteVizor.",
+          "closing_attempt": "I know you might hate me because this is a cold call.",
+          "objection_handling": [
+            "No response"
+          ]
+        }
+      },
+      "step2_qci": {
+        "qci_score": 30,
+        "breakdown": {
+          "dynamics": {
+            "score": 8,
+            "agent_talk_ratio_score": 4,
+            "time_to_value_score": 2,
+            "first_cta_score": 0,
+            "dead_air_penalty": 2
+          },
+          "objections_compliance": {
+            "score": 6,
+            "recognition_score": 2,
+            "compliance_time_score": 2,
+            "alternative_offered_score": 2
+          },
+          "brand_language": {
+            "score": 8,
+            "brand_mention_score": 4,
+            "brand_consistency_score": 2,
+            "language_match_score": 2
+          },
+          "outcome_hygiene": {
+            "score": 8,
+            "outcome_score": 0,
+            "wrap_up_score": 4,
+            "tool_hygiene_score": 4
+          }
+        },
+        "coaching_tips": [
+          "Убедитесь, что вы обращаетесь к правильному человеку, прежде чем начинать разговор.",
+          "Попытайтесь уменьшить количество мертвого времени в разговоре, чтобы удержать внимание клиента.",
+          "Попытайтесь предложить альтернативу или решение, когда клиент выражает возражение."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "Hi, Miko. This is agent name. From QSuiteVizor.",
+              "reason": "Хорошо, что агент представился и назвал компанию, это помогает установить доверие."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "No. I'm not I'm not Miko. Okay. Please don't call me anymore.",
+              "issue": "Агент не удостоверился, что он говорит с правильным человеком, что привело к негативному исходу звонка."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 30,
+      "coaching_tips": [
+        "Убедитесь, что вы обращаетесь к правильному человеку, прежде чем начинать разговор.",
+        "Попытайтесь уменьшить количество мертвого времени в разговоре, чтобы удержать внимание клиента.",
+        "Попытайтесь предложить альтернативу или решение, когда клиент выражает возражение."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:27:48.049614"
+    },
+    {
+      "call_id": "17c20132-b99a-47a7-9d11-90f207709705",
+      "assistant_id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+      "call_metadata": {
+        "status": "ended",
+        "end_reason": "silence-timed-out",
+        "cost": 0.059,
+        "created_at": "2025-08-08T12:24:37.746Z",
+        "duration_estimate": 47
+      },
+      "step1_structured": {
+        "participants": {
+          "agent": "AI",
+          "customer": "User"
+        },
+        "conversation_flow": [
+          {
+            "speaker": "agent",
+            "message": "Hello.",
+            "timestamp": "1"
+          },
+          {
+            "speaker": "customer",
+            "message": "Got the 3 3 auto",
+            "timestamp": "2"
+          },
+          {
+            "speaker": "agent",
+            "message": "Hi there. This is acute advisor. I'm here to assist you. How can I help you today?",
+            "timestamp": "3"
+          }
+        ],
+        "call_metadata": {
+          "total_exchanges": "3",
+          "agent_talk_ratio": "0.66",
+          "call_outcome": "other",
+          "objections_raised": [],
+          "call_length_estimate": "short"
+        },
+        "key_moments": {
+          "opening_line": "Hello.",
+          "value_proposition": "This is acute advisor. I'm here to assist you.",
+          "closing_attempt": "",
+          "objection_handling": []
+        }
+      },
+      "step2_qci": {
+        "qci_score": 30,
+        "breakdown": {
+          "dynamics": {
+            "score": 8,
+            "agent_talk_ratio_score": 0,
+            "time_to_value_score": 8,
+            "first_cta_score": 0,
+            "dead_air_penalty": 0
+          },
+          "objections_compliance": {
+            "score": 0,
+            "recognition_score": 0,
+            "compliance_time_score": 0,
+            "alternative_offered_score": 0
+          },
+          "brand_language": {
+            "score": 8,
+            "brand_mention_score": 8,
+            "brand_consistency_score": 0,
+            "language_match_score": 0
+          },
+          "outcome_hygiene": {
+            "score": 14,
+            "outcome_score": 0,
+            "wrap_up_score": 0,
+            "tool_hygiene_score": 14
+          }
+        },
+        "coaching_tips": [
+          "Агент должен стремиться к более равномерному распределению времени разговора между собой и клиентом.",
+          "Агент должен быстрее переходить к предложению ценности для клиента.",
+          "Агент должен улучшить свои навыки обработки возражений и предложения альтернатив."
+        ],
+        "evidence": {
+          "successful_moments": [
+            {
+              "quote": "This is acute advisor. I'm here to assist you.",
+              "reason": "Агент быстро представился и указал, что он здесь, чтобы помочь."
+            }
+          ],
+          "improvement_areas": [
+            {
+              "quote": "Got the 3 3 auto",
+              "issue": "Агент не смог адекватно ответить на этот комментарий клиента."
+            },
+            {
+              "quote": "Hello.",
+              "issue": "Открытие звонка было слишком коротким и неинформативным."
+            }
+          ]
+        },
+        "call_classification": "poor"
+      },
+      "qci_score": 30,
+      "coaching_tips": [
+        "Агент должен стремиться к более равномерному распределению времени разговора между собой и клиентом.",
+        "Агент должен быстрее переходить к предложению ценности для клиента.",
+        "Агент должен улучшить свои навыки обработки возражений и предложения альтернатив."
+      ],
+      "call_classification": "poor",
+      "analysis_timestamp": "2025-09-03T15:28:20.399015"
+    }
+  ]
+}

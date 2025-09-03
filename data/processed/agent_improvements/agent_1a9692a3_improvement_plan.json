@@ -1,0 +1,91 @@
+{
+  "agent_id": "1a9692a300000000000000000000000000000000",
+  "current_performance": {
+    "average_qci": 41.9,
+    "total_calls_analyzed": 10,
+    "qci_range": {
+      "min": 18,
+      "max": 68
+    },
+    "performance_distribution": {
+      "excellent": 0,
+      "good": 2,
+      "average": 5,
+      "poor": 1,
+      "failed": 2
+    }
+  },
+  "successful_patterns": {
+    "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  "failure_patterns": {
+    "problem_patterns": {
+      "opening_problems": [
+        {
+          "problem": "Неполное представление",
+          "frequency": 3,
+          "impact": "высокий",
+          "solution": "Агент должен полностью представиться и уточнить, с кем он говорит"
+        }
+      ],
+      "objection_handling_problems": [
+        {
+          "problem": "Не предложено альтернативы перед окончанием звонка",
+          "consequence": "Потеря возможности продажи",
+          "solution": "Агент должен предложить альтернативу перед окончанием звонка"
+        }
+      ],
+      "general_issues": [
+        {
+          "issue": "Отсутствие предложения ценности или призыва к действию",
+          "examples": [
+            "Hi. This is from Young Caesar. Am I speaking with?"
+          ],
+          "fix": "Агент должен быстрее перейти к предложению ценности для клиента и предложить действие или следующие шаги в разговоре"
+        }
+      ]
+    },
+    "avoid_phrases": [
+      {
+        "phrase": "Am I speaking with?",
+        "reason": "Это может вызвать путаницу у клиента",
+        "alternative": "Am I speaking with [Client's Name]?"
+      }
+    ],
+    "improvement_priorities": [
+      {
+        "priority": 1,
+        "area": "Открытие разговора",
+        "action": "Полное представление и уточнение, с кем говорит агент"
+      },
+      {
+        "priority": 2,
+        "area": "Обработка возражений",
+        "action": "Предложение альтернативы перед окончанием звонка"
+      },
+      {
+        "priority": 3,
+        "area": "Общие вопросы",
+        "action": "Быстрее переходить к предложению ценности для клиента и предложить действие или следующие шаги в разговоре"
+      }
+    ]
+  },
+  "improvement_recommendations": {
+    "priority_actions": [
+      "Улучшить предложение ценности",
+      "Работать над техникой закрытия",
+      "Персонализировать подход к клиентам"
+    ],
+    "script_improvements": {},
+    "training_focus": [
+      "Техника открытия звонка",
+      "Работа с возражениями",
+      "Общие навыки"
+    ],
+    "performance_targets": {
+      "target_qci": 70,
+      "timeline": "3 недели",
+      "key_metric": "Повысить конверсию в назначенные встречи"
+    }
+  }
+}
