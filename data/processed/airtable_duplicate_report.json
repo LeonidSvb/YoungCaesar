@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-08T11:15:34.673Z",
+  "totalRecords": 2612,
+  "uniqueCallIds": 2612,
+  "duplicatesFound": 0,
+  "duplicates": [],
+  "summary": {
+    "hasDuplicates": false,
+    "duplicateCallIds": [],
+    "recordsToCleanup": 0
+  }
+}

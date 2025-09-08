@@ -25,10 +25,13 @@ const fields = [
     { name: 'Ended At', type: 'Date and time' },
     { name: 'Updated At', type: 'Date and time' },
     { name: 'Assistant ID', type: 'Single line text' },
+    { name: 'Assistant Name', type: 'Single line text' },
     { name: 'Customer ID', type: 'Single line text' },
     { name: 'Phone Number ID', type: 'Single line text' },
     { name: 'Organization ID', type: 'Single line text' },
-    { name: 'Has Transcript', type: 'Checkbox' },
+    { name: 'Phone Provider', type: 'Single line text' },
+    { name: 'Phone Provider ID', type: 'Single line text' },
+    { name: 'Transport', type: 'Single line text' },
     { name: 'Transcript', type: 'Long text' },
     { name: 'Summary', type: 'Long text' },
     { name: 'Recording URL', type: 'URL' },
@@ -44,7 +47,8 @@ const fields = [
     { name: 'TTS Characters', type: 'Number' },
     { name: 'Messages Count', type: 'Number' },
     { name: 'First Message', type: 'Long text' },
-    { name: 'Last Message', type: 'Long text' }
+    { name: 'Last Message', type: 'Long text' },
+    { name: 'Success Evaluation', type: 'Single line text' }
 ];
 
 fields.forEach((field, index) => {
@@ -76,7 +80,7 @@ console.log('You can also create a CSV with headers and import it to create the 
 const csvHeaders = fields.map(field => `"${field.name}"`).join(',');
 const sampleDataPath = require('path').join(__dirname, '../../data/airtable_template.csv');
 
-require('fs').writeFileSync(sampleDataPath, csvHeaders + '\n"sample","sample",0,0,"0:00","outboundPhoneCall","ended","","","","","","","","","","false","","","","",0,0,0,0,0,0,0,0,0,0,"",""');
+require('fs').writeFileSync(sampleDataPath, csvHeaders + '\n"sample","sample",0,0,"0:00","outboundPhoneCall","ended","","","","","","","Riley","","","","twilio","sample-id","pstn","","","","",0,0,0,0,0,0,0,0,0,0,"","","false"');
 
 console.log(`\n📄 Sample CSV created: ${sampleDataPath}`);
 console.log('You can import this CSV to Airtable to create the table structure automatically.\n');

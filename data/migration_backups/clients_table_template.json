@@ -1,0 +1,254 @@
+{
+  "name": "CLIENTS_MASTER",
+  "description": "Unified table combining all leads/prospects from 8 different tables",
+  "fields": [
+    {
+      "name": "Name",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Phone",
+      "type": "phoneNumber"
+    },
+    {
+      "name": "Email",
+      "type": "email"
+    },
+    {
+      "name": "Company",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Market",
+      "type": "singleSelect",
+      "options": {
+        "choices": [
+          {
+            "name": "USA"
+          },
+          {
+            "name": "EU"
+          },
+          {
+            "name": "ASIA"
+          },
+          {
+            "name": "Global"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Keywords",
+      "type": "multilineText"
+    },
+    {
+      "name": "BDR",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Website",
+      "type": "url"
+    },
+    {
+      "name": "Call_Status",
+      "type": "singleSelect",
+      "options": {
+        "choices": [
+          {
+            "name": "Not Called"
+          },
+          {
+            "name": "Called"
+          },
+          {
+            "name": "Scheduled"
+          },
+          {
+            "name": "Completed"
+          },
+          {
+            "name": "DNC"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Last_Called",
+      "type": "dateTime"
+    },
+    {
+      "name": "Total_Attempts",
+      "type": "number"
+    },
+    {
+      "name": "Max_Attempts",
+      "type": "number"
+    },
+    {
+      "name": "Success_Level",
+      "type": "singleSelect",
+      "options": {
+        "choices": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Low"
+          },
+          {
+            "name": "Medium"
+          },
+          {
+            "name": "High"
+          },
+          {
+            "name": "Converted"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Meeting_Outcome",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Next_Step",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Interest_Level",
+      "type": "rating"
+    },
+    {
+      "name": "DNC",
+      "type": "checkbox"
+    },
+    {
+      "name": "City",
+      "type": "singleLineText"
+    },
+    {
+      "name": "State",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Country",
+      "type": "singleSelect",
+      "options": {
+        "choices": [
+          {
+            "name": "USA"
+          },
+          {
+            "name": "Canada"
+          },
+          {
+            "name": "UK"
+          },
+          {
+            "name": "Germany"
+          },
+          {
+            "name": "France"
+          },
+          {
+            "name": "Italy"
+          },
+          {
+            "name": "China"
+          },
+          {
+            "name": "Japan"
+          },
+          {
+            "name": "Other"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Timezone",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Original_Source",
+      "type": "singleSelect",
+      "options": {
+        "choices": [
+          {
+            "name": "USA_Leads"
+          },
+          {
+            "name": "EU_Leads"
+          },
+          {
+            "name": "ASIA_Leads"
+          },
+          {
+            "name": "QC_Advisor"
+          },
+          {
+            "name": "OEM_Table"
+          },
+          {
+            "name": "E164_Biesse"
+          },
+          {
+            "name": "E164_QC"
+          },
+          {
+            "name": "E164_YC"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VAPI_ID",
+      "type": "singleLineText"
+    },
+    {
+      "name": "Priority",
+      "type": "singleSelect",
+      "options": {
+        "choices": [
+          {
+            "name": "Low"
+          },
+          {
+            "name": "Medium"
+          },
+          {
+            "name": "High"
+          },
+          {
+            "name": "Urgent"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Weight",
+      "type": "number"
+    },
+    {
+      "name": "Related_Calls",
+      "type": "multipleRecordLinks",
+      "options": {
+        "linkedTableId": "tblvXZt2zkkanjGdE"
+      }
+    },
+    {
+      "name": "Created_At",
+      "type": "dateTime"
+    },
+    {
+      "name": "Updated_At",
+      "type": "dateTime"
+    },
+    {
+      "name": "Last_Activity",
+      "type": "dateTime"
+    }
+  ]
+}

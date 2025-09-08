@@ -1,0 +1,4 @@
+Name,Phone,Email,Company,Market,Keywords,BDR,Call_Status,VAPI_ID,Priority,City,Country
+John Smith,+1-555-0101,john@test.com,Test Company,USA,software,Sarah,Not Called,test-vapi-001,High,NYC,USA
+Maria Garcia,+34-91-123,maria@test.es,Euro Tech,EU,manufacturing,Mike,Called,test-vapi-002,Medium,Madrid,Spain
+Chen Wei,+86-10-8765,chen@test.cn,Asia Mfg,ASIA,machining,Lisa,Scheduled,test-vapi-003,Low,Beijing,China

@@ -1,0 +1,2 @@
+Name,Phone,Email,Company,Market,Keywords,BDR,Website,Call_Status,Last_Called,Total_Attempts,Max_Attempts,Success_Level,Meeting_Outcome,Next_Step,Interest_Level,DNC,City,State,Country,Timezone,Original_Source,VAPI_ID,Priority,Weight,Created_At,Updated_At,Notes
+John Sample,+1-555-0001,john@sample.com,Sample Co,USA,test keywords,Sample BDR,https://sample.com,Not Called,,0,3,None,,,3,FALSE,Sample City,CA,USA,America/Los_Angeles,USA_Leads,sample-vapi-001,Medium,1,2025-01-01T00:00:00Z,2025-01-01T00:00:00Z,Sample note

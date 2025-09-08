@@ -1,0 +1,800 @@
+[
+  {
+    "id": "0UVz2y594Zud9WyL",
+    "name": "Pinecone index",
+    "active": false,
+    "category": "AI/Vector Database",
+    "description": "Pinecone vector database indexing",
+    "created": "2025-08-07T11:27:27.828Z",
+    "updated": "2025-08-07T18:25:58.000Z",
+    "nodeCount": 5,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/0UVz2y594Zud9WyL",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "6gBVz9q25cJ9zvdh",
+    "name": "Claude Calendar",
+    "active": false,
+    "category": "Calendar Integration",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-07-03T13:01:27.971Z",
+    "updated": "2025-08-13T13:11:12.000Z",
+    "nodeCount": 0,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/6gBVz9q25cJ9zvdh",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "6o84OcyXVtQ14Z78",
+    "name": "My workflow 5",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-08-12T16:18:49.138Z",
+    "updated": "2025-08-13T13:03:18.000Z",
+    "nodeCount": 1,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/6o84OcyXVtQ14Z78",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "711ZfHUsm7D2tAqY",
+    "name": "Outbound Calls - E164.YC",
+    "active": false,
+    "category": "Outbound Calls",
+    "description": "Manages outbound call campaigns and routing",
+    "created": "2025-08-19T08:27:57.270Z",
+    "updated": "2025-08-25T08:57:27.000Z",
+    "nodeCount": 49,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/711ZfHUsm7D2tAqY",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "7AXgD4om7yd5mqym",
+    "name": "EOC - E164.YC",
+    "active": true,
+    "category": "End of Call Processing",
+    "description": "Processes call completion data and generates reports",
+    "created": "2025-08-25T14:02:22.453Z",
+    "updated": "2025-08-26T03:07:43.000Z",
+    "nodeCount": 17,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/7AXgD4om7yd5mqym",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "907uRkZ8lfyyDN9E",
+    "name": "Test Send",
+    "active": false,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-07-08T18:53:34.130Z",
+    "updated": "2025-08-13T13:03:45.000Z",
+    "nodeCount": 2,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/907uRkZ8lfyyDN9E",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "9PUok2B7TxyFcBHA",
+    "name": "Outbound Calls copy 2",
+    "active": false,
+    "category": "Outbound Calls",
+    "description": "Manages outbound call campaigns and routing",
+    "created": "2025-09-08T10:24:53.391Z",
+    "updated": "2025-09-08T11:54:52.000Z",
+    "nodeCount": 22,
+    "executionStats": {
+      "total": 7,
+      "successful": 0,
+      "failed": 7,
+      "lastExecution": "2025-09-08T10:40:11.345Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/9PUok2B7TxyFcBHA",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "ArIQrYkuLsPjthUh",
+    "name": "Outbound Calls",
+    "active": true,
+    "category": "Outbound Calls",
+    "description": "Manages outbound call campaigns and routing",
+    "created": "2025-06-17T07:33:53.999Z",
+    "updated": "2025-08-19T13:42:51.000Z",
+    "nodeCount": 22,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:09:01.030Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/ArIQrYkuLsPjthUh",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "B2WwgQVOxdWsHuVE",
+    "name": "OUT | OEM USA",
+    "active": true,
+    "category": "Outbound Calls",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-07-17T13:53:17.341Z",
+    "updated": "2025-08-12T15:07:47.000Z",
+    "nodeCount": 9,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:08:52.026Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/B2WwgQVOxdWsHuVE",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "Bm7XSXQAksFRO0db",
+    "name": "Outbound Calls copy",
+    "active": false,
+    "category": "Outbound Calls",
+    "description": "Manages outbound call campaigns and routing",
+    "created": "2025-08-13T16:51:58.427Z",
+    "updated": "2025-08-13T18:51:21.000Z",
+    "nodeCount": 7,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/Bm7XSXQAksFRO0db",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "CJYnTqe4Pj1dGRIT",
+    "name": "EOC - E164.Biesse",
+    "active": true,
+    "category": "End of Call Processing",
+    "description": "Processes call completion data and generates reports",
+    "created": "2025-08-26T02:55:03.447Z",
+    "updated": "2025-08-26T03:00:04.000Z",
+    "nodeCount": 17,
+    "executionStats": {
+      "total": 1,
+      "successful": 0,
+      "failed": 1,
+      "lastExecution": "2025-09-08T10:35:42.947Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/CJYnTqe4Pj1dGRIT",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "DiACDvgoXlbPlSLz",
+    "name": "Test fireflies",
+    "active": false,
+    "category": "Call Transcription",
+    "description": "Extracts and processes call transcriptions from Fireflies",
+    "created": "2025-06-18T16:42:48.486Z",
+    "updated": "2025-06-18T19:00:01.000Z",
+    "nodeCount": 0,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/DiACDvgoXlbPlSLz",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "ECfrsdDinpxruAp7",
+    "name": "get_time_n8n",
+    "active": true,
+    "category": "Utilities",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-07-21T18:13:42.206Z",
+    "updated": "2025-08-13T13:36:00.000Z",
+    "nodeCount": 3,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/ECfrsdDinpxruAp7",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "EQLRb5cJi3KfcOVB",
+    "name": "Fireflies Extract",
+    "active": false,
+    "category": "Call Transcription",
+    "description": "Extracts and processes call transcriptions from Fireflies",
+    "created": "2025-06-18T16:00:01.634Z",
+    "updated": "2025-06-18T18:59:37.000Z",
+    "nodeCount": 0,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/EQLRb5cJi3KfcOVB",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "Eros4yHnDXvRKnOj",
+    "name": "End Of Call Report - E164.YC",
+    "active": false,
+    "category": "End of Call Processing",
+    "description": "Processes call completion data and generates reports",
+    "created": "2025-08-19T08:29:59.351Z",
+    "updated": "2025-08-19T08:29:59.351Z",
+    "nodeCount": 12,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/Eros4yHnDXvRKnOj",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "HpZLTauY8CLWWDbI",
+    "name": "OC - E164.QC Advisor",
+    "active": false,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-08-25T08:45:28.773Z",
+    "updated": "2025-09-01T09:33:40.000Z",
+    "nodeCount": 49,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/HpZLTauY8CLWWDbI",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "Jk64peHcTFkqZ9K4",
+    "name": "My workflow 2",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-06-17T14:54:43.038Z",
+    "updated": "2025-08-13T13:03:11.000Z",
+    "nodeCount": 12,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/Jk64peHcTFkqZ9K4",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "LcQzldMaqhNrTb1u",
+    "name": "Outbound Calls - E164.YC copy",
+    "active": false,
+    "category": "Outbound Calls",
+    "description": "Manages outbound call campaigns and routing",
+    "created": "2025-08-19T16:20:19.203Z",
+    "updated": "2025-08-19T16:20:19.203Z",
+    "nodeCount": 24,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/LcQzldMaqhNrTb1u",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "LjfjydZpEVEwtyxW",
+    "name": "Demo: RAG in n8n",
+    "active": false,
+    "category": "AI/Vector Database",
+    "description": "Retrieval-Augmented Generation for AI responses",
+    "created": "2025-09-03T02:40:39.567Z",
+    "updated": "2025-09-03T03:18:40.000Z",
+    "nodeCount": 12,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/LjfjydZpEVEwtyxW",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "MPXSAgZNFhoUZ4dC",
+    "name": "Fireflies working",
+    "active": false,
+    "category": "Call Transcription",
+    "description": "Extracts and processes call transcriptions from Fireflies",
+    "created": "2025-06-18T16:07:30.270Z",
+    "updated": "2025-06-18T19:00:53.000Z",
+    "nodeCount": 6,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/MPXSAgZNFhoUZ4dC",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "NB4YGLk4Afimt53d",
+    "name": "Get Time",
+    "active": false,
+    "category": "Utilities",
+    "description": "Utility workflow for time-related operations",
+    "created": "2025-07-08T18:53:24.353Z",
+    "updated": "2025-08-13T13:36:17.000Z",
+    "nodeCount": 4,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/NB4YGLk4Afimt53d",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "NilvIfzhfDGNPKi7",
+    "name": "Brat flow copy",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-06-26T16:17:58.218Z",
+    "updated": "2025-06-26T16:17:58.218Z",
+    "nodeCount": 5,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/NilvIfzhfDGNPKi7",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "O4GrrQadKlKIjE8X",
+    "name": "VAPI-Calendly Workflow (Minimal Working)",
+    "active": false,
+    "category": "Calendar Integration",
+    "description": "Integrates with Calendly for appointment scheduling",
+    "created": "2025-08-26T18:36:26.884Z",
+    "updated": "2025-08-28T17:19:03.000Z",
+    "nodeCount": 6,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/O4GrrQadKlKIjE8X",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "ScgPtKWYwRbyLhEd",
+    "name": "OUT | OEM EU",
+    "active": true,
+    "category": "Outbound Calls",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-07-07T19:24:54.092Z",
+    "updated": "2025-08-12T15:02:08.000Z",
+    "nodeCount": 7,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:08:41.030Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/ScgPtKWYwRbyLhEd",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "UX712cbwqKdgZqJG",
+    "name": "Number Verify/Locater/TimeZone",
+    "active": true,
+    "category": "Utilities",
+    "description": "Validates phone numbers and determines timezone",
+    "created": "2025-06-23T16:38:18.335Z",
+    "updated": "2025-07-25T15:38:58.000Z",
+    "nodeCount": 7,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/UX712cbwqKdgZqJG",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "UZswEiSdAoeuUKul",
+    "name": "OC - E164.Biesse",
+    "active": true,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-08-26T02:52:28.519Z",
+    "updated": "2025-08-26T03:02:35.000Z",
+    "nodeCount": 49,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:09:15.048Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/UZswEiSdAoeuUKul",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "b7rOO0nwExx9NtLq",
+    "name": "Brat flow",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-06-25T17:44:25.072Z",
+    "updated": "2025-06-27T10:01:43.000Z",
+    "nodeCount": 5,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/b7rOO0nwExx9NtLq",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "bqXfm3swPc0KZY81",
+    "name": "Brat flow Fast",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-06-26T10:17:19.351Z",
+    "updated": "2025-06-26T15:46:17.000Z",
+    "nodeCount": 5,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/bqXfm3swPc0KZY81",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "c5GRnBi6CflrAaby",
+    "name": "drive",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-06-24T18:10:39.542Z",
+    "updated": "2025-08-13T13:02:59.000Z",
+    "nodeCount": 4,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/c5GRnBi6CflrAaby",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "dkzXgDoovvlvWBtm",
+    "name": "OUT | OEM ASIA",
+    "active": true,
+    "category": "Outbound Calls",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-07-15T18:19:33.690Z",
+    "updated": "2025-08-12T15:02:00.000Z",
+    "nodeCount": 10,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:09:08.027Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/dkzXgDoovvlvWBtm",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "eBfFqhmbjr4FnVaC",
+    "name": "Brat OpenAI",
+    "active": false,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-06-26T15:30:01.153Z",
+    "updated": "2025-08-13T13:03:36.000Z",
+    "nodeCount": 2,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/eBfFqhmbjr4FnVaC",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "hBa19HaUrNK7EPRS",
+    "name": "My workflow 4",
+    "active": false,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-06-18T16:36:17.472Z",
+    "updated": "2025-06-18T19:00:08.000Z",
+    "nodeCount": 3,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/hBa19HaUrNK7EPRS",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "kjIqFufDaF5MJxm5",
+    "name": "+ Transcribe all calls",
+    "active": false,
+    "category": "Other",
+    "description": "Custom workflow - check nodes for specific functionality",
+    "created": "2025-06-24T18:26:08.313Z",
+    "updated": "2025-06-25T13:35:25.000Z",
+    "nodeCount": 11,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/kjIqFufDaF5MJxm5",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "momE8ezdQ4Vq1xJf",
+    "name": "Get calls transcript - Vapi",
+    "active": false,
+    "category": "Call Transcription",
+    "description": "Handles call transcript processing and storage",
+    "created": "2025-09-03T03:16:18.589Z",
+    "updated": "2025-09-03T06:01:19.000Z",
+    "nodeCount": 8,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/momE8ezdQ4Vq1xJf",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "n2ZbkQPIsRO9Dwvo",
+    "name": "KEDB webhooks",
+    "active": false,
+    "category": "Other",
+    "description": "Webhook-triggered workflow with HTTP integrations",
+    "created": "2025-07-28T04:51:24.471Z",
+    "updated": "2025-07-28T14:58:26.000Z",
+    "nodeCount": 56,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/n2ZbkQPIsRO9Dwvo",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "n9MtLXcwUIoLIzQk",
+    "name": "OC - E164.YC",
+    "active": true,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-08-25T13:27:18.733Z",
+    "updated": "2025-08-26T09:41:39.000Z",
+    "nodeCount": 49,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:09:30.071Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/n9MtLXcwUIoLIzQk",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "pHppgUt8b5b14Ifq",
+    "name": "OUT | EU QC Advisor",
+    "active": true,
+    "category": "Outbound Calls",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-08-07T18:39:06.993Z",
+    "updated": "2025-08-12T15:01:48.000Z",
+    "nodeCount": 7,
+    "executionStats": {
+      "total": 100,
+      "successful": 0,
+      "failed": 100,
+      "lastExecution": "2025-09-08T12:09:07.038Z"
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/pHppgUt8b5b14Ifq",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "q2bwrGX4A7QCasx4",
+    "name": "Qdrant - test - embedding",
+    "active": false,
+    "category": "AI/Vector Database",
+    "description": "Vector database operations for AI search",
+    "created": "2025-09-01T08:15:34.541Z",
+    "updated": "2025-09-03T04:03:34.000Z",
+    "nodeCount": 13,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/q2bwrGX4A7QCasx4",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "qtcKKUAAmcViZfqd",
+    "name": "calendly",
+    "active": false,
+    "category": "Calendar Integration",
+    "description": "Integrates with Calendly for appointment scheduling",
+    "created": "2025-08-22T11:03:14.605Z",
+    "updated": "2025-08-26T18:09:28.000Z",
+    "nodeCount": 3,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/qtcKKUAAmcViZfqd",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "upv0C38FbTpmftYy",
+    "name": "My workflow 6",
+    "active": false,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-08-19T19:07:51.859Z",
+    "updated": "2025-08-19T19:07:51.859Z",
+    "nodeCount": 2,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/upv0C38FbTpmftYy",
+    "hasWebhook": false,
+    "isScheduled": false
+  },
+  {
+    "id": "wd6k5KJNP4RVJlEx",
+    "name": "EOC - E164.QC",
+    "active": false,
+    "category": "End of Call Processing",
+    "description": "Processes call completion data and generates reports",
+    "created": "2025-08-15T20:08:13.552Z",
+    "updated": "2025-09-01T09:33:38.000Z",
+    "nodeCount": 17,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/wd6k5KJNP4RVJlEx",
+    "hasWebhook": true,
+    "isScheduled": false
+  },
+  {
+    "id": "zard8VQcWpYeX8bO",
+    "name": "DELETE Call",
+    "active": false,
+    "category": "Other",
+    "description": "HTTP-based integration workflow",
+    "created": "2025-07-28T15:56:39.453Z",
+    "updated": "2025-07-28T16:16:10.000Z",
+    "nodeCount": 2,
+    "executionStats": {
+      "total": 0,
+      "successful": 0,
+      "failed": 0,
+      "lastExecution": null
+    },
+    "editUrl": "https://eliteautomations.youngcaesar.digital/workflow/zard8VQcWpYeX8bO",
+    "hasWebhook": false,
+    "isScheduled": false
+  }
+]

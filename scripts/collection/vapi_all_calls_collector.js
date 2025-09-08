@@ -3,8 +3,8 @@
 
 // ========== SETTINGS (CHANGE THESE VALUES) ==========
 const VAPI_API_KEY = "186d494d-210e-4dcc-94cc-0620e1da56e0";
-const START_DATE = "2025-08-01"; 
-const END_DATE = "2025-09-03";   
+const START_DATE = "2025-09-02"; 
+const END_DATE = "2025-09-09";   
 const MAX_CALLS_PER_REQUEST = 100;
 // =====================================================
 

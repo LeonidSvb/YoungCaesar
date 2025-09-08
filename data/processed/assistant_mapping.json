@@ -1,0 +1,62 @@
+{
+  "8cd7551f-2ac8-441d-8f49-0abf053fb9b6": {
+    "name": "Riley",
+    "model": "gpt-4o",
+    "voice": "Elliot"
+  },
+  "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+    "name": "BIESSE - MS",
+    "model": "gpt-4o",
+    "voice": "UcqZLa941Kkt8ZhEEybf"
+  },
+  "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+    "name": "QC Advisor",
+    "model": "gpt-4o",
+    "voice": "Kylie"
+  },
+  "24db494f-e25b-4a8f-a362-144b26ef2c86": {
+    "name": "DTMF IVR Agent",
+    "model": "gpt-4o",
+    "voice": "Elliot"
+  },
+  "55bb2539-5bbe-46c7-99bd-701eab22fbf1": {
+    "name": "Inbound Call Center",
+    "model": "gpt-4o",
+    "voice": "Elliot"
+  },
+  "163cc924-0e8c-45b1-b6cf-46e423885240": {
+    "name": "Emanuela",
+    "model": "gpt-4o",
+    "voice": "pREMn4INXSs2KOPsNcsD"
+  },
+  "613d30cd-0f98-4fcb-be3d-f39fee5c6406": {
+    "name": "New Assistant",
+    "model": "gpt-4o",
+    "voice": "Elliot"
+  },
+  "8e928338-22dc-42d1-b459-f4c52a6395f1": {
+    "name": "Morgan 6 sec",
+    "model": "gpt-4o",
+    "voice": "Elliot"
+  },
+  "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+    "name": "YC Assistant ",
+    "model": "gpt-4o-mini",
+    "voice": "Kylie"
+  },
+  "861f2ce7-fdee-401d-8554-29dada4725de": {
+    "name": "Jacko",
+    "model": "gpt-4o-mini",
+    "voice": "Elliot"
+  },
+  "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": {
+    "name": "Alex1",
+    "model": "gpt-4o-mini",
+    "voice": "Elliot"
+  },
+  "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda": {
+    "name": "Riley",
+    "model": "gpt-4o-mini",
+    "voice": "Paige"
+  }
+}

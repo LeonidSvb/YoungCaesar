@@ -1,0 +1,165 @@
+{
+  "summary": {
+    "dateRange": "2025-09-02 to 2025-09-09",
+    "totalDays": 7,
+    "totalCalls": 626,
+    "totalWithTranscript": 46,
+    "totalSuccessful": 390,
+    "total30SecPlus": 27,
+    "total60SecPlus": 10,
+    "totalCost": 4.2767
+  },
+  "dailyStats": [
+    {
+      "date": "2025-09-02",
+      "totalCalls": 282,
+      "withTranscript": 34,
+      "withoutTranscript": 248,
+      "successfulCalls": 129,
+      "failedCalls": 153,
+      "duration30Plus": 17,
+      "duration60Plus": 5,
+      "duration120Plus": 1,
+      "totalCost": 3.0364,
+      "avgDuration": 5,
+      "avgCost": 0.01,
+      "byStatus": {
+        "queued": 153,
+        "ended": 129
+      },
+      "byEndReason": {
+        "unknown": 153,
+        "customer-ended-call": 30,
+        "customer-did-not-answer": 51,
+        "silence-timed-out": 7,
+        "twilio-failed-to-connect-call": 35,
+        "customer-busy": 6
+      }
+    },
+    {
+      "date": "2025-09-03",
+      "totalCalls": 0,
+      "withTranscript": 0,
+      "withoutTranscript": 0,
+      "successfulCalls": 0,
+      "failedCalls": 0,
+      "duration30Plus": 0,
+      "duration60Plus": 0,
+      "duration120Plus": 0,
+      "totalCost": 0,
+      "avgDuration": 0,
+      "avgCost": 0,
+      "byStatus": {},
+      "byEndReason": {}
+    },
+    {
+      "date": "2025-09-04",
+      "totalCalls": 40,
+      "withTranscript": 6,
+      "withoutTranscript": 34,
+      "successfulCalls": 40,
+      "failedCalls": 0,
+      "duration30Plus": 7,
+      "duration60Plus": 4,
+      "duration120Plus": 1,
+      "totalCost": 0.8231,
+      "avgDuration": 16,
+      "avgCost": 0.02,
+      "byStatus": {
+        "ended": 40
+      },
+      "byEndReason": {
+        "customer-did-not-answer": 19,
+        "call.start.error-get-transport": 3,
+        "voicemail": 3,
+        "customer-ended-call": 12,
+        "twilio-failed-to-connect-call": 2,
+        "silence-timed-out": 1
+      }
+    },
+    {
+      "date": "2025-09-05",
+      "totalCalls": 166,
+      "withTranscript": 6,
+      "withoutTranscript": 160,
+      "successfulCalls": 83,
+      "failedCalls": 83,
+      "duration30Plus": 3,
+      "duration60Plus": 1,
+      "duration120Plus": 1,
+      "totalCost": 0.3839000000000001,
+      "avgDuration": 2,
+      "avgCost": 0,
+      "byStatus": {
+        "ended": 83,
+        "queued": 83
+      },
+      "byEndReason": {
+        "customer-did-not-answer": 49,
+        "unknown": 83,
+        "twilio-failed-to-connect-call": 15,
+        "customer-ended-call": 8,
+        "voicemail": 2,
+        "customer-busy": 4,
+        "silence-timed-out": 2,
+        "call.start.error-get-transport": 3
+      }
+    },
+    {
+      "date": "2025-09-06",
+      "totalCalls": 138,
+      "withTranscript": 0,
+      "withoutTranscript": 138,
+      "successfulCalls": 138,
+      "failedCalls": 0,
+      "duration30Plus": 0,
+      "duration60Plus": 0,
+      "duration120Plus": 0,
+      "totalCost": 0.033299999999999996,
+      "avgDuration": 0,
+      "avgCost": 0,
+      "byStatus": {
+        "ended": 138
+      },
+      "byEndReason": {
+        "call.start.error-get-transport": 87,
+        "customer-did-not-answer": 33,
+        "twilio-failed-to-connect-call": 11,
+        "customer-ended-call": 4,
+        "customer-busy": 3
+      }
+    },
+    {
+      "date": "2025-09-07",
+      "totalCalls": 0,
+      "withTranscript": 0,
+      "withoutTranscript": 0,
+      "successfulCalls": 0,
+      "failedCalls": 0,
+      "duration30Plus": 0,
+      "duration60Plus": 0,
+      "duration120Plus": 0,
+      "totalCost": 0,
+      "avgDuration": 0,
+      "avgCost": 0,
+      "byStatus": {},
+      "byEndReason": {}
+    },
+    {
+      "date": "2025-09-08",
+      "totalCalls": 0,
+      "withTranscript": 0,
+      "withoutTranscript": 0,
+      "successfulCalls": 0,
+      "failedCalls": 0,
+      "duration30Plus": 0,
+      "duration60Plus": 0,
+      "duration120Plus": 0,
+      "totalCost": 0,
+      "avgDuration": 0,
+      "avgCost": 0,
+      "byStatus": {},
+      "byEndReason": {}
+    }
+  ]
+}

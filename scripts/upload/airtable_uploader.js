@@ -15,17 +15,46 @@ class AirtableUploader {
         this.batchSize = 10; // Airtable allows max 10 records per batch
         this.uploadCount = 0;
         this.failedUploads = [];
+        this.assistantMapping = this.loadAssistantMapping();
+    }
+
+    // Load assistant ID to name mapping
+    loadAssistantMapping() {
+        try {
+            const mappingPath = path.join(__dirname, '../../data/processed/assistant_mapping.json');
+            if (fs.existsSync(mappingPath)) {
+                const mapping = JSON.parse(fs.readFileSync(mappingPath, 'utf8'));
+                console.log(`✅ Loaded ${Object.keys(mapping).length} assistant names`);
+                return mapping;
+            }
+        } catch (error) {
+            console.log('⚠️  Could not load assistant mapping, using IDs only');
+        }
+        return {};
     }
 
     // Transform VAPI call data to Airtable format
     transformCallData(call) {
+        // Calculate duration if not provided
+        const duration = call.duration || this.calculateDuration(call.startedAt, call.endedAt);
+        
+        // Get assistant name from mapping
+        const assistantInfo = this.assistantMapping[call.assistantId];
+        const assistantName = assistantInfo?.name || 'Unknown Assistant';
+        
+        // Extract phone number from phoneCallProviderId or other sources
+        const phoneNumber = call.phoneNumber || 
+                          call.phoneCallProviderId || 
+                          call.phoneNumberId || 
+                          'N/A';
+
         return {
             fields: {
                 'Call ID': call.id || 'N/A',
-                'Phone': call.phone || 'N/A',
+                'Phone': phoneNumber,
                 'Cost': call.cost || 0,
-                'Duration (seconds)': call.duration || 0,
-                'Duration (formatted)': this.formatDuration(call.duration || 0),
+                'Duration (seconds)': duration,
+                'Duration (formatted)': this.formatDuration(duration),
                 'Type': call.type || 'N/A',
                 'Status': call.status || 'N/A',
                 'End Reason': call.endedReason || 'N/A',
@@ -34,10 +63,13 @@ class AirtableUploader {
                 'Ended At': call.endedAt || 'N/A',
                 'Updated At': call.updatedAt || 'N/A',
                 'Assistant ID': call.assistantId || 'N/A',
+                'Assistant Name': assistantName,
                 'Customer ID': call.customerId || 'N/A',
                 'Phone Number ID': call.phoneNumberId || 'N/A',
                 'Organization ID': call.orgId || 'N/A',
-                'Has Transcript': call.hasTranscript || false,
+                'Phone Provider': call.phoneCallProvider || 'N/A',
+                'Phone Provider ID': call.phoneCallProviderId || 'N/A',
+                'Transport': this.formatTransport(call.phoneCallTransport || call.transport),
                 'Transcript': call.transcript || 'N/A',
                 'Summary': call.summary || 'N/A',
                 'Recording URL': call.recordingUrl || 'N/A',
@@ -53,9 +85,33 @@ class AirtableUploader {
                 'TTS Characters': call.costBreakdown?.ttsCharacters || 0,
                 'Messages Count': call.messages?.length || 0,
                 'First Message': call.messages?.[0]?.message || 'N/A',
-                'Last Message': call.messages?.[call.messages?.length - 1]?.message || 'N/A'
+                'Last Message': call.messages?.[call.messages?.length - 1]?.message || 'N/A',
+                'Success Evaluation': call.analysis?.successEvaluation || 'N/A'
             }
         };
+    }
+
+    // Calculate duration from start and end times
+    calculateDuration(startedAt, endedAt) {
+        if (!startedAt || !endedAt) return 0;
+        try {
+            const start = new Date(startedAt);
+            const end = new Date(endedAt);
+            return Math.floor((end - start) / 1000); // Duration in seconds
+        } catch (error) {
+            return 0;
+        }
+    }
+
+    // Format transport field (handle JSON objects)
+    formatTransport(transport) {
+        if (!transport) return 'N/A';
+        if (typeof transport === 'string') return transport;
+        if (typeof transport === 'object') {
+            if (transport.provider) return transport.provider;
+            return JSON.stringify(transport).slice(0, 100); // Truncate if too long
+        }
+        return 'N/A';
     }
 
     // Format duration from seconds to readable format
