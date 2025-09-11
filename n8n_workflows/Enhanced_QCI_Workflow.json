@@ -1,0 +1,443 @@
+{
+  "name": "Enhanced VAPI QCI Analysis Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-qci-webhook",
+        "responseMode": "responseNode",
+        "authentication": "httpBasicAuth",
+        "basicAuth": "vapiWebhookAuth",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "VAPI Call Ended Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "webhookId": "vapi-qci-enhanced"
+    },
+    {
+      "parameters": {
+        "url": "https://api.vapi.ai/call/{{ $json.call.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "httpHeaderAuth": "vapiApiKey",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "get-call-data",
+      "name": "Get VAPI Call Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $node[\"Get VAPI Call Data\"].json[\"transcript\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            },
+            {
+              "leftValue": "={{ $node[\"Get VAPI Call Data\"].json[\"transcript\"].length }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-transcript",
+      "name": "Check Transcript Quality",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [600, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4",
+        "messages": {
+          "messageType": "multipleMessages",
+          "values": [
+            {
+              "message": "=You are an expert call transcript diarization specialist. Structure this VAPI transcript with speaker separation.\n\nCALL TRANSCRIPT:\n{{ $node[\"Get VAPI Call Data\"].json[\"transcript\"] }}\n\nCALL METADATA:\n- Duration: {{ $node[\"Get VAPI Call Data\"].json[\"duration\"] }} seconds\n- Assistant: {{ $node[\"Get VAPI Call Data\"].json[\"assistantId\"] }}\n- Cost: ${{ $node[\"Get VAPI Call Data\"].json[\"cost\"] }}\n\nReturn ONLY valid JSON with this structure:\n{\n  \"participants\": {\n    \"agent\": \"agent_name_from_transcript\",\n    \"customer\": \"customer_name_or_prospect\"\n  },\n  \"conversation_flow\": [\n    {\"speaker\": \"agent\", \"message\": \"exact_text\", \"timestamp\": \"estimated_time\"},\n    {\"speaker\": \"customer\", \"message\": \"exact_text\", \"timestamp\": \"estimated_time\"}\n  ],\n  \"call_metadata\": {\n    \"total_exchanges\": 0,\n    \"agent_talk_ratio\": 0.0,\n    \"call_outcome\": \"meeting_scheduled|callback_requested|rejection|no_answer|other\",\n    \"objections_raised\": [],\n    \"call_length_estimate\": \"short|medium|long\"\n  },\n  \"key_moments\": {\n    \"opening_line\": \"first_agent_phrase\",\n    \"value_proposition\": \"main_offer_presented\",\n    \"closing_attempt\": \"closing_phrase_used\",\n    \"objection_handling\": []\n  }\n}"
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.1,
+          "maxTokens": 3000
+        }
+      },
+      "id": "diarize-transcript",
+      "name": "Diarize Transcript",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3,
+      "position": [800, 200]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4",
+        "messages": {
+          "messageType": "multipleMessages",
+          "values": [
+            {
+              "message": "=You are an expert B2B sales call quality analyst. Calculate precise QCI score using the structured data.\n\nSTRUCTURED DATA:\n{{ $node[\"Diarize Transcript\"].json }}\n\nORIGINAL TRANSCRIPT:\n{{ $node[\"Get VAPI Call Data\"].json[\"transcript\"] }}\n\nCALL DATA:\n- Duration: {{ $node[\"Get VAPI Call Data\"].json[\"duration\"] }} seconds\n- Cost: ${{ $node[\"Get VAPI Call Data\"].json[\"cost\"] }}\n- Assistant: {{ $node[\"Get VAPI Call Data\"].json[\"assistantId\"] }}\n\nQCI SCORING RUBRIC (0-100 total):\n\nA. APPROACH QUALITY (25 points):\n- Professional introduction (0-5 pts)\n- Clear value proposition (0-8 pts)\n- Appropriate tone and pace (0-7 pts)\n- Brand positioning (0-5 pts)\n\nB. ENGAGEMENT LEVEL (25 points):\n- Customer participation (0-8 pts)\n- Question asking quality (0-7 pts)\n- Objection handling (0-5 pts)\n- Conversation flow (0-5 pts)\n\nC. INFORMATION GATHERING (25 points):\n- Discovery questions asked (0-8 pts)\n- Qualification effectiveness (0-7 pts)\n- Pain point identification (0-5 pts)\n- Decision maker validation (0-5 pts)\n\nD. CALL OUTCOME (25 points):\n- Next steps secured (0-10 pts)\n- Commitment level achieved (0-8 pts)\n- Follow-up scheduled (0-7 pts)\n\nLEAD CLASSIFICATIONS:\n- \"hot_lead\": Ready to buy, meeting booked, high interest\n- \"warm_lead\": Interested, needs follow-up, some objections\n- \"cold_lead\": Low interest, major objections, unlikely\n- \"callback_requested\": Asked for callback/info\n- \"not_decision_maker\": Wrong person, needs referral\n- \"invalid\": Wrong number, voicemail, language barrier\n\nReturn ONLY this JSON structure:\n{\n  \"qci_score\": 85,\n  \"approach_quality\": 90,\n  \"engagement_level\": 80,\n  \"information_gathering\": 85,\n  \"call_outcome\": 75,\n  \"agent_talk_ratio\": 0.65,\n  \"time_to_value\": 15,\n  \"first_cta_time\": 90,\n  \"dead_air_events\": 2,\n  \"objections_recognized\": true,\n  \"compliance_time\": 8,\n  \"alternative_offered\": false,\n  \"brand_mentions_count\": 3,\n  \"language_match\": true,\n  \"meeting_scheduled\": false,\n  \"call_classification\": \"warm_lead\",\n  \"coaching_tips\": [\n    \"Ask more discovery questions about current equipment\",\n    \"Slow down presentation pace\",\n    \"Address budget concerns earlier\"\n  ],\n  \"evidence\": {\n    \"successful_moments\": [\n      \"Strong opening with clear value prop\",\n      \"Good rapport building\"\n    ],\n    \"improvement_areas\": [\n      \"More qualification questions needed\",\n      \"Better objection handling\"\n    ]\n  },\n  \"call_sentiment\": \"positive\",\n  \"next_actions\": [\n    \"Send technical specifications\",\n    \"Schedule demo call\"\n  ]\n}"
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.1,
+          "maxTokens": 4000
+        }
+      },
+      "id": "qci-analysis",
+      "name": "Enhanced QCI Analysis",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3,
+      "position": [1000, 200]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appKny1PQSInwEMDe"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "id", 
+          "value": "tblvXZt2zkkanjGdE"
+        },
+        "recordId": "={{ $node[\"Get VAPI Call Data\"].json[\"id\"] }}",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "QCI Score",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"qci_score\"] }}"
+            },
+            {
+              "fieldId": "Agent Talk Ratio",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"agent_talk_ratio\"] }}"
+            },
+            {
+              "fieldId": "Time to Value",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"time_to_value\"] }}"
+            },
+            {
+              "fieldId": "First CTA time",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"first_cta_time\"] }}"
+            },
+            {
+              "fieldId": "Dead Air Events",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"dead_air_events\"] }}"
+            },
+            {
+              "fieldId": "Objections Rec",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"objections_recognized\"] }}"
+            },
+            {
+              "fieldId": "Compl time",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"compliance_time\"] }}"
+            },
+            {
+              "fieldId": "Alter Offered",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"alternative_offered\"] }}"
+            },
+            {
+              "fieldId": "Brand Count",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"brand_mentions_count\"] }}"
+            },
+            {
+              "fieldId": "Lang Match",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"language_match\"] }}"
+            },
+            {
+              "fieldId": "Meeting Sched",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"meeting_scheduled\"] }}"
+            },
+            {
+              "fieldId": "Call Class",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"call_classification\"] }}"
+            },
+            {
+              "fieldId": "Coaching Tips",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"coaching_tips\"].join('\\n• ') }}"
+            },
+            {
+              "fieldId": "QCI Evidence",
+              "fieldValue": "={{ JSON.stringify($node[\"Enhanced QCI Analysis\"].json[\"evidence\"]) }}"
+            },
+            {
+              "fieldId": "Approach Quality",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"approach_quality\"] }}"
+            },
+            {
+              "fieldId": "Engagement Level",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"engagement_level\"] }}"
+            },
+            {
+              "fieldId": "Information Gathering",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"information_gathering\"] }}"
+            },
+            {
+              "fieldId": "Call Outcome Score",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"call_outcome\"] }}"
+            },
+            {
+              "fieldId": "Call Sentiment",
+              "fieldValue": "={{ $node[\"Enhanced QCI Analysis\"].json[\"call_sentiment\"] }}"
+            },
+            {
+              "fieldId": "Auto Analyzed",
+              "fieldValue": true
+            },
+            {
+              "fieldId": "Analysis Date",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "id": "update-airtable",
+      "name": "Update Airtable QCI Data",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2,
+      "position": [1200, 200]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "channel": {
+          "__rl": true,
+          "mode": "list",
+          "value": "C06VAPI001"
+        },
+        "text": "=🎯 **QCI Analysis Complete!**\\n\\n📞 **Call ID:** {{ $node[\"Get VAPI Call Data\"].json[\"id\"] }}\\n📊 **QCI Score:** {{ $node[\"Enhanced QCI Analysis\"].json[\"qci_score\"] }}/100\\n🎪 **Classification:** {{ $node[\"Enhanced QCI Analysis\"].json[\"call_classification\"] }}\\n💰 **Call Cost:** ${{ $node[\"Get VAPI Call Data\"].json[\"cost\"] }}\\n⏱️ **Duration:** {{ Math.floor($node[\"Get VAPI Call Data\"].json[\"duration\"] / 60) }}m {{ $node[\"Get VAPI Call Data\"].json[\"duration\"] % 60 }}s\\n😊 **Sentiment:** {{ $node[\"Enhanced QCI Analysis\"].json[\"call_sentiment\"] }}\\n\\n**📈 QCI Breakdown:**\\n• Approach: {{ $node[\"Enhanced QCI Analysis\"].json[\"approach_quality\"] }}/25\\n• Engagement: {{ $node[\"Enhanced QCI Analysis\"].json[\"engagement_level\"] }}/25\\n• Info Gathering: {{ $node[\"Enhanced QCI Analysis\"].json[\"information_gathering\"] }}/25\\n• Call Outcome: {{ $node[\"Enhanced QCI Analysis\"].json[\"call_outcome\"] }}/25\\n\\n**🎯 Top Coaching Tip:**\\n{{ $node[\"Enhanced QCI Analysis\"].json[\"coaching_tips\"][0] }}\\n\\n**🔗 Next Actions:**\\n{{ $node[\"Enhanced QCI Analysis\"].json[\"next_actions\"].map(action => '• ' + action).join('\\n') }}\\n\\n<https://airtable.com/appKny1PQSInwEMDe/tblvXZt2zkkanjGdE|📋 View in Airtable>",
+        "attachments": []
+      },
+      "id": "slack-notification",
+      "name": "Send Slack QCI Report",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [1400, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\\n  \"success\": true,\\n  \"callId\": $node[\"Get VAPI Call Data\"].json[\"id\"],\\n  \"qciScore\": $node[\"Enhanced QCI Analysis\"].json[\"qci_score\"],\\n  \"classification\": $node[\"Enhanced QCI Analysis\"].json[\"call_classification\"],\\n  \"breakdown\": {\\n    \"approach_quality\": $node[\"Enhanced QCI Analysis\"].json[\"approach_quality\"],\\n    \"engagement_level\": $node[\"Enhanced QCI Analysis\"].json[\"engagement_level\"],\\n    \"information_gathering\": $node[\"Enhanced QCI Analysis\"].json[\"information_gathering\"],\\n    \"call_outcome\": $node[\"Enhanced QCI Analysis\"].json[\"call_outcome\"]\\n  },\\n  \"coaching_tips\": $node[\"Enhanced QCI Analysis\"].json[\"coaching_tips\"],\\n  \"analysisComplete\": true,\\n  \"timestamp\": $now\\n} }}"
+      },
+      "id": "success-response",
+      "name": "Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1600, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\\n  \"success\": false,\\n  \"error\": \"No valid transcript available\",\\n  \"callId\": $node[\"VAPI Call Ended Webhook\"].json[\"call\"] ? $node[\"VAPI Call Ended Webhook\"].json[\"call\"][\"id\"] : \"unknown\",\\n  \"message\": \"QCI analysis skipped - transcript is empty or too short (< 50 characters)\",\\n  \"timestamp\": $now\\n} }}"
+      },
+      "id": "error-response",
+      "name": "No Transcript Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [800, 400]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "error_type",
+              "value": "general_error"
+            },
+            {
+              "name": "error_message", 
+              "value": "={{ $node.errorMessage || 'Unknown error occurred during QCI analysis' }}"
+            },
+            {
+              "name": "call_id",
+              "value": "={{ $('VAPI Call Ended Webhook').item.json.call?.id || 'unknown' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [1000, 500],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "channel": {
+          "__rl": true,
+          "mode": "list",
+          "value": "C06VAPI001"
+        },
+        "text": "=⚠️ **QCI Analysis Failed**\\n\\n📞 **Call ID:** {{ $node[\"Error Handler\"].json[\"call_id\"] }}\\n❌ **Error:** {{ $node[\"Error Handler\"].json[\"error_message\"] }}\\n⏰ **Time:** {{ $now.toISOString() }}\\n\\n*Please check workflow logs for details.*",
+        "attachments": []
+      },
+      "id": "error-slack-notification",
+      "name": "Send Error Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [1200, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\\n  \"success\": false,\\n  \"error\": $node[\"Error Handler\"].json[\"error_message\"],\\n  \"callId\": $node[\"Error Handler\"].json[\"call_id\"],\\n  \"error_type\": $node[\"Error Handler\"].json[\"error_type\"],\\n  \"timestamp\": $now\\n} }}"
+      },
+      "id": "error-webhook-response",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1400, 500]
+    }
+  ],
+  "connections": {
+    "VAPI Call Ended Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get VAPI Call Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get VAPI Call Data": {
+      "main": [
+        [
+          {
+            "node": "Check Transcript Quality",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Transcript Quality": {
+      "main": [
+        [
+          {
+            "node": "Diarize Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Transcript Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Diarize Transcript": {
+      "main": [
+        [
+          {
+            "node": "Enhanced QCI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enhanced QCI Analysis": {
+      "main": [
+        [
+          {
+            "node": "Update Airtable QCI Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Airtable QCI Data": {
+      "main": [
+        [
+          {
+            "node": "Send Slack QCI Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Slack QCI Report": {
+      "main": [
+        [
+          {
+            "node": "Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Handler": {
+      "main": [
+        [
+          {
+            "node": "Send Error Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Error Alert": {
+      "main": [
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "error-handler"
+  },
+  "staticData": null,
+  "tags": ["vapi", "qci", "analysis", "real-time"],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-11T20:30:00.000Z",
+  "versionId": "2.0"
+}

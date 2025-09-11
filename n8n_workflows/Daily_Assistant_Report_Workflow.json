@@ -1,0 +1,221 @@
+{
+  "name": "Daily Assistant Performance Report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "daily-trigger",
+      "name": "Daily at 9 AM",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": "appKny1PQSInwEMDe"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "tblvXZt2zkkanjGdE"
+        },
+        "filterByFormula": "=AND(IS_AFTER({Created At}, DATEADD(TODAY(), -1, 'day')), IS_BEFORE({Created At}, TODAY()), {Auto Analyzed} = 1)",
+        "options": {
+          "maxRecords": 1000
+        }
+      },
+      "id": "get-yesterday-calls",
+      "name": "Get Yesterday's Analyzed Calls",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4",
+        "messages": {
+          "messageType": "multipleMessages",
+          "values": [
+            {
+              "message": "=You are a performance analyst for AI voice assistants in B2B industrial sales.\n\nAnalyze yesterday's call data and create a comprehensive daily report:\n\n**CALL DATA:**\n{{ JSON.stringify($input.all(), null, 2) }}\n\n**ANALYSIS REQUIREMENTS:**\n1. Calculate overall performance metrics\n2. Identify top and bottom performing assistants\n3. Analyze call classifications distribution\n4. Highlight key insights and trends\n5. Provide specific coaching recommendations\n6. Calculate ROI metrics\n\n**Return JSON format:**\n{\n  \"report_date\": \"2025-01-11\",\n  \"summary\": {\n    \"total_calls\": 145,\n    \"avg_qci_score\": 78.5,\n    \"total_cost\": 47.82,\n    \"hot_leads\": 12,\n    \"warm_leads\": 34,\n    \"conversion_rate\": 8.3\n  },\n  \"assistant_performance\": [\n    {\n      \"assistant_name\": \"BIESSE-MS\",\n      \"calls_made\": 45,\n      \"avg_score\": 82.1,\n      \"hot_leads\": 8,\n      \"coaching_priority\": \"high\"\n    }\n  ],\n  \"key_insights\": [\n    \"Morning calls show 15% higher conversion\",\n    \"Approach quality improved 5% vs last week\"\n  ],\n  \"coaching_recommendations\": [\n    \"Focus on information gathering techniques\",\n    \"Improve objection handling for price concerns\"\n  ],\n  \"top_performing_calls\": [\n    {\n      \"call_id\": \"xyz\",\n      \"score\": 95,\n      \"classification\": \"hot_lead\",\n      \"key_success_factor\": \"Perfect qualification sequence\"\n    }\n  ],\n  \"improvement_opportunities\": [\n    \"Average call duration is 20% below optimal\",\n    \"Follow-up scheduling rate needs improvement\"\n  ]\n}"
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "analyze-performance",
+      "name": "Analyze Daily Performance",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "channel": {
+          "__rl": true,
+          "mode": "list",
+          "value": "C06VAPI001"
+        },
+        "text": "=📊 **Daily VAPI Performance Report** - {{ $node[\"Analyze Daily Performance\"].json[\"report_date\"] }}\n\n**📈 SUMMARY METRICS:**\n• Total Calls: {{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"total_calls\"] }}\n• Avg QCI Score: {{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"avg_qci_score\"] }}/100\n• Total Cost: ${{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"total_cost\"] }}\n• Hot Leads: {{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"hot_leads\"] }} 🔥\n• Warm Leads: {{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"warm_leads\"] }} 🟡\n• Conversion Rate: {{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"conversion_rate\"] }}%\n\n**🎯 TOP INSIGHTS:**\n{{ $node[\"Analyze Daily Performance\"].json[\"key_insights\"].map(insight => `• ${insight}`).join('\\n') }}\n\n**👨‍🏫 COACHING FOCUS:**\n{{ $node[\"Analyze Daily Performance\"].json[\"coaching_recommendations\"].map(rec => `• ${rec}`).join('\\n') }}\n\n**⭐ TOP PERFORMING CALL:**\nCall ID: {{ $node[\"Analyze Daily Performance\"].json[\"top_performing_calls\"][0][\"call_id\"] }}\nScore: {{ $node[\"Analyze Daily Performance\"].json[\"top_performing_calls\"][0][\"score\"] }}/100\nSuccess Factor: {{ $node[\"Analyze Daily Performance\"].json[\"top_performing_calls\"][0][\"key_success_factor\"] }}\n\n**🎯 IMPROVEMENT OPPORTUNITIES:**\n{{ $node[\"Analyze Daily Performance\"].json[\"improvement_opportunities\"].map(opp => `• ${opp}`).join('\\n') }}",
+        "attachments": [],
+        "blocksUi": {
+          "blocksValues": []
+        }
+      },
+      "id": "send-daily-report",
+      "name": "Send Daily Report",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": "appKny1PQSInwEMDe"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "tblDailyReports"
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "Report Date",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"report_date\"] }}"
+            },
+            {
+              "fieldId": "Total Calls",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"total_calls\"] }}"
+            },
+            {
+              "fieldId": "Avg QCI Score",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"avg_qci_score\"] }}"
+            },
+            {
+              "fieldId": "Total Cost",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"total_cost\"] }}"
+            },
+            {
+              "fieldId": "Hot Leads",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"hot_leads\"] }}"
+            },
+            {
+              "fieldId": "Warm Leads",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"warm_leads\"] }}"
+            },
+            {
+              "fieldId": "Conversion Rate",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"summary\"][\"conversion_rate\"] }}"
+            },
+            {
+              "fieldId": "Key Insights",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"key_insights\"].join('\\n• ') }}"
+            },
+            {
+              "fieldId": "Coaching Recommendations",
+              "fieldValue": "={{ $node[\"Analyze Daily Performance\"].json[\"coaching_recommendations\"].join('\\n• ') }}"
+            },
+            {
+              "fieldId": "Full Report JSON",
+              "fieldValue": "={{ JSON.stringify($node[\"Analyze Daily Performance\"].json, null, 2) }}"
+            }
+          ]
+        }
+      },
+      "id": "save-report",
+      "name": "Save Report to Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Daily at 9 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Yesterday's Analyzed Calls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Yesterday's Analyzed Calls": {
+      "main": [
+        [
+          {
+            "node": "Analyze Daily Performance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Daily Performance": {
+      "main": [
+        [
+          {
+            "node": "Send Daily Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Daily Report": {
+      "main": [
+        [
+          {
+            "node": "Save Report to Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-11T20:00:00.000Z",
+  "versionId": "1"
+}

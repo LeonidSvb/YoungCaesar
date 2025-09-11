@@ -5,6 +5,10 @@
 .env.test.local
 .env.production.local
 
+# Private data
+.private/
+passwords-api-keys.txt
+
 # Dependencies
 node_modules/
 __pycache__/

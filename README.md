@@ -27,10 +27,23 @@ dashboards/             # Interactive HTML dashboards
 ├── qci_analysis_dashboard.html  
 └── consolidation_report.html
 
+reports/                # Generated reports
+├── html/               # Web-viewable reports
+└── pdf/                # PDF reports for distribution
+
 data/
 ├── raw/                # Original API responses
-├── processed/          # Transformed & analyzed data
-└── templates/          # CSV templates for imports
+├── processed/          # Transformed data & CSV files
+├── migration_backups/  # Pre-migration data backups
+└── vectors/            # Qdrant vector embeddings
+
+docs/                   # Project documentation
+├── AIRTABLE_SETUP.md
+├── N8N_WORKFLOW_NAVIGATION.md
+├── QUICK_COMMANDS.md
+├── VAPI_SYNC_VERIFICATION_CHECKLIST.md
+├── pdf_generation_guide.md
+└── slack_report_template.md
 ```
 
 ## Quick Start
@@ -38,9 +51,15 @@ data/
 1. Clone repository
 2. Copy `.env.example` to `.env` and add API keys
 3. Install dependencies: `npm install`
-4. Run data collection: `node scripts/collection/vapi_all_calls_collector.js`
-5. Sync to Airtable: `node scripts/upload/airtable_uploader.js`
+4. Collect data: `node scripts/collect_vapi_data.js 2025-09-01 2025-09-10`
+5. Sync to Airtable: `node scripts/sync_airtable.js upload`
 6. View dashboard: Open `dashboards/consolidation_report.html`
+
+## 📚 Documentation
+
+- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Шпаргалка основных команд
+- **[SCRIPTS_GUIDE.md](SCRIPTS_GUIDE.md)** - Полное описание всех скриптов по важности
+- **[scripts/README.md](scripts/README.md)** - Техническая документация API
 
 ## Core Features
 
