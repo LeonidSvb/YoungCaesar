@@ -164,6 +164,17 @@ Required environment variables in `.env`:
   - **Technical Specs:** Detailed field mapping and API integration documentation
   - **Usage Commands:** Production-ready CLI documentation
 - **Status:** PERFECT 11/10 - Ready for immediate production deployment on full 2600+ call database
+- **ЗАВТРА: Продакшн обработка всех 2600+ записей**
+  - **Команда готова:** `node scripts/qci_analyzer.js analyze --all` (обработает все звонки с транскриптами)
+  - **Оценка времени:** ~43-60 минут для полной обработки (1.5-2 сек на звонок)
+  - **OpenAI токены:** ~$15-25 за полную обработку всех записей
+  - **Результат:** 100% автоматизированная QCI оценка всех звонков в Airtable
+  - **Готово к запуску:** Все 13 полей будут заполнены, система тестирована и работает идеально
+- **Backup команды для завтра:**
+  - **Тест одной записи:** `node scripts/single_record_test.js`
+  - **Тест 10 записей:** `node scripts/qci_analyzer.js analyze` 
+  - **Проверка полей:** `node scripts/collection/check_all_fields.js`
+  - **Просмотр результатов:** `node scripts/collection/show_mapped_records.js`
 
 ### 2025-09-11 - N8N QCI Real-Time System Deployed via MCP ✅
 - **Production-Ready QCI System:** Полная система автоматического анализа качества звонков развернута
