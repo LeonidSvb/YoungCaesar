@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCI Comprehensive Analysis Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chart-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+
+        .assistant-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .assistant-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .assistant-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 15px;
+        }
+
+        .assistant-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .assistant-stat {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .assistant-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .assistant-stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .recommendations {
+            margin-top: 15px;
+        }
+
+        .recommendation {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .section-header {
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            padding: 50px;
+        }
+
+        .error {
+            background: #ffebee;
+            border: 1px solid #f44336;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .heatmap-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .heatmap-cell {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin: 1px;
+            border-radius: 3px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 12px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 QCI Comprehensive Analysis Dashboard</h1>
+        <div class="subtitle" id="analysisDate">Analysis Date: Loading...</div>
+    </div>
+
+    <div class="loading" id="loadingIndicator">
+        🔄 Loading comprehensive analysis data...
+    </div>
+
+    <div id="errorContainer"></div>
+
+    <div id="mainContent" style="display: none;">
+        <!-- Overview Stats -->
+        <div class="stats-overview" id="statsOverview">
+            <!-- Stats will be populated here -->
+        </div>
+
+        <!-- Main Charts -->
+        <h2 class="section-header">📈 Key Performance Metrics</h2>
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3 class="chart-title">QCI Score Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="qciDistributionChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Assistant Performance Comparison</h3>
+                <div class="chart-container">
+                    <canvas id="assistantComparisonChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Call Classification Breakdown</h3>
+                <div class="chart-container">
+                    <canvas id="classificationChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Conversion Rates by Assistant</h3>
+                <div class="chart-container">
+                    <canvas id="conversionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Issues Heatmap -->
+        <h2 class="section-header">🔥 Most Common Issues</h2>
+        <div class="heatmap-container">
+            <h3 class="chart-title">Top Issues Frequency</h3>
+            <div id="issuesHeatmap">
+                <!-- Heatmap will be populated here -->
+            </div>
+        </div>
+
+        <!-- Assistant Detailed Cards -->
+        <h2 class="section-header">🤖 Assistant Analysis & Recommendations</h2>
+        <div class="assistant-cards" id="assistantCards">
+            <!-- Assistant cards will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        let analysisData = null;
+        let assistantPrompts = null;
+
+        // Load data and initialize dashboard
+        async function loadData() {
+            try {
+                // Load QCI analysis data
+                const analysisResponse = await fetch('../reports/qci_comprehensive_analysis_2025-09-13T09-14-13.json');
+                if (!analysisResponse.ok) {
+                    throw new Error('Failed to load analysis data');
+                }
+                analysisData = await analysisResponse.json();
+
+                // Load assistant prompts
+                const promptsResponse = await fetch('../data/processed/assistant_prompts_2025-09-13T09-15-27.json');
+                if (!promptsResponse.ok) {
+                    throw new Error('Failed to load prompts data');
+                }
+                assistantPrompts = await promptsResponse.json();
+
+                console.log('Data loaded:', { analysisData, assistantPrompts });
+
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+
+                initializeDashboard();
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Failed to load data: ' + error.message);
+            }
+        }
+
+        function showError(message) {
+            const errorContainer = document.getElementById('errorContainer');
+            errorContainer.innerHTML = `<div class="error">${message}</div>`;
+            document.getElementById('loadingIndicator').style.display = 'none';
+        }
+
+        function initializeDashboard() {
+            if (!analysisData) {
+                showError('No analysis data available');
+                return;
+            }
+
+            updateHeader();
+            createOverviewStats();
+            createCharts();
+            createIssuesHeatmap();
+            createAssistantCards();
+        }
+
+        function updateHeader() {
+            document.getElementById('analysisDate').textContent =
+                `Analysis Date: ${new Date().toLocaleDateString()} | ${analysisData.overview.totalCalls} Calls Analyzed`;
+        }
+
+        function createOverviewStats() {
+            const statsHtml = `
+                <div class="stat-card">
+                    <div class="stat-value">${analysisData.overview.totalCalls}</div>
+                    <div class="stat-label">Total Calls</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${analysisData.overview.averageQCI}</div>
+                    <div class="stat-label">Average QCI</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${analysisData.overview.conversionRate.rate}</div>
+                    <div class="stat-label">Conversion Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${analysisData.overview.conversionRate.meetingsScheduled}</div>
+                    <div class="stat-label">Meetings Scheduled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${Object.keys(analysisData.assistantBreakdown).length}</div>
+                    <div class="stat-label">Active Assistants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${analysisData.errors.uniqueIssues}</div>
+                    <div class="stat-label">Unique Issues</div>
+                </div>
+            `;
+            document.getElementById('statsOverview').innerHTML = statsHtml;
+        }
+
+        function createCharts() {
+            createQCIDistributionChart();
+            createAssistantComparisonChart();
+            createClassificationChart();
+            createConversionChart();
+        }
+
+        function createQCIDistributionChart() {
+            const ctx = document.getElementById('qciDistributionChart').getContext('2d');
+            const distribution = analysisData.overview.scoreDistribution;
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Poor (<40)', 'Average (40-59)', 'Good (60-79)', 'Excellent (80+)'],
+                    datasets: [{
+                        data: [distribution.poor, distribution.average, distribution.good, distribution.excellent],
+                        backgroundColor: ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAssistantComparisonChart() {
+            const ctx = document.getElementById('assistantComparisonChart').getContext('2d');
+            const assistants = Object.values(analysisData.assistantBreakdown)
+                .sort((a, b) => b.averageQCI - a.averageQCI)
+                .slice(0, 6); // Top 6 assistants
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: assistants.map(a => a.name),
+                    datasets: [{
+                        label: 'Average QCI Score',
+                        data: assistants.map(a => a.averageQCI),
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function createClassificationChart() {
+            const ctx = document.getElementById('classificationChart').getContext('2d');
+            const classifications = analysisData.overview.classifications;
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(classifications),
+                    datasets: [{
+                        data: Object.values(classifications),
+                        backgroundColor: ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#a55eea'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createConversionChart() {
+            const ctx = document.getElementById('conversionChart').getContext('2d');
+            const assistants = Object.values(analysisData.assistantBreakdown)
+                .filter(a => a.totalCalls > 5) // Only assistants with significant call volume
+                .sort((a, b) => b.conversionRate - a.conversionRate);
+
+            new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: assistants.map(a => a.name),
+                    datasets: [{
+                        label: 'Conversion Rate (%)',
+                        data: assistants.map(a => a.conversionRate),
+                        backgroundColor: '#1dd1a1',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: Math.max(...assistants.map(a => a.conversionRate)) + 5
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function createIssuesHeatmap() {
+            const issues = analysisData.errors.mostCommon.slice(0, 10);
+            const maxFreq = Math.max(...issues.map(i => i.frequency));
+
+            let heatmapHtml = '<div style="text-align: center; margin-bottom: 20px;">';
+
+            issues.forEach(issue => {
+                const intensity = issue.frequency / maxFreq;
+                const color = intensity > 0.7 ? '#ff4444' :
+                             intensity > 0.4 ? '#ff8800' :
+                             intensity > 0.2 ? '#ffcc00' : '#44ff44';
+
+                heatmapHtml += `
+                    <div style="display: inline-block; margin: 5px; padding: 10px; background: ${color};
+                                border-radius: 8px; color: white; font-weight: bold; max-width: 300px;">
+                        <div style="font-size: 0.9rem;">${issue.issue}</div>
+                        <div style="font-size: 1.2rem; margin-top: 5px;">${issue.frequency} calls (${issue.percentage}%)</div>
+                    </div>
+                `;
+            });
+
+            heatmapHtml += '</div>';
+            document.getElementById('issuesHeatmap').innerHTML = heatmapHtml;
+        }
+
+        function createAssistantCards() {
+            const assistants = Object.values(analysisData.assistantBreakdown)
+                .sort((a, b) => b.totalCalls - a.totalCalls); // Sort by call volume
+
+            let cardsHtml = '';
+
+            assistants.forEach(assistant => {
+                const prompt = assistantPrompts?.find(p => p.name === assistant.name);
+                const recommendations = analysisData.recommendations[assistant.name] || [];
+
+                cardsHtml += `
+                    <div class="assistant-card">
+                        <div class="assistant-name">${assistant.name}</div>
+                        <div class="assistant-stats">
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.totalCalls}</div>
+                                <div class="assistant-stat-label">Total Calls</div>
+                            </div>
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.averageQCI}</div>
+                                <div class="assistant-stat-label">Average QCI</div>
+                            </div>
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.conversionRate}%</div>
+                                <div class="assistant-stat-label">Conversion Rate</div>
+                            </div>
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.averageDuration}s</div>
+                                <div class="assistant-stat-label">Avg Duration</div>
+                            </div>
+                        </div>
+
+                        ${prompt ? `
+                            <div style="margin: 15px 0; padding: 10px; background: #f8f9fa; border-radius: 8px;">
+                                <strong>Current Prompt:</strong><br>
+                                <span style="font-size: 0.85rem; color: #666;">
+                                    ${prompt.systemMessage.substring(0, 200)}...
+                                </span><br>
+                                <small>Model: ${prompt.model} | Length: ${prompt.systemMessage.length} chars</small>
+                            </div>
+                        ` : ''}
+
+                        ${assistant.topCoachingTips.length > 0 ? `
+                            <div style="margin: 15px 0;">
+                                <strong>Top Issues:</strong><br>
+                                ${assistant.topCoachingTips.slice(0, 3).map(tip =>
+                                    `<span style="background: #ffecb3; padding: 3px 8px; border-radius: 12px;
+                                           font-size: 0.8rem; margin: 2px; display: inline-block;">
+                                        ${tip.tip} (${tip.count}x)
+                                    </span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+
+                        <div class="recommendations">
+                            <strong>Recommendations:</strong>
+                            ${recommendations.length > 0 ?
+                                recommendations.map(rec =>
+                                    `<div class="recommendation">${rec.message}</div>`
+                                ).join('') :
+                                '<div class="recommendation">No specific recommendations at this time.</div>'
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('assistantCards').innerHTML = cardsHtml;
+        }
+
+        // Initialize dashboard when page loads
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+</html>

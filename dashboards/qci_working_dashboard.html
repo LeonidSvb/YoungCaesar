@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCI Analysis Dashboard - Working</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .assistant-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .assistant-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .assistant-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 15px;
+        }
+
+        .assistant-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .assistant-stat {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .assistant-stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .assistant-stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .issues-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .issue-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .section-header {
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .recommendations {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 QCI Analysis Dashboard</h1>
+        <div id="analysisInfo">Loading...</div>
+    </div>
+
+    <div id="mainContent">
+        <!-- Overview Stats -->
+        <div class="stats-overview" id="statsOverview">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <!-- Charts -->
+        <h2 class="section-header">📈 Performance Metrics</h2>
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3 class="chart-title">QCI Score Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="qciChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Top Assistants by QCI</h3>
+                <div class="chart-container">
+                    <canvas id="assistantChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Issues -->
+        <h2 class="section-header">🔥 Most Common Issues</h2>
+        <div class="issues-section">
+            <h3 class="chart-title">Issues Requiring Immediate Attention</h3>
+            <div id="issuesList">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Assistant Details -->
+        <h2 class="section-header">🤖 Assistant Performance</h2>
+        <div class="assistant-cards" id="assistantCards">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script src="dashboard_data.js"></script>
+    <script>
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.DASHBOARD_DATA) {
+                document.getElementById('analysisInfo').innerHTML = '❌ Dashboard data not loaded';
+                return;
+            }
+
+            const data = window.DASHBOARD_DATA;
+            console.log('Dashboard data loaded:', data);
+
+            initializeDashboard(data);
+        });
+
+        function initializeDashboard(data) {
+            const analysisData = data.analysis;
+            const promptsData = data.prompts;
+
+            updateHeader(analysisData);
+            createOverviewStats(analysisData);
+            createCharts(analysisData);
+            createIssuesList(analysisData);
+            createAssistantCards(analysisData, promptsData);
+        }
+
+        function updateHeader(analysisData) {
+            document.getElementById('analysisInfo').innerHTML =
+                `Analysis Date: ${new Date().toLocaleDateString()} | ${analysisData.overview.totalCalls} Calls Analyzed | Avg QCI: ${analysisData.overview.averageQCI}`;
+        }
+
+        function createOverviewStats(analysisData) {
+            const overview = analysisData.overview;
+            const statsHtml = `
+                <div class="stat-card">
+                    <div class="stat-value">${overview.totalCalls}</div>
+                    <div class="stat-label">Total Calls</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${overview.averageQCI}</div>
+                    <div class="stat-label">Average QCI</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${overview.conversionRate.rate}</div>
+                    <div class="stat-label">Conversion Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${overview.conversionRate.meetingsScheduled}</div>
+                    <div class="stat-label">Meetings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${Object.keys(analysisData.assistantBreakdown).length}</div>
+                    <div class="stat-label">Assistants</div>
+                </div>
+            `;
+            document.getElementById('statsOverview').innerHTML = statsHtml;
+        }
+
+        function createCharts(analysisData) {
+            createQCIChart(analysisData);
+            createAssistantChart(analysisData);
+        }
+
+        function createQCIChart(analysisData) {
+            const ctx = document.getElementById('qciChart').getContext('2d');
+            const distribution = analysisData.overview.scoreDistribution;
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Poor (<40)', 'Average (40-59)', 'Good (60-79)', 'Excellent (80+)'],
+                    datasets: [{
+                        data: [distribution.poor, distribution.average, distribution.good, distribution.excellent],
+                        backgroundColor: ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        function createAssistantChart(analysisData) {
+            const ctx = document.getElementById('assistantChart').getContext('2d');
+            const assistants = Object.values(analysisData.assistantBreakdown)
+                .filter(a => a.totalCalls > 10)
+                .sort((a, b) => b.averageQCI - a.averageQCI)
+                .slice(0, 6);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: assistants.map(a => a.name),
+                    datasets: [{
+                        label: 'QCI Score',
+                        data: assistants.map(a => a.averageQCI),
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function createIssuesList(analysisData) {
+            const issues = analysisData.errors.mostCommon.slice(0, 10);
+            let issuesHtml = '';
+
+            issues.forEach((issue, i) => {
+                issuesHtml += `
+                    <div class="issue-item">
+                        <span>${i + 1}. ${issue.issue}</span>
+                        <span><strong>${issue.frequency} calls (${issue.percentage}%)</strong></span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('issuesList').innerHTML = issuesHtml;
+        }
+
+        function createAssistantCards(analysisData, promptsData) {
+            const assistants = Object.values(analysisData.assistantBreakdown)
+                .sort((a, b) => b.totalCalls - a.totalCalls)
+                .slice(0, 8); // Top 8 assistants
+
+            let cardsHtml = '';
+
+            assistants.forEach(assistant => {
+                const prompt = promptsData.find(p => p.name === assistant.name);
+
+                cardsHtml += `
+                    <div class="assistant-card">
+                        <div class="assistant-name">${assistant.name}</div>
+                        <div class="assistant-stats">
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.totalCalls}</div>
+                                <div class="assistant-stat-label">Calls</div>
+                            </div>
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.averageQCI}</div>
+                                <div class="assistant-stat-label">QCI</div>
+                            </div>
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.conversionRate}%</div>
+                                <div class="assistant-stat-label">Conversion</div>
+                            </div>
+                            <div class="assistant-stat">
+                                <div class="assistant-stat-value">${assistant.averageDuration}s</div>
+                                <div class="assistant-stat-label">Duration</div>
+                            </div>
+                        </div>
+
+                        ${prompt ? `
+                            <div style="background: #f0f0f0; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                                <strong>Model:</strong> ${prompt.model}<br>
+                                <strong>Prompt Length:</strong> ${prompt.systemMessage.length} chars
+                            </div>
+                        ` : ''}
+
+                        ${assistant.topCoachingTips && assistant.topCoachingTips.length > 0 ? `
+                            <div style="margin-top: 15px;">
+                                <strong>Top Issues:</strong><br>
+                                ${assistant.topCoachingTips.slice(0, 3).map(tip =>
+                                    `<span style="background: #ffecb3; padding: 3px 8px; border-radius: 12px;
+                                           font-size: 0.8rem; margin: 2px; display: inline-block;">
+                                        ${tip.tip} (${tip.count}x)
+                                    </span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+
+                        <div class="recommendations">
+                            <strong>Key Recommendations:</strong><br>
+                            ${assistant.averageQCI < 50 ? '🔥 Critical: Urgent prompt improvement needed<br>' : ''}
+                            ${assistant.conversionRate < 10 ? '📞 Low conversion - improve closing technique<br>' : ''}
+                            ${assistant.averageDuration < 30 ? '⏱️ Very short calls - improve engagement<br>' : ''}
+                            ${assistant.averageQCI > 60 ? '✅ Good performance - minor optimizations needed' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('assistantCards').innerHTML = cardsHtml;
+        }
+    </script>
+</body>
+</html>
