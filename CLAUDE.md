@@ -133,6 +133,64 @@ Where possible, make massive batches first. See what needs to be changed, then c
 - Update documentation when adding new files
 - Maintain clean folder organization
 
+## Post-Refactoring Structure Standards
+
+After major refactoring, always investigate and maintain these structure standards:
+
+### Naming Systems
+- Use consistent naming patterns: `{domain}_{action}.js`
+- Examples: `vapi_collector.js`, `airtable_manager.js`, `qci_analyzer.js`
+- Follow the pattern established by `collect_vapi_data.js` (production standard)
+
+### File Organization Rules
+- **production_scripts/**: Stable, production-ready tools only
+- **scripts/**: Development tools organized by domain (analysis/, api/, utils/)
+- Never mix production and development code
+- Maintain separation of concerns
+
+### Configuration Standards
+- Always place CONFIG object at the top of each script
+- No separate config files for simple scripts
+- Use clear, descriptive configuration options
+- Follow the pattern from `collect_vapi_data.js`
+
+### Results Display Standards
+For production scripts, results must ALWAYS be displayed:
+1. **Data first**: Show actual results/data before metadata
+2. **Chronological order**: New to old (most recent first)
+3. **Clear formatting**: Use consistent symbols (📊 for data, ✅ for success, etc.)
+4. **Performance metrics**: Include timing, cost, efficiency where applicable
+
+### Script Structure Template
+Every script should follow this exact pattern:
+```javascript
+// 1. Dependencies
+require('dotenv').config();
+
+// 2. Configuration (always at top)
+const CONFIG = {
+    // All settings here
+};
+
+// 3. Main logic/classes
+class/function implementation
+
+// 4. CLI execution
+if (require.main === module) {
+    main();
+}
+
+// 5. Module export
+module.exports = MainFunction/Class;
+```
+
+### Maintenance Requirements
+- Regularly audit for duplicate functionality
+- Combine similar scripts into unified modules
+- Remove test/debug files from main codebase
+- Keep scripts under 300 lines when possible
+- Always provide clear usage documentation in code comments
+
 # Project-Specific Guidelines
 
 ## API Integration Notes
