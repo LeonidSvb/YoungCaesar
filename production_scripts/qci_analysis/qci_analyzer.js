@@ -257,14 +257,24 @@ class QCIAnalyzer {
         fs.writeFileSync(latestPath, JSON.stringify(data, null, 2));
         console.log(`📊 Dashboard link updated: qci_full_calls_with_assistants_latest.json`);
 
-        // Copy dashboard template to current results
+        // Generate dashboards
         const dashboardTemplatePath = path.join(__dirname, 'dashboard', 'qci_dashboard_template.html');
         const dashboardOutputPath = path.join(__dirname, 'dashboard', `qci_dashboard_${timestamp}.html`);
 
         if (fs.existsSync(dashboardTemplatePath)) {
+            // Interactive dashboard (needs local server)
             fs.copyFileSync(dashboardTemplatePath, dashboardOutputPath);
-            console.log(`📈 Dashboard generated: dashboard/qci_dashboard_${timestamp}.html`);
-            console.log(`🌐 View at: http://localhost:8080 (run: node ../../simple_server.js)`);
+            console.log(`📈 Interactive dashboard: dashboard/qci_dashboard_${timestamp}.html`);
+            console.log(`🌐 Local server: http://localhost:8080 (run: node ../../simple_server.js)`);
+
+            // Static dashboard (GitHub Pages ready)
+            try {
+                const createStaticDashboard = require('./create_static_dashboard');
+                createStaticDashboard();
+                console.log(`📊 Static dashboard created for GitHub Pages`);
+            } catch (error) {
+                console.log(`⚠️ Could not create static dashboard: ${error.message}`);
+            }
         }
 
         return filepath;
