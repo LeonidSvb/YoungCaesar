@@ -1,0 +1,412 @@
+{
+  "config": {
+    "INPUT_FILE": "../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json",
+    "OUTPUT_DIR": "results",
+    "TEST_MODE": true,
+    "TEST_BATCH_SIZE": 10,
+    "MODEL": "gpt-4o-mini",
+    "TEMPERATURE": 0.1,
+    "MAX_TOKENS": 1500,
+    "RETRY_ATTEMPTS": 2,
+    "RETRY_DELAY": 3000,
+    "CONCURRENCY": 5,
+    "BATCH_DELAY": 1000
+  },
+  "stats": {
+    "processed": 10,
+    "failed": 0,
+    "totalCost": 0.0033937499999999996,
+    "startTime": 1758110703432,
+    "errors": [],
+    "totalTime": 12.241,
+    "avgTimePerCall": 1.2241,
+    "avgCostPerCall": 0.00033937499999999994,
+    "avgQCI": 35.5,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "call_id": "c2f4b38f-250d-4459-af21-657eeed2a9e8",
+      "transcript_length": 8576,
+      "qci_total": 15,
+      "dynamics": 10,
+      "objections": 5,
+      "brand": 10,
+      "outcome": 5,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 15,
+        "dynamics_total": 10,
+        "objections_total": 5,
+        "brand_total": 10,
+        "outcome_total": 5,
+        "evidence": {
+          "agent_talk_ratio": "10%",
+          "brand_mentions": [
+            "Hi. This is Ivy Clark from Young Caesar."
+          ],
+          "outcomes": [
+            "No concrete outcomes achieved."
+          ],
+          "key_moments": [
+            "It seems I'm in a loop here.",
+            "Could you please connect me to Mark McDonald?"
+          ]
+        },
+        "coaching_tips": [
+          "Improve the AI's ability to recognize and respond to repeated phrases.",
+          "Enhance the flow of conversation to avoid looping.",
+          "Encourage the AI to ask for alternative contacts or methods when stuck."
+        ]
+      },
+      "cost": 0.0004746,
+      "tokens": 2657,
+      "timestamp": "2025-09-17T12:05:08.146Z"
+    },
+    {
+      "call_id": "ccc95c20-42d1-4d9d-8fce-35b175353ed4",
+      "transcript_length": 8555,
+      "qci_total": 5,
+      "dynamics": 5,
+      "objections": 0,
+      "brand": 5,
+      "outcome": 0,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 5,
+        "dynamics_total": 5,
+        "objections_total": 0,
+        "brand_total": 5,
+        "outcome_total": 0,
+        "evidence": {
+          "agent_talk_ratio": "0%",
+          "brand_mentions": [
+            "Hi. This is Ivy Clark from Young Caesar."
+          ],
+          "outcomes": [],
+          "key_moments": [
+            "User repeated the same message multiple times without engaging with the AI."
+          ]
+        },
+        "coaching_tips": [
+          "Encourage the agent to actively listen and respond to the user's needs instead of repeating the same message.",
+          "Train the agent to recognize when the user is not providing the requested information and to adapt their approach accordingly."
+        ]
+      },
+      "cost": 0.00046439999999999996,
+      "tokens": 2619,
+      "timestamp": "2025-09-17T12:05:08.745Z"
+    },
+    {
+      "call_id": "a8728912-814d-4ee8-a28d-e34ce09a90ab",
+      "transcript_length": 6898,
+      "qci_total": 15,
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 10,
+      "outcome": 5,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 15,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 10,
+        "outcome_total": 5,
+        "evidence": {
+          "agent_talk_ratio": "10%",
+          "brand_mentions": [
+            "Avery Martinez from Young Caesar"
+          ],
+          "outcomes": [
+            "No concrete outcome achieved"
+          ],
+          "key_moments": [
+            "We have not received a valid response."
+          ]
+        },
+        "coaching_tips": [
+          "Improve agent engagement by reducing repetitive prompts.",
+          "Enhance the flow of conversation to avoid dead ends.",
+          "Address user concerns more effectively to improve objection handling."
+        ]
+      },
+      "cost": 0.00037814999999999995,
+      "tokens": 2089,
+      "timestamp": "2025-09-17T12:05:09.502Z"
+    },
+    {
+      "call_id": "14436d72-abb7-41c5-a0a3-64c56de181de",
+      "transcript_length": 6819,
+      "qci_total": 15,
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 5,
+      "outcome": 0,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 15,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 5,
+        "outcome_total": 0,
+        "evidence": {
+          "agent_talk_ratio": "20%",
+          "brand_mentions": [
+            "Hello. This is Avery Martinez from Young Caesar."
+          ],
+          "outcomes": [],
+          "key_moments": [
+            "We have not received a valid response.",
+            "The person at extension 8 2 6 0 is unavailable."
+          ]
+        },
+        "coaching_tips": [
+          "Improve response quality to user inputs.",
+          "Enhance engagement by reducing repetitive phrases.",
+          "Ensure clear identification and representation of the brand."
+        ]
+      },
+      "cost": 0.00038009999999999997,
+      "tokens": 2072,
+      "timestamp": "2025-09-17T12:05:07.409Z"
+    },
+    {
+      "call_id": "b9a0e538-910a-4b7b-bd27-c94663bf5bb3",
+      "transcript_length": 5361,
+      "qci_total": 45,
+      "dynamics": 15,
+      "objections": 5,
+      "brand": 15,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 45,
+        "dynamics_total": 15,
+        "objections_total": 5,
+        "brand_total": 15,
+        "outcome_total": 10,
+        "evidence": {
+          "agent_talk_ratio": "40%",
+          "brand_mentions": [
+            "Hi, this is Avery Martinez from Young Caesar."
+          ],
+          "outcomes": [
+            "Attempted to connect with Jen Gray regarding an email conversation."
+          ],
+          "key_moments": [
+            "I'm Avery Martinez from Young Caesar.",
+            "Could you please connect me to Jen or let me know the best way to reach her?"
+          ]
+        },
+        "coaching_tips": [
+          "Improve the flow of conversation by reducing interruptions.",
+          "Enhance recognition of the user's needs and concerns.",
+          "Ensure clear communication of the agent's name to avoid confusion."
+        ]
+      },
+      "cost": 0.00035295,
+      "tokens": 1822,
+      "timestamp": "2025-09-17T12:05:09.461Z"
+    },
+    {
+      "call_id": "a9840734-d86b-44c2-8fd4-5ac9b8ee47d2",
+      "transcript_length": 3814,
+      "qci_total": 55,
+      "dynamics": 20,
+      "objections": 10,
+      "brand": 15,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 10,
+        "brand_total": 15,
+        "outcome_total": 10,
+        "evidence": {
+          "agent_talk_ratio": "60%",
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "outcomes": [
+            "Email exchange initiated"
+          ],
+          "key_moments": [
+            "User expressed confusion about the meeting times",
+            "User requested to send an email instead of scheduling a call"
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity in communication to avoid user confusion",
+          "Enhance engagement by confirming understanding more frequently",
+          "Ensure to maintain a professional tone throughout the conversation"
+        ]
+      },
+      "cost": 0.00028305,
+      "tokens": 1434,
+      "timestamp": "2025-09-17T12:05:12.672Z"
+    },
+    {
+      "call_id": "b5b8eb10-8fa3-4301-af1b-b43db388ff15",
+      "transcript_length": 3694,
+      "qci_total": 70,
+      "dynamics": 20,
+      "objections": 10,
+      "brand": 15,
+      "outcome": 25,
+      "status": "review",
+      "ai_analysis": {
+        "qci_total_score": 70,
+        "dynamics_total": 20,
+        "objections_total": 10,
+        "brand_total": 15,
+        "outcome_total": 25,
+        "evidence": {
+          "agent_talk_ratio": "60%",
+          "brand_mentions": [
+            "I'm from BSA.",
+            "I'm from Versus.",
+            "We specialize in CNC and woodworking machines."
+          ],
+          "outcomes": [
+            "Scheduled email follow-up with company information."
+          ],
+          "key_moments": [
+            "I would like to inquire... it's possible to send email for your instructions?",
+            "Could you please provide me with the email address?"
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity when introducing the company name.",
+          "Ensure to confirm email spelling accurately to avoid confusion.",
+          "Engage more actively with the user to maintain flow."
+        ]
+      },
+      "cost": 0.0002958,
+      "tokens": 1429,
+      "timestamp": "2025-09-17T12:05:15.673Z"
+    },
+    {
+      "call_id": "8c66d974-7102-492f-a07b-931f0a3000f2",
+      "transcript_length": 3301,
+      "qci_total": 45,
+      "dynamics": 15,
+      "objections": 10,
+      "brand": 10,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 45,
+        "dynamics_total": 15,
+        "objections_total": 10,
+        "brand_total": 10,
+        "outcome_total": 10,
+        "evidence": {
+          "agent_talk_ratio": "60%",
+          "brand_mentions": [
+            "BSA",
+            "BSC"
+          ],
+          "outcomes": [
+            "No result"
+          ],
+          "key_moments": [
+            "User expressed dissatisfaction with current machine and service."
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity and pacing in communication.",
+          "Acknowledge user concerns more effectively.",
+          "Focus on building rapport before pitching."
+        ]
+      },
+      "cost": 0.00024419999999999997,
+      "tokens": 1220,
+      "timestamp": "2025-09-17T12:05:13.226Z"
+    },
+    {
+      "call_id": "276a36d5-7345-4e11-be9a-431ad2cf1593",
+      "transcript_length": 3029,
+      "qci_total": 55,
+      "dynamics": 20,
+      "objections": 10,
+      "brand": 15,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 10,
+        "brand_total": 15,
+        "outcome_total": 10,
+        "evidence": {
+          "agent_talk_ratio": "60%",
+          "brand_mentions": [
+            "Hi. This is Hazel White from Young Caesar."
+          ],
+          "outcomes": [
+            "Email exchange confirmed"
+          ],
+          "key_moments": [
+            "Not at all. The demo is completely free.",
+            "I'll send you a quick summary. Via email with what we do and some examples of results."
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity in communication to avoid confusion.",
+          "Enhance engagement by asking more open-ended questions.",
+          "Ensure the brand name is mentioned clearly and consistently."
+        ]
+      },
+      "cost": 0.00027,
+      "tokens": 1296,
+      "timestamp": "2025-09-17T12:05:13.908Z"
+    },
+    {
+      "call_id": "d6e1e4f7-9259-4918-acf6-4e2b748d5423",
+      "transcript_length": 3007,
+      "qci_total": 35,
+      "dynamics": 15,
+      "objections": 5,
+      "brand": 10,
+      "outcome": 5,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 35,
+        "dynamics_total": 15,
+        "objections_total": 5,
+        "brand_total": 10,
+        "outcome_total": 5,
+        "evidence": {
+          "agent_talk_ratio": "60%",
+          "brand_mentions": [
+            "I'm calling from BS",
+            "BSA specializes in CNC and woodworking machinery"
+          ],
+          "outcomes": [
+            "No concrete outcome achieved"
+          ],
+          "key_moments": [
+            "I know you might hate me because this is a cold call",
+            "Sorry. We're not interested."
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity and conciseness in the introduction.",
+          "Acknowledge and address objections more effectively.",
+          "Focus on building rapport before pitching."
+        ]
+      },
+      "cost": 0.0002505,
+      "tokens": 1187,
+      "timestamp": "2025-09-17T12:05:11.865Z"
+    }
+  ],
+  "summary": {
+    "total_calls": 10,
+    "avg_qci": "35.5",
+    "pass_rate": "0.0",
+    "total_cost": "0.0034",
+    "total_time": "0m 12s"
+  }
+}

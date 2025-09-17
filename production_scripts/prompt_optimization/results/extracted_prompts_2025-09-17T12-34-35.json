@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "extracted_at": "2025-09-17T12:34:35.326Z",
+    "processing_time": "12.6s",
+    "config": {
+      "API": {
+        "BASE_URL": "https://api.vapi.ai",
+        "API_KEY": "186d494d-210e-4dcc-94cc-0620e1da56e0",
+        "TIMEOUT": 30000
+      },
+      "EXTRACTION": {
+        "CALLS_PER_ASSISTANT": 5,
+        "MIN_CALL_DURATION": 10,
+        "REQUIRE_SYSTEM_PROMPT": true,
+        "DATE_FILTER": {
+          "ENABLED": false,
+          "START_DATE": "2025-01-01",
+          "END_DATE": "2025-12-31"
+        }
+      },
+      "FILTERING": {
+        "SPECIFIC_ASSISTANT_IDS": [],
+        "MIN_CALLS_THRESHOLD": 3,
+        "INCLUDE_TEST_ASSISTANTS": false
+      },
+      "OUTPUT": {
+        "RESULTS_DIR": "results",
+        "SAVE_RAW_DATA": true,
+        "SAVE_PROCESSED_DATA": true,
+        "VERBOSE": true,
+        "SEPARATE_FILES_PER_ASSISTANT": true
+      }
+    },
+    "stats": {
+      "startTime": 1758112462739,
+      "assistantsFound": 13,
+      "assistantsProcessed": 0,
+      "callsAnalyzed": 0,
+      "promptsExtracted": 0,
+      "errors": [
+        {
+          "assistantId": "0eddf4db-3bfa-4eb2-8053-082d94aa786d",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "8cd7551f-2ac8-441d-8f49-0abf053fb9b6",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "24db494f-e25b-4a8f-a362-144b26ef2c86",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "55bb2539-5bbe-46c7-99bd-701eab22fbf1",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "163cc924-0e8c-45b1-b6cf-46e423885240",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "613d30cd-0f98-4fcb-be3d-f39fee5c6406",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "8e928338-22dc-42d1-b459-f4c52a6395f1",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "861f2ce7-fdee-401d-8554-29dada4725de",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "8a51eae6-a29e-45c7-bea9-32c6d871e1bd",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        },
+        {
+          "assistantId": "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda",
+          "error": "API Error: 400 Bad Request",
+          "type": "call_fetch_error"
+        }
+      ],
+      "totalTime": 12.587
+    }
+  },
+  "assistants": []
+}

@@ -52,6 +52,10 @@
             {
               "name": "VERBOSE",
               "value": true
+            },
+            {
+              "name": "EXCLUDE_VOICEMAIL",
+              "value": true
             }
           ]
         },
@@ -75,7 +79,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Get input data\nconst data = $input.first().json;\nconst config = data.config;\nconst allCalls = data.allCalls;\n\n// Apply filters\nfunction applyFilters(calls) {\n  let filtered = [...calls];\n  \n  // Apply cost filter\n  if (config.MIN_COST > 0) {\n    filtered = filtered.filter(call => (call.cost || 0) >= config.MIN_COST);\n  }\n  \n  // Apply duration filter (in seconds)\n  if (config.MIN_DURATION > 0) {\n    filtered = filtered.filter(call => (call.duration || 0) >= config.MIN_DURATION);\n  }\n  \n  // Apply transcript filter if needed\n  // You can add more filters here based on requirements:\n  // - STATUS filter\n  // - ASSISTANT_ID filter\n  // - PHONE_NUMBER filter\n  // - REQUIRE_TRANSCRIPT filter\n  \n  return filtered;\n}\n\nconst filteredCalls = applyFilters(allCalls);\n\nconsole.log(`Calls before filtering: ${allCalls.length}`);\nconsole.log(`Calls after filtering: ${filteredCalls.length}`);\nconsole.log(`Removed by filters: ${allCalls.length - filteredCalls.length}`);\n\n// Return filtered data with config\nreturn {\n  config: config,\n  filteredCalls: filteredCalls,\n  filterStats: {\n    totalBeforeFilter: allCalls.length,\n    totalAfterFilter: filteredCalls.length,\n    removedByFilters: allCalls.length - filteredCalls.length,\n    filterEfficiency: allCalls.length > 0 \n      ? Math.round((filteredCalls.length / allCalls.length) * 100) + '%'\n      : '0%'\n  },\n  allCalls: allCalls // Keep for statistics\n};"
+        "jsCode": "// Get input data\nconst data = $input.first().json;\nconst config = data.config;\nconst allCalls = data.allCalls;\n\n// Apply filters\nfunction applyFilters(calls) {\n  let filtered = [...calls];\n  \n  // Apply cost filter\n  if (config.MIN_COST > 0) {\n    filtered = filtered.filter(call => (call.cost || 0) >= config.MIN_COST);\n  }\n  \n  // Apply duration filter (in seconds)\n  if (config.MIN_DURATION > 0) {\n    filtered = filtered.filter(call => (call.duration || 0) >= config.MIN_DURATION);\n  }\n  \n  // Apply voicemail filter\n  if (config.EXCLUDE_VOICEMAIL) {\n    filtered = filtered.filter(call => \n      call.endedReason !== 'silence-timed-out' && \n      call.endedReason !== 'assistant-ended-call'\n    );\n  }\n  \n  // Apply transcript filter if needed\n  // You can add more filters here based on requirements:\n  // - STATUS filter\n  // - ASSISTANT_ID filter\n  // - PHONE_NUMBER filter\n  // - REQUIRE_TRANSCRIPT filter\n  \n  return filtered;\n}\n\nconst filteredCalls = applyFilters(allCalls);\n\nconsole.log(`Calls before filtering: ${allCalls.length}`);\nconsole.log(`Calls after filtering: ${filteredCalls.length}`);\nconsole.log(`Removed by filters: ${allCalls.length - filteredCalls.length}`);\n\n// Return filtered data with config\nreturn {\n  config: config,\n  filteredCalls: filteredCalls,\n  filterStats: {\n    totalBeforeFilter: allCalls.length,\n    totalAfterFilter: filteredCalls.length,\n    removedByFilters: allCalls.length - filteredCalls.length,\n    filterEfficiency: allCalls.length > 0 \n      ? Math.round((filteredCalls.length / allCalls.length) * 100) + '%'\n      : '0%'\n  },\n  allCalls: allCalls // Keep for statistics\n};"
       },
       "id": "filter_calls_004",
       "name": "Apply Filters",

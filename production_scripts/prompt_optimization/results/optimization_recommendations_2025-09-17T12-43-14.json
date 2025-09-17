@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-17T12:43:14.363Z",
+    "processing_time": "33.0s",
+    "total_cost": "$0.0267",
+    "recommendations_generated": 1,
+    "prompts_optimized": 1,
+    "config": {
+      "INPUT": {
+        "CORRELATIONS_FILE": "results/prompt_performance_correlations_latest.json",
+        "ASSISTANT_DATA_FILE": "results/assistant_aggregated_data_latest.json",
+        "MIN_IMPROVEMENT_TARGET": 15
+      },
+      "OPENAI": {
+        "MODEL": "gpt-4o",
+        "TEMPERATURE": 0.1,
+        "MAX_TOKENS": 4000
+      },
+      "RECOMMENDATIONS": {
+        "MAX_RECOMMENDATIONS_PER_ASSISTANT": 5,
+        "INCLUDE_AB_TESTING_PLANS": true,
+        "GENERATE_OPTIMIZED_PROMPTS": true,
+        "INCLUDE_PRIORITY_LEVELS": true
+      },
+      "OUTPUT": {
+        "RESULTS_DIR": "results",
+        "VERBOSE": true,
+        "GENERATE_SUMMARY_REPORT": true
+      }
+    }
+  },
+  "summary_report": {
+    "overview": {
+      "total_assistants": 1,
+      "assistants_with_recommendations": 1,
+      "avg_current_qci": 46.9,
+      "avg_target_qci": 61.9
+    },
+    "assistant_summaries": [
+      {
+        "name": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+        "current_qci": 46.9,
+        "target_qci": 61.9,
+        "primary_weaknesses": [
+          "lack of engaging introduction",
+          "unclear value proposition"
+        ],
+        "high_priority_recommendations": 2,
+        "implementation_complexity": "medium"
+      }
+    ],
+    "next_steps": [
+      "Review high-priority recommendations for lowest-performing assistants",
+      "Implement A/B testing plans for critical improvements",
+      "Deploy optimized prompts in test environment",
+      "Monitor QCI scores for 1-2 weeks after implementation",
+      "Scale successful improvements to other assistants"
+    ]
+  },
+  "recommendations": {
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "assistant_name": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "current_performance": {
+        "total_calls": 12,
+        "avg_qci": 46.9,
+        "avg_dynamics": 16.2,
+        "avg_objections": 7.2,
+        "avg_brand": 12.3,
+        "avg_outcome": 11.3,
+        "success_rate": 25,
+        "best_call": {
+          "call_id": "1c29290f-931d-4f2c-b748-4a09c8bfcfe1",
+          "qci_total": 72,
+          "dynamics": 22,
+          "objections": 16,
+          "brand": 16,
+          "outcome": 18,
+          "status": "review"
+        },
+        "worst_call": {
+          "call_id": "ccc95c20-42d1-4d9d-8fce-35b175353ed4",
+          "qci_total": 20,
+          "dynamics": 10,
+          "objections": 0,
+          "brand": 8,
+          "outcome": 2,
+          "status": "fail"
+        }
+      },
+      "executive_summary": {
+        "current_performance": "The assistant currently has a QCI score of 46.9/100, with notable weaknesses in conversation dynamics and outcome achievement.",
+        "primary_weaknesses": [
+          "lack of engaging introduction",
+          "unclear value proposition"
+        ],
+        "improvement_potential": "Expected QCI gain of +15 points, targeting a score of 61.9/100",
+        "implementation_complexity": "medium"
+      },
+      "priority_recommendations": [
+        {
+          "priority": "high",
+          "category": "dynamics",
+          "issue": "lack of engaging introduction",
+          "recommendation": "Add a question or hook to the introduction to capture interest immediately.",
+          "prompt_section": "introduction_section",
+          "expected_improvement": "5 points in dynamics",
+          "implementation": {
+            "difficulty": "easy",
+            "specific_changes": "Change 'Hi, this is Bella Williams from Young Caesar. Is this Emma?' to 'Hi, this is Bella Williams from Young Caesar. I have some exciting news about our hydraulic power solutions. Is this Emma?'",
+            "testing_approach": "Measure engagement rate and initial response positivity in calls."
+          }
+        },
+        {
+          "priority": "high",
+          "category": "outcome",
+          "issue": "unclear value proposition",
+          "recommendation": "Clearly articulate the benefits of the demo and solutions offered.",
+          "prompt_section": "brand_messaging",
+          "expected_improvement": "5 points in outcome",
+          "implementation": {
+            "difficulty": "moderate",
+            "specific_changes": "Change 'Hi Emma, I recently emailed about helping you add two new hydraulic power solutions clients and wanted to be sure you saw the message.' to 'Hi Emma, I recently emailed you about how our hydraulic power solutions can help you gain two new clients efficiently. Did you get a chance to see it?'",
+            "testing_approach": "Track conversion rates and demo bookings."
+          }
+        },
+        {
+          "priority": "medium",
+          "category": "objections",
+          "issue": "generic objection handling",
+          "recommendation": "Tailor objection responses to be more specific and empathetic.",
+          "prompt_section": "objection_handling",
+          "expected_improvement": "3 points in objections",
+          "implementation": {
+            "difficulty": "moderate",
+            "specific_changes": "For 'Busy', change to 'I understand you're busy. Is there a better time I could reach you, or would you prefer an email follow-up?'",
+            "testing_approach": "Evaluate objection resolution rates and follow-up success."
+          }
+        }
+      ],
+      "optimized_prompt_sections": [
+        {
+          "section_name": "introduction",
+          "current_text": "Hi, this is Bella Williams from Young Caesar. Is this Emma?",
+          "optimized_text": "Hi, this is Bella Williams from Young Caesar. I have some exciting news about our hydraulic power solutions. Is this Emma?",
+          "rationale": "Adding a hook in the introduction can capture the recipient's interest and improve engagement.",
+          "expected_impact": "Improved engagement and dynamics score."
+        },
+        {
+          "section_name": "brand_messaging",
+          "current_text": "Hi Emma, I recently emailed about helping you add two new hydraulic power solutions clients and wanted to be sure you saw the message.",
+          "optimized_text": "Hi Emma, I recently emailed you about how our hydraulic power solutions can help you gain two new clients efficiently. Did you get a chance to see it?",
+          "rationale": "Clarifying the value proposition can lead to higher interest and conversion rates.",
+          "expected_impact": "Higher conversion and outcome score."
+        }
+      ],
+      "ab_testing_plan": {
+        "test_scenarios": [
+          {
+            "test_name": "Introduction Engagement Test",
+            "variable_to_test": "Introduction hook",
+            "version_a": "Hi, this is Bella Williams from Young Caesar. Is this Emma?",
+            "version_b": "Hi, this is Bella Williams from Young Caesar. I have some exciting news about our hydraulic power solutions. Is this Emma?",
+            "success_metrics": [
+              "engagement rate",
+              "positive initial response"
+            ],
+            "minimum_sample_size": "20 calls"
+          },
+          {
+            "test_name": "Value Proposition Clarity Test",
+            "variable_to_test": "Value proposition clarity",
+            "version_a": "Hi Emma, I recently emailed about helping you add two new hydraulic power solutions clients and wanted to be sure you saw the message.",
+            "version_b": "Hi Emma, I recently emailed you about how our hydraulic power solutions can help you gain two new clients efficiently. Did you get a chance to see it?",
+            "success_metrics": [
+              "conversion rate",
+              "demo bookings"
+            ],
+            "minimum_sample_size": "20 calls"
+          }
+        ]
+      },
+      "success_metrics": {
+        "primary_kpis": [
+          "engagement rate",
+          "conversion rate",
+          "objection resolution rate"
+        ],
+        "target_improvements": {
+          "qci_total": "61.9",
+          "dynamics": "21.2",
+          "objections": "10.2",
+          "brand": "15.3",
+          "outcome": "16.3"
+        },
+        "timeline": "4-6 weeks to see improvements"
+      }
+    }
+  },
+  "optimized_prompts": {
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "assistant_name": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "optimized_prompt": "IDENTITY\nYou are Bella Williams, a calm and friendly voice assistant from Young Caesar. Your goal is to reach Emma, confirm they saw our email about adding two new hydraulic power solutions clients, and book a thirty-minute demo.\n\nSTYLE\nSpeak immediately when the call connects. Keep a calm friendly tone and short sentences.\n\nOPENING\nHi, this is Bella Williams from Young Caesar. I have some exciting news about our hydraulic power solutions. Is this Emma?\n\nNOT NAME HANDLING\nIf this is not Emma, ask for Emma’s phone or email so you can follow up. Thank the person and end the call.\n\nEMAIL REMINDER\nHi Emma, I recently emailed you about how our hydraulic power solutions can help you gain two new clients efficiently. Did you get a chance to see it?\nAsk if they are interested in adding two new hydraulic power solutions clients.\n\nNEGATIVE INTEREST\nThank them for their time and end.\n\nPOSITIVE OR UNSURE\nGreat. What day and time work for a quick thirty-minute call? When a time phrase is spoken, send it to get_time_n8n, set start and end (plus thirty minutes). If no valid time is returned, ask for a specific day and clock time again.\n\nEMAIL\nWhich email should I send the invite to? If uzunchev.stanislav@gmail.com exists, confirm or update it. Accept only addresses with at sign and dot.\n\nCONFIRMATION\nPerfect. I will book the call for {{start | user-tz}} and send the invite to the email you provided. Anything else I can help with?\n\nOBJECTION SHORT REPLIES\nBusy – I understand you're busy. Is there a better time I could reach you, or would you prefer an email follow-up?\nWaiting on someone – Understood. Please let them know I called. I will check next week.\nNo budget – The demo is free and exploratory. Shall we talk after budgeting is set?\nNot interested now – No problem. May I check back in a few months?\nRemove me – Certainly. I will remove your details. Goodbye.",
+      "key_changes_made": [
+        {
+          "section": "introduction",
+          "change": "Added a hook to the introduction: 'I have some exciting news about our hydraulic power solutions.'",
+          "rationale": "This change is intended to capture the recipient's interest immediately, improving engagement and dynamics."
+        },
+        {
+          "section": "brand_messaging",
+          "change": "Clarified the value proposition: 'how our hydraulic power solutions can help you gain two new clients efficiently.'",
+          "rationale": "This provides a clearer value proposition, which can lead to higher interest and conversion rates."
+        },
+        {
+          "section": "objection_handling",
+          "change": "Tailored the 'Busy' objection response to be more specific and empathetic.",
+          "rationale": "This change aims to improve objection resolution rates by showing understanding and offering alternative solutions."
+        }
+      ],
+      "deployment_notes": {
+        "testing_recommendations": "Measure engagement rate, initial response positivity, conversion rates, and objection resolution rates in calls.",
+        "rollout_strategy": "Deploy the optimized prompt in a controlled environment first, gather data, and then expand deployment based on performance.",
+        "success_metrics": "Track improvements in engagement, conversion rates, and objection handling success to achieve a target QCI improvement of +15 points."
+      }
+    }
+  }
+}

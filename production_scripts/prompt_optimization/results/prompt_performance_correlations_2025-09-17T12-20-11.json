@@ -1,0 +1,186 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-17T12:20:11.404Z",
+    "processing_time": "8.5s",
+    "total_cost": "$0.0084",
+    "analyses_performed": 1,
+    "config": {
+      "INPUT": {
+        "ASSISTANT_DATA_FILE": "results/assistant_aggregated_data_latest.json",
+        "MIN_QCI_DIFFERENCE": 15
+      },
+      "OPENAI": {
+        "MODEL": "gpt-4o",
+        "TEMPERATURE": 0.1,
+        "MAX_TOKENS": 3000
+      },
+      "ANALYSIS": {
+        "FOCUS_CATEGORIES": [
+          "dynamics",
+          "objections",
+          "brand",
+          "outcome"
+        ],
+        "INCLUDE_COMPARATIVE_ANALYSIS": true,
+        "ANALYZE_SUCCESS_PATTERNS": true
+      },
+      "OUTPUT": {
+        "RESULTS_DIR": "results",
+        "VERBOSE": true,
+        "INCLUDE_RAW_ANALYSIS": true
+      }
+    }
+  },
+  "correlations": {
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "assistant_name": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "performance": {
+        "total_calls": 12,
+        "avg_qci": 46.9,
+        "avg_dynamics": 16.2,
+        "avg_objections": 7.2,
+        "avg_brand": 12.3,
+        "avg_outcome": 11.3,
+        "success_rate": 25,
+        "best_call": {
+          "call_id": "1c29290f-931d-4f2c-b748-4a09c8bfcfe1",
+          "qci_total": 72,
+          "dynamics": 22,
+          "objections": 16,
+          "brand": 16,
+          "outcome": 18,
+          "status": "review"
+        },
+        "worst_call": {
+          "call_id": "ccc95c20-42d1-4d9d-8fce-35b175353ed4",
+          "qci_total": 20,
+          "dynamics": 10,
+          "objections": 0,
+          "brand": 8,
+          "outcome": 2,
+          "status": "fail"
+        }
+      },
+      "analysis": {
+        "prompt_structure": {
+          "introduction_section": {
+            "present": true,
+            "quality": "fair",
+            "key_elements": [
+              "greeting",
+              "identity introduction"
+            ],
+            "potential_impact_on_dynamics": "The introduction is straightforward but lacks engagement elements that could enhance the initial interaction dynamics."
+          },
+          "identity_definition": {
+            "clarity": "high",
+            "personality_traits": [
+              "calm",
+              "friendly"
+            ],
+            "brand_alignment": "strong"
+          },
+          "task_instructions": {
+            "specificity": "high",
+            "actionable_steps": [
+              "reach Emma",
+              "confirm email receipt",
+              "book demo"
+            ],
+            "outcome_focus": "clear"
+          },
+          "objection_handling": {
+            "instructions_present": true,
+            "techniques_mentioned": [
+              "rescheduling",
+              "follow-up",
+              "free demo"
+            ],
+            "effectiveness_prediction": "medium"
+          },
+          "conversation_flow": {
+            "structure_clarity": "medium",
+            "natural_flow_elements": [
+              "short sentences",
+              "calm tone"
+            ],
+            "potential_dynamics_issues": [
+              "rigid script",
+              "lack of engagement"
+            ]
+          },
+          "brand_messaging": {
+            "company_mention": "prominent",
+            "value_proposition": "clear",
+            "consistency_level": "high"
+          }
+        },
+        "performance_correlations": {
+          "likely_strengths": [
+            {
+              "category": "brand",
+              "strength": "strong brand alignment and clear value proposition",
+              "prompt_section": "identity_definition",
+              "confidence": "high"
+            }
+          ],
+          "likely_weaknesses": [
+            {
+              "category": "dynamics",
+              "weakness": "lack of engaging introduction",
+              "prompt_section": "introduction_section",
+              "confidence": "medium"
+            },
+            {
+              "category": "objections",
+              "weakness": "limited objection handling techniques",
+              "prompt_section": "objection_handling",
+              "confidence": "medium"
+            }
+          ]
+        },
+        "optimization_opportunities": [
+          {
+            "category": "dynamics",
+            "current_issue": "lack of engaging introduction",
+            "suggested_improvement": "Incorporate a question or engaging statement to capture interest immediately.",
+            "expected_impact": "improved initial engagement and call dynamics"
+          },
+          {
+            "category": "objections",
+            "current_issue": "limited objection handling techniques",
+            "suggested_improvement": "Expand objection handling with more tailored responses and empathy.",
+            "expected_impact": "better handling of objections and increased success rate"
+          }
+        ]
+      }
+    }
+  },
+  "patterns": {
+    "high_performance": [],
+    "low_performance": [],
+    "category_specific": {
+      "dynamics": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 16.2
+      },
+      "objections": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 7.2
+      },
+      "brand": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 12.3
+      },
+      "outcome": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 11.3
+      }
+    }
+  },
+  "assistants_analyzed": 1
+}

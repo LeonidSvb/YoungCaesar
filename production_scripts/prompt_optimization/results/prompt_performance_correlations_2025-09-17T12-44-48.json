@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-17T12:44:48.242Z",
+    "processing_time": "26.4s",
+    "total_cost": "$0.0125",
+    "analyses_performed": 1,
+    "config": {
+      "INPUT": {
+        "ASSISTANT_DATA_FILE": "results/assistant_aggregated_data_2025-09-17T12-42-16.json",
+        "MIN_QCI_DIFFERENCE": 15
+      },
+      "OPENAI": {
+        "MODEL": "gpt-4o",
+        "TEMPERATURE": 0.1,
+        "MAX_TOKENS": 3000
+      },
+      "ANALYSIS": {
+        "FOCUS_CATEGORIES": [
+          "dynamics",
+          "objections",
+          "brand",
+          "outcome"
+        ],
+        "INCLUDE_COMPARATIVE_ANALYSIS": true,
+        "ANALYZE_SUCCESS_PATTERNS": true
+      },
+      "OUTPUT": {
+        "RESULTS_DIR": "results",
+        "VERBOSE": true,
+        "INCLUDE_RAW_ANALYSIS": true
+      }
+    }
+  },
+  "correlations": {
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "assistant_name": "0eddf4db-3bfa-4eb2-8053-082d94aa786d",
+      "performance": {
+        "total_calls": 14,
+        "avg_qci": 33.9,
+        "avg_dynamics": 15.3,
+        "avg_objections": 4.4,
+        "avg_brand": 12.9,
+        "avg_outcome": 7.7,
+        "success_rate": 7.1,
+        "best_call": {
+          "call_id": "696c822a-403c-4ac0-9929-d979464f4831",
+          "qci_total": 70,
+          "dynamics": 22,
+          "objections": 10,
+          "brand": 15,
+          "outcome": 25,
+          "status": "review"
+        },
+        "worst_call": {
+          "call_id": "c5e5e15a-7b11-490b-9f77-a47a5b9605cb",
+          "qci_total": 10,
+          "dynamics": 6,
+          "objections": 0,
+          "brand": 15,
+          "outcome": 0,
+          "status": "fail"
+        }
+      },
+      "analysis": {
+        "prompt_structure": {
+          "introduction_section": {
+            "present": true,
+            "quality": "good",
+            "key_elements": [
+              "fallback rules",
+              "persona definition"
+            ],
+            "potential_impact_on_dynamics": "The introduction sets a clear framework for handling missing information, which can help maintain a smooth conversation flow and reduce awkward pauses, potentially improving dynamics."
+          },
+          "identity_definition": {
+            "clarity": "high",
+            "personality_traits": [
+              "calm",
+              "friendly",
+              "relaxed"
+            ],
+            "brand_alignment": "strong"
+          },
+          "task_instructions": {
+            "specificity": "high",
+            "actionable_steps": [
+              "verify identity",
+              "reference prior email",
+              "confirm interest",
+              "book call"
+            ],
+            "outcome_focus": "clear"
+          },
+          "objection_handling": {
+            "instructions_present": true,
+            "techniques_mentioned": [
+              "bridging back to booking",
+              "clarifying interest"
+            ],
+            "effectiveness_prediction": "medium"
+          },
+          "conversation_flow": {
+            "structure_clarity": "high",
+            "natural_flow_elements": [
+              "turn-taking rules",
+              "backchannel filter"
+            ],
+            "potential_dynamics_issues": [
+              "rigidity in handling objections",
+              "limited flexibility in conversation"
+            ]
+          },
+          "brand_messaging": {
+            "company_mention": "prominent",
+            "value_proposition": "clear",
+            "consistency_level": "high"
+          }
+        },
+        "performance_correlations": {
+          "likely_strengths": [
+            {
+              "category": "brand",
+              "strength": "strong brand alignment and clear value proposition",
+              "prompt_section": "identity_definition",
+              "confidence": "high"
+            }
+          ],
+          "likely_weaknesses": [
+            {
+              "category": "dynamics",
+              "weakness": "potential rigidity in conversation flow",
+              "prompt_section": "conversation_flow",
+              "confidence": "medium"
+            },
+            {
+              "category": "objections",
+              "weakness": "limited effectiveness in objection handling",
+              "prompt_section": "objection_handling",
+              "confidence": "medium"
+            }
+          ]
+        },
+        "optimization_opportunities": [
+          {
+            "category": "dynamics",
+            "current_issue": "rigid conversation flow",
+            "suggested_improvement": "Introduce more flexible response options to adapt to various caller inputs.",
+            "expected_impact": "Improved engagement and smoother conversation dynamics."
+          },
+          {
+            "category": "objections",
+            "current_issue": "limited objection handling techniques",
+            "suggested_improvement": "Expand objection handling strategies to include more diverse techniques.",
+            "expected_impact": "Higher effectiveness in overcoming objections and increasing call success rates."
+          }
+        ]
+      }
+    }
+  },
+  "patterns": {
+    "high_performance": [],
+    "low_performance": [],
+    "category_specific": {
+      "dynamics": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 15.3
+      },
+      "objections": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 4.4
+      },
+      "brand": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 12.9
+      },
+      "outcome": {
+        "high_performers": [],
+        "low_performers": [],
+        "average_score": 7.7
+      }
+    }
+  },
+  "assistants_analyzed": 1
+}

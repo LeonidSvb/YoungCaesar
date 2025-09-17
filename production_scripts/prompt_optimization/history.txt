@@ -1,0 +1,6 @@
+version history
+
+v1.0.0 (initial)
+- added: prompt optimization system
+- added: automated prompt testing and evaluation
+- added: performance metrics tracking

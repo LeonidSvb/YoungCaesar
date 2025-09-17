@@ -18,7 +18,7 @@ const CONFIG = {
     // 🧪 TESTING MODE - Start small, then scale up
     TESTING: {
         // Enable test mode? (true = analyze few calls, false = analyze ALL calls)
-        ENABLED: true,
+        ENABLED: false,
 
         // How many calls to test with (sorted by longest first)
         // 💡 Start with 10, then 50, then disable testing for full run
@@ -50,7 +50,7 @@ const CONFIG = {
         // 💡 Safe limits:
         //   • Tier 1 OpenAI: 3-5 concurrent
         //   • Tier 2+ OpenAI: 10-50 concurrent
-        CONCURRENCY: 5,
+        CONCURRENCY: 15,
 
         // Delay between batches (milliseconds)
         BATCH_DELAY: 1000,
@@ -140,6 +140,7 @@ class QCIAnalyzer {
 
             return {
                 call_id: callData.id,
+                assistant_id: callData.assistantId,
                 transcript_length: callData.transcript.length,
                 qci_total: analysis.qci_total_score || 0,
                 dynamics: analysis.dynamics_total || 0,
@@ -250,6 +251,21 @@ class QCIAnalyzer {
         console.log(`💰 Total cost: $${this.stats.totalCost.toFixed(4)}`);
         console.log(`⏱️ Time: ${data.summary.total_time}`);
         console.log(`📁 Results: ${filename}`);
+
+        // Update latest file link for dashboard
+        const latestPath = path.join(__dirname, CONFIG.OUTPUT.RESULTS_DIR, 'qci_full_calls_with_assistants_latest.json');
+        fs.writeFileSync(latestPath, JSON.stringify(data, null, 2));
+        console.log(`📊 Dashboard link updated: qci_full_calls_with_assistants_latest.json`);
+
+        // Copy dashboard template to current results
+        const dashboardTemplatePath = path.join(__dirname, 'dashboard', 'qci_dashboard_template.html');
+        const dashboardOutputPath = path.join(__dirname, 'dashboard', `qci_dashboard_${timestamp}.html`);
+
+        if (fs.existsSync(dashboardTemplatePath)) {
+            fs.copyFileSync(dashboardTemplatePath, dashboardOutputPath);
+            console.log(`📈 Dashboard generated: dashboard/qci_dashboard_${timestamp}.html`);
+            console.log(`🌐 View at: http://localhost:8080 (run: node ../../simple_server.js)`);
+        }
 
         return filepath;
     }

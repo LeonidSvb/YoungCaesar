@@ -1,0 +1,86 @@
+{
+  "config": {
+    "INPUT": {
+      "DATA_FILE": "../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json",
+      "MIN_TRANSCRIPT_LENGTH": 100
+    },
+    "TESTING": {
+      "ENABLED": true,
+      "BATCH_SIZE": 1,
+      "SPECIFIC_CALL_ID": "a9840734-d86b-44c2-8fd4-5ac9b8ee47d2"
+    },
+    "OPENAI": {
+      "MODEL": "gpt-4o-mini",
+      "TEMPERATURE": 0.1,
+      "MAX_TOKENS": 2000
+    },
+    "PROCESSING": {
+      "CONCURRENCY": 5,
+      "BATCH_DELAY": 1000,
+      "RETRY_ATTEMPTS": 2,
+      "RETRY_DELAY": 3000
+    },
+    "OUTPUT": {
+      "RESULTS_DIR": "results",
+      "VERBOSE": true
+    }
+  },
+  "stats": {
+    "processed": 1,
+    "failed": 0,
+    "totalCost": 0.00032655,
+    "startTime": 1758111587385,
+    "errors": [],
+    "totalTime": 3.487,
+    "avgTimePerCall": 3.487,
+    "avgCostPerCall": 0.00032655,
+    "avgQCI": 55,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "call_id": "a9840734-d86b-44c2-8fd4-5ac9b8ee47d2",
+      "transcript_length": 3814,
+      "qci_total": 55,
+      "dynamics": 20,
+      "objections": 10,
+      "brand": 15,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 10,
+        "brand_total": 15,
+        "outcome_total": 10,
+        "evidence": {
+          "agent_talk_ratio": "45%",
+          "brand_mentions": [
+            "Hi. This is Eleanor Young from Young Caesar."
+          ],
+          "outcomes": [
+            "I'll send over a quick summary with what we do."
+          ],
+          "key_moments": [
+            "You can you can reach by email.",
+            "Just send email."
+          ]
+        },
+        "coaching_tips": [
+          "Improve response timing to avoid repetition.",
+          "Enhance engagement by confirming understanding more effectively."
+        ]
+      },
+      "cost": 0.00032655,
+      "tokens": 1739,
+      "timestamp": "2025-09-17T12:19:50.869Z"
+    }
+  ],
+  "summary": {
+    "total_calls": 1,
+    "avg_qci": "55.0",
+    "pass_rate": "0.0",
+    "total_cost": "0.0003",
+    "total_time": "0m 3s"
+  }
+}

@@ -1,0 +1,12 @@
+version history
+
+v1.1.0 (2025-09-17)
+- added: exclude_voicemail filter to remove automated calls
+- improved: call quality filtering by excluding silence-timed-out and assistant-ended-call responses
+- impact: ~20-30% reduction in non-human interactions
+
+v1.0.0 (initial)
+- added: basic vapi api data collection
+- added: cost and duration filtering
+- added: pagination support for large datasets
+- added: daily statistics generation

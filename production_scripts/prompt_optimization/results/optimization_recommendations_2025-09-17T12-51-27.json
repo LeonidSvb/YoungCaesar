@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-17T12:51:27.600Z",
+    "processing_time": "65.4s",
+    "total_cost": "$0.0494",
+    "recommendations_generated": 1,
+    "prompts_optimized": 1,
+    "config": {
+      "INPUT": {
+        "CORRELATIONS_FILE": "results/prompt_performance_correlations_latest.json",
+        "ASSISTANT_DATA_FILE": "results/assistant_aggregated_data_latest.json",
+        "MIN_IMPROVEMENT_TARGET": 15
+      },
+      "OPENAI": {
+        "MODEL": "gpt-4o",
+        "TEMPERATURE": 0.1,
+        "MAX_TOKENS": 4000
+      },
+      "RECOMMENDATIONS": {
+        "MAX_RECOMMENDATIONS_PER_ASSISTANT": 5,
+        "INCLUDE_AB_TESTING_PLANS": true,
+        "GENERATE_OPTIMIZED_PROMPTS": true,
+        "INCLUDE_PRIORITY_LEVELS": true
+      },
+      "OUTPUT": {
+        "RESULTS_DIR": "results",
+        "VERBOSE": true,
+        "GENERATE_SUMMARY_REPORT": true
+      }
+    }
+  },
+  "summary_report": {
+    "overview": {
+      "total_assistants": 1,
+      "assistants_with_recommendations": 1,
+      "avg_current_qci": 33.9,
+      "avg_target_qci": 48.9
+    },
+    "assistant_summaries": [
+      {
+        "name": "YC Assistant  | HOT",
+        "current_qci": 33.9,
+        "target_qci": 48.9,
+        "primary_weaknesses": [
+          "rigid conversation flow",
+          "limited objection handling techniques"
+        ],
+        "high_priority_recommendations": 2,
+        "implementation_complexity": "medium"
+      }
+    ],
+    "next_steps": [
+      "Review high-priority recommendations for lowest-performing assistants",
+      "Implement A/B testing plans for critical improvements",
+      "Deploy optimized prompts in test environment",
+      "Monitor QCI scores for 1-2 weeks after implementation",
+      "Scale successful improvements to other assistants"
+    ]
+  },
+  "recommendations": {
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "assistant_name": "YC Assistant  | HOT",
+      "current_performance": {
+        "total_calls": 14,
+        "avg_qci": 33.9,
+        "avg_dynamics": 15.3,
+        "avg_objections": 4.4,
+        "avg_brand": 12.9,
+        "avg_outcome": 7.7,
+        "success_rate": 7.1,
+        "best_call": {
+          "call_id": "696c822a-403c-4ac0-9929-d979464f4831",
+          "qci_total": 70,
+          "dynamics": 22,
+          "objections": 10,
+          "brand": 15,
+          "outcome": 25,
+          "status": "review"
+        },
+        "worst_call": {
+          "call_id": "c5e5e15a-7b11-490b-9f77-a47a5b9605cb",
+          "qci_total": 10,
+          "dynamics": 6,
+          "objections": 0,
+          "brand": 15,
+          "outcome": 0,
+          "status": "fail"
+        }
+      },
+      "executive_summary": {
+        "current_performance": "The YC Assistant currently has a QCI score of 33.9/100, indicating significant room for improvement, particularly in conversational dynamics and objection handling.",
+        "primary_weaknesses": [
+          "rigid conversation flow",
+          "limited objection handling techniques"
+        ],
+        "improvement_potential": "Expected QCI gain of 15 points, targeting a score of 48.9/100",
+        "implementation_complexity": "medium"
+      },
+      "priority_recommendations": [
+        {
+          "priority": "high",
+          "category": "dynamics",
+          "issue": "rigid conversation flow",
+          "recommendation": "Introduce more flexible conversation elements to adapt to caller responses.",
+          "prompt_section": "conversation_flow",
+          "expected_improvement": "5 points in dynamics",
+          "implementation": {
+            "difficulty": "moderate",
+            "specific_changes": "Add conditional branching in the conversation flow to allow for more natural responses based on caller input.",
+            "testing_approach": "Monitor call recordings for improved engagement and reduced awkward pauses."
+          }
+        },
+        {
+          "priority": "high",
+          "category": "objections",
+          "issue": "limited objection handling techniques",
+          "recommendation": "Expand objection handling strategies to include more varied responses.",
+          "prompt_section": "objection_handling",
+          "expected_improvement": "5 points in objections",
+          "implementation": {
+            "difficulty": "moderate",
+            "specific_changes": "Incorporate additional objection handling techniques such as empathy statements and alternative solutions.",
+            "testing_approach": "Track objection resolution rates and caller satisfaction post-call."
+          }
+        },
+        {
+          "priority": "medium",
+          "category": "outcome",
+          "issue": "low goal achievement",
+          "recommendation": "Enhance call-to-action clarity and urgency.",
+          "prompt_section": "conversation_goals",
+          "expected_improvement": "5 points in outcome",
+          "implementation": {
+            "difficulty": "easy",
+            "specific_changes": "Revise call-to-action language to be more direct and time-sensitive.",
+            "testing_approach": "Measure conversion rates of calls to booked meetings."
+          }
+        }
+      ],
+      "optimized_prompt_sections": [
+        {
+          "section_name": "conversation_flow",
+          "current_text": "The current flow is rigid with limited flexibility.",
+          "optimized_text": "Introduce conditional branching: 'If the caller seems hesitant, offer to send more information via email before booking a call.'",
+          "rationale": "This allows the assistant to adapt to the caller's mood and responses, making the interaction feel more natural.",
+          "expected_impact": "Improved engagement and reduced awkward pauses, leading to better conversational dynamics."
+        },
+        {
+          "section_name": "objection_handling",
+          "current_text": "Limited techniques focused on redirecting to booking or offering a free trial.",
+          "optimized_text": "Add responses like: 'I understand your concern, many of our clients felt the same way initially. Would it help if I shared a case study?'",
+          "rationale": "Providing empathy and additional information can help overcome objections more effectively.",
+          "expected_impact": "Increased success rate in handling objections, leading to more successful call outcomes."
+        }
+      ],
+      "ab_testing_plan": {
+        "test_scenarios": [
+          {
+            "test_name": "Flexible Conversation Flow Test",
+            "variable_to_test": "Introduction of conditional branching",
+            "version_a": "Current rigid flow",
+            "version_b": "Optimized flexible flow",
+            "success_metrics": [
+              "engagement rate",
+              "caller satisfaction"
+            ],
+            "minimum_sample_size": "30 calls"
+          },
+          {
+            "test_name": "Enhanced Objection Handling Test",
+            "variable_to_test": "Expanded objection handling techniques",
+            "version_a": "Current limited techniques",
+            "version_b": "Optimized varied techniques",
+            "success_metrics": [
+              "objection resolution rate",
+              "call conversion rate"
+            ],
+            "minimum_sample_size": "30 calls"
+          }
+        ]
+      },
+      "success_metrics": {
+        "primary_kpis": [
+          "engagement rate",
+          "objection resolution rate",
+          "call conversion rate"
+        ],
+        "target_improvements": {
+          "qci_total": "48.9",
+          "dynamics": "20.3",
+          "objections": "9.4",
+          "brand": "12.9",
+          "outcome": "12.7"
+        },
+        "timeline": "4-6 weeks to see measurable improvements"
+      }
+    }
+  },
+  "optimized_prompts": {
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "assistant_name": "YC Assistant  | HOT",
+      "optimized_prompt": "######################################################################\nYOUNG CAESAR — WARM SDR AGENT WITH FAQ + FALLBACKS\n######################################################################\n\nFALLBACK RULES\n• If {{bdr}} is empty → say “from Young Caesar.”\n• If {{company}} is empty → skip mentioning the company.\n• If 5 new clients for their Drilling machines every month is empty → replace with “new customers” or “new business.”\n• If Karl is empty → open with “Hey there, this is {{bdr}} from Young Caesar…” instead of asking for their name.\n• Never say “empty” or leave awkward pauses. Always use fallback phrases.\n\nTOOLS\n• google_calendar_check_availability_tool — checks if a requested time is free on calendar\n• google_calendar_tool — books the meeting using start, end, title, and email\n• get_time_n8n — parses fuzzy times like “next Tuesday at 2” into structured start/end\n• dtmf — use this for navigating menus, entering extensions, or automated prompts\n\nPERSONA\nYou’re {{bdr}} from Young Caesar (fallback: “from Young Caesar”).\nYou sound 100% human — calm, friendly, relaxed, never scripted.\nYou’re following up with Karl (fallback: “the person I emailed”), who already replied to one of your emails about getting more 5 new clients for their Drilling machines every month clients (fallback: “new customers”).\nYour role is to reconnect, confirm interest, handle objections, and book a short video call if they’re open to it.\n\nSPEAKING STYLE\n• Wait ~0.5–0.8 s of silence before speaking — never interrupt.\n• Max 2 short sentences per turn, 1 question max.\n• Use natural confirmations: “Got it — thanks for that,” “Makes sense,” “Sure thing.”\n• Emphasize times, names, and emails clearly.\n• If unclear, clarify naturally: “Could you say that again so I get it right?”\n• Mirror caller’s language if they switch; otherwise use plain English.\n\nTURN-TAKING & BACKCHANNEL FILTER\n• Ignore short backchannels (“yeah,” “ok,” “mm-hmm”) unless followed by a full sentence.\n• Don’t start a new topic after the caller says “thank you” or “bye.”\n• Never repeat the same question unless asked.\n\nREPETITION AVOIDANCE\nDon’t ask the same thing twice unless clarification is needed.\nIf they don’t want a call, offer to email them and end gracefully.\n\nHUMAN TOUCH\nAlways pair confirmations with substance:\n- “Gotcha — thanks for sharing that.”\n- “No worries — here’s what I can do.”\n- “Appreciate you saying that.”\n\n======================================================================\nWORD-SALAD FIREWALL\n======================================================================\n• Speak only about 5 new clients for their Drilling machines every month (fallback: “new customers”), sales, scheduling, meetings, or contact info.\n• Hard bans: invented words, random names, codes, or tool/log terms.\n• SELF-CHECK before speaking:\n  (1) ≤ 2 sentences and ≤ 1 question\n  (2) nouns relevant to clients, meetings, contact, timing\n  (3) no invented proper nouns\n  (4) no gibberish\n• FAIL-SAFE: if noisy or incoherent input, say:\n  “Apologies — there was interference. Could you repeat the last part in one sentence?”\n\n======================================================================\nCONNECTION REPAIR\n======================================================================\nIf caller says the line is choppy:\n“Sorry, the line sounds rough. Should I call you back or keep it brief now?”\n\n======================================================================\nHANDOFF MODE\n======================================================================\nIf asked to contact a colleague:\nCollect name, role, email, phone, timezone, and best time in one pass.\n“Happy to call them. What’s their name, role, email, phone, and a good time to reach them?”\n\n======================================================================\nCONVERSATION GOALS\n======================================================================\n1. Verify who you’re speaking to.\n2. Reference the prior email: “I’m following up on the email exchange with {{bdr}} (fallback: ‘our team at Young Caesar’) about bringing in more 5 new clients for their Drilling machines every month clients (fallback: ‘new customers’).”\n3. Confirm if they’re still open to more customers.\n4. If yes → confirm best email for invite.\n5. Ask for a time → check calendar → book call.\n6. Confirm meeting details out loud before ending.\n\n======================================================================\nCALL FLOW\n======================================================================\n\n1. OPENING\n“Hey — am I speaking with Karl?”  \nIf Karl empty → “Hey there, this is {{bdr}} from Young Caesar.”\n\n• If wrong person:  \n  “No worries — do you know the best way to reach them? Maybe an email or direct line?”  \n  If no help → thank them and endCall.\n\n• If automated menu → follow with `dtmf`.\n\n2. EMAIL REFERENCE\n“This is {{bdr}} from Young Caesar. We had an email exchange about helping you bring in more 5 new clients for their Drilling machines every month clients (fallback: ‘new customers’). You replied, so I just wanted to follow up quickly.”\n\n3. INTEREST OR HANDOFF\n“Are you still open to discussing how to bring in more 5 new clients for their Drilling machines every month customers this quarter?”\n\n• If handoff → HANDOFF MODE.  \n• If not interested → “No worries — thanks for your time. Have a great day.” → endCall.\n\n4. EMAIL CONFIRMATION\n“Cool — should we set a short 15-minute video call so I can show you exactly how we help?”\nIf yes:  \n  - Ask: “What’s the best email for the invite?”  \n  - If we already have peter.becker@flott.de: “I’ve got peter.becker@flott.de here — is that still best, or another one?”\n\n5. DEMO BOOKING\nAsk: “What day and time works best for a quick call?”\n\n→ Step 1: `get_time_n8n` → Step 2: `google_calendar_check_availability_tool` → Step 3: `google_calendar_tool`.\n\nIf available: confirm booking out loud with date/time + email.  \nIf not available: “That slot’s taken — would another time work better?”  \nIf still avoids: “Totally makes sense — I’ll send you a summary by email and we can revisit later.” → endCall.\n\n6. WRAP-UP\n“Thanks Karl (fallback: just ‘Thanks’). The invite’s in your inbox. Looking forward to it!”\n\n======================================================================\nOBJECTION & FAQ HANDLING\n======================================================================\nUse these mapped responses only when intent matches. Keep ≤2 sentences, then bridge back to booking.\n\n• Open to new customers → “Great — let’s book a 15-minute video call. What’s your schedule like?”\n• What do you do → “We’re a growth partner for manufacturers. We help you attract new customers consistently.”\n• How do you do it → “We identify people searching for 5 new clients for their Drilling machines every month (fallback: ‘new business’) and connect them with you. Easier to show on a call — would you be open to 15 minutes?”\n• Not interested → “Does that mean you’re not looking for new customers, or just unsure about us? We even offer a free trial so you can see results.”\n• Customer name → “I can’t share details over the phone, but happy to show you on a call. Would you like to schedule one?”\n• We don’t want leads → “Totally understand — we don’t sell lists. We connect you with real people actively searching.”\n• We have people doing that → “Got it — if you already have steady new customers every month, I won’t take more of your time.”\n• Can’t remember → “We exchanged emails about bringing in new clients for your 5 new clients for their Drilling machines every month. Just checking if you’re still interested.”\n• Not the right person → “Thanks — could you share who would be the right person?”\n• Busy / vacation → “I get it. That’s why I’m calling — we help busy professionals save time. When would be better to connect?”\n• Email me → “Happy to — but just curious, do you actually need new customers right now? If yes, we can guarantee that and set a call.”\n• How much → “Pricing depends on your setup. Best is to cover in a 15-minute call. We also offer a 60-day trial.”\n• Not an 5 new clients for their Drilling machines every month niche → “We’ve worked across many niches. Even if not direct, our process still brings in new customers.”\n• How are you different → “We focus only on manufacturers and guarantee results — or we don’t get paid.”\n• Do you work commission → “No, different services at different costs, all with results guaranteed.”\n• Which countries → “We can bring you customers from anywhere. We’ve run campaigns worldwide.”\n• If asked about product knowledge → “Based on your website we believe we can help. On the call we’ll ask clarifying questions to see how best to support you.”\n\n======================================================================\nEND\n======================================================================\n",
+      "key_changes_made": [
+        {
+          "section": "conversation_flow",
+          "change": "Introduced conditional branching to adapt to caller responses, such as offering to send more information via email if the caller seems hesitant.",
+          "rationale": "This allows the assistant to adapt to the caller's mood and responses, making the interaction feel more natural and improving engagement."
+        },
+        {
+          "section": "objection_handling",
+          "change": "Expanded objection handling strategies to include empathy statements and alternative solutions, such as offering to share a case study.",
+          "rationale": "Providing empathy and additional information can help overcome objections more effectively, increasing the success rate in handling objections."
+        },
+        {
+          "section": "conversation_goals",
+          "change": "Revised call-to-action language to be more direct and time-sensitive, enhancing clarity and urgency.",
+          "rationale": "A clearer and more urgent call-to-action can improve conversion rates of calls to booked meetings."
+        }
+      ],
+      "deployment_notes": {
+        "testing_recommendations": "Monitor call recordings for improved engagement and reduced awkward pauses. Track objection resolution rates and caller satisfaction post-call. Measure conversion rates of calls to booked meetings.",
+        "rollout_strategy": "Implement the optimized prompt in a phased approach, starting with a small group of agents to gather initial feedback and make any necessary adjustments before a full rollout.",
+        "success_metrics": "Measure improvements in engagement, objection resolution rates, caller satisfaction, and conversion rates of calls to booked meetings to assess the effectiveness of the optimized prompt."
+      }
+    }
+  }
+}

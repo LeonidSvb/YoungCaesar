@@ -1,0 +1,916 @@
+{
+  "config": {
+    "INPUT": {
+      "DATA_FILE": "../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json",
+      "MIN_TRANSCRIPT_LENGTH": 100
+    },
+    "TESTING": {
+      "ENABLED": true,
+      "BATCH_SIZE": 10
+    },
+    "OPENAI": {
+      "MODEL": "gpt-4o-mini",
+      "TEMPERATURE": 0.1,
+      "MAX_TOKENS": 2000
+    },
+    "PROCESSING": {
+      "CONCURRENCY": 5,
+      "BATCH_DELAY": 1000,
+      "RETRY_ATTEMPTS": 2,
+      "RETRY_DELAY": 3000
+    },
+    "OUTPUT": {
+      "RESULTS_DIR": "results",
+      "VERBOSE": true
+    }
+  },
+  "stats": {
+    "processed": 10,
+    "failed": 0,
+    "totalCost": 0.007521450000000001,
+    "startTime": 1758111022237,
+    "errors": [],
+    "totalTime": 25.778,
+    "avgTimePerCall": 2.5778,
+    "avgCostPerCall": 0.0007521450000000001,
+    "avgQCI": 42.4,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "call_id": "c2f4b38f-250d-4459-af21-657eeed2a9e8",
+      "transcript_length": 8576,
+      "qci_total": 36,
+      "dynamics": 14,
+      "objections": 0,
+      "brand": 8,
+      "outcome": 14,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 36,
+        "dynamics_total": 14,
+        "objections_total": 0,
+        "brand_total": 8,
+        "outcome_total": 14,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 0,
+          "time_to_value_pts": 0,
+          "first_cta_pts": 8,
+          "dead_air_penalty": -6,
+          "resistance_recognition_pts": 6,
+          "time_to_comply_pts": 8,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 0,
+          "brand_variant_pts": 8,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 4,
+          "wrap_up_pts": 0,
+          "tool_hygiene_pts": 0
+        },
+        "evidence": {
+          "agent_talk_ratio": "0%",
+          "time_to_value": "N/A",
+          "first_cta_time": "0",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [],
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "brand_variants": [
+            "Lift Waste",
+            "LIFT Waste"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "info",
+          "cta_phrases": [
+            "I will reach out via email"
+          ],
+          "value_phrases": [],
+          "apology_phrases": [],
+          "wait_phrases": []
+        },
+        "timings": {
+          "call_duration_estimated": "estimated total seconds",
+          "first_brand_mention_time": "N/A",
+          "first_value_time": "N/A",
+          "first_cta_time": "0",
+          "resistance_time": "N/A",
+          "compliance_time": "0"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": true,
+          "language_mismatch": false
+        },
+        "status": "fail",
+        "coaching_tips": [
+          "Improve agent talk ratio to engage more effectively.",
+          "Address brand consistency to avoid multiple mentions.",
+          "Ensure to provide value statements early in the call."
+        ]
+      },
+      "cost": 0.00085515,
+      "tokens": 4174,
+      "timestamp": "2025-09-17T12:10:32.160Z"
+    },
+    {
+      "call_id": "ccc95c20-42d1-4d9d-8fce-35b175353ed4",
+      "transcript_length": 8555,
+      "qci_total": 0,
+      "dynamics": 0,
+      "objections": 0,
+      "brand": 0,
+      "outcome": 0,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 0,
+        "dynamics_total": 0,
+        "objections_total": 0,
+        "brand_total": 0,
+        "outcome_total": 0,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 0,
+          "time_to_value_pts": 0,
+          "first_cta_pts": 0,
+          "dead_air_penalty": 0,
+          "resistance_recognition_pts": 0,
+          "time_to_comply_pts": 0,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 0,
+          "brand_variant_pts": 0,
+          "language_match_pts": 0,
+          "outcome_classification_pts": 0,
+          "wrap_up_pts": 0,
+          "tool_hygiene_pts": 0
+        },
+        "evidence": {
+          "agent_talk_ratio": "0%",
+          "time_to_value": "N/A",
+          "first_cta_time": "N/A",
+          "dead_air_events": [],
+          "resistance_phrases": [],
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "brand_variants": [
+            "Lift Waste"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "none",
+          "cta_phrases": [],
+          "value_phrases": [],
+          "apology_phrases": [],
+          "wait_phrases": []
+        },
+        "timings": {
+          "call_duration_estimated": "estimated total seconds",
+          "first_brand_mention_time": "N/A",
+          "first_value_time": "N/A",
+          "first_cta_time": "N/A",
+          "resistance_time": "N/A",
+          "compliance_time": "N/A"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": true,
+          "language_mismatch": false
+        },
+        "status": "fail",
+        "coaching_tips": [
+          "Improve agent engagement to reduce user repetition.",
+          "Introduce value propositions early in the conversation.",
+          "Ensure brand consistency in mentions."
+        ]
+      },
+      "cost": 0.00083775,
+      "tokens": 4124,
+      "timestamp": "2025-09-17T12:10:34.809Z"
+    },
+    {
+      "call_id": "a8728912-814d-4ee8-a28d-e34ce09a90ab",
+      "transcript_length": 6898,
+      "qci_total": 20,
+      "dynamics": 8,
+      "objections": 0,
+      "brand": 4,
+      "outcome": 8,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 20,
+        "dynamics_total": 8,
+        "objections_total": 0,
+        "brand_total": 4,
+        "outcome_total": 8,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 0,
+          "time_to_value_pts": 0,
+          "first_cta_pts": 8,
+          "dead_air_penalty": -6,
+          "resistance_recognition_pts": 0,
+          "time_to_comply_pts": 0,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 0,
+          "brand_variant_pts": 4,
+          "language_match_pts": 0,
+          "outcome_classification_pts": 8,
+          "wrap_up_pts": 0,
+          "tool_hygiene_pts": 0
+        },
+        "evidence": {
+          "agent_talk_ratio": "estimated 0%",
+          "time_to_value": "N/A",
+          "first_cta_time": "0 seconds",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [],
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "brand_variants": [
+            "Young Caesar",
+            "Avery Mart",
+            "Avery Martinez"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "none",
+          "cta_phrases": [
+            "Press 1 for new truck sales",
+            "Press 2 for parts sales and technical support",
+            "Press 3 for pre owned equipment",
+            "Press 4 for rental",
+            "Press 5 for billing and payment inquiries",
+            "Press 6 for purchasing department",
+            "Press 7 for human resources",
+            "Press 8 for shipping and receiving"
+          ],
+          "value_phrases": [],
+          "apology_phrases": [],
+          "wait_phrases": [
+            "Please wait while we connect your call"
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "estimated total seconds",
+          "first_brand_mention_time": "N/A",
+          "first_value_time": "N/A",
+          "first_cta_time": "0 seconds",
+          "resistance_time": "N/A",
+          "compliance_time": "N/A"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": true,
+          "too_short": false,
+          "no_value": true,
+          "language_mismatch": false
+        },
+        "status": "fail",
+        "coaching_tips": [
+          "Improve agent talk ratio by allowing the user to respond more.",
+          "Ensure brand consistency by using the same brand name throughout the call.",
+          "Introduce value propositions early in the conversation."
+        ]
+      },
+      "cost": 0.0008259,
+      "tokens": 3718,
+      "timestamp": "2025-09-17T12:10:35.673Z"
+    },
+    {
+      "call_id": "14436d72-abb7-41c5-a0a3-64c56de181de",
+      "transcript_length": 6819,
+      "qci_total": 30,
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 10,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 30,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 10,
+        "outcome_total": 10,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 0,
+          "time_to_value_pts": 0,
+          "first_cta_pts": 0,
+          "dead_air_penalty": -6,
+          "resistance_recognition_pts": 0,
+          "time_to_comply_pts": 0,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 8,
+          "brand_variant_pts": 2,
+          "language_match_pts": 0,
+          "outcome_classification_pts": 4,
+          "wrap_up_pts": 0,
+          "tool_hygiene_pts": 10
+        },
+        "evidence": {
+          "agent_talk_ratio": "estimated 10%",
+          "time_to_value": "N/A",
+          "first_cta_time": "N/A",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [],
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "brand_variants": [
+            "Young Caesar",
+            "Avery Martinez"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "none",
+          "cta_phrases": [],
+          "value_phrases": [],
+          "apology_phrases": [],
+          "wait_phrases": [
+            "please wait while we connect your call"
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "estimated 300 seconds",
+          "first_brand_mention_time": "N/A",
+          "first_value_time": "N/A",
+          "first_cta_time": "N/A",
+          "resistance_time": "N/A",
+          "compliance_time": "N/A"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": true,
+          "too_short": false,
+          "no_value": true,
+          "language_mismatch": false
+        },
+        "status": "review",
+        "coaching_tips": [
+          "Improve agent talk ratio by reducing user prompts and increasing agent engagement.",
+          "Address the lack of value statements early in the call.",
+          "Ensure consistent brand mentions to avoid penalties."
+        ]
+      },
+      "cost": 0.0007768499999999999,
+      "tokens": 3616,
+      "timestamp": "2025-09-17T12:10:35.282Z"
+    },
+    {
+      "call_id": "b9a0e538-910a-4b7b-bd27-c94663bf5bb3",
+      "transcript_length": 5361,
+      "qci_total": 38,
+      "dynamics": 18,
+      "objections": 0,
+      "brand": 10,
+      "outcome": 10,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 38,
+        "dynamics_total": 18,
+        "objections_total": 0,
+        "brand_total": 10,
+        "outcome_total": 10,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 4,
+          "time_to_value_pts": 0,
+          "first_cta_pts": 0,
+          "dead_air_penalty": -6,
+          "resistance_recognition_pts": 0,
+          "time_to_comply_pts": 0,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 8,
+          "brand_variant_pts": 2,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 10,
+          "wrap_up_pts": 0,
+          "tool_hygiene_pts": 0
+        },
+        "evidence": {
+          "agent_talk_ratio": "estimated 40% agent talk time",
+          "time_to_value": "N/A",
+          "first_cta_time": "N/A",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [],
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "brand_variants": [
+            "Young Caesar",
+            "Ricco"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "callback",
+          "cta_phrases": [],
+          "value_phrases": [],
+          "apology_phrases": [],
+          "wait_phrases": [
+            "please hold on a second"
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "estimated 300 seconds",
+          "first_brand_mention_time": "0",
+          "first_value_time": "N/A",
+          "first_cta_time": "N/A",
+          "resistance_time": "N/A",
+          "compliance_time": "N/A"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": true,
+          "language_mismatch": false
+        },
+        "status": "review",
+        "coaching_tips": [
+          "Improve agent talk ratio to ensure more engagement.",
+          "Focus on providing clear value statements early in the call.",
+          "Ensure to offer alternatives or solutions when resistance is encountered."
+        ]
+      },
+      "cost": 0.0007352999999999999,
+      "tokens": 3342,
+      "timestamp": "2025-09-17T12:10:32.457Z"
+    },
+    {
+      "call_id": "a9840734-d86b-44c2-8fd4-5ac9b8ee47d2",
+      "transcript_length": 3814,
+      "qci_total": 62,
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 18,
+      "status": "review",
+      "ai_analysis": {
+        "qci_total_score": 62,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 18,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 6,
+          "time_to_value_pts": 8,
+          "first_cta_pts": 6,
+          "dead_air_penalty": -4,
+          "resistance_recognition_pts": 3,
+          "time_to_comply_pts": 6,
+          "alternative_offered_pts": 6,
+          "brand_first_mention_pts": 6,
+          "brand_variant_pts": 0,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 4,
+          "wrap_up_pts": 5,
+          "tool_hygiene_pts": 5
+        },
+        "evidence": {
+          "agent_talk_ratio": "estimated 45% agent talk time",
+          "time_to_value": "15 seconds",
+          "first_cta_time": "90 seconds",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [
+            "Actually, I don't understand you.",
+            "Actually, I don't know. I have to ask Borah."
+          ],
+          "brand_mentions": [
+            "Hi. This is Eleanor Young from Young Caesar."
+          ],
+          "brand_variants": [],
+          "language_detected": "English",
+          "outcome_achieved": "info",
+          "cta_phrases": [
+            "What day and time would work best for a quick 30 minute call?",
+            "I'll send over a quick summary with what we do."
+          ],
+          "value_phrases": [
+            "I'll send over a quick summary with what we do."
+          ],
+          "apology_phrases": [
+            "No worries.",
+            "Thanks for your patience."
+          ],
+          "wait_phrases": [
+            "Just a moment."
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "360 seconds",
+          "first_brand_mention_time": "5 seconds",
+          "first_value_time": "15 seconds",
+          "first_cta_time": "90 seconds",
+          "resistance_time": "120 seconds",
+          "compliance_time": "8 seconds"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": false,
+          "language_mismatch": false
+        },
+        "status": "review",
+        "coaching_tips": [
+          "Improve clarity in communication to reduce user confusion.",
+          "Minimize gaps in conversation to enhance engagement.",
+          "Ensure consistent brand messaging to avoid brand gate issues."
+        ]
+      },
+      "cost": 0.0007212,
+      "tokens": 3047,
+      "timestamp": "2025-09-17T12:10:48.014Z"
+    },
+    {
+      "call_id": "b5b8eb10-8fa3-4301-af1b-b43db388ff15",
+      "transcript_length": 3694,
+      "qci_total": 66,
+      "dynamics": 20,
+      "objections": 8,
+      "brand": 12,
+      "outcome": 26,
+      "status": "review",
+      "ai_analysis": {
+        "qci_total_score": 66,
+        "dynamics_total": 20,
+        "objections_total": 8,
+        "brand_total": 12,
+        "outcome_total": 26,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 6,
+          "time_to_value_pts": 6,
+          "first_cta_pts": 6,
+          "dead_air_penalty": -2,
+          "resistance_recognition_pts": 6,
+          "time_to_comply_pts": 8,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 6,
+          "brand_variant_pts": 2,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 15,
+          "wrap_up_pts": 5,
+          "tool_hygiene_pts": 6
+        },
+        "evidence": {
+          "agent_talk_ratio": "estimated 55% agent talk time",
+          "time_to_value": "25 seconds",
+          "first_cta_time": "120 seconds",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [
+            "I would like to inquire",
+            "it's possible to send email for your instructions"
+          ],
+          "brand_mentions": [
+            "BSA",
+            "Versus"
+          ],
+          "brand_variants": [
+            "BSA",
+            "Versus"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "meeting",
+          "cta_phrases": [
+            "Would it be worth a 12 minute introduction?",
+            "I'll send you a summary."
+          ],
+          "value_phrases": [
+            "BSA is known as the Porsche of CNC and Woodworking machines"
+          ],
+          "apology_phrases": [
+            "I apologize for the confusion"
+          ],
+          "wait_phrases": []
+        },
+        "timings": {
+          "call_duration_estimated": "300 seconds",
+          "first_brand_mention_time": "15 seconds",
+          "first_value_time": "25 seconds",
+          "first_cta_time": "120 seconds",
+          "resistance_time": "150 seconds",
+          "compliance_time": "5 seconds"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": false,
+          "language_mismatch": false
+        },
+        "status": "review",
+        "coaching_tips": [
+          "Ensure consistent brand mention to avoid confusion.",
+          "Improve clarity in communication to reduce resistance.",
+          "Focus on offering alternatives to enhance engagement."
+        ]
+      },
+      "cost": 0.00070215,
+      "tokens": 2989,
+      "timestamp": "2025-09-17T12:10:47.364Z"
+    },
+    {
+      "call_id": "8c66d974-7102-492f-a07b-931f0a3000f2",
+      "transcript_length": 3301,
+      "qci_total": 54,
+      "dynamics": 18,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 12,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 54,
+        "dynamics_total": 18,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 12,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 6,
+          "time_to_value_pts": 6,
+          "first_cta_pts": 6,
+          "dead_air_penalty": -4,
+          "resistance_recognition_pts": 3,
+          "time_to_comply_pts": 6,
+          "alternative_offered_pts": 6,
+          "brand_first_mention_pts": 6,
+          "brand_variant_pts": 0,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 4,
+          "wrap_up_pts": 0,
+          "tool_hygiene_pts": 6
+        },
+        "evidence": {
+          "agent_talk_ratio": "60% agent, 40% user",
+          "time_to_value": "25 seconds",
+          "first_cta_time": "120 seconds",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [
+            "Uh, no need.",
+            "we don't like the other machine."
+          ],
+          "brand_mentions": [
+            "BSA",
+            "BSC"
+          ],
+          "brand_variants": [
+            "BSA",
+            "BSC"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "none",
+          "cta_phrases": [
+            "Would it be worth a 12 minute introduction?",
+            "I'll send you a short summary with some more information."
+          ],
+          "value_phrases": [
+            "reduce downtime and maintenance costs",
+            "high performance CNC and woodworking machines"
+          ],
+          "apology_phrases": [
+            "No worries."
+          ],
+          "wait_phrases": [
+            "Uh, wait a minute.",
+            "Can you hear me now?"
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "300 seconds",
+          "first_brand_mention_time": "15 seconds",
+          "first_value_time": "25 seconds",
+          "first_cta_time": "120 seconds",
+          "resistance_time": "240 seconds",
+          "compliance_time": "0 seconds"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": true,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": false,
+          "language_mismatch": false
+        },
+        "status": "fail",
+        "coaching_tips": [
+          "Improve brand consistency by avoiding multiple brand variants.",
+          "Address user resistance more effectively and promptly.",
+          "Enhance the wrap-up process to ensure clarity and confirmation."
+        ]
+      },
+      "cost": 0.00069015,
+      "tokens": 2846,
+      "timestamp": "2025-09-17T12:10:44.160Z"
+    },
+    {
+      "call_id": "276a36d5-7345-4e11-be9a-431ad2cf1593",
+      "transcript_length": 3029,
+      "qci_total": 62,
+      "dynamics": 20,
+      "objections": 8,
+      "brand": 12,
+      "outcome": 22,
+      "status": "review",
+      "ai_analysis": {
+        "qci_total_score": 62,
+        "dynamics_total": 20,
+        "objections_total": 8,
+        "brand_total": 12,
+        "outcome_total": 22,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 6,
+          "time_to_value_pts": 6,
+          "first_cta_pts": 6,
+          "dead_air_penalty": -4,
+          "resistance_recognition_pts": 6,
+          "time_to_comply_pts": 8,
+          "alternative_offered_pts": 0,
+          "brand_first_mention_pts": 6,
+          "brand_variant_pts": 0,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 4,
+          "wrap_up_pts": 5,
+          "tool_hygiene_pts": 3
+        },
+        "evidence": {
+          "agent_talk_ratio": "estimated 45% agent talk time",
+          "time_to_value": "15 seconds",
+          "first_cta_time": "120 seconds",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [
+            "do we need to pay something for this 1?"
+          ],
+          "brand_mentions": [
+            "Young Caesar"
+          ],
+          "brand_variants": [],
+          "language_detected": "English",
+          "outcome_achieved": "info",
+          "cta_phrases": [
+            "I can send you an email",
+            "What day and time would work best for that 30 minute call?"
+          ],
+          "value_phrases": [
+            "demo is completely free",
+            "help you attract more clients"
+          ],
+          "apology_phrases": [
+            "Sorry about that.",
+            "Sorry for the mix."
+          ],
+          "wait_phrases": [
+            "I can wait.",
+            "Just let me know when you're ready."
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "300 seconds",
+          "first_brand_mention_time": "15 seconds",
+          "first_value_time": "15 seconds",
+          "first_cta_time": "120 seconds",
+          "resistance_time": "180 seconds",
+          "compliance_time": "5 seconds"
+        },
+        "flags": {
+          "brand_gate_fail": false,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": false,
+          "language_mismatch": false
+        },
+        "status": "review",
+        "coaching_tips": [
+          "Improve handling of customer objections to enhance engagement.",
+          "Reduce dead air to maintain a smoother conversation flow.",
+          "Ensure clarity in communication to avoid confusion about the purpose of the call."
+        ]
+      },
+      "cost": 0.00069315,
+      "tokens": 2884,
+      "timestamp": "2025-09-17T12:10:45.597Z"
+    },
+    {
+      "call_id": "d6e1e4f7-9259-4918-acf6-4e2b748d5423",
+      "transcript_length": 3007,
+      "qci_total": 56,
+      "dynamics": 20,
+      "objections": 9,
+      "brand": 12,
+      "outcome": 15,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 56,
+        "dynamics_total": 20,
+        "objections_total": 9,
+        "brand_total": 12,
+        "outcome_total": 15,
+        "detailed_scores": {
+          "agent_talk_ratio_pts": 6,
+          "time_to_value_pts": 6,
+          "first_cta_pts": 6,
+          "dead_air_penalty": -4,
+          "resistance_recognition_pts": 3,
+          "time_to_comply_pts": 6,
+          "alternative_offered_pts": 6,
+          "brand_first_mention_pts": 6,
+          "brand_variant_pts": 0,
+          "language_match_pts": 4,
+          "outcome_classification_pts": 4,
+          "wrap_up_pts": 5,
+          "tool_hygiene_pts": 6
+        },
+        "evidence": {
+          "agent_talk_ratio": "60% agent, 40% user",
+          "time_to_value": "25 seconds",
+          "first_cta_time": "120 seconds",
+          "dead_air_events": [
+            "gaps >3s between turns"
+          ],
+          "resistance_phrases": [
+            "we're not interested",
+            "I think we are not interesting"
+          ],
+          "brand_mentions": [
+            "BS",
+            "BSA",
+            "BSE"
+          ],
+          "brand_variants": [
+            "BS",
+            "BSA",
+            "BSE"
+          ],
+          "language_detected": "English",
+          "outcome_achieved": "info",
+          "cta_phrases": [
+            "Would you be open to a 12 minute walk through?",
+            "I can send you a quick summary instead."
+          ],
+          "value_phrases": [
+            "many manufacturers are frustrated by machine downtime and maintenance costs",
+            "runs flawlessly for 15 20 years"
+          ],
+          "apology_phrases": [
+            "my apologies if I wasn't clear earlier"
+          ],
+          "wait_phrases": [
+            "hold on"
+          ]
+        },
+        "timings": {
+          "call_duration_estimated": "300 seconds",
+          "first_brand_mention_time": "15 seconds",
+          "first_value_time": "25 seconds",
+          "first_cta_time": "120 seconds",
+          "resistance_time": "150 seconds",
+          "compliance_time": "5 seconds"
+        },
+        "flags": {
+          "brand_gate_fail": true,
+          "stop_gate_fail": false,
+          "tool_gate_fail": false,
+          "too_short": false,
+          "no_value": false,
+          "language_mismatch": false
+        },
+        "status": "review",
+        "coaching_tips": [
+          "Improve clarity and consistency in brand mentions to avoid confusion.",
+          "Reduce dead air time to maintain engagement.",
+          "Focus on recognizing and addressing objections more promptly."
+        ]
+      },
+      "cost": 0.00068385,
+      "tokens": 2792,
+      "timestamp": "2025-09-17T12:10:45.962Z"
+    }
+  ],
+  "summary": {
+    "total_calls": 10,
+    "avg_qci": "42.4",
+    "pass_rate": "0.0",
+    "total_cost": "0.0075",
+    "total_time": "0m 25s"
+  }
+}

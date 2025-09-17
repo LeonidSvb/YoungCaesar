@@ -1,0 +1,7 @@
+version history
+
+v1.0.0 (initial)
+- added: quality of call index analysis system
+- added: openai-powered call transcript evaluation
+- added: comprehensive scoring rubric with coaching tips
+- added: parallel processing for performance optimization
