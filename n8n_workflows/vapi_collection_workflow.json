@@ -1,0 +1,321 @@
+{
+  "name": "VAPI Data Collection and Analysis",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual_trigger_001",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "START_DATE",
+              "value": "2025-01-01"
+            },
+            {
+              "name": "END_DATE",
+              "value": "2025-09-17"
+            },
+            {
+              "name": "VAPI_API_KEY",
+              "value": "={{ $env.VAPI_API_KEY }}"
+            },
+            {
+              "name": "BASE_URL",
+              "value": "https://api.vapi.ai"
+            }
+          ],
+          "number": [
+            {
+              "name": "MIN_COST",
+              "value": 0
+            },
+            {
+              "name": "MIN_DURATION",
+              "value": 30
+            },
+            {
+              "name": "CALLS_PER_REQUEST",
+              "value": 100
+            }
+          ],
+          "boolean": [
+            {
+              "name": "SAVE_TO_FILE",
+              "value": true
+            },
+            {
+              "name": "VERBOSE",
+              "value": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "config_node_002",
+      "name": "Set Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Initialize variables for pagination\nconst config = $input.first().json;\nconst allCalls = [];\nlet offset = 0;\nlet hasMore = true;\nlet totalFetched = 0;\n\n// Prepare date range\nconst startDateTime = `${config.START_DATE}T00:00:00.000Z`;\nconst endDateTime = `${config.END_DATE}T23:59:59.999Z`;\n\nconsole.log(`Starting VAPI data collection from ${startDateTime} to ${endDateTime}`);\n\n// Function to fetch a batch of calls\nasync function fetchBatch(offset) {\n  try {\n    const response = await $http.request({\n      method: 'GET',\n      url: `${config.BASE_URL}/call`,\n      headers: {\n        'Authorization': `Bearer ${config.VAPI_API_KEY}`,\n        'Content-Type': 'application/json'\n      },\n      qs: {\n        createdAtGe: startDateTime,\n        createdAtLt: endDateTime,\n        limit: config.CALLS_PER_REQUEST,\n        offset: offset\n      }\n    });\n    \n    return response;\n  } catch (error) {\n    console.error(`Error fetching batch at offset ${offset}:`, error.message);\n    throw error;\n  }\n}\n\n// Fetch all calls with pagination\nwhile (hasMore) {\n  console.log(`Fetching batch at offset ${offset}...`);\n  \n  const batch = await fetchBatch(offset);\n  \n  if (batch && Array.isArray(batch)) {\n    allCalls.push(...batch);\n    totalFetched += batch.length;\n    console.log(`Fetched ${batch.length} calls (Total: ${totalFetched})`);\n    \n    // Check if there are more pages\n    hasMore = batch.length === config.CALLS_PER_REQUEST;\n    offset += config.CALLS_PER_REQUEST;\n    \n    // Safety limit to prevent infinite loops\n    if (offset > 10000) {\n      console.warn('Reached safety limit of 10000 calls');\n      hasMore = false;\n    }\n  } else {\n    hasMore = false;\n  }\n}\n\nconsole.log(`Total calls collected: ${allCalls.length}`);\n\n// Pass both config and calls to next node\nreturn {\n  config: config,\n  allCalls: allCalls,\n  summary: {\n    totalCallsCollected: allCalls.length,\n    dateRange: `${config.START_DATE} to ${config.END_DATE}`\n  }\n};"
+      },
+      "id": "fetch_all_calls_003",
+      "name": "Fetch All VAPI Calls",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get input data\nconst data = $input.first().json;\nconst config = data.config;\nconst allCalls = data.allCalls;\n\n// Apply filters\nfunction applyFilters(calls) {\n  let filtered = [...calls];\n  \n  // Apply cost filter\n  if (config.MIN_COST > 0) {\n    filtered = filtered.filter(call => (call.cost || 0) >= config.MIN_COST);\n  }\n  \n  // Apply duration filter (in seconds)\n  if (config.MIN_DURATION > 0) {\n    filtered = filtered.filter(call => (call.duration || 0) >= config.MIN_DURATION);\n  }\n  \n  // Apply transcript filter if needed\n  // You can add more filters here based on requirements:\n  // - STATUS filter\n  // - ASSISTANT_ID filter\n  // - PHONE_NUMBER filter\n  // - REQUIRE_TRANSCRIPT filter\n  \n  return filtered;\n}\n\nconst filteredCalls = applyFilters(allCalls);\n\nconsole.log(`Calls before filtering: ${allCalls.length}`);\nconsole.log(`Calls after filtering: ${filteredCalls.length}`);\nconsole.log(`Removed by filters: ${allCalls.length - filteredCalls.length}`);\n\n// Return filtered data with config\nreturn {\n  config: config,\n  filteredCalls: filteredCalls,\n  filterStats: {\n    totalBeforeFilter: allCalls.length,\n    totalAfterFilter: filteredCalls.length,\n    removedByFilters: allCalls.length - filteredCalls.length,\n    filterEfficiency: allCalls.length > 0 \n      ? Math.round((filteredCalls.length / allCalls.length) * 100) + '%'\n      : '0%'\n  },\n  allCalls: allCalls // Keep for statistics\n};"
+      },
+      "id": "filter_calls_004",
+      "name": "Apply Filters",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get input data\nconst data = $input.first().json;\nconst config = data.config;\nconst allCalls = data.allCalls;\nconst filteredCalls = data.filteredCalls;\n\n// Generate daily statistics\nfunction generateDailyStats(calls, filteredCalls, startDate, endDate) {\n  const stats = {\n    summary: {\n      dateRange: `${startDate} to ${endDate}`,\n      totalCallsBeforeFilters: allCalls.length,\n      totalCallsAfterFilters: filteredCalls.length,\n      filtersApplied: {\n        minCost: config.MIN_COST,\n        minDuration: config.MIN_DURATION\n      },\n      filterEfficiency: allCalls.length > 0 \n        ? Math.round((filteredCalls.length / allCalls.length) * 100) + '%'\n        : '0%'\n    },\n    dailyBreakdown: []\n  };\n  \n  // Group all calls by date\n  const callsByDate = {};\n  calls.forEach(call => {\n    const date = new Date(call.createdAt).toISOString().split('T')[0];\n    if (!callsByDate[date]) {\n      callsByDate[date] = {\n        total: [],\n        filtered: []\n      };\n    }\n    callsByDate[date].total.push(call);\n  });\n  \n  // Add filtered calls to their dates\n  filteredCalls.forEach(call => {\n    const date = new Date(call.createdAt).toISOString().split('T')[0];\n    if (callsByDate[date]) {\n      callsByDate[date].filtered.push(call);\n    }\n  });\n  \n  // Generate stats for each day\n  let currentDate = new Date(startDate);\n  const endDateObj = new Date(endDate);\n  \n  while (currentDate <= endDateObj) {\n    const dateStr = currentDate.toISOString().split('T')[0];\n    const dayData = callsByDate[dateStr] || { total: [], filtered: [] };\n    \n    const dayStats = {\n      date: dateStr,\n      totalCalls: dayData.total.length,\n      filteredCalls: dayData.filtered.length,\n      removedByFilters: dayData.total.length - dayData.filtered.length,\n      percentageKept: dayData.total.length > 0\n        ? Math.round((dayData.filtered.length / dayData.total.length) * 100) + '%'\n        : '0%',\n      totalCost: dayData.filtered.reduce((sum, call) => sum + (call.cost || 0), 0).toFixed(2),\n      avgDuration: dayData.filtered.length > 0\n        ? Math.round(dayData.filtered.reduce((sum, call) => sum + (call.duration || 0), 0) / dayData.filtered.length)\n        : 0\n    };\n    \n    stats.dailyBreakdown.push(dayStats);\n    currentDate.setDate(currentDate.getDate() + 1);\n  }\n  \n  // Calculate totals\n  stats.summary.totalCost = filteredCalls.reduce((sum, call) => sum + (call.cost || 0), 0).toFixed(2);\n  stats.summary.avgCallDuration = filteredCalls.length > 0\n    ? Math.round(filteredCalls.reduce((sum, call) => sum + (call.duration || 0), 0) / filteredCalls.length)\n    : 0;\n  \n  return stats;\n}\n\nconst statistics = generateDailyStats(allCalls, filteredCalls, config.START_DATE, config.END_DATE);\n\nconsole.log('Statistics generated successfully');\nconsole.log(`Total days analyzed: ${statistics.dailyBreakdown.length}`);\nconsole.log(`Total cost: $${statistics.summary.totalCost}`);\nconsole.log(`Average call duration: ${statistics.summary.avgCallDuration} seconds`);\n\n// Return both filtered calls and statistics\nreturn {\n  config: config,\n  filteredCalls: filteredCalls,\n  statistics: statistics,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "id": "generate_stats_005",
+      "name": "Generate Statistics",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ 'data/raw/vapi_filtered_calls_' + $now.format('yyyy-MM-dd_HHmmss') + '.json' }}",
+        "dataPropertyName": "filteredCalls",
+        "options": {}
+      },
+      "id": "save_calls_006",
+      "name": "Save Filtered Calls",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [1250, 200],
+      "notesInFlow": false,
+      "disabled": false
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ 'data/raw/vapi_statistics_' + $now.format('yyyy-MM-dd_HHmmss') + '.json' }}",
+        "dataPropertyName": "statistics",
+        "options": {}
+      },
+      "id": "save_stats_007",
+      "name": "Save Statistics",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [1250, 400],
+      "notesInFlow": false,
+      "disabled": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format the output for display\nconst data = $input.first().json;\nconst stats = data.statistics;\nconst calls = data.filteredCalls;\n\n// Create formatted output\nconst output = {\n  summary: {\n    success: true,\n    message: `Successfully collected and analyzed VAPI calls`,\n    dateRange: stats.summary.dateRange,\n    totalCallsCollected: stats.summary.totalCallsBeforeFilters,\n    totalCallsAfterFiltering: stats.summary.totalCallsAfterFilters,\n    filterEfficiency: stats.summary.filterEfficiency,\n    totalCost: `$${stats.summary.totalCost}`,\n    avgCallDuration: `${stats.summary.avgCallDuration} seconds`,\n    timestamp: data.timestamp\n  },\n  topDays: stats.dailyBreakdown\n    .filter(day => day.totalCalls > 0)\n    .sort((a, b) => b.filteredCalls - a.filteredCalls)\n    .slice(0, 5)\n    .map(day => ({\n      date: day.date,\n      calls: day.filteredCalls,\n      cost: `$${day.totalCost}`,\n      avgDuration: `${day.avgDuration}s`\n    })),\n  filtersApplied: stats.summary.filtersApplied,\n  filesCreated: [\n    `vapi_filtered_calls_${new Date().toISOString().split('T')[0]}.json`,\n    `vapi_statistics_${new Date().toISOString().split('T')[0]}.json`\n  ]\n};\n\n// Log summary to console\nif (data.config.VERBOSE) {\n  console.log('\\n========================================');\n  console.log('VAPI DATA COLLECTION COMPLETE');\n  console.log('========================================');\n  console.log(`Date Range: ${output.summary.dateRange}`);\n  console.log(`Total Calls: ${output.summary.totalCallsCollected}`);\n  console.log(`After Filtering: ${output.summary.totalCallsAfterFiltering}`);\n  console.log(`Filter Efficiency: ${output.summary.filterEfficiency}`);\n  console.log(`Total Cost: ${output.summary.totalCost}`);\n  console.log(`Avg Duration: ${output.summary.avgCallDuration}`);\n  console.log('\\nTop 5 Days by Call Volume:');\n  output.topDays.forEach(day => {\n    console.log(`  ${day.date}: ${day.calls} calls, ${day.cost}, avg ${day.avgDuration}`);\n  });\n  console.log('========================================\\n');\n}\n\nreturn output;"
+      },
+      "id": "format_output_008",
+      "name": "Format Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "send_notification_009",
+      "name": "Send Notification (Optional)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1650, 300],
+      "notesInFlow": true,
+      "notes": "Optional: Send results to webhook or Slack",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.summary.totalCallsAfterFiltering }}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "check_results_010",
+      "name": "Check If Data Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "error",
+              "value": "No calls found after filtering. Check your date range and filters."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "no_data_error_011",
+      "name": "No Data Error",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [1450, 450]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Error handling and retry logic\nconst maxRetries = 3;\nlet retryCount = 0;\nlet lastError = null;\n\nwhile (retryCount < maxRetries) {\n  try {\n    // This would be the actual operation\n    // For now, just pass through the input\n    return $input.all();\n  } catch (error) {\n    lastError = error;\n    retryCount++;\n    console.log(`Retry ${retryCount}/${maxRetries} after error: ${error.message}`);\n    \n    // Wait before retry (exponential backoff)\n    await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000));\n  }\n}\n\n// If all retries failed\nthrow new Error(`Failed after ${maxRetries} retries. Last error: ${lastError?.message}`);"
+      },
+      "id": "error_handler_012",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 500],
+      "notesInFlow": true,
+      "notes": "Handles errors and implements retry logic",
+      "disabled": false
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Configuration": {
+      "main": [
+        [
+          {
+            "node": "Fetch All VAPI Calls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch All VAPI Calls": {
+      "main": [
+        [
+          {
+            "node": "Apply Filters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply Filters": {
+      "main": [
+        [
+          {
+            "node": "Generate Statistics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Statistics": {
+      "main": [
+        [
+          {
+            "node": "Check If Data Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check If Data Exists": {
+      "main": [
+        [
+          {
+            "node": "Save Filtered Calls",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save Statistics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Data Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Send Notification (Optional)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0",
+  "id": "vapi_collection_workflow_001",
+  "meta": {
+    "instanceId": "n8n"
+  },
+  "tags": [
+    {
+      "name": "VAPI",
+      "createdAt": "2025-01-17T10:00:00.000Z"
+    },
+    {
+      "name": "Data Collection",
+      "createdAt": "2025-01-17T10:00:00.000Z"
+    }
+  ]
+}

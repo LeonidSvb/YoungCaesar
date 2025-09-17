@@ -1,0 +1,394 @@
+{
+  "name": "VAPI Collection Advanced with Airtable",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "id": "schedule_trigger_001",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300],
+      "notesInFlow": true,
+      "notes": "Runs every 6 hours automatically"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "START_DATE",
+              "value": "={{ $now.minus({days: 1}).format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "END_DATE",
+              "value": "={{ $now.format('yyyy-MM-dd') }}"
+            },
+            {
+              "name": "VAPI_API_KEY",
+              "value": "={{ $env.VAPI_API_KEY }}"
+            },
+            {
+              "name": "AIRTABLE_API_KEY",
+              "value": "={{ $env.AIRTABLE_API_KEY }}"
+            },
+            {
+              "name": "AIRTABLE_BASE_ID",
+              "value": "={{ $env.AIRTABLE_BASE_ID }}"
+            },
+            {
+              "name": "AIRTABLE_TABLE_NAME",
+              "value": "VAPI_Calls"
+            }
+          ],
+          "number": [
+            {
+              "name": "MIN_COST",
+              "value": 0
+            },
+            {
+              "name": "MIN_DURATION",
+              "value": 0
+            }
+          ]
+        }
+      },
+      "id": "config_002",
+      "name": "Dynamic Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Advanced VAPI data collection with better error handling\nconst config = $input.first().json;\nconst allCalls = [];\nconst errors = [];\n\n// Helper function for exponential backoff\nasync function withRetry(fn, maxRetries = 3) {\n  for (let i = 0; i < maxRetries; i++) {\n    try {\n      return await fn();\n    } catch (error) {\n      if (i === maxRetries - 1) throw error;\n      const delay = Math.pow(2, i) * 1000;\n      console.log(`Retry ${i + 1}/${maxRetries} after ${delay}ms`);\n      await new Promise(resolve => setTimeout(resolve, delay));\n    }\n  }\n}\n\n// Fetch calls with advanced pagination\nasync function fetchAllCalls() {\n  const startDateTime = `${config.START_DATE}T00:00:00.000Z`;\n  const endDateTime = `${config.END_DATE}T23:59:59.999Z`;\n  let offset = 0;\n  let hasMore = true;\n  \n  while (hasMore) {\n    try {\n      const batch = await withRetry(async () => {\n        return await $http.request({\n          method: 'GET',\n          url: 'https://api.vapi.ai/call',\n          headers: {\n            'Authorization': `Bearer ${config.VAPI_API_KEY}`,\n            'Content-Type': 'application/json'\n          },\n          qs: {\n            createdAtGe: startDateTime,\n            createdAtLt: endDateTime,\n            limit: 100,\n            offset: offset\n          },\n          timeout: 30000\n        });\n      });\n      \n      if (batch && Array.isArray(batch)) {\n        // Enrich each call with additional metadata\n        const enrichedBatch = batch.map(call => ({\n          ...call,\n          _fetchedAt: new Date().toISOString(),\n          _batchOffset: offset,\n          _dayOfWeek: new Date(call.createdAt).toLocaleDateString('en-US', { weekday: 'long' }),\n          _hour: new Date(call.createdAt).getHours(),\n          _costUSD: call.cost || 0,\n          _durationMinutes: call.duration ? (call.duration / 60).toFixed(2) : 0,\n          _hasTranscript: !!(call.transcript && call.transcript !== 'N/A'),\n          _callSuccess: call.status === 'completed',\n          _callId: call.id || call.phoneCallId || `unknown_${Date.now()}`\n        }));\n        \n        allCalls.push(...enrichedBatch);\n        console.log(`Fetched batch ${offset}-${offset + batch.length}: ${batch.length} calls`);\n        \n        hasMore = batch.length === 100;\n        offset += 100;\n        \n        // Prevent infinite loops\n        if (offset > 50000) {\n          console.warn('Reached maximum offset limit');\n          hasMore = false;\n        }\n      } else {\n        hasMore = false;\n      }\n    } catch (error) {\n      errors.push({\n        offset: offset,\n        error: error.message,\n        timestamp: new Date().toISOString()\n      });\n      console.error(`Failed to fetch batch at offset ${offset}:`, error.message);\n      hasMore = false; // Stop on error\n    }\n  }\n  \n  return { calls: allCalls, errors: errors };\n}\n\nconst result = await fetchAllCalls();\n\nconsole.log(`Total calls collected: ${result.calls.length}`);\nif (result.errors.length > 0) {\n  console.warn(`Encountered ${result.errors.length} errors during collection`);\n}\n\nreturn {\n  config: config,\n  calls: result.calls,\n  errors: result.errors,\n  metadata: {\n    collectionTimestamp: new Date().toISOString(),\n    totalCalls: result.calls.length,\n    dateRange: `${config.START_DATE} to ${config.END_DATE}`,\n    hasErrors: result.errors.length > 0\n  }\n};"
+      },
+      "id": "fetch_advanced_003",
+      "name": "Advanced Fetch with Retry",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Advanced filtering and categorization\nconst data = $input.first().json;\nconst { config, calls } = data;\n\nfunction categorizeCall(call) {\n  const categories = [];\n  \n  // Cost categories\n  if (call._costUSD === 0) categories.push('free');\n  else if (call._costUSD < 0.1) categories.push('low_cost');\n  else if (call._costUSD < 0.5) categories.push('medium_cost');\n  else categories.push('high_cost');\n  \n  // Duration categories\n  const durationSec = call.duration || 0;\n  if (durationSec === 0) categories.push('no_duration');\n  else if (durationSec < 30) categories.push('very_short');\n  else if (durationSec < 120) categories.push('short');\n  else if (durationSec < 300) categories.push('medium');\n  else categories.push('long');\n  \n  // Time of day categories\n  const hour = call._hour;\n  if (hour >= 6 && hour < 12) categories.push('morning');\n  else if (hour >= 12 && hour < 17) categories.push('afternoon');\n  else if (hour >= 17 && hour < 21) categories.push('evening');\n  else categories.push('night');\n  \n  // Success categories\n  if (call.status === 'completed') categories.push('successful');\n  else if (call.status === 'failed') categories.push('failed');\n  else if (call.status === 'no-answer') categories.push('no_answer');\n  else if (call.status === 'busy') categories.push('busy');\n  else categories.push('other_status');\n  \n  // Transcript categories\n  if (call._hasTranscript) {\n    categories.push('has_transcript');\n    if (call.transcript && call.transcript.length > 500) {\n      categories.push('long_conversation');\n    }\n  } else {\n    categories.push('no_transcript');\n  }\n  \n  return categories;\n}\n\nfunction applyAdvancedFilters(calls) {\n  let filtered = [...calls];\n  \n  // Basic filters\n  if (config.MIN_COST > 0) {\n    filtered = filtered.filter(call => call._costUSD >= config.MIN_COST);\n  }\n  \n  if (config.MIN_DURATION > 0) {\n    filtered = filtered.filter(call => (call.duration || 0) >= config.MIN_DURATION);\n  }\n  \n  // Advanced filters\n  // Filter out test calls (if phone number contains 'test' or duration is exactly 0)\n  filtered = filtered.filter(call => {\n    const phoneNumber = call.phoneNumber || call.customerPhoneNumber || '';\n    return !phoneNumber.toLowerCase().includes('test') && call.duration !== 0;\n  });\n  \n  // Add categories to each call\n  filtered = filtered.map(call => ({\n    ...call,\n    _categories: categorizeCall(call),\n    _qualityScore: calculateQualityScore(call)\n  }));\n  \n  return filtered;\n}\n\nfunction calculateQualityScore(call) {\n  let score = 0;\n  const maxScore = 100;\n  \n  // Duration score (max 30 points)\n  if (call.duration > 0) {\n    if (call.duration >= 60 && call.duration <= 300) score += 30; // Optimal duration\n    else if (call.duration > 300) score += 20; // Long call\n    else score += 10; // Short call\n  }\n  \n  // Completion score (max 30 points)\n  if (call.status === 'completed') score += 30;\n  else if (call.status === 'no-answer') score += 10;\n  \n  // Transcript score (max 20 points)\n  if (call._hasTranscript) score += 20;\n  \n  // Cost efficiency score (max 20 points)\n  if (call._costUSD > 0) {\n    const costPerMinute = call.duration > 0 ? (call._costUSD / (call.duration / 60)) : 999;\n    if (costPerMinute < 0.1) score += 20;\n    else if (costPerMinute < 0.2) score += 15;\n    else if (costPerMinute < 0.3) score += 10;\n    else score += 5;\n  }\n  \n  return Math.min(score, maxScore);\n}\n\nconst filteredCalls = applyAdvancedFilters(calls);\n\n// Calculate aggregated statistics\nconst stats = {\n  total: filteredCalls.length,\n  byStatus: {},\n  byCategory: {},\n  avgQualityScore: 0,\n  totalCost: 0,\n  totalDuration: 0\n};\n\nfilteredCalls.forEach(call => {\n  // Status counts\n  stats.byStatus[call.status] = (stats.byStatus[call.status] || 0) + 1;\n  \n  // Category counts\n  call._categories.forEach(cat => {\n    stats.byCategory[cat] = (stats.byCategory[cat] || 0) + 1;\n  });\n  \n  // Totals\n  stats.totalCost += call._costUSD;\n  stats.totalDuration += (call.duration || 0);\n  stats.avgQualityScore += call._qualityScore;\n});\n\nif (filteredCalls.length > 0) {\n  stats.avgQualityScore = (stats.avgQualityScore / filteredCalls.length).toFixed(1);\n  stats.avgCost = (stats.totalCost / filteredCalls.length).toFixed(3);\n  stats.avgDuration = Math.round(stats.totalDuration / filteredCalls.length);\n}\n\nconsole.log(`Filtered calls: ${filteredCalls.length} from ${calls.length} total`);\nconsole.log(`Average quality score: ${stats.avgQualityScore}/100`);\n\nreturn {\n  config: config,\n  filteredCalls: filteredCalls,\n  statistics: stats,\n  metadata: data.metadata\n};"
+      },
+      "id": "advanced_filter_004",
+      "name": "Advanced Filtering & Scoring",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 10,
+        "options": {}
+      },
+      "id": "batch_calls_005",
+      "name": "Batch for Airtable",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare data for Airtable\nconst calls = $input.all().map(item => item.json.filteredCalls).flat();\nconst config = $input.first().json.config;\n\n// Transform calls to Airtable format\nconst airtableRecords = calls.map(call => {\n  // Format the data for Airtable\n  const record = {\n    fields: {\n      'Call ID': call._callId || call.id || 'unknown',\n      'Created At': call.createdAt,\n      'Status': call.status || 'unknown',\n      'Duration (seconds)': call.duration || 0,\n      'Duration (minutes)': parseFloat(call._durationMinutes) || 0,\n      'Cost (USD)': call._costUSD || 0,\n      'Phone Number': call.phoneNumber || call.customerPhoneNumber || '',\n      'Assistant ID': call.assistantId || '',\n      'Has Transcript': call._hasTranscript || false,\n      'Transcript': call.transcript && call.transcript !== 'N/A' ? call.transcript.substring(0, 10000) : '',\n      'Day of Week': call._dayOfWeek || '',\n      'Hour of Day': call._hour || 0,\n      'Categories': call._categories ? call._categories.join(', ') : '',\n      'Quality Score': call._qualityScore || 0,\n      'Fetched At': call._fetchedAt || new Date().toISOString(),\n      'Date Range': `${config.START_DATE} to ${config.END_DATE}`,\n      'Call Success': call._callSuccess || false,\n      'Recording URL': call.recordingUrl || '',\n      'Summary': call.summary || '',\n      'End Reason': call.endedReason || '',\n      'Processing Time': call.processingTime || 0\n    }\n  };\n  \n  // Remove null/undefined fields for cleaner Airtable records\n  Object.keys(record.fields).forEach(key => {\n    if (record.fields[key] === null || record.fields[key] === undefined || record.fields[key] === '') {\n      delete record.fields[key];\n    }\n  });\n  \n  return record;\n});\n\nconsole.log(`Prepared ${airtableRecords.length} records for Airtable`);\n\n// Return records for Airtable node\nreturn airtableRecords.map(record => ({ json: record }));"
+      },
+      "id": "prepare_airtable_006",
+      "name": "Prepare Airtable Records",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "baseId": "={{ $node['Dynamic Configuration'].json.AIRTABLE_BASE_ID }}",
+        "tableId": "={{ $node['Dynamic Configuration'].json.AIRTABLE_TABLE_NAME }}",
+        "options": {
+          "typecast": true,
+          "bulkSize": 10
+        }
+      },
+      "id": "airtable_create_007",
+      "name": "Create in Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2,
+      "position": [1450, 300],
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "1",
+          "name": "Airtable API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate comprehensive report\nconst data = $input.first().json;\nconst stats = data.statistics;\nconst calls = data.filteredCalls;\nconst metadata = data.metadata;\n\n// Create detailed analysis\nconst analysis = {\n  executionSummary: {\n    timestamp: new Date().toISOString(),\n    dateRange: metadata.dateRange,\n    totalCallsProcessed: stats.total,\n    totalCost: `$${stats.totalCost.toFixed(2)}`,\n    avgCostPerCall: `$${stats.avgCost}`,\n    totalDurationMinutes: Math.round(stats.totalDuration / 60),\n    avgDurationSeconds: stats.avgDuration,\n    avgQualityScore: `${stats.avgQualityScore}/100`,\n    processingErrors: metadata.hasErrors ? 'Yes' : 'No'\n  },\n  \n  statusBreakdown: Object.entries(stats.byStatus).map(([status, count]) => ({\n    status: status,\n    count: count,\n    percentage: ((count / stats.total) * 100).toFixed(1) + '%'\n  })),\n  \n  categoryAnalysis: Object.entries(stats.byCategory)\n    .sort((a, b) => b[1] - a[1])\n    .slice(0, 10)\n    .map(([category, count]) => ({\n      category: category,\n      count: count,\n      percentage: ((count / stats.total) * 100).toFixed(1) + '%'\n    })),\n  \n  timeAnalysis: {\n    peakHours: findPeakHours(calls),\n    busiestDays: findBusiestDays(calls),\n    trendsIdentified: identifyTrends(calls)\n  },\n  \n  qualityMetrics: {\n    highQualityCalls: calls.filter(c => c._qualityScore >= 70).length,\n    mediumQualityCalls: calls.filter(c => c._qualityScore >= 40 && c._qualityScore < 70).length,\n    lowQualityCalls: calls.filter(c => c._qualityScore < 40).length,\n    callsWithTranscripts: stats.byCategory['has_transcript'] || 0,\n    successfulCalls: stats.byCategory['successful'] || 0\n  },\n  \n  recommendations: generateRecommendations(stats, calls)\n};\n\nfunction findPeakHours(calls) {\n  const hourCounts = {};\n  calls.forEach(call => {\n    hourCounts[call._hour] = (hourCounts[call._hour] || 0) + 1;\n  });\n  \n  return Object.entries(hourCounts)\n    .sort((a, b) => b[1] - a[1])\n    .slice(0, 3)\n    .map(([hour, count]) => ({\n      hour: `${hour}:00`,\n      calls: count\n    }));\n}\n\nfunction findBusiestDays(calls) {\n  const dayCounts = {};\n  calls.forEach(call => {\n    const date = call.createdAt.split('T')[0];\n    dayCounts[date] = (dayCounts[date] || 0) + 1;\n  });\n  \n  return Object.entries(dayCounts)\n    .sort((a, b) => b[1] - a[1])\n    .slice(0, 5)\n    .map(([date, count]) => ({\n      date: date,\n      calls: count\n    }));\n}\n\nfunction identifyTrends(calls) {\n  const trends = [];\n  \n  // Check for increasing costs\n  const avgCostPerCall = stats.totalCost / stats.total;\n  if (avgCostPerCall > 0.15) {\n    trends.push('High average cost per call detected');\n  }\n  \n  // Check for short call prevalence\n  const shortCalls = stats.byCategory['very_short'] || 0;\n  if (shortCalls > stats.total * 0.3) {\n    trends.push('High percentage of very short calls');\n  }\n  \n  // Check for failed call rate\n  const failedCalls = stats.byCategory['failed'] || 0;\n  if (failedCalls > stats.total * 0.1) {\n    trends.push('High failure rate detected');\n  }\n  \n  return trends.length > 0 ? trends : ['No significant trends identified'];\n}\n\nfunction generateRecommendations(stats, calls) {\n  const recommendations = [];\n  \n  if (stats.avgQualityScore < 50) {\n    recommendations.push('Consider reviewing call scripts and assistant configuration to improve quality scores');\n  }\n  \n  const noTranscriptCount = stats.byCategory['no_transcript'] || 0;\n  if (noTranscriptCount > stats.total * 0.2) {\n    recommendations.push('Enable transcription for more calls to improve analysis capabilities');\n  }\n  \n  if (stats.avgCost > 0.2) {\n    recommendations.push('Review pricing plan and optimize call routing to reduce costs');\n  }\n  \n  const failureRate = (stats.byCategory['failed'] || 0) / stats.total;\n  if (failureRate > 0.1) {\n    recommendations.push('Investigate high failure rate - check network connectivity and assistant configuration');\n  }\n  \n  return recommendations.length > 0 ? recommendations : ['System performing within normal parameters'];\n}\n\nconsole.log('Analysis report generated successfully');\n\nreturn analysis;"
+      },
+      "id": "generate_report_008",
+      "name": "Generate Analysis Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 500]
+    },
+    {
+      "parameters": {
+        "content": "## VAPI Call Analysis Report\\n\\n### Summary\\n- **Date Range**: {{ $json.executionSummary.dateRange }}\\n- **Total Calls**: {{ $json.executionSummary.totalCallsProcessed }}\\n- **Total Cost**: {{ $json.executionSummary.totalCost }}\\n- **Avg Quality Score**: {{ $json.executionSummary.avgQualityScore }}\\n\\n### Top Categories\\n{{ $json.categoryAnalysis }}\\n\\n### Recommendations\\n{{ $json.recommendations }}",
+        "options": {
+          "mimeType": "text/markdown"
+        }
+      },
+      "id": "markdown_report_009",
+      "name": "Markdown Report",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [1250, 500]
+    },
+    {
+      "parameters": {
+        "channel": "#vapi-analytics",
+        "text": "VAPI Collection Complete",
+        "otherOptions": {
+          "attachments": {
+            "attachmentsValues": [
+              {
+                "color": "#00AA00",
+                "title": "VAPI Data Collection Report",
+                "fields": {
+                  "fieldsValues": [
+                    {
+                      "title": "Date Range",
+                      "value": "={{ $node['Generate Analysis Report'].json.executionSummary.dateRange }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Total Calls",
+                      "value": "={{ $node['Generate Analysis Report'].json.executionSummary.totalCallsProcessed }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Total Cost",
+                      "value": "={{ $node['Generate Analysis Report'].json.executionSummary.totalCost }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Avg Quality",
+                      "value": "={{ $node['Generate Analysis Report'].json.executionSummary.avgQualityScore }}",
+                      "short": true
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "id": "slack_notify_010",
+      "name": "Slack Notification",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [1450, 500],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack API"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.metadata.hasErrors }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check_errors_011",
+      "name": "Check for Errors",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "channel": "#vapi-errors",
+        "text": "VAPI Collection Errors Detected",
+        "otherOptions": {
+          "attachments": {
+            "attachmentsValues": [
+              {
+                "color": "#FF0000",
+                "title": "Error Report",
+                "text": "={{ JSON.stringify($json.errors, null, 2) }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "error_notify_012",
+      "name": "Error Notification",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [1050, 700],
+      "credentials": {
+        "slackApi": {
+          "id": "2",
+          "name": "Slack API"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Dynamic Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dynamic Configuration": {
+      "main": [
+        [
+          {
+            "node": "Advanced Fetch with Retry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Advanced Fetch with Retry": {
+      "main": [
+        [
+          {
+            "node": "Check for Errors",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Advanced Filtering & Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Advanced Filtering & Scoring": {
+      "main": [
+        [
+          {
+            "node": "Batch for Airtable",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Generate Analysis Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch for Airtable": {
+      "main": [
+        [
+          {
+            "node": "Prepare Airtable Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Airtable Records": {
+      "main": [
+        [
+          {
+            "node": "Create in Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Analysis Report": {
+      "main": [
+        [
+          {
+            "node": "Markdown Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown Report": {
+      "main": [
+        [
+          {
+            "node": "Slack Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for Errors": {
+      "main": [
+        [
+          {
+            "node": "Error Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "2.0.0",
+  "id": "vapi_advanced_workflow_002",
+  "meta": {
+    "instanceId": "n8n"
+  },
+  "tags": [
+    {
+      "name": "VAPI",
+      "createdAt": "2025-01-17T10:00:00.000Z"
+    },
+    {
+      "name": "Airtable",
+      "createdAt": "2025-01-17T10:00:00.000Z"
+    },
+    {
+      "name": "Automated",
+      "createdAt": "2025-01-17T10:00:00.000Z"
+    }
+  ]
+}

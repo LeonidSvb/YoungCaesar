@@ -7,34 +7,19 @@ require('dotenv').config();
 // DATE RANGE - What period to collect data for
 const CONFIG = {
     // Dates (YYYY-MM-DD format)
-    START_DATE: '2025-09-01',
+    START_DATE: '2025-01-01',
     END_DATE: '2025-09-17',
 
     // FILTERS - Set your filtering parameters
     FILTERS: {
         // Minimum call cost to include (set to 0 to include all)
-        MIN_COST: 0.02,
-
-        // Require transcript? (true/false/null)
-        // true = only calls WITH transcript
-        // false = only calls WITHOUT transcript
-        // null = all calls (no filter)
-        REQUIRE_TRANSCRIPT: true,
-
-        // Minimum duration in seconds (set to 0 to include all)
-        MIN_DURATION: 30,
-
-        // Call status filter (null = all statuses)
-        // Options: 'completed', 'failed', 'busy', 'no-answer', null
-        STATUS: 'completed',
-
-        // Assistant ID filter (null = all assistants)
-        // Add specific assistant ID or null for all
-        ASSISTANT_ID: null,
-
-        // Phone number filter (null = all numbers)
-        // Add specific number like '+1234567890' or null for all
-        PHONE_NUMBER: null
+        // 💰 СТОИМОСТЬ ЗВОНКОВ: ~$0.07 за минуту разговора
+        // 📊 РЕКОМЕНДУЕМЫЕ ПОРОГИ:
+        //   • $0.01 - исключает технические сбои (очень короткие звонки)
+        //   • $0.05 - звонки от ~45 секунд
+        //   • $0.10 - звонки от ~1.5 минут
+        //   • $0.20 - звонки от ~3 минут
+        MIN_COST: 0.03
     },
 
     // OUTPUT SETTINGS
@@ -43,7 +28,7 @@ const CONFIG = {
         SAVE_TO_FILE: true,
 
         // Output directory
-        OUTPUT_DIR: 'data/raw',
+        OUTPUT_DIR: 'production_scripts/vapi_collection/results',
 
         // Show detailed console output?
         VERBOSE: true
@@ -54,9 +39,9 @@ const CONFIG = {
 // MAIN SCRIPT - NO NEED TO CHANGE BELOW
 // ============================================================
 
-const VapiClient = require('./api/vapi_client');
-const DataUtils = require('./utils/data_utils');
-const Logger = require('./utils/logger');
+const VapiClient = require('../../scripts/api/vapi_client');
+const DataUtils = require('../../scripts/utils/data_utils');
+const Logger = require('../../scripts/utils/logger');
 
 const logger = new Logger('vapi_collection.log');
 
@@ -64,45 +49,9 @@ function applyFilters(calls) {
     let filtered = [...calls];
     const filters = CONFIG.FILTERS;
 
-    // Apply cost filter
+    // Apply cost filter only
     if (filters.MIN_COST > 0) {
         filtered = filtered.filter(call => (call.cost || 0) >= filters.MIN_COST);
-    }
-
-    // Apply transcript filter
-    if (filters.REQUIRE_TRANSCRIPT !== null) {
-        if (filters.REQUIRE_TRANSCRIPT) {
-            filtered = filtered.filter(call =>
-                call.transcript && call.transcript !== 'N/A' && call.transcript.length > 0
-            );
-        } else {
-            filtered = filtered.filter(call =>
-                !call.transcript || call.transcript === 'N/A' || call.transcript.length === 0
-            );
-        }
-    }
-
-    // Apply duration filter
-    if (filters.MIN_DURATION > 0) {
-        filtered = filtered.filter(call => (call.duration || 0) >= filters.MIN_DURATION);
-    }
-
-    // Apply status filter
-    if (filters.STATUS) {
-        filtered = filtered.filter(call => call.status === filters.STATUS);
-    }
-
-    // Apply assistant filter
-    if (filters.ASSISTANT_ID) {
-        filtered = filtered.filter(call => call.assistantId === filters.ASSISTANT_ID);
-    }
-
-    // Apply phone number filter
-    if (filters.PHONE_NUMBER) {
-        filtered = filtered.filter(call =>
-            call.phoneNumber === filters.PHONE_NUMBER ||
-            call.customerPhoneNumber === filters.PHONE_NUMBER
-        );
     }
 
     return filtered;
@@ -123,11 +72,6 @@ function generateDailyStats(calls, startDate, endDate) {
     // Record active filters
     const filters = CONFIG.FILTERS;
     if (filters.MIN_COST > 0) stats.summary.filtersApplied.minCost = filters.MIN_COST;
-    if (filters.REQUIRE_TRANSCRIPT !== null) stats.summary.filtersApplied.requireTranscript = filters.REQUIRE_TRANSCRIPT;
-    if (filters.MIN_DURATION > 0) stats.summary.filtersApplied.minDuration = filters.MIN_DURATION;
-    if (filters.STATUS) stats.summary.filtersApplied.status = filters.STATUS;
-    if (filters.ASSISTANT_ID) stats.summary.filtersApplied.assistantId = filters.ASSISTANT_ID;
-    if (filters.PHONE_NUMBER) stats.summary.filtersApplied.phoneNumber = filters.PHONE_NUMBER;
 
     // Group calls by date
     const callsByDate = {};
@@ -220,23 +164,27 @@ async function collectVapiData() {
 
         // Save results if enabled
         if (CONFIG.OUTPUT.SAVE_TO_FILE) {
-            const timestamp = DataUtils.generateTimestamp();
+            const now = new Date();
+            const timestamp = now.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+            const dateRange = `${startDate}_to_${endDate}`;
+            const costFilter = `cost-${CONFIG.FILTERS.MIN_COST}`;
 
-            // Save filtered calls
+            // Save filtered calls with descriptive filename
             await DataUtils.saveJsonData(
                 filteredCalls,
-                `vapi_filtered_calls_${timestamp}.json`,
+                `${timestamp}_vapi_calls_${dateRange}_${costFilter}.json`,
                 CONFIG.OUTPUT.OUTPUT_DIR
             );
 
             // Save statistics
             await DataUtils.saveJsonData(
                 stats,
-                `vapi_stats_${timestamp}.json`,
+                `${timestamp}_vapi_stats_${dateRange}_${costFilter}.json`,
                 CONFIG.OUTPUT.OUTPUT_DIR
             );
 
             console.log(`\n✅ Results saved to ${CONFIG.OUTPUT.OUTPUT_DIR}/`);
+            console.log(`📊 Files: ${timestamp}_vapi_calls_${dateRange}_${costFilter}.json`);
         }
 
         // Display results
