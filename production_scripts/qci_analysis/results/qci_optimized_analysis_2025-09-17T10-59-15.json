@@ -1,0 +1,40 @@
+{
+  "config": {
+    "INPUT_FILE": "../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json",
+    "CONCURRENT_REQUESTS": 20,
+    "BATCH_SIZE": 50,
+    "REQUESTS_PER_MINUTE": 400,
+    "TOKENS_PER_MINUTE": 160000,
+    "MODEL": "gpt-4o-mini",
+    "TEMPERATURE": 0.1,
+    "MAX_TOKENS": 1500,
+    "SAVE_PROGRESS_EVERY": 50,
+    "RETRY_ATTEMPTS": 3,
+    "RETRY_DELAY": 2000,
+    "OUTPUT_DIR": "results",
+    "VERBOSE": false
+  },
+  "stats": {
+    "processed": 0,
+    "failed": 100,
+    "skipped": 0,
+    "totalCost": 0,
+    "startTime": 1758106710236,
+    "requestsThisMinute": 400,
+    "tokensThisMinute": 0,
+    "lastMinuteReset": 1758106710236,
+    "totalTime": 44.869,
+    "avgTimePerCall": null,
+    "avgCostPerCall": null,
+    "avgQCI": null,
+    "projectedCostFor1000": null
+  },
+  "results": [],
+  "summary": {
+    "total_calls": 0,
+    "avg_qci": "NaN",
+    "pass_rate": "NaN",
+    "total_cost": "0.0000",
+    "total_time": "0m 44s"
+  }
+}

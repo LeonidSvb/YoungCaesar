@@ -1,0 +1,2693 @@
+{
+  "config": {
+    "INPUT_FILE": "../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json",
+    "TEST_CALLS_COUNT": 20,
+    "MODEL": "gpt-4o-mini",
+    "TEMPERATURE": 0.1,
+    "MAX_TOKENS": 2000,
+    "BRAND_NAME": "Young Caesar",
+    "AGENT_NAMES": [
+      "Alex",
+      "Avery Martinez",
+      "Amelia Smith",
+      "Ella Thomas",
+      "Clara Flores"
+    ],
+    "OUTPUT_DIR": "results",
+    "SAVE_RESULTS": true,
+    "VERBOSE": true
+  },
+  "stats": {
+    "processed": 20,
+    "failed": 0,
+    "totalCost": 0.01797855,
+    "startTime": 1758106212527,
+    "qualityMetrics": {
+      "avgTokensUsed": 76183,
+      "avgProcessingTime": 285.08199999999994,
+      "scoringConsistency": []
+    },
+    "totalTime": 285.795,
+    "avgCostPerCall": 0.0008989275,
+    "avgTokensPerCall": 3809.15,
+    "avgTimePerCall": 14.254099999999998
+  },
+  "results": [
+    {
+      "call_id": "c2f4b38f-250d-4459-af21-657eeed2a9e8",
+      "call_duration": 599,
+      "transcript_length": 8576,
+      "qci_total": 25,
+      "status": "fail",
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 8,
+      "outcome": 7,
+      "ai_analysis": {
+        "qci_total_score": 25,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 8,
+        "outcome_total": 7,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 2,
+            "percentage": 10,
+            "assessment": "Agent talk time is significantly low, indicating a lack of engagement."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No value proposition was provided."
+          },
+          "first_cta": {
+            "score": 0,
+            "seconds": 0,
+            "cta_statement": "No clear call-to-action was made."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses detected."
+          },
+          "resistance_recognition": {
+            "score": 0,
+            "response_time": 0,
+            "details": "No objections were acknowledged."
+          },
+          "compliance": {
+            "score": 0,
+            "comply_time": 0,
+            "details": "No compliance was necessary."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternatives were provided."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 7.4,
+            "introduction": "Agent introduced themselves as Ivy Clark from Young Caesar."
+          },
+          "brand_consistency": {
+            "score": 0,
+            "variants_found": 1,
+            "assessment": "Inconsistent use of the company name; 'Lift Waste' was used instead of 'Young Caesar'."
+          },
+          "language_match": {
+            "score": 0,
+            "appropriate": true,
+            "details": "Language was appropriate but lacked engagement."
+          },
+          "final_outcome": {
+            "score": 7,
+            "outcome_type": "Info",
+            "evidence": "The call ended without a direct connection to the intended contact."
+          },
+          "professionalism": {
+            "score": 5,
+            "assessment": "Overall call quality was low due to repetitive responses.",
+            "strengths": [
+              "Polite tone"
+            ],
+            "weaknesses": [
+              "Lack of engagement and clarity."
+            ]
+          },
+          "wrap_up": {
+            "score": 0,
+            "present": false,
+            "quality": "The call did not conclude effectively."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's polite tone throughout the call."
+          ],
+          "improvement_areas": [
+            "Agent failed to engage effectively with the client.",
+            "Repeatedly asked for the same information without progressing the conversation."
+          ],
+          "key_quotes": [
+            "Thank you for the information. I will reach out via email.",
+            "Could you please connect me to Mark McDonald?"
+          ]
+        },
+        "coaching_tips": [
+          "Increase agent talk time by actively engaging the client and asking open-ended questions.",
+          "Provide a clear value proposition early in the call to establish purpose.",
+          "Avoid repetitive questions; instead, summarize what has been said and ask for clarification if needed.",
+          "Ensure the agent is familiar with the correct company name and context to maintain professionalism."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's polite tone throughout the call."
+        ],
+        "improvement_areas": [
+          "Agent failed to engage effectively with the client.",
+          "Repeatedly asked for the same information without progressing the conversation."
+        ],
+        "key_quotes": [
+          "Thank you for the information. I will reach out via email.",
+          "Could you please connect me to Mark McDonald?"
+        ]
+      },
+      "coaching_tips": [
+        "Increase agent talk time by actively engaging the client and asking open-ended questions.",
+        "Provide a clear value proposition early in the call to establish purpose.",
+        "Avoid repetitive questions; instead, summarize what has been said and ask for clarification if needed.",
+        "Ensure the agent is familiar with the correct company name and context to maintain professionalism."
+      ],
+      "processing_time": 9.942,
+      "cost": 0.00123165,
+      "tokens_used": 6198,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "ccc95c20-42d1-4d9d-8fce-35b175353ed4",
+      "call_duration": 599,
+      "transcript_length": 8555,
+      "qci_total": 20,
+      "status": "fail",
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 8,
+      "outcome": 2,
+      "ai_analysis": {
+        "qci_total_score": 20,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 8,
+        "outcome_total": 2,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 0,
+            "percentage": 0,
+            "assessment": "Agent did not effectively engage in conversation; the client dominated the call."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No value proposition was presented."
+          },
+          "first_cta": {
+            "score": 0,
+            "seconds": 0,
+            "cta_statement": "No clear call-to-action was made."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses were noted."
+          },
+          "resistance_recognition": {
+            "score": 0,
+            "response_time": 0,
+            "details": "No resistance was acknowledged as the client did not engage."
+          },
+          "compliance": {
+            "score": 0,
+            "comply_time": 0,
+            "details": "No compliance was necessary as the client did not respond to the agent's requests."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternatives were provided."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 28.07,
+            "introduction": "Agent introduced themselves as Ivy Clark from Young Caesar."
+          },
+          "brand_consistency": {
+            "score": 0,
+            "variants_found": 0,
+            "assessment": "The client did not mention the brand consistently."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The agent's language was appropriate but lacked engagement."
+          },
+          "final_outcome": {
+            "score": 2,
+            "outcome_type": "Info",
+            "evidence": "The call ended without a successful connection to Mark McDonald."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "Agent maintained a professional tone but failed to engage effectively.",
+            "strengths": [
+              "Professional tone"
+            ],
+            "weaknesses": [
+              "Lack of engagement and responsiveness."
+            ]
+          },
+          "wrap_up": {
+            "score": 0,
+            "present": false,
+            "quality": "No proper conclusion was provided."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent introduced themselves clearly."
+          ],
+          "improvement_areas": [
+            "Agent should engage more actively and provide value propositions."
+          ],
+          "key_quotes": [
+            "I'm looking to reach Mark McDonald. Can you provide me with their phone number or email?"
+          ]
+        },
+        "coaching_tips": [
+          "1. Improve engagement by asking open-ended questions to encourage dialogue.",
+          "2. Present a clear value proposition early in the call to capture interest.",
+          "3. Offer alternatives such as scheduling a callback or providing an email follow-up.",
+          "4. Ensure to conclude the call with a summary and next steps to leave a positive impression."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent introduced themselves clearly."
+        ],
+        "improvement_areas": [
+          "Agent should engage more actively and provide value propositions."
+        ],
+        "key_quotes": [
+          "I'm looking to reach Mark McDonald. Can you provide me with their phone number or email?"
+        ]
+      },
+      "coaching_tips": [
+        "1. Improve engagement by asking open-ended questions to encourage dialogue.",
+        "2. Present a clear value proposition early in the call to capture interest.",
+        "3. Offer alternatives such as scheduling a callback or providing an email follow-up.",
+        "4. Ensure to conclude the call with a summary and next steps to leave a positive impression."
+      ],
+      "processing_time": 15.507,
+      "cost": 0.0012135,
+      "tokens_used": 6119,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "a8728912-814d-4ee8-a28d-e34ce09a90ab",
+      "call_duration": 600,
+      "transcript_length": 6898,
+      "qci_total": 25,
+      "status": "fail",
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 8,
+      "outcome": 7,
+      "ai_analysis": {
+        "qci_total_score": 25,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 8,
+        "outcome_total": 7,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 2,
+            "percentage": 10,
+            "assessment": "Agent talk time is significantly low, indicating a lack of engagement."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No value proposition was presented."
+          },
+          "first_cta": {
+            "score": 0,
+            "seconds": 0,
+            "cta_statement": "No clear call-to-action was provided."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant dead air events were noted."
+          },
+          "resistance_recognition": {
+            "score": 0,
+            "response_time": 0,
+            "details": "No objections were acknowledged."
+          },
+          "compliance": {
+            "score": 0,
+            "comply_time": 0,
+            "details": "No compliance to objections was noted."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternatives were provided."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 2.24,
+            "introduction": "Brand was mentioned early in the call."
+          },
+          "brand_consistency": {
+            "score": 0,
+            "variants_found": 2,
+            "assessment": "Inconsistent use of the brand name (Ricco vs. Young Caesar)."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Language used was appropriate for the context."
+          },
+          "final_outcome": {
+            "score": 7,
+            "outcome_type": "None",
+            "evidence": "The call did not lead to a productive outcome."
+          },
+          "professionalism": {
+            "score": 5,
+            "assessment": "Overall professionalism was low due to lack of engagement.",
+            "strengths": [],
+            "weaknesses": [
+              "Lack of engagement",
+              "Inconsistent brand mention"
+            ]
+          },
+          "wrap_up": {
+            "score": 0,
+            "present": false,
+            "quality": "No proper conclusion was provided."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Brand was mentioned early in the call."
+          ],
+          "improvement_areas": [
+            "Agent engagement and responsiveness need significant improvement.",
+            "Clear call-to-action and value proposition are missing."
+          ],
+          "key_quotes": [
+            "Welcome to Ricco, your solution for specialty material handling needs.",
+            "Hi. This is Avery Martinez from Young Caesar."
+          ]
+        },
+        "coaching_tips": [
+          "Increase agent talk time to engage the caller more effectively.",
+          "Introduce a clear value proposition within the first 20 seconds.",
+          "Provide a specific call-to-action to guide the caller on the next steps.",
+          "Ensure consistent use of the brand name to avoid confusion.",
+          "Conclude calls with a clear wrap-up to enhance professionalism."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Brand was mentioned early in the call."
+        ],
+        "improvement_areas": [
+          "Agent engagement and responsiveness need significant improvement.",
+          "Clear call-to-action and value proposition are missing."
+        ],
+        "key_quotes": [
+          "Welcome to Ricco, your solution for specialty material handling needs.",
+          "Hi. This is Avery Martinez from Young Caesar."
+        ]
+      },
+      "coaching_tips": [
+        "Increase agent talk time to engage the caller more effectively.",
+        "Introduce a clear value proposition within the first 20 seconds.",
+        "Provide a specific call-to-action to guide the caller on the next steps.",
+        "Ensure consistent use of the brand name to avoid confusion.",
+        "Conclude calls with a clear wrap-up to enhance professionalism."
+      ],
+      "processing_time": 12.838,
+      "cost": 0.00106665,
+      "tokens_used": 5122,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "14436d72-abb7-41c5-a0a3-64c56de181de",
+      "call_duration": 600,
+      "transcript_length": 6819,
+      "qci_total": 30,
+      "status": "fail",
+      "dynamics": 10,
+      "objections": 0,
+      "brand": 12,
+      "outcome": 8,
+      "ai_analysis": {
+        "qci_total_score": 30,
+        "dynamics_total": 10,
+        "objections_total": 0,
+        "brand_total": 12,
+        "outcome_total": 8,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 0,
+            "percentage": 0,
+            "assessment": "Agent talk time is minimal, with the client dominating the conversation."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No value proposition was presented due to the nature of the call."
+          },
+          "first_cta": {
+            "score": 0,
+            "seconds": 0,
+            "cta_statement": "No clear call-to-action was provided."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant dead air was noted."
+          },
+          "resistance_recognition": {
+            "score": 0,
+            "response_time": 0,
+            "details": "No objections were acknowledged."
+          },
+          "compliance": {
+            "score": 0,
+            "comply_time": 0,
+            "details": "No compliance was required."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "N/A"
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 2.24,
+            "introduction": "The brand was mentioned early in the call."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 2,
+            "assessment": "Inconsistent use of the name 'Young Caesar' and 'Ricco'."
+          },
+          "language_match": {
+            "score": 0,
+            "appropriate": true,
+            "details": "Language was appropriate but lacked engagement."
+          },
+          "final_outcome": {
+            "score": 8,
+            "outcome_type": "None",
+            "evidence": "The call ended without a successful outcome."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "Professionalism was lacking due to repetitive responses and lack of engagement.",
+            "strengths": [
+              "Polite tone"
+            ],
+            "weaknesses": [
+              "Failure to engage effectively"
+            ]
+          },
+          "wrap_up": {
+            "score": 2,
+            "present": true,
+            "quality": "The call concluded without a clear resolution."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Brand introduction at 2.24 seconds."
+          ],
+          "improvement_areas": [
+            "Agent needs to engage more actively and provide value propositions."
+          ],
+          "key_quotes": [
+            "Welcome to Ricco, your solution for specialty material handling needs."
+          ]
+        },
+        "coaching_tips": [
+          "Encourage the agent to actively listen and respond to the client to create a more engaging conversation.",
+          "Train the agent to provide a clear value proposition early in the call to establish relevance.",
+          "Ensure the agent uses the correct company name consistently to avoid confusion.",
+          "Implement a structured approach to guide the conversation towards a clear outcome."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Brand introduction at 2.24 seconds."
+        ],
+        "improvement_areas": [
+          "Agent needs to engage more actively and provide value propositions."
+        ],
+        "key_quotes": [
+          "Welcome to Ricco, your solution for specialty material handling needs."
+        ]
+      },
+      "coaching_tips": [
+        "Encourage the agent to actively listen and respond to the client to create a more engaging conversation.",
+        "Train the agent to provide a clear value proposition early in the call to establish relevance.",
+        "Ensure the agent uses the correct company name consistently to avoid confusion.",
+        "Implement a structured approach to guide the conversation towards a clear outcome."
+      ],
+      "processing_time": 15.795,
+      "cost": 0.00104775,
+      "tokens_used": 5056,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "b9a0e538-910a-4b7b-bd27-c94663bf5bb3",
+      "call_duration": 504,
+      "transcript_length": 5361,
+      "qci_total": 38,
+      "status": "fail",
+      "dynamics": 14,
+      "objections": 0,
+      "brand": 12,
+      "outcome": 12,
+      "ai_analysis": {
+        "qci_total_score": 38,
+        "dynamics_total": 14,
+        "objections_total": 0,
+        "brand_total": 12,
+        "outcome_total": 12,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 24.6,
+            "assessment": "Agent talk time is significantly below the ideal range of 35-55%. The agent should aim to engage more actively."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No clear value proposition was presented within the first 20 seconds."
+          },
+          "first_cta": {
+            "score": 0,
+            "seconds": 0,
+            "cta_statement": "No clear call-to-action was made within the first 120 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 0,
+            "response_time": 0,
+            "details": "No objections were acknowledged during the call."
+          },
+          "compliance": {
+            "score": 0,
+            "comply_time": 0,
+            "details": "No compliance issues were noted as there were no objections."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternatives were provided."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 7.91,
+            "introduction": "Agent introduced themselves and the company within the first 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 1,
+            "assessment": "The agent consistently referred to the company as 'Young Caesar', but there was a minor miscommunication with the name 'Ricco'."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The agent maintained a professional tone throughout the call."
+          },
+          "final_outcome": {
+            "score": 12,
+            "outcome_type": "Callback",
+            "evidence": "The call ended with the agent being patched through to Jen Gray, indicating a potential follow-up."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "The agent maintained professionalism but could improve engagement.",
+            "strengths": [
+              "Polite and courteous"
+            ],
+            "weaknesses": [
+              "Low engagement and talk time"
+            ]
+          },
+          "wrap_up": {
+            "score": 4,
+            "present": true,
+            "quality": "The call concluded with the agent being connected to the intended recipient."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent introduced themselves promptly.",
+            "Agent maintained a polite tone."
+          ],
+          "improvement_areas": [
+            "Increase agent talk time to engage the client more effectively.",
+            "Present a clear value proposition early in the call."
+          ],
+          "key_quotes": [
+            "Hi, this is Avery Martinez from Young Caesar. Am I speaking with Jen Gray?",
+            "Thanks for your patience."
+          ]
+        },
+        "coaching_tips": [
+          "Encourage the agent to present a clear value proposition within the first 20 seconds to capture the client's interest.",
+          "Train the agent to actively engage with the client by asking open-ended questions to increase talk time and interaction.",
+          "Ensure the agent is aware of the correct names and details of the clients to avoid confusion during the call."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent introduced themselves promptly.",
+          "Agent maintained a polite tone."
+        ],
+        "improvement_areas": [
+          "Increase agent talk time to engage the client more effectively.",
+          "Present a clear value proposition early in the call."
+        ],
+        "key_quotes": [
+          "Hi, this is Avery Martinez from Young Caesar. Am I speaking with Jen Gray?",
+          "Thanks for your patience."
+        ]
+      },
+      "coaching_tips": [
+        "Encourage the agent to present a clear value proposition within the first 20 seconds to capture the client's interest.",
+        "Train the agent to actively engage with the client by asking open-ended questions to increase talk time and interaction.",
+        "Ensure the agent is aware of the correct names and details of the clients to avoid confusion during the call."
+      ],
+      "processing_time": 12.235,
+      "cost": 0.0010455,
+      "tokens_used": 4780,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "a9840734-d86b-44c2-8fd4-5ac9b8ee47d2",
+      "call_duration": 350,
+      "transcript_length": 3814,
+      "qci_total": 55,
+      "status": "fail",
+      "dynamics": 18,
+      "objections": 12,
+      "brand": 16,
+      "outcome": 9,
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 18,
+        "objections_total": 12,
+        "brand_total": 16,
+        "outcome_total": 9,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 51.43,
+            "assessment": "Agent talk time is slightly above the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No clear value proposition was presented within the first 20 seconds."
+          },
+          "first_cta": {
+            "score": 4,
+            "seconds": 133,
+            "cta_statement": "The first call-to-action occurred at 133 seconds, which is beyond the ideal 120 seconds."
+          },
+          "dead_air": {
+            "penalty": 2,
+            "events": 3,
+            "details": "There were multiple instances of dead air, particularly after the agent's questions."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 5,
+            "details": "The agent acknowledged the client's confusion but did not clarify effectively."
+          },
+          "compliance": {
+            "score": 4,
+            "comply_time": 5,
+            "details": "The agent responded respectfully to the client's request for an email."
+          },
+          "alternatives": {
+            "score": 4,
+            "offered": true,
+            "type": "Email follow-up offered."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 15,
+            "introduction": "The agent introduced herself and the company within the first 20 seconds."
+          },
+          "brand_consistency": {
+            "score": 8,
+            "variants_found": 1,
+            "assessment": "The agent consistently referred to the company as 'Young Caesar'."
+          },
+          "language_match": {
+            "score": 0,
+            "appropriate": false,
+            "details": "The agent's language did not match the client's level of understanding, leading to confusion."
+          },
+          "final_outcome": {
+            "score": 9,
+            "outcome_type": "Info",
+            "evidence": "The call ended with the agent agreeing to send an email summary."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "The agent maintained a polite tone but struggled with clarity.",
+            "strengths": [
+              "Polite and courteous"
+            ],
+            "weaknesses": [
+              "Lack of clarity and responsiveness to client cues."
+            ]
+          },
+          "wrap_up": {
+            "score": 5,
+            "present": true,
+            "quality": "The call concluded with a polite farewell."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's polite tone throughout the call.",
+            "Successful collection of email addresses."
+          ],
+          "improvement_areas": [
+            "Clarity in communication.",
+            "Reduction of dead air."
+          ],
+          "key_quotes": [
+            "Could you please provide me with Bora's email address?",
+            "If you want I can follow-up with you later regarding Laura's availability."
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity by simplifying language and confirming understanding frequently.",
+          "Reduce dead air by preparing for potential responses and maintaining engagement.",
+          "Ensure the first value proposition is presented within the first 20 seconds to capture interest.",
+          "Encourage the agent to ask more open-ended questions to facilitate smoother communication."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's polite tone throughout the call.",
+          "Successful collection of email addresses."
+        ],
+        "improvement_areas": [
+          "Clarity in communication.",
+          "Reduction of dead air."
+        ],
+        "key_quotes": [
+          "Could you please provide me with Bora's email address?",
+          "If you want I can follow-up with you later regarding Laura's availability."
+        ]
+      },
+      "coaching_tips": [
+        "Improve clarity by simplifying language and confirming understanding frequently.",
+        "Reduce dead air by preparing for potential responses and maintaining engagement.",
+        "Ensure the first value proposition is presented within the first 20 seconds to capture interest.",
+        "Encourage the agent to ask more open-ended questions to facilitate smoother communication."
+      ],
+      "processing_time": 11.853,
+      "cost": 0.00092085,
+      "tokens_used": 3988,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "b5b8eb10-8fa3-4301-af1b-b43db388ff15",
+      "call_duration": 302,
+      "transcript_length": 3694,
+      "qci_total": 61,
+      "status": "review",
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 17,
+      "ai_analysis": {
+        "qci_total_score": 61,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 17,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 54.3,
+            "assessment": "Agent talk ratio is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 4,
+            "seconds": 22,
+            "value_statement": "Agent provided value proposition after 22 seconds, which exceeds the ideal time of 20 seconds."
+          },
+          "first_cta": {
+            "score": 4,
+            "seconds": 72,
+            "cta_statement": "First call-to-action occurred at 72 seconds, which is acceptable but could be improved."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 5,
+            "details": "Agent acknowledged the client's request for more information promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and quickly to the client's request for email information."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternative options were provided."
+          },
+          "brand_mention": {
+            "score": 4,
+            "first_mention_time": 7,
+            "introduction": "Agent introduced the brand within 10 seconds but had inconsistencies in naming."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 3,
+            "assessment": "Agent used multiple names (BSA, Versus) causing confusion."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 4,
+            "outcome_type": "Info",
+            "evidence": "The client agreed to receive information via email."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "Overall call quality was acceptable but could improve in clarity.",
+            "strengths": [
+              "Polite and respectful"
+            ],
+            "weaknesses": [
+              "Confusion over company name"
+            ]
+          },
+          "wrap_up": {
+            "score": 5,
+            "present": true,
+            "quality": "The call concluded with a clear plan to send information."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's polite acknowledgment of the client's request for more information.",
+            "Agent's willingness to send an email summary."
+          ],
+          "improvement_areas": [
+            "Clarification of the company name to avoid confusion.",
+            "Faster delivery of the value proposition."
+          ],
+          "key_quotes": [
+            "I apologize for the confusion. To clarify, I am agent name from VSA.",
+            "Absolutely. That makes sense. Please provide me with the best email so I can send all the information to you."
+          ]
+        },
+        "coaching_tips": [
+          "Ensure clarity in the company name to avoid confusion; consistently use the correct name throughout the call.",
+          "Aim to deliver the value proposition within 20 seconds to capture the client's interest more effectively.",
+          "Consider offering alternatives for follow-up, such as scheduling a callback or providing additional resources."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's polite acknowledgment of the client's request for more information.",
+          "Agent's willingness to send an email summary."
+        ],
+        "improvement_areas": [
+          "Clarification of the company name to avoid confusion.",
+          "Faster delivery of the value proposition."
+        ],
+        "key_quotes": [
+          "I apologize for the confusion. To clarify, I am agent name from VSA.",
+          "Absolutely. That makes sense. Please provide me with the best email so I can send all the information to you."
+        ]
+      },
+      "coaching_tips": [
+        "Ensure clarity in the company name to avoid confusion; consistently use the correct name throughout the call.",
+        "Aim to deliver the value proposition within 20 seconds to capture the client's interest more effectively.",
+        "Consider offering alternatives for follow-up, such as scheduling a callback or providing additional resources."
+      ],
+      "processing_time": 13.392,
+      "cost": 0.0009019499999999999,
+      "tokens_used": 3796,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "8c66d974-7102-492f-a07b-931f0a3000f2",
+      "call_duration": 270,
+      "transcript_length": 3301,
+      "qci_total": 48,
+      "status": "fail",
+      "dynamics": 18,
+      "objections": 10,
+      "brand": 12,
+      "outcome": 8,
+      "ai_analysis": {
+        "qci_total_score": 48,
+        "dynamics_total": 18,
+        "objections_total": 10,
+        "brand_total": 12,
+        "outcome_total": 8,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 55.56,
+            "assessment": "Agent talk time was 55.56%, which is slightly above the ideal range of 35-55%. This indicates a need for better balance in conversation."
+          },
+          "time_to_value": {
+            "score": 4,
+            "seconds": 85.74,
+            "value_statement": "Agent provided the first value proposition at 85.74 seconds, which exceeds the ideal time of ≤20 seconds."
+          },
+          "first_cta": {
+            "score": 4,
+            "seconds": 113.78,
+            "cta_statement": "The first call-to-action was presented at 113.78 seconds, which is beyond the ideal time of ≤120 seconds."
+          },
+          "dead_air": {
+            "penalty": 6,
+            "events": 4,
+            "details": "There were multiple instances of dead air, with pauses exceeding 3 seconds, particularly at 19.09s, 21.5s, and 65.39s."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 10,
+            "details": "Agent acknowledged the client's concerns about service and parts availability but did not fully address the client's dissatisfaction."
+          },
+          "compliance": {
+            "score": 4,
+            "comply_time": 10,
+            "details": "Agent responded respectfully to the client's objections within 10 seconds."
+          },
+          "alternatives": {
+            "score": 2,
+            "offered": true,
+            "type": "Email summary offered at the end of the call."
+          },
+          "brand_mention": {
+            "score": 4,
+            "first_mention_time": 42.73,
+            "introduction": "Agent introduced the brand at 42.73 seconds, which is acceptable but could be improved."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 2,
+            "assessment": "Agent inconsistently referred to the brand as 'BSA' and 'BSO', which could confuse the client."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The agent's language was generally appropriate for the context, but clarity could be improved."
+          },
+          "final_outcome": {
+            "score": 0,
+            "outcome_type": "None",
+            "evidence": "The call ended without a meeting, lead, or callback."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "Overall call quality was average, with some courteous exchanges but also confusion.",
+            "strengths": [
+              "Polite and respectful tone"
+            ],
+            "weaknesses": [
+              "Frequent interruptions and unclear communication"
+            ]
+          },
+          "wrap_up": {
+            "score": 2,
+            "present": true,
+            "quality": "The call concluded with a polite wrap-up, but no clear next steps were established."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's acknowledgment of the client's concerns about service and parts availability."
+          ],
+          "improvement_areas": [
+            "Clarity in communication and consistent brand mention.",
+            "Reduction of dead air and interruptions."
+          ],
+          "key_quotes": [
+            "I understand. The parts availability and the service can be frustrating.",
+            "If you ever consider exploring other options, or need assistance, feel free to reach out."
+          ]
+        },
+        "coaching_tips": [
+          "Reduce dead air by preparing responses in advance to maintain engagement.",
+          "Ensure consistent use of the brand name to avoid confusion.",
+          "Aim to present the value proposition and call-to-action much earlier in the conversation.",
+          "Practice active listening to better address client concerns and objections."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's acknowledgment of the client's concerns about service and parts availability."
+        ],
+        "improvement_areas": [
+          "Clarity in communication and consistent brand mention.",
+          "Reduction of dead air and interruptions."
+        ],
+        "key_quotes": [
+          "I understand. The parts availability and the service can be frustrating.",
+          "If you ever consider exploring other options, or need assistance, feel free to reach out."
+        ]
+      },
+      "coaching_tips": [
+        "Reduce dead air by preparing responses in advance to maintain engagement.",
+        "Ensure consistent use of the brand name to avoid confusion.",
+        "Aim to present the value proposition and call-to-action much earlier in the conversation.",
+        "Practice active listening to better address client concerns and objections."
+      ],
+      "processing_time": 12.82,
+      "cost": 0.0008967000000000001,
+      "tokens_used": 3527,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "276a36d5-7345-4e11-be9a-431ad2cf1593",
+      "call_duration": 213,
+      "transcript_length": 3029,
+      "qci_total": 55,
+      "status": "fail",
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 11,
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 11,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 38.5,
+            "assessment": "Agent talk ratio is within the ideal range of 35-55%."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No clear value proposition was presented within the first 20 seconds."
+          },
+          "first_cta": {
+            "score": 6,
+            "seconds": 123,
+            "cta_statement": "First call-to-action occurred at 123 seconds, which is beyond the ideal timeframe."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 3,
+            "response_time": 5,
+            "details": "Agent acknowledged the client's question about payment promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and quickly to the client's request."
+          },
+          "alternatives": {
+            "score": 1,
+            "offered": true,
+            "type": "Email follow-up offered."
+          },
+          "brand_mention": {
+            "score": 6,
+            "first_mention_time": 10,
+            "introduction": "Agent introduced the brand within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 6,
+            "variants_found": 1,
+            "assessment": "Agent consistently used the brand name 'Young Caesar'."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 10,
+            "outcome_type": "Lead",
+            "evidence": "The client expressed interest in a follow-up discussion."
+          },
+          "professionalism": {
+            "score": 7,
+            "assessment": "Overall call quality was decent but could improve in clarity and confidence.",
+            "strengths": [
+              "Polite and respectful"
+            ],
+            "weaknesses": [
+              "Confusion in initial identification"
+            ]
+          },
+          "wrap_up": {
+            "score": 4,
+            "present": true,
+            "quality": "The call concluded with a clear intention to follow up via email."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's polite acknowledgment of the client's confusion.",
+            "Successful acquisition of the client's email address."
+          ],
+          "improvement_areas": [
+            "Clarity in initial identification to avoid confusion.",
+            "More timely presentation of the value proposition."
+          ],
+          "key_quotes": [
+            "I was trying to reach James Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Z know how I can contact them?",
+            "Not at all. The demo is completely free."
+          ]
+        },
+        "coaching_tips": [
+          "Improve clarity in the initial introduction to avoid confusion.",
+          "Present the value proposition earlier in the call to engage the client sooner.",
+          "Ensure to confirm the client's name correctly to build rapport.",
+          "Maintain a steady pace when asking for information to avoid repetition and confusion."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's polite acknowledgment of the client's confusion.",
+          "Successful acquisition of the client's email address."
+        ],
+        "improvement_areas": [
+          "Clarity in initial identification to avoid confusion.",
+          "More timely presentation of the value proposition."
+        ],
+        "key_quotes": [
+          "I was trying to reach James Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Zang Z know how I can contact them?",
+          "Not at all. The demo is completely free."
+        ]
+      },
+      "coaching_tips": [
+        "Improve clarity in the initial introduction to avoid confusion.",
+        "Present the value proposition earlier in the call to engage the client sooner.",
+        "Ensure to confirm the client's name correctly to build rapport.",
+        "Maintain a steady pace when asking for information to avoid repetition and confusion."
+      ],
+      "processing_time": 12.892,
+      "cost": 0.0009219,
+      "tokens_used": 3659,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "d6e1e4f7-9259-4918-acf6-4e2b748d5423",
+      "call_duration": 275,
+      "transcript_length": 3007,
+      "qci_total": 54,
+      "status": "fail",
+      "dynamics": 18,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 12,
+      "ai_analysis": {
+        "qci_total_score": 54,
+        "dynamics_total": 18,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 12,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 48.36,
+            "assessment": "Agent talk ratio is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 4,
+            "seconds": 19.75,
+            "value_statement": "Agent provided the first value proposition at 19.75 seconds."
+          },
+          "first_cta": {
+            "score": 4,
+            "seconds": 120,
+            "cta_statement": "First call-to-action was offered at 120 seconds."
+          },
+          "dead_air": {
+            "penalty": 6,
+            "events": 3,
+            "details": "There were multiple instances of dead air exceeding 3 seconds, notably at 43.06s, 105.11s, and 148.79s."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 5,
+            "details": "Agent acknowledged the client's disinterest promptly."
+          },
+          "compliance": {
+            "score": 4,
+            "comply_time": 5,
+            "details": "Agent responded respectfully within 10 seconds to objections."
+          },
+          "alternatives": {
+            "score": 4,
+            "offered": true,
+            "type": "Email summary offered as an alternative."
+          },
+          "brand_mention": {
+            "score": 4,
+            "first_mention_time": 5.43,
+            "introduction": "Agent introduced the brand within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 2,
+            "assessment": "Agent used 'BS' and 'BSA' interchangeably, which may confuse clients."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 4,
+            "outcome_type": "Info",
+            "evidence": "Agent offered to send a summary instead of securing a meeting."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "Overall call quality was decent, but clarity issues affected professionalism.",
+            "strengths": [
+              "Polite and respectful"
+            ],
+            "weaknesses": [
+              "Lack of clarity in communication"
+            ]
+          },
+          "wrap_up": {
+            "score": 2,
+            "present": true,
+            "quality": "The call concluded with an offer to send information, but lacked a strong closing statement."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's polite acknowledgment of the cold call: 'I know you might hate me because this is a cold call.'",
+            "Offering to send a summary: 'I'll send a quick summary with example installs and ROI stories.'"
+          ],
+          "improvement_areas": [
+            "Clarity in communication regarding the brand name.",
+            "Reducing instances of dead air to maintain engagement."
+          ],
+          "key_quotes": [
+            "I'm actually calling to introduce BSE's CNC and woodworking machinery.",
+            "If it's not the right fit, no problem. I can send you a quick summary instead."
+          ]
+        },
+        "coaching_tips": [
+          "Clarify the brand name consistently to avoid confusion (e.g., use 'BSA' instead of 'BS').",
+          "Minimize dead air by preparing for potential objections and maintaining engagement.",
+          "Strengthen the closing statement to encourage follow-up actions."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's polite acknowledgment of the cold call: 'I know you might hate me because this is a cold call.'",
+          "Offering to send a summary: 'I'll send a quick summary with example installs and ROI stories.'"
+        ],
+        "improvement_areas": [
+          "Clarity in communication regarding the brand name.",
+          "Reducing instances of dead air to maintain engagement."
+        ],
+        "key_quotes": [
+          "I'm actually calling to introduce BSE's CNC and woodworking machinery.",
+          "If it's not the right fit, no problem. I can send you a quick summary instead."
+        ]
+      },
+      "coaching_tips": [
+        "Clarify the brand name consistently to avoid confusion (e.g., use 'BSA' instead of 'BS').",
+        "Minimize dead air by preparing for potential objections and maintaining engagement.",
+        "Strengthen the closing statement to encourage follow-up actions."
+      ],
+      "processing_time": 12.456,
+      "cost": 0.00085005,
+      "tokens_used": 3363,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "af21dcff-dbe8-40a1-a2d8-e5e97c9819c0",
+      "call_duration": 268,
+      "transcript_length": 2809,
+      "qci_total": 70,
+      "status": "review",
+      "dynamics": 22,
+      "objections": 12,
+      "brand": 16,
+      "outcome": 20,
+      "ai_analysis": {
+        "qci_total_score": 70,
+        "dynamics_total": 22,
+        "objections_total": 12,
+        "brand_total": 16,
+        "outcome_total": 20,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 6,
+            "percentage": 45.5,
+            "assessment": "Agent talk ratio is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 8,
+            "seconds": 19,
+            "value_statement": "Agent presented the value proposition within 20 seconds."
+          },
+          "first_cta": {
+            "score": 8,
+            "seconds": 131,
+            "cta_statement": "First call-to-action was to schedule a video call, which occurred at 131 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds."
+          },
+          "resistance_recognition": {
+            "score": 6,
+            "response_time": 4,
+            "details": "Agent acknowledged the client's confusion quickly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and promptly to the client's request."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternative options were provided."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 14,
+            "introduction": "Agent introduced the brand within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 2,
+            "assessment": "Agent incorrectly referred to the brand as 'Yank Caesar' instead of 'Young Caesar'."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 15,
+            "outcome_type": "Meeting scheduled",
+            "evidence": "The meeting was successfully booked for the next day."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall call quality was professional, but minor errors affected clarity.",
+            "strengths": [
+              "Polite and courteous",
+              "Prompt in scheduling the meeting"
+            ],
+            "weaknesses": [
+              "Brand name inconsistency"
+            ]
+          },
+          "wrap_up": {
+            "score": 5,
+            "present": true,
+            "quality": "The call concluded properly with a confirmation of the meeting."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's quick acknowledgment of the client's confusion about the service.",
+            "Successful scheduling of the meeting."
+          ],
+          "improvement_areas": [
+            "Ensure consistent use of the company name to avoid confusion.",
+            "Offer alternatives for clients who may not be available for a video call."
+          ],
+          "key_quotes": [
+            "I'm Violet Mitchell from Young Caesar.",
+            "Are you still open to more blow molding machines customers this quarter?",
+            "Great. What's the best email to send the meeting invite to?"
+          ]
+        },
+        "coaching_tips": [
+          "Ensure to double-check the company name before speaking to avoid confusion (e.g., 'Young Caesar' vs. 'Yank Caesar').",
+          "Consider offering alternative options for clients who may not be able to meet at the suggested time, such as a phone call or a follow-up email.",
+          "Maintain a clear and concise communication style to enhance understanding, especially when discussing technical services."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's quick acknowledgment of the client's confusion about the service.",
+          "Successful scheduling of the meeting."
+        ],
+        "improvement_areas": [
+          "Ensure consistent use of the company name to avoid confusion.",
+          "Offer alternatives for clients who may not be available for a video call."
+        ],
+        "key_quotes": [
+          "I'm Violet Mitchell from Young Caesar.",
+          "Are you still open to more blow molding machines customers this quarter?",
+          "Great. What's the best email to send the meeting invite to?"
+        ]
+      },
+      "coaching_tips": [
+        "Ensure to double-check the company name before speaking to avoid confusion (e.g., 'Young Caesar' vs. 'Yank Caesar').",
+        "Consider offering alternative options for clients who may not be able to meet at the suggested time, such as a phone call or a follow-up email.",
+        "Maintain a clear and concise communication style to enhance understanding, especially when discussing technical services."
+      ],
+      "processing_time": 16.663,
+      "cost": 0.0008143499999999999,
+      "tokens_used": 3206,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "a52a7267-25dd-45a1-88f4-e44cd9470a5b",
+      "call_duration": 264,
+      "transcript_length": 2767,
+      "qci_total": 48,
+      "status": "fail",
+      "dynamics": 18,
+      "objections": 10,
+      "brand": 12,
+      "outcome": 8,
+      "ai_analysis": {
+        "qci_total_score": 48,
+        "dynamics_total": 18,
+        "objections_total": 10,
+        "brand_total": 12,
+        "outcome_total": 8,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 30.3,
+            "assessment": "Agent talk time is 30.3%, which is below the ideal range of 35-55%. More engagement is needed."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 0,
+            "value_statement": "No clear value proposition was presented within the first 20 seconds."
+          },
+          "first_cta": {
+            "score": 4,
+            "seconds": 229.75,
+            "cta_statement": "The first call-to-action was offered at 229.75 seconds, which is well beyond the ideal of 120 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 5,
+            "details": "The agent acknowledged the client's question about being a real person promptly."
+          },
+          "compliance": {
+            "score": 6,
+            "comply_time": 5,
+            "details": "The agent responded respectfully and quickly to the client's request for information."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternative options were provided for follow-up."
+          },
+          "brand_mention": {
+            "score": 4,
+            "first_mention_time": 39.74,
+            "introduction": "The brand was mentioned at 39.74 seconds, which is beyond the ideal of 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 8,
+            "variants_found": 1,
+            "assessment": "The agent consistently used the brand name 'Young Caesar' throughout the call."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The communication style was appropriate for a professional setting."
+          },
+          "final_outcome": {
+            "score": 8,
+            "outcome_type": "Info",
+            "evidence": "The call ended with the agent obtaining the email address but did not secure a meeting or demo."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "Overall call quality was professional, but the agent could improve engagement.",
+            "strengths": [
+              "Polite and courteous"
+            ],
+            "weaknesses": [
+              "Lack of engagement and proactive follow-up."
+            ]
+          },
+          "wrap_up": {
+            "score": 0,
+            "present": false,
+            "quality": "The call did not have a strong wrap-up or confirmation of next steps."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "The agent was polite and maintained a courteous tone throughout the call."
+          ],
+          "improvement_areas": [
+            "The agent should work on engaging the client more effectively and presenting value propositions earlier."
+          ],
+          "key_quotes": [
+            "I'm calling from Young Caesar. I was reaching out to Shanzay Shah Jahan regarding our iris vision systems.",
+            "Could you please provide me with Shanzay Shajahan's email or phone number so I can follow-up?"
+          ]
+        },
+        "coaching_tips": [
+          "Encourage the agent to introduce the value proposition earlier in the call to capture the client's interest.",
+          "Train the agent to ask for a meeting or demo sooner in the conversation to increase the chances of securing a follow-up.",
+          "Improve engagement by asking open-ended questions to encourage dialogue with the client."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "The agent was polite and maintained a courteous tone throughout the call."
+        ],
+        "improvement_areas": [
+          "The agent should work on engaging the client more effectively and presenting value propositions earlier."
+        ],
+        "key_quotes": [
+          "I'm calling from Young Caesar. I was reaching out to Shanzay Shah Jahan regarding our iris vision systems.",
+          "Could you please provide me with Shanzay Shajahan's email or phone number so I can follow-up?"
+        ]
+      },
+      "coaching_tips": [
+        "Encourage the agent to introduce the value proposition earlier in the call to capture the client's interest.",
+        "Train the agent to ask for a meeting or demo sooner in the conversation to increase the chances of securing a follow-up.",
+        "Improve engagement by asking open-ended questions to encourage dialogue with the client."
+      ],
+      "processing_time": 14.67,
+      "cost": 0.0008503499999999999,
+      "tokens_used": 3332,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "2e339b03-f953-4f1d-9404-12821339ad46",
+      "call_duration": 239,
+      "transcript_length": 2751,
+      "qci_total": 66,
+      "status": "review",
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 16,
+      "outcome": 18,
+      "ai_analysis": {
+        "qci_total_score": 66,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 16,
+        "outcome_total": 18,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 62.3,
+            "assessment": "Agent talk ratio is slightly above the ideal range (35-55%). Aim to reduce talk time to allow more client engagement."
+          },
+          "time_to_value": {
+            "score": 8,
+            "seconds": 21,
+            "value_statement": "Agent provided a value proposition within 21 seconds, which is acceptable."
+          },
+          "first_cta": {
+            "score": 8,
+            "seconds": 125,
+            "cta_statement": "The first call-to-action occurred at 125 seconds, which exceeds the ideal time of 120 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 5,
+            "details": "Agent acknowledged the client's lack of time to check the email promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully within 5 seconds when the client expressed a need to schedule a meeting."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternative options were provided beyond rescheduling."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 21,
+            "introduction": "Brand was mentioned clearly within the first 30 seconds."
+          },
+          "brand_consistency": {
+            "score": 8,
+            "variants_found": 1,
+            "assessment": "Consistent use of the brand name throughout the call."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The communication style was appropriate for the client."
+          },
+          "final_outcome": {
+            "score": 15,
+            "outcome_type": "Meeting",
+            "evidence": "The client agreed to schedule a meeting for 6 o'clock."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall professionalism was good, but repetitive statements detracted from the quality.",
+            "strengths": [
+              "Polite and patient demeanor"
+            ],
+            "weaknesses": [
+              "Repetitive phrases diminished engagement."
+            ]
+          },
+          "wrap_up": {
+            "score": 0,
+            "present": false,
+            "quality": "The call did not have a clear wrap-up or conclusion."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Client expressed willingness to schedule a meeting.",
+            "Agent maintained a polite tone throughout the call."
+          ],
+          "improvement_areas": [
+            "Reduce repetitive statements to enhance engagement.",
+            "Provide alternative options for follow-up beyond rescheduling."
+          ],
+          "key_quotes": [
+            "I totally understand. It can get busy.",
+            "If you'd like, I can summarize the main points for you."
+          ]
+        },
+        "coaching_tips": [
+          "Reduce the frequency of repetitive phrases, especially regarding the email follow-up, to maintain client engagement.",
+          "Encourage the client to express their needs more by asking open-ended questions.",
+          "Consider offering additional follow-up methods (e.g., text, calendar invite) to enhance client convenience."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Client expressed willingness to schedule a meeting.",
+          "Agent maintained a polite tone throughout the call."
+        ],
+        "improvement_areas": [
+          "Reduce repetitive statements to enhance engagement.",
+          "Provide alternative options for follow-up beyond rescheduling."
+        ],
+        "key_quotes": [
+          "I totally understand. It can get busy.",
+          "If you'd like, I can summarize the main points for you."
+        ]
+      },
+      "coaching_tips": [
+        "Reduce the frequency of repetitive phrases, especially regarding the email follow-up, to maintain client engagement.",
+        "Encourage the client to express their needs more by asking open-ended questions.",
+        "Consider offering additional follow-up methods (e.g., text, calendar invite) to enhance client convenience."
+      ],
+      "processing_time": 20.329,
+      "cost": 0.0007809,
+      "tokens_used": 3010,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "1c29290f-931d-4f2c-b748-4a09c8bfcfe1",
+      "call_duration": 187,
+      "transcript_length": 2696,
+      "qci_total": 72,
+      "status": "review",
+      "dynamics": 22,
+      "objections": 16,
+      "brand": 16,
+      "outcome": 18,
+      "ai_analysis": {
+        "qci_total_score": 72,
+        "dynamics_total": 22,
+        "objections_total": 16,
+        "brand_total": 16,
+        "outcome_total": 18,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 6,
+            "percentage": 41.5,
+            "assessment": "Agent talk time is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 8,
+            "seconds": 13,
+            "value_statement": "Agent introduced the value proposition within 20 seconds."
+          },
+          "first_cta": {
+            "score": 6,
+            "seconds": 120,
+            "cta_statement": "First call-to-action was made at 120 seconds, which is acceptable."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds."
+          },
+          "resistance_recognition": {
+            "score": 6,
+            "response_time": 7,
+            "details": "Agent acknowledged the client's objection about budget and timing promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and quickly to the client's concerns."
+          },
+          "alternatives": {
+            "score": 2,
+            "offered": true,
+            "type": "Follow-up call in January."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 5,
+            "introduction": "Agent introduced the brand within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 8,
+            "variants_found": 1,
+            "assessment": "Consistent use of the company name throughout the call."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style."
+          },
+          "final_outcome": {
+            "score": 6,
+            "outcome_type": "Callback",
+            "evidence": "Client agreed to a follow-up in January."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall call quality was professional and courteous.",
+            "strengths": [
+              "Polite and respectful tone",
+              "Acknowledged client concerns"
+            ],
+            "weaknesses": [
+              "Could have been more assertive in proposing next steps"
+            ]
+          },
+          "wrap_up": {
+            "score": 5,
+            "present": true,
+            "quality": "Call concluded properly with mutual agreement on follow-up."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's acknowledgment of the client's budget constraints.",
+            "Clear proposal for a follow-up after the client's big show."
+          ],
+          "improvement_areas": [
+            "Agent could have offered more immediate alternatives or solutions to the client's concerns."
+          ],
+          "key_quotes": [
+            "Totally makes sense, Michael. Just out of curiosity, are you still open to more blow molding machines customers this quarter?",
+            "Should we have a short 10 minute video call where I can share my screen and show you more?"
+          ]
+        },
+        "coaching_tips": [
+          "Encourage the agent to be more assertive in proposing next steps, especially when the client shows interest but has reservations.",
+          "Consider offering immediate alternatives or solutions to address the client's concerns about budget and timing.",
+          "Reinforce the importance of summarizing key points and agreements at the end of the call to ensure clarity."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's acknowledgment of the client's budget constraints.",
+          "Clear proposal for a follow-up after the client's big show."
+        ],
+        "improvement_areas": [
+          "Agent could have offered more immediate alternatives or solutions to the client's concerns."
+        ],
+        "key_quotes": [
+          "Totally makes sense, Michael. Just out of curiosity, are you still open to more blow molding machines customers this quarter?",
+          "Should we have a short 10 minute video call where I can share my screen and show you more?"
+        ]
+      },
+      "coaching_tips": [
+        "Encourage the agent to be more assertive in proposing next steps, especially when the client shows interest but has reservations.",
+        "Consider offering immediate alternatives or solutions to address the client's concerns about budget and timing.",
+        "Reinforce the importance of summarizing key points and agreements at the end of the call to ensure clarity."
+      ],
+      "processing_time": 13.855,
+      "cost": 0.0008028,
+      "tokens_used": 3192,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "2a3bab7e-b890-4cca-bd25-d56bf815d95b",
+      "call_duration": 224,
+      "transcript_length": 2681,
+      "qci_total": 70,
+      "status": "review",
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 16,
+      "outcome": 22,
+      "ai_analysis": {
+        "qci_total_score": 70,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 16,
+        "outcome_total": 22,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 45.5,
+            "assessment": "Agent talk ratio is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 8,
+            "seconds": 21,
+            "value_statement": "Agent presented the value proposition within 20 seconds."
+          },
+          "first_cta": {
+            "score": 8,
+            "seconds": 60,
+            "cta_statement": "First call-to-action was made at 50 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant dead air detected."
+          },
+          "resistance_recognition": {
+            "score": 4,
+            "response_time": 5,
+            "details": "Agent acknowledged the client's confusion about the name promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and quickly to the client's request."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternative options were provided when scheduling issues arose."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 6,
+            "introduction": "Agent introduced the brand clearly within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 1,
+            "assessment": "Agent mistakenly referred to the company as 'Young Thaser' instead of 'Young Caesar'."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 15,
+            "outcome_type": "Meeting",
+            "evidence": "Successfully scheduled a meeting for the next day."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall call quality was professional, but the agent's speech pattern raised concerns.",
+            "strengths": [
+              "Polite and courteous",
+              "Prompt in addressing client queries"
+            ],
+            "weaknesses": [
+              "Speech pattern perceived as AI-like"
+            ]
+          },
+          "wrap_up": {
+            "score": 4,
+            "present": true,
+            "quality": "The call concluded properly with a friendly farewell."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's prompt acknowledgment of the client's confusion about the name.",
+            "Successful scheduling of the meeting."
+          ],
+          "improvement_areas": [
+            "Clarify the company name consistently.",
+            "Enhance the naturalness of speech to avoid sounding robotic."
+          ],
+          "key_quotes": [
+            "Hi, this is Clara Flores from Young Caesar.",
+            "Are you still open to more pneumatic conveyors customers this quarter?",
+            "I totally get it."
+          ]
+        },
+        "coaching_tips": [
+          "Ensure consistent use of the company name to avoid confusion.",
+          "Work on speech delivery to sound more natural and less robotic.",
+          "Consider offering alternative scheduling options proactively to enhance flexibility."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's prompt acknowledgment of the client's confusion about the name.",
+          "Successful scheduling of the meeting."
+        ],
+        "improvement_areas": [
+          "Clarify the company name consistently.",
+          "Enhance the naturalness of speech to avoid sounding robotic."
+        ],
+        "key_quotes": [
+          "Hi, this is Clara Flores from Young Caesar.",
+          "Are you still open to more pneumatic conveyors customers this quarter?",
+          "I totally get it."
+        ]
+      },
+      "coaching_tips": [
+        "Ensure consistent use of the company name to avoid confusion.",
+        "Work on speech delivery to sound more natural and less robotic.",
+        "Consider offering alternative scheduling options proactively to enhance flexibility."
+      ],
+      "processing_time": 13.337,
+      "cost": 0.0007737,
+      "tokens_used": 3094,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "b87ca97b-b74d-4cad-9aee-3206be6fd2c4",
+      "call_duration": 199,
+      "transcript_length": 2675,
+      "qci_total": 75,
+      "status": "review",
+      "dynamics": 22,
+      "objections": 18,
+      "brand": 16,
+      "outcome": 19,
+      "ai_analysis": {
+        "qci_total_score": 75,
+        "dynamics_total": 22,
+        "objections_total": 18,
+        "brand_total": 16,
+        "outcome_total": 19,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 6,
+            "percentage": 43.2,
+            "assessment": "Agent talk ratio is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 8,
+            "seconds": 34,
+            "value_statement": "Agent provided the first value proposition at 34 seconds, which is beyond the ideal time of ≤20 seconds."
+          },
+          "first_cta": {
+            "score": 6,
+            "seconds": 173,
+            "cta_statement": "The first call-to-action occurred at 173 seconds, which is beyond the ideal time of ≤120 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 6,
+            "response_time": 4,
+            "details": "Agent acknowledged the client's resistance promptly (4 seconds after the objection)."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 4,
+            "details": "Agent responded respectfully to the client's request for information within 4 seconds."
+          },
+          "alternatives": {
+            "score": 4,
+            "offered": true,
+            "type": "Email follow-up."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 9,
+            "introduction": "Agent introduced the brand clearly within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 8,
+            "variants_found": 1,
+            "assessment": "Consistent use of the company name throughout the call."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 19,
+            "outcome_type": "Info",
+            "evidence": "The client agreed to receive more information via email."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall call quality was professional and courteous.",
+            "strengths": [
+              "Polite and respectful tone",
+              "Clear communication"
+            ],
+            "weaknesses": [
+              "Could improve on time-to-value and first CTA"
+            ]
+          },
+          "wrap_up": {
+            "score": 5,
+            "present": true,
+            "quality": "The call concluded properly with a thank you and well wishes."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's acknowledgment of the client's concerns about sharing information.",
+            "Clear explanation of the company's services."
+          ],
+          "improvement_areas": [
+            "Agent should aim to present the value proposition sooner.",
+            "First call-to-action should be made earlier in the conversation."
+          ],
+          "key_quotes": [
+            "I totally understand. We're just trying, you know, not to waste anyone's time by reaching the wrong person.",
+            "At Young Caesar, we specialize in helping manufacturers grow by attracting new customers."
+          ]
+        },
+        "coaching_tips": [
+          "Aim to deliver the value proposition within the first 20 seconds to engage the client more effectively.",
+          "Make the first call-to-action within the first 120 seconds to maintain momentum in the conversation.",
+          "Continue to acknowledge client concerns promptly, as this builds rapport and trust."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's acknowledgment of the client's concerns about sharing information.",
+          "Clear explanation of the company's services."
+        ],
+        "improvement_areas": [
+          "Agent should aim to present the value proposition sooner.",
+          "First call-to-action should be made earlier in the conversation."
+        ],
+        "key_quotes": [
+          "I totally understand. We're just trying, you know, not to waste anyone's time by reaching the wrong person.",
+          "At Young Caesar, we specialize in helping manufacturers grow by attracting new customers."
+        ]
+      },
+      "coaching_tips": [
+        "Aim to deliver the value proposition within the first 20 seconds to engage the client more effectively.",
+        "Make the first call-to-action within the first 120 seconds to maintain momentum in the conversation.",
+        "Continue to acknowledge client concerns promptly, as this builds rapport and trust."
+      ],
+      "processing_time": 14.974,
+      "cost": 0.00078075,
+      "tokens_used": 2970,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "8ffe586e-3e3f-4722-9d3d-4f975bae4e64",
+      "call_duration": 206,
+      "transcript_length": 2615,
+      "qci_total": 55,
+      "status": "fail",
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 11,
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 11,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 5,
+            "percentage": 38.5,
+            "assessment": "Agent talk time is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 0,
+            "seconds": 61.23,
+            "value_statement": "The first value proposition was delivered after 61.23 seconds, exceeding the ideal time of ≤20 seconds."
+          },
+          "first_cta": {
+            "score": 5,
+            "seconds": 79.18,
+            "cta_statement": "The first call-to-action occurred at 79.18 seconds, which is acceptable but could be improved."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 3,
+            "response_time": 5,
+            "details": "The agent acknowledged the client's request for a booking but did not address the client's urgency effectively."
+          },
+          "compliance": {
+            "score": 5,
+            "comply_time": 5,
+            "details": "The agent responded respectfully and promptly to the client's requests."
+          },
+          "alternatives": {
+            "score": 4,
+            "offered": true,
+            "type": "Email follow-up for scheduling."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 9.85,
+            "introduction": "The brand was introduced clearly within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 1,
+            "assessment": "The agent used the brand name consistently but made a minor error in spelling the email."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The communication style was appropriate for a business context."
+          },
+          "final_outcome": {
+            "score": 6,
+            "outcome_type": "Callback",
+            "evidence": "The agent could not secure a meeting but agreed to follow up via email."
+          },
+          "professionalism": {
+            "score": 7,
+            "assessment": "The agent maintained professionalism throughout the call.",
+            "strengths": [
+              "Polite and courteous",
+              "Clear communication"
+            ],
+            "weaknesses": [
+              "Technical issues with calendar tool"
+            ]
+          },
+          "wrap_up": {
+            "score": 4,
+            "present": true,
+            "quality": "The call concluded with a promise to follow up via email."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent introduced themselves and the company clearly.",
+            "Agent maintained a polite tone throughout the call."
+          ],
+          "improvement_areas": [
+            "The agent struggled with the calendar tool, which affected the ability to schedule a meeting.",
+            "The agent should have confirmed the company name earlier in the conversation."
+          ],
+          "key_quotes": [
+            "Hi. This is Alex calling from Young Caesar.",
+            "I'll follow-up with you via email to confirm the available slots."
+          ]
+        },
+        "coaching_tips": [
+          "Ensure familiarity with scheduling tools to avoid technical issues during calls.",
+          "Confirm the client's company name and email address earlier in the conversation to avoid confusion.",
+          "Aim to present the value proposition sooner, ideally within the first 20 seconds, to engage the client effectively."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent introduced themselves and the company clearly.",
+          "Agent maintained a polite tone throughout the call."
+        ],
+        "improvement_areas": [
+          "The agent struggled with the calendar tool, which affected the ability to schedule a meeting.",
+          "The agent should have confirmed the company name earlier in the conversation."
+        ],
+        "key_quotes": [
+          "Hi. This is Alex calling from Young Caesar.",
+          "I'll follow-up with you via email to confirm the available slots."
+        ]
+      },
+      "coaching_tips": [
+        "Ensure familiarity with scheduling tools to avoid technical issues during calls.",
+        "Confirm the client's company name and email address earlier in the conversation to avoid confusion.",
+        "Aim to present the value proposition sooner, ideally within the first 20 seconds, to engage the client effectively."
+      ],
+      "processing_time": 15.236,
+      "cost": 0.00078975,
+      "tokens_used": 3015,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "380b097e-ac24-4b42-a4ac-9f7a4814f252",
+      "call_duration": 170,
+      "transcript_length": 2565,
+      "qci_total": 55,
+      "status": "fail",
+      "dynamics": 20,
+      "objections": 12,
+      "brand": 12,
+      "outcome": 11,
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 12,
+        "brand_total": 12,
+        "outcome_total": 11,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 41.76,
+            "assessment": "Agent talk time is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 8,
+            "seconds": 10.46,
+            "value_statement": "Agent provided the value proposition within 20 seconds."
+          },
+          "first_cta": {
+            "score": 6,
+            "seconds": 120,
+            "cta_statement": "First call-to-action was made at 70.31 seconds, which is acceptable."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds."
+          },
+          "resistance_recognition": {
+            "score": 6,
+            "response_time": 3.5,
+            "details": "Agent acknowledged the client's objection promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and quickly to the client's concerns."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternative options were provided."
+          },
+          "brand_mention": {
+            "score": 8,
+            "first_mention_time": 3.99,
+            "introduction": "Agent introduced the brand within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 4,
+            "variants_found": 2,
+            "assessment": "Inconsistent use of the company name (Young Caesar vs. Caesar)."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style."
+          },
+          "final_outcome": {
+            "score": 6,
+            "outcome_type": "Callback",
+            "evidence": "Agent secured permission to follow up with the decision-maker."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall call quality was courteous and professional.",
+            "strengths": [
+              "Polite and respectful"
+            ],
+            "weaknesses": [
+              "Confusion in communication towards the end."
+            ]
+          },
+          "wrap_up": {
+            "score": 3,
+            "present": true,
+            "quality": "The call concluded properly, but could have been clearer."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent acknowledged the client's position quickly: 'Totally makes sense. Thanks for letting me know.'",
+            "Agent maintained professionalism throughout the call."
+          ],
+          "improvement_areas": [
+            "The agent's communication became confusing towards the end, leading to a lack of clarity.",
+            "No alternative options were offered to the client."
+          ],
+          "key_quotes": [
+            "I wouldn't be the right person to talk about these things.",
+            "Honestly, you'd be just wasting your time. I have no say in this."
+          ]
+        },
+        "coaching_tips": [
+          "Clarify communication, especially when confirming follow-up details to avoid confusion.",
+          "Offer alternative options for follow-up, such as scheduling a specific time to connect with the decision-maker.",
+          "Ensure consistent use of the company name to reinforce brand identity."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent acknowledged the client's position quickly: 'Totally makes sense. Thanks for letting me know.'",
+          "Agent maintained professionalism throughout the call."
+        ],
+        "improvement_areas": [
+          "The agent's communication became confusing towards the end, leading to a lack of clarity.",
+          "No alternative options were offered to the client."
+        ],
+        "key_quotes": [
+          "I wouldn't be the right person to talk about these things.",
+          "Honestly, you'd be just wasting your time. I have no say in this."
+        ]
+      },
+      "coaching_tips": [
+        "Clarify communication, especially when confirming follow-up details to avoid confusion.",
+        "Offer alternative options for follow-up, such as scheduling a specific time to connect with the decision-maker.",
+        "Ensure consistent use of the company name to reinforce brand identity."
+      ],
+      "processing_time": 17.68,
+      "cost": 0.0007785,
+      "tokens_used": 3048,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "0f290056-e2f2-4bfc-8175-2559a3d9d9ba",
+      "call_duration": 186,
+      "transcript_length": 2511,
+      "qci_total": 66,
+      "status": "review",
+      "dynamics": 22,
+      "objections": 12,
+      "brand": 14,
+      "outcome": 18,
+      "ai_analysis": {
+        "qci_total_score": 66,
+        "dynamics_total": 22,
+        "objections_total": 12,
+        "brand_total": 14,
+        "outcome_total": 18,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 5,
+            "percentage": 41.4,
+            "assessment": "Agent talk ratio is within the ideal range (35-55%)."
+          },
+          "time_to_value": {
+            "score": 6,
+            "seconds": 29,
+            "value_statement": "Agent introduced the value proposition after 29 seconds, which exceeds the ideal time of ≤20 seconds."
+          },
+          "first_cta": {
+            "score": 6,
+            "seconds": 120,
+            "cta_statement": "The first call-to-action occurred at 120 seconds, which is at the upper limit of the ideal time."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 3,
+            "response_time": 5,
+            "details": "Agent acknowledged the client's question about SEO promptly."
+          },
+          "compliance": {
+            "score": 8,
+            "comply_time": 5,
+            "details": "Agent responded respectfully and quickly to the request for more information."
+          },
+          "alternatives": {
+            "score": 1,
+            "offered": true,
+            "type": "Email follow-up offered."
+          },
+          "brand_mention": {
+            "score": 6,
+            "first_mention_time": 9,
+            "introduction": "Agent introduced the brand within 10 seconds."
+          },
+          "brand_consistency": {
+            "score": 6,
+            "variants_found": 1,
+            "assessment": "Agent consistently referred to the company as 'Young Caesar'."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "Agent maintained an appropriate communication style throughout the call."
+          },
+          "final_outcome": {
+            "score": 4,
+            "outcome_type": "Info",
+            "evidence": "Client requested information to be sent via email."
+          },
+          "professionalism": {
+            "score": 8,
+            "assessment": "Overall call quality was courteous and professional.",
+            "strengths": [
+              "Polite and respectful tone",
+              "Clear communication"
+            ],
+            "weaknesses": [
+              "Some hesitations in speech"
+            ]
+          },
+          "wrap_up": {
+            "score": 5,
+            "present": true,
+            "quality": "The call concluded properly with a thank you and well wishes."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's prompt acknowledgment of the client's question about SEO.",
+            "Successful acquisition of the client's email for follow-up."
+          ],
+          "improvement_areas": [
+            "Agent should introduce the value proposition sooner.",
+            "More confidence in delivery to reduce hesitations."
+          ],
+          "key_quotes": [
+            "You can you can get my name.",
+            "Can you just grab my email and send me more info?"
+          ]
+        },
+        "coaching_tips": [
+          "Encourage the agent to introduce the value proposition more quickly to engage the client sooner.",
+          "Work on reducing filler words and hesitations to improve confidence and clarity.",
+          "Reinforce the importance of maintaining a steady pace to avoid losing the client's attention."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's prompt acknowledgment of the client's question about SEO.",
+          "Successful acquisition of the client's email for follow-up."
+        ],
+        "improvement_areas": [
+          "Agent should introduce the value proposition sooner.",
+          "More confidence in delivery to reduce hesitations."
+        ],
+        "key_quotes": [
+          "You can you can get my name.",
+          "Can you just grab my email and send me more info?"
+        ]
+      },
+      "coaching_tips": [
+        "Encourage the agent to introduce the value proposition more quickly to engage the client sooner.",
+        "Work on reducing filler words and hesitations to improve confidence and clarity.",
+        "Reinforce the importance of maintaining a steady pace to avoid losing the client's attention."
+      ],
+      "processing_time": 13.6,
+      "cost": 0.0007389,
+      "tokens_used": 2799,
+      "model_used": "gpt-4o-mini"
+    },
+    {
+      "call_id": "586dac70-581e-488f-84af-3fc2349a44cb",
+      "call_duration": 211,
+      "transcript_length": 2446,
+      "qci_total": 38,
+      "status": "fail",
+      "dynamics": 14,
+      "objections": 6,
+      "brand": 12,
+      "outcome": 6,
+      "ai_analysis": {
+        "qci_total_score": 38,
+        "dynamics_total": 14,
+        "objections_total": 6,
+        "brand_total": 12,
+        "outcome_total": 6,
+        "detailed_breakdown": {
+          "agent_talk_ratio": {
+            "score": 4,
+            "percentage": 38.5,
+            "assessment": "Agent talk time is 38.5%, which is below the ideal range of 35-55%. The agent should aim to engage more actively."
+          },
+          "time_to_value": {
+            "score": 4,
+            "seconds": 20,
+            "value_statement": "The first value proposition was delivered at 20 seconds, which is acceptable but could be improved."
+          },
+          "first_cta": {
+            "score": 0,
+            "seconds": 0,
+            "cta_statement": "No clear call-to-action was presented within the first 120 seconds."
+          },
+          "dead_air": {
+            "penalty": 0,
+            "events": 0,
+            "details": "No significant pauses exceeding 3 seconds were noted."
+          },
+          "resistance_recognition": {
+            "score": 3,
+            "response_time": 5,
+            "details": "The agent acknowledged the client's confusion quickly, but could have been more proactive in addressing the client's needs."
+          },
+          "compliance": {
+            "score": 3,
+            "comply_time": 5,
+            "details": "The agent responded respectfully to the client's objection within an acceptable timeframe."
+          },
+          "alternatives": {
+            "score": 0,
+            "offered": false,
+            "type": "No alternatives were provided."
+          },
+          "brand_mention": {
+            "score": 4,
+            "first_mention_time": 116,
+            "introduction": "The agent introduced the company name at 116 seconds, which is too late."
+          },
+          "brand_consistency": {
+            "score": 8,
+            "variants_found": 1,
+            "assessment": "The agent consistently referred to the company as 'BS', but did not clarify the full name."
+          },
+          "language_match": {
+            "score": 4,
+            "appropriate": true,
+            "details": "The agent used appropriate language for a business context."
+          },
+          "final_outcome": {
+            "score": 0,
+            "outcome_type": "None",
+            "evidence": "The call ended without a meeting or lead."
+          },
+          "professionalism": {
+            "score": 6,
+            "assessment": "The agent maintained a courteous tone but lacked confidence.",
+            "strengths": [
+              "Polite and respectful"
+            ],
+            "weaknesses": [
+              "Lack of clarity in communication"
+            ]
+          },
+          "wrap_up": {
+            "score": 0,
+            "present": false,
+            "quality": "The call concluded without a proper wrap-up."
+          }
+        },
+        "evidence": {
+          "strongest_moments": [
+            "Agent's polite acknowledgment of the client's confusion."
+          ],
+          "improvement_areas": [
+            "Agent should introduce the company earlier and provide a clear call-to-action."
+          ],
+          "key_quotes": [
+            "I'm reaching out because many manufacturers are frustrated with high down time and maintenance costs.",
+            "Would it be worth a 12 minute introduction?"
+          ]
+        },
+        "coaching_tips": [
+          "Introduce the company name and value proposition within the first 10 seconds to capture attention.",
+          "Aim for a more engaging dialogue by asking open-ended questions to understand the client's needs better.",
+          "Provide a clear call-to-action early in the conversation to guide the client towards the next steps.",
+          "Consider offering alternatives such as sending an email or scheduling a follow-up call when faced with objections."
+        ]
+      },
+      "evidence": {
+        "strongest_moments": [
+          "Agent's polite acknowledgment of the client's confusion."
+        ],
+        "improvement_areas": [
+          "Agent should introduce the company earlier and provide a clear call-to-action."
+        ],
+        "key_quotes": [
+          "I'm reaching out because many manufacturers are frustrated with high down time and maintenance costs.",
+          "Would it be worth a 12 minute introduction?"
+        ]
+      },
+      "coaching_tips": [
+        "Introduce the company name and value proposition within the first 10 seconds to capture attention.",
+        "Aim for a more engaging dialogue by asking open-ended questions to understand the client's needs better.",
+        "Provide a clear call-to-action early in the conversation to guide the client towards the next steps.",
+        "Consider offering alternatives such as sending an email or scheduling a follow-up call when faced with objections."
+      ],
+      "processing_time": 15.008,
+      "cost": 0.00077205,
+      "tokens_used": 2909,
+      "model_used": "gpt-4o-mini"
+    }
+  ],
+  "quality_report": {
+    "score_distribution": {
+      "min": 20,
+      "max": 75,
+      "avg": 51.3,
+      "median": 55
+    },
+    "cost_analysis": {
+      "total": 0.01797855,
+      "avg_per_call": 0.0008989275,
+      "cost_per_1000_calls": 0.8989275
+    },
+    "status_distribution": {
+      "fail": 13,
+      "review": 7
+    }
+  }
+}
