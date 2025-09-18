@@ -55,10 +55,12 @@ END ADR_AGENT_PROTOCOL
 
 | ID   | Title                                                        | Date       | Status   | Supersedes | Superseded by |
 | ---- | ------------------------------------------------------------ | ---------- | -------- | ---------- | ------------- |
+| 0006 | [Module-based Architecture with Shared Utilities](#adr-0006) | 2025-09-19 | Accepted | 0001       | —             |
+| 0005 | [Markdown-based Prompt Management](#adr-0005)              | 2025-09-19 | Accepted | —          | —             |
 | 0004 | [Airtable as Primary CRM Database](#adr-0004)              | 2025-09-03 | Accepted | —          | —             |
 | 0003 | [Qdrant Vector Database for Semantic Search](#adr-0003)    | 2025-09-03 | Accepted | —          | —             |
 | 0002 | [Node.js with Native Fetch for API Integration](#adr-0002) | 2025-09-01 | Accepted | —          | —             |
-| 0001 | [Monolithic Script Architecture](#adr-0001)                | 2025-08-30 | Accepted | —          | —             |
+| 0001 | [Monolithic Script Architecture](#adr-0001)                | 2025-08-30 | Superseded | —          | 0006          |
 
 <!-- END:ADR_INDEX -->
 
@@ -130,7 +132,7 @@ Use monolithic Node.js scripts for data collection and processing, organized in 
 - **Pros**: Fast development, easy debugging, single deployment unit, no inter-service communication
 - **Cons / risks**: Harder to scale horizontally, potential memory issues with large datasets
 - **Supersedes**: —
-- **Superseded by**: —
+- **Superseded by**: ADR-0006
 
 ### Compliance / Verification
 
@@ -239,6 +241,76 @@ Use Airtable as primary CRM database for call records, with automated upload scr
 ### Compliance / Verification
 
 Implement retry logic for API rate limits, backup data weekly to JSON, monitor record count vs limits.
+
+---
+
+## ADR-0005 — Markdown-based Prompt Management
+
+<a id="adr-0005"></a>
+**Date**: 2025-09-19
+**Status**: Accepted
+**Owner**: VAPI Team
+
+### Context
+
+AI prompts for QCI analysis and prompt optimization have grown complex with versioning needs. Prompts were initially embedded in JavaScript files, making editing difficult and version tracking cumbersome. Need better system for managing 10+ prompts across multiple modules.
+
+### Alternatives
+
+- **JavaScript files with embedded prompts**: Hard to edit large prompts, escaping issues, poor versioning
+- **JSON files**: No syntax highlighting, no comments, difficult version tracking
+- **Separate .txt files**: No structure, no metadata, difficult to organize
+- **Central prompts/ folder**: Separates prompts from related scripts, harder to maintain
+
+### Decision
+
+Use one `prompts.md` file per script module, with simple parser to extract prompts by ## headings and ``` code blocks.
+
+### Consequences
+
+- **Pros**: Easy editing, natural versioning through markdown sections, great readability, GitHub-friendly
+- **Cons / risks**: Requires simple parser, strict formatting requirements, new dependency
+- **Supersedes**: —
+- **Superseded by**: —
+
+### Compliance / Verification
+
+All prompts must follow ## PROMPT_NAME format with ``` code blocks. Parser validates structure before loading. Version history tracked in markdown sections.
+
+---
+
+## ADR-0006 — Module-based Architecture with Shared Utilities
+
+<a id="adr-0006"></a>
+**Date**: 2025-09-19
+**Status**: Accepted
+**Owner**: VAPI Team
+
+### Context
+
+Project has grown to multiple script groups (prompt optimization, QCI analysis, data collection) with shared functionality. Current monolithic approach causes code duplication and maintenance overhead. Need scalable architecture for multiple modules.
+
+### Alternatives
+
+- **Keep monolithic structure**: Easy but leads to code duplication and tight coupling
+- **Microservices**: Too complex for current scale, adds deployment overhead
+- **Single shared utilities folder**: Simple but can become catch-all dumping ground
+- **Each module fully independent**: Clean separation but massive code duplication
+
+### Decision
+
+Implement module-based architecture where each functional area becomes a self-contained module with standardized structure. Use project-level shared utilities for cross-module reuse (prompt parsing, API clients, logging).
+
+### Consequences
+
+- **Pros**: Clear separation of concerns, reusable utilities, scalable structure, easier testing
+- **Cons / risks**: Slightly more complex imports, need discipline to maintain structure
+- **Supersedes**: ADR-0001
+- **Superseded by**: —
+
+### Compliance / Verification
+
+All modules must follow standard structure: src/, prompts.md, history.txt, README.md. Use project-level shared utilities in ../shared/. No code duplication between modules. Follow naming convention: snake_case for files, shorter descriptive names for scripts.
 
 ---
 

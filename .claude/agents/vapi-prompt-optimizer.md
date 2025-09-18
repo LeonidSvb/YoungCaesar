@@ -29,10 +29,11 @@ You will receive:
 - Filter assistants based on minimum call thresholds
 
 **Process:**
-1. Use Bash tool to run: `node production_scripts/prompt_optimization/assistant_data_aggregator.js`
-2. Validate output file creation and data quality
-3. Prepare structured assistant profiles with QCI metrics
-4. Extract best/worst performing calls for analysis
+1. Change directory: `cd production_scripts/prompt_optimization`
+2. Validate file structure and dependencies
+3. Use Bash tool to run: `node src/data_aggregator.js`
+4. Validate output file creation and data quality
+5. Prepare structured assistant profiles with QCI metrics
 
 **Output**: Aggregated assistant data file with performance metrics and sample calls
 
@@ -47,11 +48,12 @@ You will receive:
 - AI-powered prompt structure evaluation
 
 **Process:**
-1. Use Bash tool to run: `node production_scripts/prompt_optimization/prompt_performance_correlator.js`
-2. Analyze prompt-performance relationships using GPT-4o
-3. Identify structural weaknesses and strengths
-4. Compare successful vs. failing conversation patterns
-5. Generate detailed correlation insights
+1. Validate prompts.md file exists and is properly formatted
+2. Use Bash tool to run: `node src/performance_correlator.js`
+3. Analyze prompt-performance relationships using GPT-4o
+4. Identify structural weaknesses and strengths using centralized prompts
+5. Compare successful vs. failing conversation patterns
+6. Generate detailed correlation insights
 
 **Output**: Correlation analysis with specific prompt improvement opportunities
 
@@ -66,8 +68,8 @@ You will receive:
 - Success metrics definition and tracking
 
 **Process:**
-1. Use Bash tool to run: `node production_scripts/prompt_optimization/recommendation_engine.js`
-2. Generate priority-ranked recommendations for each assistant
+1. Use Bash tool to run: `node src/recommendation_engine.js`
+2. Generate priority-ranked recommendations for each assistant using centralized prompts
 3. Create optimized prompt versions with specific improvements
 4. Develop A/B testing strategies
 5. Define success metrics and implementation timelines
@@ -76,12 +78,17 @@ You will receive:
 
 ## Master Agent Orchestration Logic
 
-### Phase 1: Data Preparation
+### Phase 1: Data Preparation & Validation
 ```
-1. Validate input data availability (VAPI calls + QCI results)
-2. Execute Sub-Agent 1: Data Processor
-3. Verify aggregated data quality and assistant coverage
-4. Proceed only if minimum data thresholds are met
+1. Change directory to: production_scripts/prompt_optimization
+2. Validate module structure:
+   - src/ folder exists with all 4 scripts
+   - prompts.md file exists and is properly formatted
+   - ../shared/ utilities are available
+3. Validate input data availability (VAPI calls + QCI results)
+4. Execute Sub-Agent 1: Data Processor
+5. Verify aggregated data quality and assistant coverage
+6. Proceed only if minimum data thresholds are met
 ```
 
 ### Phase 2: Performance Analysis
@@ -100,12 +107,14 @@ You will receive:
 4. Prepare final deliverables and success metrics
 ```
 
-### Phase 4: Quality Assurance & Delivery
+### Phase 4: Dashboard Generation & Delivery
 ```
-1. Validate all outputs for completeness and quality
-2. Calculate total cost and processing time
-3. Generate executive summary with key findings
-4. Provide implementation roadmap and next steps
+1. Execute Dashboard Generator: node src/dashboard_generator.js
+2. Validate all outputs for completeness and quality
+3. Calculate total cost and processing time
+4. Generate executive summary with key findings
+5. Create static HTML dashboard (GitHub Pages compatible)
+6. Provide implementation roadmap and next steps
 ```
 
 ## Error Handling & Validation

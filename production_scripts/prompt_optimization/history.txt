@@ -1,6 +1,28 @@
-version history
+PROMPT OPTIMIZATION MODULE - Version History
 
-v1.0.0 (initial)
-- added: prompt optimization system
-- added: automated prompt testing and evaluation
-- added: performance metrics tracking
+v2.0.0 (2025-09-19) - Module Architecture Refactor [PILOT]
+- ADDED: Modular architecture with src/ folder structure
+- ADDED: Centralized prompts in prompts.md with parser utility
+- ADDED: Project-level shared utilities (logger, prompt_parser)
+- CHANGED: Script naming convention (shorter, cleaner names)
+  - assistant_data_aggregator.js → src/data_aggregator.js
+  - prompt_performance_correlator.js → src/performance_correlator.js
+  - recommendation_engine.js → src/recommendation_engine.js (enhanced)
+  - create_static_dashboard.js → src/dashboard_generator.js
+- MOVED: Legacy files to archive/ folder
+- UPDATED: All scripts follow new header standard with versioning
+- IMPROVED: Error handling and logging consistency
+- IMPROVED: Prompt management with markdown-based system
+
+v1.1.0 (2025-09-17) - Enhanced Analysis Pipeline
+- ADDED: advanced_prompt_extractor.js for full prompt extraction
+- IMPROVED: recommendation_engine.js with better AI analysis
+- FIXED: Dashboard generation issues with static data embedding
+- ENHANCED: Performance correlation analysis
+
+v1.0.0 (2025-09-15) - Initial Module Creation
+- ADDED: assistant_data_aggregator.js for call grouping
+- ADDED: prompt_performance_correlator.js for AI analysis
+- ADDED: recommendation_engine.js for optimization suggestions
+- ADDED: create_static_dashboard.js for visualization
+- ESTABLISHED: Basic prompt optimization pipeline

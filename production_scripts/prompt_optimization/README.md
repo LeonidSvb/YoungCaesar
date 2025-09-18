@@ -1,34 +1,34 @@
-# VAPI Prompt Optimization System
+# Prompt Optimization Module
 
-## 🚀 ЗОЛОТОЙ СТАНДАРТ СИСТЕМЫ ОПТИМИЗАЦИИ ПРОМПТОВ
+## 🚀 AI-POWERED VAPI PROMPT OPTIMIZATION SYSTEM [v2.0.0]
 
-Революционная система для анализа и оптимизации VAPI assistant промптов с интерактивными HTML дашбордами.
+Advanced modular system for analyzing and optimizing VAPI assistant prompts with static HTML dashboards.
 
-## 📊 PIPELINE АРХИТЕКТУРА
+## 📊 MODULE ARCHITECTURE
 
-### 1. Advanced Prompt Extractor
-**Файл:** `advanced_prompt_extractor.js`
-- Извлекает полные промпты (8,000+ символов) из VAPI API
-- Fallback на локальные данные при сбоях API
-- Фильтрация и дедупликация промптов
+### 1. Data Aggregator
+**File:** `src/data_aggregator.js` (v2.0.0)
+- Groups calls by assistant and calculates performance metrics
+- Integrates QCI scores with call data
+- Extracts sample calls for detailed analysis
 
-### 2. Assistant Data Aggregator
-**Файл:** `assistant_data_aggregator.js`
-- Группировка звонков по ассистентам
-- Интеграция QCI метрик с detailed prompts
-- Автоматическое создание latest файлов
+### 2. Performance Correlator
+**File:** `src/performance_correlator.js` (v2.0.0)
+- GPT-4o powered analysis of prompt-performance correlations
+- Uses centralized prompts from `prompts.md`
+- Identifies structural strengths and weaknesses
 
-### 3. Prompt Performance Correlator
-**Файл:** `prompt_performance_correlator.js`
-- GPT-4o анализ корреляций промпт-производительность
-- Сравнительный анализ между ассистентами
-- Идентификация success patterns
+### 3. Recommendation Engine
+**File:** `src/recommendation_engine.js` (v2.0.0)
+- Generates specific optimization recommendations
+- Creates optimized prompt versions
+- Provides A/B testing strategies with success metrics
 
-### 4. Recommendation Engine
-**Файл:** `recommendation_engine.js`
-- Генерация оптимизированных промптов
-- A/B testing планы
-- Конкретные рекомендации с ожидаемыми улучшениями
+### 4. Dashboard Generator
+**File:** `src/dashboard_generator.js` (v2.0.0)
+- Creates static HTML dashboards (GitHub Pages compatible)
+- Executive summary with quick wins
+- Assistant-by-assistant performance breakdown
 
 ## 🎯 GOLDEN STANDARD DASHBOARD
 
@@ -43,18 +43,22 @@
 
 ## 🔄 QUICK START
 
+### Standard Pipeline
 ```bash
-# 1. Извлечение промптов
-node advanced_prompt_extractor.js
+# Navigate to module directory
+cd production_scripts/prompt_optimization
 
-# 2. Агрегация данных (настроить TARGET_ASSISTANT_ID)
-node assistant_data_aggregator.js
+# Run the complete pipeline (v2.0.0)
+node src/data_aggregator.js          # Step 1: Process call data
+node src/performance_correlator.js   # Step 2: Analyze correlations
+node src/recommendation_engine.js    # Step 3: Generate recommendations
+node src/dashboard_generator.js      # Step 4: Create dashboard
+```
 
-# 3. Анализ корреляций
-node prompt_performance_correlator.js
-
-# 4. Генерация рекомендаций
-node recommendation_engine.js
+### Agent-based Execution (Recommended)
+```bash
+# Use Claude agent for intelligent orchestration
+/agent vapi-prompt-optimizer
 ```
 
 ## ⚙️ КОНФИГУРАЦИЯ
@@ -95,22 +99,36 @@ TARGET_ASSISTANT_ID: '0eddf4db-3bfa-4eb2-8053-082d94aa786d' // YC Assistant | HO
 3. Master comparison dashboard
 4. Implementation roadmap
 
-## 📁 СТРУКТУРА ФАЙЛОВ
+## 📁 MODULE STRUCTURE [v2.0.0]
 
 ```
 prompt_optimization/
-├── advanced_prompt_extractor.js      # Извлечение промптов
-├── assistant_data_aggregator.js      # Агрегация данных
-├── prompt_performance_correlator.js  # Анализ корреляций
-├── recommendation_engine.js          # Генерация рекомендаций
-├── dashboard/
-│   └── prompt_optimization_dashboard_template.html
-└── results/
-    ├── extracted_prompts_*.json
-    ├── assistant_aggregated_data_*.json
-    ├── prompt_performance_correlations_*.json
-    └── optimization_recommendations_*.json
+├── src/                              # Core scripts (v2.0.0)
+│   ├── data_aggregator.js           # Groups calls by assistant
+│   ├── performance_correlator.js    # Analyzes prompt-performance correlations
+│   ├── recommendation_engine.js     # Generates optimization suggestions
+│   └── dashboard_generator.js       # Creates HTML dashboards
+├── prompts.md                       # Centralized AI prompts
+├── history.txt                      # Module version history
+├── README.md                        # This documentation
+├── results/                         # Generated analysis files
+├── dashboard/                       # HTML dashboard outputs
+└── archive/                         # Legacy script versions
+    ├── advanced_prompt_extractor.js
+    ├── prompt_performance_correlator_refactored.js
+    └── optimize_assistant_prompt.js
 ```
+
+## 🔗 DEPENDENCIES
+
+### Project-level Shared Utilities
+- `../shared/logger.js` - Standardized logging across modules
+- `../shared/prompt_parser.js` - Markdown prompt parsing utility
+
+### External Dependencies
+- OpenAI API key (`OPENAI_API_KEY` in .env)
+- VAPI call data from collection pipeline
+- QCI analysis results (optional but recommended)
 
 ## 💡 BEST PRACTICES
 
