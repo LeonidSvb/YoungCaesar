@@ -8,44 +8,82 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
+
         .prompt-display {
             font-family: Monaco, 'Courier New', monospace;
             font-size: 0.875rem;
             line-height: 1.5;
             white-space: pre-wrap;
-            background: #1a202c;
-            color: #e2e8f0;
-            border: 2px solid #2d3748;
+            background: #f8fafc;
+            color: #334155;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
             transition: border-color 0.3s;
         }
         .prompt-display.optimized {
-            border-color: #48bb78;
+            border-color: #10b981;
+            background: #f0fdf4;
         }
         .changes-highlight {
-            background: #48bb78;
+            background: #10b981;
             color: white;
             padding: 2px 4px;
             border-radius: 3px;
             font-weight: bold;
+            display: inline;
         }
         .toggle-switch {
             position: relative;
             width: 60px;
             height: 30px;
-            background: #cbd5e0;
+            background: #e2e8f0;
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s;
         }
         .toggle-switch.active {
-            background: #48bb78;
+            background: #10b981;
         }
         .toggle-slider {
             position: absolute;
@@ -62,30 +100,73 @@
         }
         .toggle-label {
             font-weight: 600;
-            color: #4a5568;
+            color: #64748b;
             transition: color 0.3s;
         }
         .toggle-label.active {
-            color: #48bb78;
+            color: #10b981;
+        }
+        .assistant-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #3b82f6;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+        .assistant-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .assistant-card.active {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        .assistant-name {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .tabs {
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-button.active {
+            color: #0f172a;
+            border-bottom-color: #3b82f6;
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen" x-data="vapiDashboard()">
+<body x-data="vapiDashboard()">
 
     <!-- Header -->
-    <div class="container mx-auto px-4 py-6">
-        <div class="glass-card rounded-lg p-6 mb-6">
-            <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-gray-800" x-text="translations[language].title"></h1>
-                <div class="flex gap-2">
+    <div class="container">
+        <div class="header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 x-text="translations[language].title"></h1>
+                <div style="display: flex; gap: 8px;">
                     <button @click="setLanguage('bg')"
-                            class="px-3 py-1 rounded text-sm"
-                            :class="language === 'bg' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
+                            style="padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; font-weight: 600;"
+                            :style="language === 'bg' ? 'background: #3b82f6; color: white;' : 'background: #f1f5f9; color: #64748b;'">
                         BG
                     </button>
                     <button @click="setLanguage('en')"
-                            class="px-3 py-1 rounded text-sm"
-                            :class="language === 'en' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
+                            style="padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; font-weight: 600;"
+                            :style="language === 'en' ? 'background: #3b82f6; color: white;' : 'background: #f1f5f9; color: #64748b;'">
                         EN
                     </button>
                 </div>
@@ -93,22 +174,22 @@
         </div>
 
         <!-- Tabs -->
-        <div class="glass-card rounded-lg p-6">
+        <div class="glass-card" style="padding: 20px;">
             <!-- Tab Navigation -->
-            <div class="flex border-b mb-6">
+            <div class="tabs" style="margin-bottom: 24px;">
                 <button @click="activeTab = 'history'"
-                        class="px-4 py-2 border-b-2"
-                        :class="activeTab === 'history' ? 'border-blue-500 text-blue-600' : 'border-transparent'">
+                        class="tab-button"
+                        :class="activeTab === 'history' ? 'active' : ''">
                     <span x-text="translations[language].historyTab"></span>
                 </button>
                 <button @click="activeTab = 'analytics'"
-                        class="px-4 py-2 border-b-2"
-                        :class="activeTab === 'analytics' ? 'border-blue-500 text-blue-600' : 'border-transparent'">
+                        class="tab-button"
+                        :class="activeTab === 'analytics' ? 'active' : ''">
                     <span x-text="translations[language].analyticsTab"></span>
                 </button>
                 <button @click="activeTab = 'progress'"
-                        class="px-4 py-2 border-b-2"
-                        :class="activeTab === 'progress' ? 'border-blue-500 text-blue-600' : 'border-transparent'">
+                        class="tab-button"
+                        :class="activeTab === 'progress' ? 'active' : ''">
                     <span x-text="translations[language].progressTab"></span>
                 </button>
             </div>
@@ -116,6 +197,7 @@
             <!-- History Tab -->
             <div x-show="activeTab === 'history'">
                 <h2 class="text-xl font-semibold mb-4" x-text="translations[language].runHistory"></h2>
+                <p class="text-sm text-gray-600 mb-4">💡 Click on any run to view its detailed analytics</p>
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
                         <thead>
@@ -129,7 +211,10 @@
                         </thead>
                         <tbody>
                             <template x-for="run in runs" :key="run.id">
-                                <tr class="hover:bg-gray-50 cursor-pointer" @click="loadRun(run.id)">
+                                <tr class="hover:bg-gray-100 cursor-pointer transition-colors"
+                                    :class="currentRun.id === run.id ? 'bg-blue-50 border-l-4 border-blue-500' : ''"
+                                    @click="loadRun(run.id)"
+                                    title="Click to load this run">
                                     <td class="border p-2" x-text="formatDate(run.timestamp)"></td>
                                     <td class="border p-2" x-text="run.assistants || '-'"></td>
                                     <td class="border p-2" x-text="run.totalCalls || '-'"></td>
@@ -183,7 +268,7 @@
                         <select class="w-full p-2 border border-gray-300 rounded-lg" x-model="selectedAssistantId" @change="loadAssistantDetails()">
                             <option value="">-- Select Assistant --</option>
                             <template x-for="assistant in assistants" :key="assistant.id">
-                                <option :value="assistant.id" x-text="`${assistant.name} (QCI: ${assistant.qci ? assistant.qci.toFixed(1) : 'N/A'})`"></option>
+                                <option :value="assistant.id" x-text="`${getAssistantDisplayName(assistant)} (QCI: ${assistant.qci ? assistant.qci.toFixed(1) : 'N/A'})`"></option>
                             </template>
                         </select>
                     </div>
@@ -401,6 +486,22 @@
                     { name: 'Outcome', key: 'outcome' }
                 ],
 
+                // Assistant names mapping (from vapi_final_dashboard.html)
+                assistantMapping: {
+                    "8cd7551f-2ac8-441d-8f49-0abf053fb9b6": { "name": "Riley", "model": "gpt-4o" },
+                    "35cd1a47-714b-4436-9a19-34d7f2d00b56": { "name": "BIESSE-MS", "model": "gpt-4o" },
+                    "10f76383-d5aa-408d-9aca-3708bb9f8b22": { "name": "QC Advisor", "model": "gpt-4o" },
+                    "24db494f-e25b-4a8f-a362-144b26ef2c86": { "name": "DTMF IVR Agent", "model": "gpt-4o" },
+                    "55bb2539-5bbe-46c7-99bd-701eab22fbf1": { "name": "Inbound Call Center", "model": "gpt-4o" },
+                    "163cc924-0e8c-45b1-b6cf-46e423885240": { "name": "Emanuela", "model": "gpt-4o" },
+                    "613d30cd-0f98-4fcb-be3d-f39fee5c6406": { "name": "New Assistant", "model": "gpt-4o" },
+                    "8e928338-22dc-42d1-b459-f4c52a6395f1": { "name": "Morgan 6 sec", "model": "gpt-4o" },
+                    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": { "name": "YC Assistant", "model": "gpt-4o-mini" },
+                    "861f2ce7-fdee-401d-8554-29dada4725de": { "name": "Jacko", "model": "gpt-4o-mini" },
+                    "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": { "name": "Alex1", "model": "gpt-4o-mini" },
+                    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": { "name": "YC Assistant | HOT", "model": "gpt-4o" }
+                },
+
                 // Methods
                 async init() {
                     this.language = localStorage.getItem('language') || 'en';
@@ -416,17 +517,45 @@
                         // Load latest run if available
                         if (manifest.latest) {
                             await this.loadRun(manifest.latest);
+                        } else if (this.runs.length > 0) {
+                            // If no latest specified, load the first run (most recent)
+                            await this.loadRun(this.runs[0].id);
                         }
                     } catch (error) {
                         console.error('Error loading manifest:', error);
                         // Use fallback data for demo
                         this.loadFallbackData();
+
+                        // Auto-load the latest fallback run
+                        if (this.runs.length > 0) {
+                            await this.loadRun(this.runs[0].id);
+                        }
                     }
                 },
 
                 loadFallbackData() {
-                    // REAL DATA from analysis results
+                    // REAL DATA from analysis results (updated with latest runs)
                     this.runs = [
+                        {
+                            "id": "2025-09-22_11-24-53",
+                            "timestamp": "2025-09-22T11:24:53.000Z",
+                            "assistants": 11,
+                            "totalCalls": 1069,
+                            "avgQCI": 0,
+                            "status": "completed",
+                            "duration": 508.9,
+                            "cost": 0.5483
+                        },
+                        {
+                            "id": "2025-09-22_10-42-48",
+                            "timestamp": "2025-09-22T10:42:48.000Z",
+                            "assistants": 7,
+                            "totalCalls": 1069,
+                            "avgQCI": 0,
+                            "status": "completed",
+                            "duration": 166.0,
+                            "cost": 0.1886
+                        },
                         {
                             "id": "2025-09-17_12-51-27",
                             "timestamp": "2025-09-17T12:51:27.600Z",
@@ -441,6 +570,9 @@
 
                     // REAL analysis data
                     this.allRunData = {
+                        // Stub for newest runs - will be loaded from files
+                        "2025-09-22_11-24-53": {},
+                        "2025-09-22_10-42-48": {},
                         "2025-09-17_12-51-27": {
                             "id": "2025-09-17_12-51-27",
                             "timestamp": "2025-09-17T12:51:27.600Z",
@@ -487,18 +619,44 @@
                 },
 
                 async loadRun(runId) {
+                    console.log('Loading run:', runId);
+
+                    // First try to load from embedded data (for production/Vercel)
+                    if (this.allRunData[runId] && Object.keys(this.allRunData[runId]).length > 0) {
+                        console.log('Using embedded data for run:', runId);
+                        this.processRunData(this.allRunData[runId]);
+                        this.activeTab = 'analytics';
+                        this.selectedAssistantId = '';
+                        this.selectedAssistant = null;
+                        return;
+                    }
+
+                    // Then try to load from file (for development)
                     try {
                         const response = await fetch(`./data/runs/${runId}.json`);
-                        const data = await response.json();
-                        this.processRunData(data);
-                        this.activeTab = 'analytics';
-                    } catch (error) {
-                        console.error('Error loading run:', error);
-                        // Use local fallback data
-                        if (this.allRunData[runId]) {
-                            this.processRunData(this.allRunData[runId]);
-                            this.activeTab = 'analytics';
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
                         }
+                        const data = await response.json();
+                        console.log('Run data loaded from file:', data);
+                        this.processRunData(data);
+                        // Switch to analytics tab after loading data
+                        this.activeTab = 'analytics';
+                        // Reset assistant selection
+                        this.selectedAssistantId = '';
+                        this.selectedAssistant = null;
+                    } catch (error) {
+                        console.error('Error loading run from file:', error);
+                        // For production, we should have all data embedded
+                        console.error('No data available for run:', runId);
+                        // Instead of alert, show a friendly message
+                        this.currentRun = {
+                            id: runId,
+                            error: true,
+                            message: 'Data for this run is being loaded...'
+                        };
+                        this.assistants = [];
+                        this.activeTab = 'analytics';
                     }
                 },
 
@@ -530,15 +688,22 @@
                             ...data.assistants[id]
                         }));
                     } else if (data.recommendations) {
-                        assistants = Object.keys(data.recommendations).map(id => ({
-                            id,
-                            name: data.recommendations[id].assistant_name || `Assistant ${id.substr(0, 8)}`,
-                            ...data.recommendations[id],
-                            // Extract optimized prompts from optimized_prompts section
-                            currentPrompt: data.optimized_prompts?.[id]?.original_prompt || 'No prompt available',
-                            optimizedPrompt: data.optimized_prompts?.[id]?.optimized_prompt || 'No optimized prompt available',
-                            keyChanges: data.optimized_prompts?.[id]?.key_changes_made || []
-                        }));
+                        assistants = Object.keys(data.recommendations).map(id => {
+                            // Get real name from mapping
+                            const assistantInfo = this.assistantMapping[id];
+                            const displayName = assistantInfo ? assistantInfo.name :
+                                              (data.recommendations[id].assistant_name || `Assistant ${id.substr(0, 8)}`);
+
+                            return {
+                                id,
+                                name: displayName,
+                                ...data.recommendations[id],
+                                // Extract optimized prompts from optimized_prompts section
+                                currentPrompt: data.optimized_prompts?.[id]?.original_prompt || 'No prompt available',
+                                optimizedPrompt: data.optimized_prompts?.[id]?.optimized_prompt || 'No optimized prompt available',
+                                keyChanges: data.optimized_prompts?.[id]?.key_changes_made || []
+                            };
+                        });
                     } else if (Array.isArray(data)) {
                         assistants = data.map((item, index) => ({
                             id: item.id || item.assistant_id || index,
@@ -715,6 +880,19 @@
                     }
 
                     return recommendations;
+                },
+
+                // Get display name for assistant
+                getAssistantDisplayName(assistant) {
+                    if (!assistant) return '';
+
+                    const assistantInfo = this.assistantMapping[assistant.id];
+                    if (assistantInfo) {
+                        return assistantInfo.name;
+                    }
+
+                    // Fallback to existing name or ID
+                    return assistant.name || assistant.id?.substring(0, 8) || 'Unknown';
                 }
             }
         }

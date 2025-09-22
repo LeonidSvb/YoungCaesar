@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "name": "vapi-prompt-optimization",
+  "builds": [
+    {
+      "src": "index-vercel.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index-vercel.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index-vercel.html"
+    }
+  ],
+  "functions": {},
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Content-Type",
+          "value": "text/html; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}

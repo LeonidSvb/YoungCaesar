@@ -58,7 +58,7 @@ docs/                   # Project documentation
 ## 🚀 Live Dashboards
 
 ### Main Production Dashboards
-[![📊 VAPI Analytics](https://img.shields.io/badge/📊_VAPI_Analytics-PRODUCTION_READY-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/dashboards/vapi_final_dashboard.html)
+[![📊 VAPI Analytics](https://img.shields.io/badge/📊_VAPI_Analytics-PRODUCTION_READY-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/vapi_analytics/dashboard/index.html)
 [![🎯 Prompt Optimization](https://img.shields.io/badge/🎯_Prompt_Optimization-CLAUDE_WINS-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/index.html)
 
 **🎯 VAPI Analytics Features:**

@@ -55,6 +55,7 @@ END ADR_AGENT_PROTOCOL
 
 | ID   | Title                                                        | Date       | Status   | Supersedes | Superseded by |
 | ---- | ------------------------------------------------------------ | ---------- | -------- | ---------- | ------------- |
+| 0008 | [VAPI Analytics Dashboard Architecture](#adr-0008)         | 2025-09-22 | Accepted | —          | —             |
 | 0007 | [Local Prompt Management Migration](#adr-0007)             | 2025-09-22 | Accepted | —          | —             |
 | 0006 | [Module-based Architecture with Shared Utilities](#adr-0006) | 2025-09-19 | Accepted | 0001       | —             |
 | 0005 | [Markdown-based Prompt Management](#adr-0005)              | 2025-09-19 | Accepted | —          | —             |
@@ -347,6 +348,39 @@ Migrate all prompts to local `prompts.md` files within each module, update all s
 ### Compliance / Verification
 
 All modules must have local `prompts.md`, use `loadPrompt()` from shared parser, no global prompt dependencies. Old `prompts/` folder and `prompts.js` files removed.
+
+## ADR-0008 — VAPI Analytics Dashboard Architecture
+
+<a id="adr-0008"></a>
+**Date**: 2025-09-22
+**Status**: Accepted
+**Owner**: VAPI Team
+
+### Context
+
+Project needed comprehensive analytics dashboard for VAPI call data visualization. Initial React/Tailwind attempts created unnecessary complexity and technical debt. Business requires professional dashboard for client presentations and internal analysis.
+
+### Alternatives
+
+- **React + Tailwind setup**: Complex build process, dependency management, longer development time
+- **Vue.js SPA**: Additional framework learning curve, build complexity
+- **Server-side rendered dashboard**: Requires backend infrastructure, hosting complexity
+- **Embedded dashboard widgets**: Limited customization, vendor lock-in
+
+### Decision
+
+Implement single-file HTML dashboard with embedded JavaScript and CSS, following modular structure in `production_scripts/vapi_analytics/dashboard/index.html` with embedded assistant mapping and Chart.js visualizations.
+
+### Consequences
+
+- **Pros**: Zero build complexity, instant loading, CORS-free operation, self-contained deployment, easy client sharing
+- **Cons / risks**: All code in single file, limited to client-side processing, manual data upload required
+- **Supersedes**: —
+- **Superseded by**: —
+
+### Compliance / Verification
+
+Dashboard must follow modular structure under `production_scripts/`, work offline, handle 1000+ call records, provide assistant filtering, time period selection, and chart interactions without external dependencies.
 
 ---
 
