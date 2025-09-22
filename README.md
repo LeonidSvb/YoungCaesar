@@ -55,6 +55,20 @@ docs/                   # Project documentation
 5. Sync to Airtable: `node scripts/sync_airtable.js upload`
 6. View dashboard: Open `dashboards/consolidation_report.html`
 
+## 🚀 Live Dashboards
+
+### Production Dashboards (GitHub Pages)
+[![🎯 Prompt Optimization Dashboard](https://img.shields.io/badge/📊_Prompt_Optimization-Dashboard-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/)
+[![📈 QCI Analysis Dashboard](https://img.shields.io/badge/📈_QCI_Analysis-Dashboard-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/qci_analysis/dashboard/)
+
+### Main Analytics Dashboards
+[![📊 Main Analytics](https://img.shields.io/badge/📊_Main-Analytics-orange?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/dashboards/vapi_dashboard.html)
+[![🔄 Consolidation Report](https://img.shields.io/badge/🔄_Consolidation-Report-purple?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/dashboards/consolidation_report.html)
+
+### Reports & Analysis
+[![📋 Complete VAPI Report](https://img.shields.io/badge/📋_Complete-VAPI_Report-red?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/reports/html/VAPI_Analytics_Complete_Report_EN.html)
+[![📞 Meeting Summary](https://img.shields.io/badge/📞_Meeting-Summary-teal?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/reports/html/meeting-summary-sep3-2025-en.html)
+
 ## 📚 Documentation
 
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Шпаргалка основных команд
