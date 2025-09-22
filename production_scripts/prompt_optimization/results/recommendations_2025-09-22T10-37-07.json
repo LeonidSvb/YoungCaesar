@@ -1,0 +1,835 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-22T10:37:07.471Z",
+    "assistants_processed": 7,
+    "recommendations_generated": 7,
+    "total_cost": "0.1546",
+    "processing_time": "108.6s",
+    "ai_model": "gpt-4o",
+    "target_improvement": "+15 QCI points"
+  },
+  "executive_summary": {
+    "overview": {
+      "assistants_optimized": 7,
+      "total_improvement_potential": "+105 QCI points",
+      "high_priority_issues": 0,
+      "quick_wins_available": 0
+    },
+    "high_priority_issues": [],
+    "quick_wins": [],
+    "next_steps": [
+      "Review high-priority recommendations",
+      "Implement quick wins first",
+      "Set up A/B testing framework",
+      "Monitor QCI improvements weekly"
+    ]
+  },
+  "recommendations": {
+    "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": {
+      "assistant_name": "Assistant 8a51eae6",
+      "current_performance": {
+        "total_calls": 89,
+        "avg_duration": 0,
+        "total_cost": 12.2887,
+        "avg_cost": 0.1380752808988764
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Brand Integration",
+          "expected_timeline": "4-6 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Dream Outcome Specificity",
+            "current_value_equation": "Generic service presentation reduces perceived value",
+            "proposed_change": "Incorporate specific benefits and outcomes, such as 'Increase your production efficiency by 20% within 3 months using our advanced drilling machines.'",
+            "value_improvement": "Increases perceived value by making the outcome more tangible and desirable",
+            "implementation_script": "With Young Caesar's drilling machines, you can boost your production efficiency by 20% in just 3 months.",
+            "hormozi_evidence": "Aligns with Hormozi's principle of making outcomes specific and compelling",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Increase Credibility with Proof Elements",
+            "current_value_equation": "Lack of proof reduces perceived likelihood of success",
+            "proposed_change": "Include testimonials or case studies in the prompt",
+            "value_improvement": "Enhances credibility and trust, increasing perceived likelihood of achieving the outcome",
+            "implementation_script": "Our clients, like XYZ Corp, have seen a 25% increase in efficiency. Would you like to learn how?",
+            "hormozi_evidence": "Follows Hormozi's principle of increasing perceived likelihood through proof",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Reduction",
+            "title": "Simplify the Engagement Process",
+            "current_value_equation": "Complex engagement process increases perceived effort",
+            "proposed_change": "Streamline the call-to-action with a clear, easy next step",
+            "value_improvement": "Reduces perceived effort, making it easier for prospects to engage",
+            "implementation_script": "Let's schedule a quick 15-minute call to discuss how we can help you achieve these results.",
+            "hormozi_evidence": "Reduces effort by simplifying the next steps",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello [Prospect's Name], this is [Your Name] from Young Caesar. We specialize in helping companies like yours increase production efficiency by 20% within 3 months using our advanced drilling machines. Our clients, such as XYZ Corp, have already seen these results. Can we schedule a quick 15-minute call to explore how we can achieve similar outcomes for you?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "opening_hook",
+            "value_proposition",
+            "call_to_action"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Determine winner based on a 10% improvement in QCI score and meeting rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop and finalize optimized prompt",
+              "Train team on new prompt"
+            ],
+            "expected_results": [
+              "Team ready to implement new prompt"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Begin A/B testing",
+              "Monitor initial results"
+            ],
+            "expected_results": [
+              "Initial data collection on prompt performance"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Continue A/B testing",
+              "Adjust based on feedback"
+            ],
+            "expected_results": [
+              "Refined approach based on early feedback"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze test results",
+              "Decide on prompt implementation"
+            ],
+            "expected_results": [
+              "Decision on prompt adoption based on data"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:35:30.655Z"
+    },
+    "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda": {
+      "assistant_name": "Assistant 0d55fd8a",
+      "current_performance": {
+        "total_calls": 6,
+        "avg_duration": 0,
+        "total_cost": 0.46940000000000004,
+        "avg_cost": 0.07823333333333334
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Brand Integration",
+          "expected_timeline": "4 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Dream Outcome with Specific Benefits",
+            "current_value_equation": "Vague presentation of benefits",
+            "proposed_change": "Include specific benefits such as 'increase efficiency by 20% within 3 months'",
+            "value_improvement": "Makes the outcome more specific and compelling",
+            "implementation_script": "Our drilling machines can increase your production efficiency by 20% within just 3 months.",
+            "hormozi_evidence": "Specific outcomes increase perceived value and urgency",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Increase Credibility with Testimonials",
+            "current_value_equation": "Lack of compelling reasons for engagement",
+            "proposed_change": "Add a testimonial from a satisfied client",
+            "value_improvement": "Increases credibility and perceived likelihood of success",
+            "implementation_script": "One of our clients, XYZ Corp, saw a 30% increase in output after using our machines.",
+            "hormozi_evidence": "Testimonials serve as proof elements that enhance credibility",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Reduction",
+            "title": "Simplify the Engagement Process",
+            "current_value_equation": "Unclear scheduling process",
+            "proposed_change": "Streamline the scheduling process with a clear call-to-action",
+            "value_improvement": "Reduces friction and makes it easier for the client to engage",
+            "implementation_script": "Let's schedule a quick 15-minute call to discuss how we can help you achieve your goals.",
+            "hormozi_evidence": "Simplifying processes reduces perceived effort and increases engagement",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello [Client Name], this is [Assistant Name] from Young Caesar. Our drilling machines have helped companies like XYZ Corp increase their production efficiency by 20% within just 3 months. Would you be interested in a quick 15-minute call to explore how we can achieve similar results for you? Let's schedule a time that works for you.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "opening_hook",
+            "value_proposition"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "A 10% increase in QCI score and meeting rate will determine the winner"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop optimized prompt",
+              "Gather testimonials"
+            ],
+            "expected_results": [
+              "Ready-to-deploy prompt",
+              "Increased credibility"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Deploy A/B testing",
+              "Monitor initial results"
+            ],
+            "expected_results": [
+              "Data collection on prompt performance"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Analyze test results",
+              "Adjust based on feedback"
+            ],
+            "expected_results": [
+              "Refined prompt based on real-world data"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Finalize prompt",
+              "Full deployment"
+            ],
+            "expected_results": [
+              "Improved QCI score and engagement"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:35:49.454Z"
+    },
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "assistant_name": "Assistant 1a9692a3",
+      "current_performance": {
+        "total_calls": 248,
+        "avg_duration": 0,
+        "total_cost": 31.563500000000012,
+        "avg_cost": 0.1272721774193549
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Value Proposition",
+          "expected_timeline": "4-6 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Clarify and Enhance Value Proposition",
+            "current_value_equation": "Unclear articulation of benefits and lack of differentiation",
+            "proposed_change": "Revise prompt to clearly state specific benefits and unique selling points of Young Caesar's drilling machines",
+            "value_improvement": "Increases perceived value by making the benefits tangible and distinct",
+            "implementation_script": "Our drilling machines can increase your production efficiency by 20% within the first month, backed by our client success stories.",
+            "hormozi_evidence": "Focuses on specific outcomes and uses proof elements to enhance credibility",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Improve Objection Handling",
+            "current_value_equation": "Failure to recognize and address objections",
+            "proposed_change": "Incorporate a structured objection handling segment that acknowledges concerns and offers reassurances",
+            "value_improvement": "Increases trust and reduces perceived risk by addressing potential client concerns",
+            "implementation_script": "I understand that switching suppliers can be daunting. We offer a 30-day trial to ensure our machines meet your expectations.",
+            "hormozi_evidence": "Reduces risk and increases credibility through guarantees",
+            "expected_impact": "+5 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Time Delay",
+            "title": "Streamline Call-to-Action",
+            "current_value_equation": "Vague next steps and inconsistent meeting scheduling",
+            "proposed_change": "Implement a clear and concise call-to-action with specific scheduling options",
+            "value_improvement": "Reduces time delay by providing immediate next steps and simplifying the decision process",
+            "implementation_script": "Can we schedule a 15-minute call next Tuesday at 10 AM to discuss how we can meet your needs?",
+            "hormozi_evidence": "Demonstrates fast time-to-value with specific scheduling",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello [Contact Name], this is [Your Name] from Young Caesar. Our drilling machines have helped companies like yours increase production efficiency by 20% within the first month. I noticed we haven't had a chance to connect yet. Can we schedule a 15-minute call next Tuesday at 10 AM to discuss how we can meet your needs? I understand switching suppliers can be daunting, so we offer a 30-day trial to ensure our machines meet your expectations.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Value Proposition clarity",
+            "Objection Handling effectiveness",
+            "Call-to-Action specificity"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "A 10% increase in QCI score and a 15% increase in meeting scheduling rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Revise and test new value proposition script",
+              "Train team on objection handling techniques"
+            ],
+            "expected_results": [
+              "Improved clarity in value proposition",
+              "Enhanced objection handling skills"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Implement new call-to-action strategy",
+              "Begin A/B testing"
+            ],
+            "expected_results": [
+              "Clearer next steps in calls",
+              "Initial data collection for A/B test"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Monitor A/B test results",
+              "Adjust strategies based on feedback"
+            ],
+            "expected_results": [
+              "Refined approach based on real-world feedback"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze A/B test outcomes",
+              "Finalize prompt based on successful elements"
+            ],
+            "expected_results": [
+              "Optimized prompt ready for full deployment"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:36:02.872Z"
+    },
+    "163cc924-0e8c-45b1-b6cf-46e423885240": {
+      "assistant_name": "Assistant 163cc924",
+      "current_performance": {
+        "total_calls": 8,
+        "avg_duration": 0,
+        "total_cost": 0.5869,
+        "avg_cost": 0.0733625
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Opening Hook and Value Proposition",
+          "expected_timeline": "4-6 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Opening Hook with Specific Outcomes",
+            "current_value_equation": "Lack of engaging or personalized opening",
+            "proposed_change": "Incorporate specific, compelling outcomes in the opening statement",
+            "value_improvement": "Increases engagement by clearly stating the benefit to the prospect",
+            "implementation_script": "Hi [Prospect Name], this is [Your Name] from Young Caesar. We specialize in helping companies like yours increase production efficiency by up to 30% within 3 months using our advanced drilling machines.",
+            "hormozi_evidence": "Aligns with Hormozi's principle of making the outcome specific and compelling",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Add Proof Elements to Value Proposition",
+            "current_value_equation": "Possible failure to clearly communicate benefits",
+            "proposed_change": "Include case studies or testimonials in the value proposition",
+            "value_improvement": "Enhances credibility and trust, increasing perceived likelihood of success",
+            "implementation_script": "Our clients, such as [Client Name], have seen a 25% increase in output within the first quarter of using our machines.",
+            "hormozi_evidence": "Incorporates proof elements to boost credibility",
+            "expected_impact": "+5 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Minimization",
+            "title": "Simplify Call-to-Action",
+            "current_value_equation": "Potential lack of clear and compelling call-to-action",
+            "proposed_change": "Simplify the process for scheduling a follow-up meeting",
+            "value_improvement": "Reduces friction, making it easier for prospects to commit to next steps",
+            "implementation_script": "Would you be open to a quick 15-minute call next week to explore how we can achieve similar results for your company?",
+            "hormozi_evidence": "Reduces effort and simplifies the decision-making process",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hi [Prospect Name], this is [Your Name] from Young Caesar. We specialize in helping companies like yours increase production efficiency by up to 30% within 3 months using our advanced drilling machines. Our clients, such as [Client Name], have seen a 25% increase in output within the first quarter of using our machines. Would you be open to a quick 15-minute call next week to explore how we can achieve similar results for your company?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Opening Hook",
+            "Value Proposition"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Determine winner based on highest QCI improvement and meeting conversion rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop and finalize optimized prompt",
+              "Train team on new script"
+            ],
+            "expected_results": [
+              "Team readiness to implement new prompt"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Begin A/B testing",
+              "Monitor initial results"
+            ],
+            "expected_results": [
+              "Initial data collection on prompt performance"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Continue A/B testing",
+              "Adjust based on feedback"
+            ],
+            "expected_results": [
+              "Refined approach based on early feedback"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Conclude A/B testing",
+              "Analyze results"
+            ],
+            "expected_results": [
+              "Determine effectiveness of optimized prompt"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:36:23.818Z"
+    },
+    "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+      "assistant_name": "Assistant 10f76383",
+      "current_performance": {
+        "total_calls": 237,
+        "avg_duration": 0,
+        "total_cost": 30.714500000000005,
+        "avg_cost": 0.12959704641350214
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Brand Integration",
+          "expected_timeline": "4-6 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Dream Outcome with Specific Metrics",
+            "current_value_equation": "Vague benefits without specific outcomes",
+            "proposed_change": "Include specific metrics like 'increase production efficiency by 20% within 3 months'",
+            "value_improvement": "Makes the outcome more compelling and measurable",
+            "implementation_script": "Our drilling machines can increase your production efficiency by 20% within just 3 months.",
+            "hormozi_evidence": "Specific outcomes align with Hormozi's principle of a compelling Dream Outcome",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Increase Credibility with Case Studies",
+            "current_value_equation": "Lack of proof elements reduces trust",
+            "proposed_change": "Introduce case studies and testimonials from similar clients",
+            "value_improvement": "Boosts credibility and perceived likelihood of success",
+            "implementation_script": "We've helped companies like XYZ achieve a 25% increase in output. Would you like to hear how?",
+            "hormozi_evidence": "Adding proof elements increases perceived likelihood of achievement",
+            "expected_impact": "+5 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort Reduction",
+            "title": "Simplify the Engagement Process",
+            "current_value_equation": "Complex engagement process deters potential clients",
+            "proposed_change": "Streamline the onboarding process and highlight ease of integration",
+            "value_improvement": "Reduces perceived effort and friction",
+            "implementation_script": "Our integration process is seamless and can be completed in just one week with minimal disruption.",
+            "hormozi_evidence": "Simplifying processes aligns with reducing effort and sacrifice",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello [Name], this is [Your Name] from Young Caesar. Our drilling machines have helped companies like XYZ increase production efficiency by 20% within just 3 months. Would you be interested in learning how we can achieve similar results for you? We offer a seamless integration process that can be completed in just one week. Let's schedule a quick call to discuss this further.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "opening hook personalization",
+            "value proposition specificity",
+            "objection handling"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Improvement in QCI score and meeting scheduling rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop case studies and testimonials",
+              "Draft specific outcome metrics"
+            ],
+            "expected_results": [
+              "Ready-to-use proof elements",
+              "Clear and compelling value propositions"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Integrate new scripts into call prompts",
+              "Train team on new objection handling techniques"
+            ],
+            "expected_results": [
+              "Improved call scripts",
+              "Enhanced objection handling capabilities"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Launch A/B testing",
+              "Monitor call performance"
+            ],
+            "expected_results": [
+              "Data collection on new prompt effectiveness"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze A/B test results",
+              "Refine prompts based on feedback"
+            ],
+            "expected_results": [
+              "Optimized prompt ready for full deployment"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:36:36.575Z"
+    },
+    "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+      "assistant_name": "Assistant 35cd1a47",
+      "current_performance": {
+        "total_calls": 447,
+        "avg_duration": 0,
+        "total_cost": 73.47029999999994,
+        "avg_cost": 0.16436308724832202
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Opening Hook and Brand Integration",
+          "expected_timeline": "4 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Opening Hook with Specific Outcomes",
+            "current_value_equation": "Repetitive and awkward phrasing reduces engagement",
+            "proposed_change": "Use a personalized and compelling opening that highlights specific benefits",
+            "value_improvement": "Increases engagement by making the call relevant and interesting from the start",
+            "implementation_script": "Hi [Name], this is [Your Name] from Young Caesar. We help companies like [Their Company] reduce production costs by 15% within 3 months using our advanced drilling machines.",
+            "hormozi_evidence": "Focuses on specific, measurable outcomes that align with the prospect's goals",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Integrate Proof Elements",
+            "current_value_equation": "Lack of credibility and inconsistent brand naming",
+            "proposed_change": "Include a brief case study or testimonial in the value proposition",
+            "value_improvement": "Builds trust and credibility, increasing the likelihood of engagement",
+            "implementation_script": "Our client, [Client Name], saw a 20% increase in efficiency after implementing our solutions.",
+            "hormozi_evidence": "Provides evidence of success, enhancing perceived likelihood of achievement",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort Reduction",
+            "title": "Simplify Call-to-Action",
+            "current_value_equation": "Vague next steps create friction",
+            "proposed_change": "Offer a clear, low-effort next step, such as a 15-minute consultation",
+            "value_improvement": "Reduces effort and decision-making friction for the prospect",
+            "implementation_script": "Could we schedule a quick 15-minute call next week to explore how we can help you achieve similar results?",
+            "hormozi_evidence": "Minimizes effort and commitment required from the prospect",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hi [Name], this is [Your Name] from Young Caesar. We help companies like [Their Company] reduce production costs by 15% within 3 months using our advanced drilling machines. Our client, [Client Name], saw a 20% increase in efficiency after implementing our solutions. Could we schedule a quick 15-minute call next week to explore how we can help you achieve similar results?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Opening Hook",
+            "Value Proposition"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Select the prompt with the highest QCI improvement and meeting rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop personalized opening scripts",
+              "Gather case studies/testimonials"
+            ],
+            "expected_results": [
+              "Improved engagement and credibility"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Train team on new scripts",
+              "Implement A/B testing"
+            ],
+            "expected_results": [
+              "Consistent delivery of optimized prompts"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Monitor call performance",
+              "Collect feedback"
+            ],
+            "expected_results": [
+              "Identify areas for further improvement"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze A/B test results",
+              "Finalize successful prompt"
+            ],
+            "expected_results": [
+              "Adopt the most effective prompt for ongoing use"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:36:51.850Z"
+    },
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "assistant_name": "Assistant 0eddf4db",
+      "current_performance": {
+        "total_calls": 14,
+        "avg_duration": 0,
+        "total_cost": 1.2965999999999998,
+        "avg_cost": 0.09261428571428569
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Value Proposition",
+          "expected_timeline": "4-6 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Specificity of Dream Outcome",
+            "current_value_equation": "Generic presentation of services",
+            "proposed_change": "Include specific benefits and outcomes tailored to the recipient's industry",
+            "value_improvement": "Increases perceived value by aligning with recipient's specific goals",
+            "implementation_script": "Our drilling machines have helped companies like yours increase production efficiency by 20% within the first quarter.",
+            "hormozi_evidence": "Specific outcomes increase perceived value by making the dream outcome tangible.",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Increase Credibility with Proof Elements",
+            "current_value_equation": "Lack of tailored benefits and proof",
+            "proposed_change": "Incorporate case studies and testimonials from similar industries",
+            "value_improvement": "Boosts credibility and perceived likelihood of achieving the dream outcome",
+            "implementation_script": "Our clients, such as [Client Name], have seen a 30% reduction in operational costs using our solutions.",
+            "hormozi_evidence": "Proof elements like testimonials enhance trust and perceived likelihood.",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Minimization",
+            "title": "Simplify the Engagement Process",
+            "current_value_equation": "Vague next steps and lack of urgency",
+            "proposed_change": "Provide clear, easy-to-follow next steps with minimal effort required from the recipient",
+            "value_improvement": "Reduces perceived effort and increases willingness to engage",
+            "implementation_script": "Let's schedule a 15-minute call next week to discuss how we can achieve these results for you.",
+            "hormozi_evidence": "Simplifying the process reduces friction and perceived effort.",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          }
+        ],
+        "optimized_prompt": "Hi [Recipient's Name], this is [Your Name] from Young Caesar. We've helped companies like [Client Name] increase their production efficiency by 20% within the first quarter using our advanced drilling machines. I noticed you might be facing similar challenges, and I'd love to share how we can achieve these results for you. Can we schedule a quick 15-minute call next week to explore this further? Our clients have seen significant cost reductions, and I believe we can replicate this success for you.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Specificity of Dream Outcome",
+            "Inclusion of Proof Elements"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "A 10% increase in QCI score and meeting rate in the test group compared to the control group"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop and finalize optimized prompt",
+              "Train team on new script"
+            ],
+            "expected_results": [
+              "Team ready to implement new prompt"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Begin A/B testing",
+              "Monitor initial feedback"
+            ],
+            "expected_results": [
+              "Initial data collection on prompt performance"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Analyze test results",
+              "Adjust strategy based on feedback"
+            ],
+            "expected_results": [
+              "Refined approach based on initial test outcomes"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Conclude A/B testing",
+              "Implement winning strategy"
+            ],
+            "expected_results": [
+              "Improved QCI scores and meeting rates"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T10:37:05.962Z"
+    }
+  }
+}

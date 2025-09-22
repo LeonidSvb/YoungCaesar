@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPI Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .file-upload {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .file-upload-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #fileInput { display: none; }
+
+        .controls {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .time-presets {
+            display: flex;
+            gap: 6px;
+        }
+
+        .preset-btn {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: #374151;
+        }
+
+        .preset-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .preset-btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .date-range {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .date-input {
+            padding: 6px 8px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 12px;
+            background: white;
+        }
+
+        .assistant-select {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            min-width: 200px;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .metric-change {
+            font-size: 11px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chart-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+
+        .assistant-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .assistant-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #3b82f6;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .assistant-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .assistant-card.active {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .assistant-name {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .assistant-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .assistant-stat {
+            color: #64748b;
+        }
+
+        .assistant-stat strong {
+            color: #374151;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .time-presets {
+                justify-content: center;
+            }
+
+            .metrics-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📞 VAPI Analytics Dashboard</h1>
+        </div>
+
+        <div class="file-upload" id="fileUpload">
+            <button class="file-upload-btn" onclick="document.getElementById('fileInput').click()">
+                📂 Upload VAPI Data (JSON)
+            </button>
+            <input type="file" id="fileInput" accept=".json" onchange="handleFileUpload(event)">
+            <div id="fileName" style="margin-top: 8px; color: #64748b; font-size: 12px;"></div>
+        </div>
+
+        <div class="controls" id="controls" style="display: none;">
+            <div class="control-group">
+                <label>Time Period</label>
+                <div class="time-presets">
+                    <button class="preset-btn" onclick="setTimePreset('7d')">7D</button>
+                    <button class="preset-btn" onclick="setTimePreset('30d')">30D</button>
+                    <button class="preset-btn" onclick="setTimePreset('90d')">3M</button>
+                    <button class="preset-btn active" onclick="setTimePreset('all')">All</button>
+                    <button class="preset-btn" onclick="setTimePreset('custom')">Custom</button>
+                </div>
+            </div>
+            <div class="control-group" id="customDateRange" style="display: none;">
+                <label>Date Range</label>
+                <div class="date-range">
+                    <input type="date" id="startDate" class="date-input" onchange="applyFilters()">
+                    <span>to</span>
+                    <input type="date" id="endDate" class="date-input" onchange="applyFilters()">
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Assistant</label>
+                <select id="assistantSelect" class="assistant-select" onchange="applyFilters()">
+                    <option value="">All Assistants</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="metrics-row" id="metrics" style="display: none;">
+            <!-- Metrics will be populated here -->
+        </div>
+
+        <div class="chart-section" id="chartSection" style="display: none;">
+            <div class="chart-title">Call Activity Over Time</div>
+            <div class="chart-container">
+                <canvas id="mainChart"></canvas>
+            </div>
+        </div>
+
+        <div class="assistant-cards" id="assistantCards" style="display: none;">
+            <!-- Assistant cards will be populated here -->
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div>📊 Processing data...</div>
+        </div>
+    </div>
+
+    <script>
+        let allCalls = [];
+        let filteredCalls = [];
+        let currentTimePreset = 'all';
+        let mainChart = null;
+        let selectedAssistantId = null;
+
+        // Assistant names mapping
+        const assistantMapping = {
+            "8cd7551f-2ac8-441d-8f49-0abf053fb9b6": { "name": "Riley", "model": "gpt-4o" },
+            "35cd1a47-714b-4436-9a19-34d7f2d00b56": { "name": "BIESSE - MS", "model": "gpt-4o" },
+            "10f76383-d5aa-408d-9aca-3708bb9f8b22": { "name": "QC Advisor", "model": "gpt-4o" },
+            "24db494f-e25b-4a8f-a362-144b26ef2c86": { "name": "DTMF IVR Agent", "model": "gpt-4o" },
+            "55bb2539-5bbe-46c7-99bd-701eab22fbf1": { "name": "Inbound Call Center", "model": "gpt-4o" },
+            "163cc924-0e8c-45b1-b6cf-46e423885240": { "name": "Emanuela", "model": "gpt-4o" },
+            "613d30cd-0f98-4fcb-be3d-f39fee5c6406": { "name": "New Assistant", "model": "gpt-4o" },
+            "8e928338-22dc-42d1-b459-f4c52a6395f1": { "name": "Morgan 6 sec", "model": "gpt-4o" },
+            "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": { "name": "YC Assistant", "model": "gpt-4o-mini" },
+            "861f2ce7-fdee-401d-8554-29dada4725de": { "name": "Jacko", "model": "gpt-4o-mini" },
+            "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": { "name": "Alex1", "model": "gpt-4o-mini" },
+            "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda": { "name": "Riley v2", "model": "gpt-4o-mini" },
+            "0eddf4db-3bfa-4eb2-8053-082d94aa786d": { "name": "Riley Premium", "model": "gpt-4o" }
+        };
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            document.getElementById('fileName').textContent = `Loading: ${file.name}`;
+            document.getElementById('loading').style.display = 'block';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    allCalls = Array.isArray(data) ? data : [data];
+                    console.log(`Loaded ${allCalls.length} calls`);
+                    initializeDashboard();
+                } catch (error) {
+                    alert('Error parsing JSON: ' + error.message);
+                    document.getElementById('loading').style.display = 'none';
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function initializeDashboard() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('fileUpload').style.display = 'none';
+            document.getElementById('controls').style.display = 'flex';
+            document.getElementById('metrics').style.display = 'grid';
+            document.getElementById('chartSection').style.display = 'block';
+            document.getElementById('assistantCards').style.display = 'grid';
+
+            populateAssistantSelect();
+            setDateDefaults();
+            applyFilters();
+        }
+
+        function populateAssistantSelect() {
+            const assistants = [...new Set(allCalls
+                .filter(call => call.assistantId)
+                .map(call => call.assistantId))];
+
+            const select = document.getElementById('assistantSelect');
+            const allOption = select.querySelector('option[value=""]');
+            select.innerHTML = '';
+            select.appendChild(allOption);
+
+            assistants.forEach(assistantId => {
+                const option = document.createElement('option');
+                option.value = assistantId;
+                const assistantInfo = assistantMapping[assistantId];
+                option.textContent = assistantInfo ?
+                    `${assistantInfo.name} (${assistantInfo.model})` :
+                    `Assistant ${assistantId.substring(0, 8)}`;
+                select.appendChild(option);
+            });
+        }
+
+        function getAssistantName(assistantId) {
+            if (!assistantId) return 'Unknown';
+            const assistantInfo = assistantMapping[assistantId];
+            return assistantInfo ? assistantInfo.name : assistantId.substring(0, 8);
+        }
+
+        function setDateDefaults() {
+            const today = new Date();
+            const oneMonthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+            document.getElementById('endDate').value = today.toISOString().split('T')[0];
+            document.getElementById('startDate').value = oneMonthAgo.toISOString().split('T')[0];
+        }
+
+        function setTimePreset(preset) {
+            currentTimePreset = preset;
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const customDateRange = document.getElementById('customDateRange');
+            customDateRange.style.display = preset === 'custom' ? 'block' : 'none';
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const assistantId = selectedAssistantId || document.getElementById('assistantSelect').value;
+
+            filteredCalls = allCalls.filter(call => {
+                if (!call.startedAt) return false;
+                if (assistantId && call.assistantId !== assistantId) return false;
+
+                const callDate = new Date(call.startedAt);
+
+                if (currentTimePreset === 'custom') {
+                    const startDate = document.getElementById('startDate').value;
+                    const endDate = document.getElementById('endDate').value;
+                    if (startDate && callDate < new Date(startDate)) return false;
+                    if (endDate && callDate > new Date(endDate + 'T23:59:59')) return false;
+                } else if (currentTimePreset !== 'all') {
+                    const today = new Date();
+                    const daysAgo = currentTimePreset === '7d' ? 7 :
+                                   currentTimePreset === '30d' ? 30 : 90;
+                    const filterDate = new Date(today.getTime() - daysAgo * 24 * 60 * 60 * 1000);
+                    if (callDate < filterDate) return false;
+                }
+
+                return true;
+            });
+
+            if (selectedAssistantId) {
+                document.getElementById('assistantSelect').value = selectedAssistantId;
+            }
+
+            updateDashboard();
+        }
+
+        function selectAssistant(assistantId) {
+            if (selectedAssistantId === assistantId) {
+                selectedAssistantId = null;
+                document.querySelectorAll('.assistant-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                document.getElementById('assistantSelect').value = '';
+            } else {
+                selectedAssistantId = assistantId;
+                document.querySelectorAll('.assistant-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                const clickedCard = document.querySelector(`[data-assistant-id="${assistantId}"]`);
+                if (clickedCard) clickedCard.classList.add('active');
+            }
+            applyFilters();
+        }
+
+        function updateDashboard() {
+            updateMetrics();
+            updateMainChart();
+            updateAssistantCards();
+        }
+
+        function updateMetrics() {
+            const totalCalls = filteredCalls.length;
+            const totalCost = filteredCalls.reduce((sum, call) => sum + (call.cost || 0), 0);
+            const avgDuration = totalCalls > 0 ?
+                filteredCalls.reduce((sum, call) => {
+                    if (!call.startedAt || !call.endedAt) return sum;
+                    const duration = new Date(call.endedAt) - new Date(call.startedAt);
+                    return sum + (duration / 1000);
+                }, 0) / totalCalls : 0;
+
+            const successfulCalls = filteredCalls.filter(call =>
+                call.status === 'ended' &&
+                call.endedReason !== 'customer-ended-call' &&
+                call.endedReason !== 'silence-timed-out'
+            ).length;
+            const successRate = totalCalls > 0 ? (successfulCalls / totalCalls * 100) : 0;
+
+            const metricsHTML = `
+                <div class="metric-card">
+                    <div class="metric-label">Number of Calls</div>
+                    <div class="metric-value">${totalCalls.toLocaleString()}</div>
+                    <div class="metric-change">↗ Selected period</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg Duration</div>
+                    <div class="metric-value">${formatDuration(avgDuration)}</div>
+                    <div class="metric-change">— ${avgDuration > 60 ? 'Good engagement' : 'Quick calls'}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Total Cost</div>
+                    <div class="metric-value">${totalCost.toFixed(0)} credits</div>
+                    <div class="metric-change">↗ $${(totalCost / totalCalls || 0).toFixed(3)} per call</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Call Success</div>
+                    <div class="metric-value">${successRate.toFixed(0)}%</div>
+                    <div class="metric-change">${successfulCalls} successful calls</div>
+                </div>
+            `;
+
+            document.getElementById('metrics').innerHTML = metricsHTML;
+        }
+
+        function updateMainChart() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+
+            const dailyData = {};
+            filteredCalls.forEach(call => {
+                if (!call.startedAt) return;
+                const date = new Date(call.startedAt).toISOString().split('T')[0];
+                dailyData[date] = (dailyData[date] || 0) + 1;
+            });
+
+            const sortedDates = Object.keys(dailyData).sort();
+            const values = sortedDates.map(date => dailyData[date]);
+
+            if (mainChart) {
+                mainChart.destroy();
+                mainChart = null;
+            }
+
+            mainChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sortedDates.map(date => {
+                        const d = new Date(date);
+                        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [{
+                        label: selectedAssistantId ? getAssistantName(selectedAssistantId) : 'All Calls',
+                        data: values,
+                        borderColor: selectedAssistantId ? '#3b82f6' : '#10b981',
+                        backgroundColor: selectedAssistantId ? 'rgba(59, 130, 246, 0.1)' : 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointBackgroundColor: selectedAssistantId ? '#3b82f6' : '#10b981',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: selectedAssistantId ? true : false,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#64748b', font: { size: 11 } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9', borderDash: [2, 2] },
+                            ticks: { color: '#64748b', font: { size: 11 } }
+                        }
+                    },
+                    animation: { duration: 300 }
+                }
+            });
+        }
+
+        function updateAssistantCards() {
+            const assistantStats = {};
+
+            filteredCalls.forEach(call => {
+                const id = call.assistantId || 'Unknown';
+                if (!assistantStats[id]) {
+                    assistantStats[id] = { calls: 0, totalCost: 0, totalDuration: 0, successful: 0 };
+                }
+
+                assistantStats[id].calls++;
+                assistantStats[id].totalCost += call.cost || 0;
+
+                if (call.startedAt && call.endedAt) {
+                    const duration = new Date(call.endedAt) - new Date(call.startedAt);
+                    assistantStats[id].totalDuration += duration / 1000;
+                }
+
+                if (call.status === 'ended' &&
+                    call.endedReason !== 'customer-ended-call' &&
+                    call.endedReason !== 'silence-timed-out') {
+                    assistantStats[id].successful++;
+                }
+            });
+
+            const sortedAssistants = Object.entries(assistantStats)
+                .sort((a, b) => b[1].calls - a[1].calls);
+
+            const cardsHTML = sortedAssistants.map(([assistantId, stats]) => {
+                const avgDuration = stats.calls > 0 ? stats.totalDuration / stats.calls : 0;
+                const successRate = stats.calls > 0 ? (stats.successful / stats.calls * 100) : 0;
+                const displayName = getAssistantName(assistantId);
+                const isActive = selectedAssistantId === assistantId ? 'active' : '';
+
+                return `
+                    <div class="assistant-card ${isActive}" data-assistant-id="${assistantId}" onclick="selectAssistant('${assistantId}')">
+                        <div class="assistant-name">${displayName}</div>
+                        <div class="assistant-stats">
+                            <div class="assistant-stat">Calls: <strong>${stats.calls}</strong></div>
+                            <div class="assistant-stat">Cost: <strong>$${stats.totalCost.toFixed(1)}</strong></div>
+                            <div class="assistant-stat">Avg Duration: <strong>${formatDuration(avgDuration)}</strong></div>
+                            <div class="assistant-stat">Success: <strong>${successRate.toFixed(0)}%</strong></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('assistantCards').innerHTML = cardsHTML;
+        }
+
+        function formatDuration(seconds) {
+            if (seconds < 60) {
+                return `${Math.round(seconds)}s`;
+            } else if (seconds < 3600) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.round(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            } else {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                return `${hours}h ${minutes}m`;
+            }
+        }
+    </script>
+</body>
+</html>

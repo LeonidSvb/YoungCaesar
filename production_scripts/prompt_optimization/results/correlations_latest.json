@@ -1,0 +1,1084 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-22T11:14:12.012Z",
+    "assistants_analyzed": 11,
+    "successful_analyses": 11,
+    "total_cost": "0.1709",
+    "processing_time": "125.8s",
+    "ai_model": "gpt-4o"
+  },
+  "correlations": {
+    "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": {
+      "name": "Assistant 8a51eae6",
+      "performance": {
+        "total_calls": 89,
+        "avg_duration": 0,
+        "total_cost": 12.2887,
+        "avg_cost": 0.1380752808988764,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "Lacks personalization beyond confirming name",
+            "Too abrupt without context"
+          ],
+          "strengths": [
+            "Immediate engagement with name confirmation"
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 1,
+          "issues": [
+            "Vague and lacks compelling details",
+            "No clear benefit or differentiation"
+          ],
+          "strengths": [
+            "Direct mention of potential new clients"
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 1,
+          "issues": [
+            "No real discovery questions included",
+            "Misses opportunity to gather information"
+          ],
+          "strengths": [
+            "Focus on confirming interest"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "No strategy for handling objections",
+            "Ends call without addressing concerns"
+          ],
+          "strengths": [
+            "Polite acknowledgment of disinterest"
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 2,
+          "issues": [
+            "Lacks clarity on next steps beyond email",
+            "No engagement beyond initial interest"
+          ],
+          "strengths": [
+            "Simple and straightforward follow-up"
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "Minimal mention of 'Young Caesar'",
+            "No brand value or identity communicated"
+          ],
+          "strengths": [
+            "Brief introduction as a representative"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of objection handling and value proposition",
+        "key_strength": "Immediate engagement with name confirmation",
+        "improvement_potential": "Enhancing value proposition and objection handling"
+      },
+      "evidence_based_insights": [
+        "Calls lack depth due to absence of discovery questions, leading to low engagement.",
+        "The abrupt ending after a 'no' response limits potential for future engagement."
+      ]
+    },
+    "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda": {
+      "name": "Assistant 0d55fd8a",
+      "performance": {
+        "total_calls": 6,
+        "avg_duration": 0,
+        "total_cost": 0.46940000000000004,
+        "avg_cost": 0.07823333333333334,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "The opening is very basic and lacks personalization or engagement hooks."
+          ],
+          "strengths": [
+            "Directly confirms the identity of the contact, which is clear and straightforward."
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 3,
+          "issues": [
+            "The value proposition is vague and lacks compelling details about the benefits."
+          ],
+          "strengths": [
+            "Mentions the potential to bring new clients, which is a positive outcome."
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 2,
+          "issues": [
+            "Limited probing questions to understand the client's needs or context."
+          ],
+          "strengths": [
+            "Attempts to confirm interest, which is a basic form of qualification."
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "No structured approach to handle objections or concerns."
+          ],
+          "strengths": [
+            "Ends the call politely if the contact is not interested."
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 3,
+          "issues": [
+            "The call-to-action is not very persuasive and lacks urgency."
+          ],
+          "strengths": [
+            "Clearly asks for a specific day and time for a follow-up meeting."
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 2,
+          "issues": [
+            "Minimal mention of 'Young Caesar' and lacks integration into the conversation."
+          ],
+          "strengths": [
+            "Introduces the assistant as part of 'Young Caesar' at the beginning."
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Objection handling is the main area limiting performance.",
+        "key_strength": "The opening hook is the strongest performing element due to its clarity.",
+        "improvement_potential": "Improving objection handling and value proposition could lead to significant QCI gains."
+      },
+      "evidence_based_insights": [
+        "The lack of objection handling structure leads to abrupt call endings when faced with resistance.",
+        "The straightforward opening helps in quickly confirming the identity of the contact, which is crucial for call progression."
+      ]
+    },
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "name": "Assistant 1a9692a3",
+      "performance": {
+        "total_calls": 248,
+        "avg_duration": 0,
+        "total_cost": 31.563500000000012,
+        "avg_cost": 0.1272721774193549,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "The opening is too direct and lacks personalization, which may not engage the caller effectively."
+          ],
+          "strengths": [
+            "Directly addresses the intended recipient, which can be efficient if the correct person is reached."
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 3,
+          "issues": [
+            "The value proposition is not clearly articulated in the initial stages of the call, potentially missing an opportunity to capture interest."
+          ],
+          "strengths": [
+            "Attempts to relate the service to the client's needs by mentioning vertical CNC lathes."
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 2,
+          "issues": [
+            "Limited probing questions to understand the client's needs or context better."
+          ],
+          "strengths": [
+            "Includes a direct question about interest in new clients, which can help gauge immediate interest."
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "Objection handling is too scripted and lacks flexibility, which may not address specific concerns effectively."
+          ],
+          "strengths": [
+            "Provides a structured approach to common objections, ensuring some level of preparedness."
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 2,
+          "issues": [
+            "The call-to-action is not compelling enough to drive immediate action or commitment."
+          ],
+          "strengths": [
+            "Includes a clear next step of booking a meeting, which is essential for moving the conversation forward."
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 2,
+          "issues": [
+            "Brand mention is minimal and lacks integration into the conversation, which may not reinforce brand identity."
+          ],
+          "strengths": [
+            "Mentions 'Young Caesar' in the introduction, which helps establish the company context."
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Objection handling is the main area limiting performance due to its rigidity and lack of personalization.",
+        "key_strength": "The structured call flow provides a clear framework for the conversation.",
+        "improvement_potential": "Enhancing the opening and value proposition to be more engaging and personalized could lead to significant QCI gains."
+      },
+      "evidence_based_insights": [
+        "The lack of dynamic interaction and engagement quality is evident from the 0/30 score in Dynamics.",
+        "Objection handling fails to adapt to specific caller concerns, as reflected in the 0/20 score."
+      ]
+    },
+    "8e928338-22dc-42d1-b459-f4c52a6395f1": {
+      "name": "Assistant 8e928338",
+      "performance": {
+        "total_calls": 4,
+        "avg_duration": 0,
+        "total_cost": 0.23059999999999997,
+        "avg_cost": 0.05764999999999999,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "Lacks personalization, sounds generic",
+            "Does not immediately engage the prospect"
+          ],
+          "strengths": [
+            "Polite and offers flexibility for busy prospects"
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 3,
+          "issues": [
+            "Too broad, lacks specific benefits tailored to the prospect",
+            "Does not differentiate from competitors"
+          ],
+          "strengths": [
+            "Mentions operational efficiency improvement"
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 4,
+          "issues": [
+            "Questions may feel scripted and lack depth",
+            "Does not adapt based on prospect's responses"
+          ],
+          "strengths": [
+            "Covers a range of important business areas",
+            "Encourages prospects to share challenges"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 2,
+          "issues": [
+            "Fails to recognize and address objections effectively",
+            "Lacks specific alternative solutions"
+          ],
+          "strengths": [
+            "Attempts to acknowledge skepticism and concerns"
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 3,
+          "issues": [
+            "Lacks urgency and clear next steps",
+            "Does not effectively qualify leads before proposing next steps"
+          ],
+          "strengths": [
+            "Offers to connect with a sales representative for further discussion"
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "No mention of 'Young Caesar'",
+            "Brand identity not clearly communicated"
+          ],
+          "strengths": [
+            "Consistent mention of GrowthPartners"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Objection handling and brand integration",
+        "key_strength": "Discovery questions",
+        "improvement_potential": "Personalizing the opening hook and value proposition"
+      },
+      "evidence_based_insights": [
+        "The opening hook often fails to capture interest due to its generic nature.",
+        "Objection handling lacks depth, leading to missed opportunities to address concerns."
+      ]
+    },
+    "613d30cd-0f98-4fcb-be3d-f39fee5c6406": {
+      "name": "Assistant 613d30cd",
+      "performance": {
+        "total_calls": 1,
+        "avg_duration": 0,
+        "total_cost": 0.0319,
+        "avg_cost": 0.0319
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 1,
+          "issues": [
+            "The opening is too brief and lacks engagement, starting with just 'Hello.'"
+          ],
+          "strengths": [
+            "None identified due to lack of content."
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 1,
+          "issues": [
+            "No value proposition is presented in the sample call."
+          ],
+          "strengths": [
+            "None identified due to lack of content."
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 1,
+          "issues": [
+            "No discovery questions are used to gather information."
+          ],
+          "strengths": [
+            "None identified due to lack of content."
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "No objection handling is present in the sample call."
+          ],
+          "strengths": [
+            "None identified due to lack of content."
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 1,
+          "issues": [
+            "No call-to-action is proposed in the sample call."
+          ],
+          "strengths": [
+            "None identified due to lack of content."
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "'Young Caesar' is not mentioned or integrated into the conversation."
+          ],
+          "strengths": [
+            "None identified due to lack of content."
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of comprehensive conversational structure and engagement.",
+        "key_strength": "None identified due to lack of content.",
+        "improvement_potential": "Developing a structured approach with clear opening, value proposition, and call-to-action."
+      },
+      "evidence_based_insights": [
+        "The call starts with a simple 'Hello,' indicating a lack of engaging opening.",
+        "No elements of a structured sales call are present, leading to a QCI score of 0."
+      ]
+    },
+    "861f2ce7-fdee-401d-8554-29dada4725de": {
+      "name": "Assistant 861f2ce7",
+      "performance": {
+        "total_calls": 2,
+        "avg_duration": 0,
+        "total_cost": 0.1573,
+        "avg_cost": 0.07865,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 1,
+          "issues": [
+            "Lack of engaging or compelling start",
+            "No clear introduction or purpose"
+          ],
+          "strengths": [
+            "N/A due to lack of sample calls"
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 1,
+          "issues": [
+            "Unclear presentation of product/service benefits",
+            "No differentiation from competitors"
+          ],
+          "strengths": [
+            "N/A due to lack of sample calls"
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 1,
+          "issues": [
+            "No structured approach to gather customer information",
+            "Lack of open-ended questions"
+          ],
+          "strengths": [
+            "N/A due to lack of sample calls"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "Failure to recognize and address objections",
+            "No alternative solutions offered"
+          ],
+          "strengths": [
+            "N/A due to lack of sample calls"
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 1,
+          "issues": [
+            "No clear next steps proposed",
+            "Lack of urgency or motivation for follow-up"
+          ],
+          "strengths": [
+            "N/A due to lack of sample calls"
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "No mention of 'Young Caesar'",
+            "Lack of brand positioning or tone"
+          ],
+          "strengths": [
+            "N/A due to lack of sample calls"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of structured and engaging conversation elements",
+        "key_strength": "N/A due to lack of sample calls",
+        "improvement_potential": "Developing a clear and engaging opening hook"
+      },
+      "evidence_based_insights": [
+        "The absence of sample calls limits the ability to identify specific success patterns.",
+        "Consistent low scores across all categories suggest a need for comprehensive prompt restructuring."
+      ]
+    },
+    "163cc924-0e8c-45b1-b6cf-46e423885240": {
+      "name": "Assistant 163cc924",
+      "performance": {
+        "total_calls": 8,
+        "avg_duration": 0,
+        "total_cost": 0.5869,
+        "avg_cost": 0.0733625
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 1,
+          "issues": [
+            "No transcripts available to analyze the opening hook",
+            "Potential lack of engaging or personalized introduction"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 1,
+          "issues": [
+            "No transcripts available to analyze how the product/service is presented",
+            "Potential failure to clearly communicate benefits"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 1,
+          "issues": [
+            "No transcripts available to analyze information gathering techniques",
+            "Possible lack of effective questioning to understand customer needs"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "No transcripts available to analyze objection handling",
+            "Potential failure to recognize and address customer concerns"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 1,
+          "issues": [
+            "No transcripts available to analyze how next steps are proposed",
+            "Possible lack of clear and compelling call-to-action"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "No transcripts available to analyze brand integration",
+            "Potential inconsistency in mentioning and positioning 'Young Caesar'"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of available data for analysis",
+        "key_strength": "N/A due to lack of data",
+        "improvement_potential": "Collecting and analyzing call transcripts for better insights"
+      },
+      "evidence_based_insights": [
+        "No specific insights can be drawn due to the absence of call transcripts",
+        "Future analysis should focus on obtaining and reviewing actual call data"
+      ]
+    },
+    "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+      "name": "Assistant 10f76383",
+      "performance": {
+        "total_calls": 237,
+        "avg_duration": 0,
+        "total_cost": 30.714500000000005,
+        "avg_cost": 0.12959704641350214,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "The opening acknowledges the call as a cold call, which may immediately put prospects on the defensive.",
+            "The choice to ask if the prospect wants to hang up might lead to premature call terminations."
+          ],
+          "strengths": [
+            "Directly addresses the nature of the call, which can be seen as honest and straightforward."
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 3,
+          "issues": [
+            "The value proposition is delivered quickly and may not be fully absorbed by the prospect.",
+            "Lacks personalization or tailoring to the specific prospect's needs."
+          ],
+          "strengths": [
+            "Clearly states the service benefits and notable clients, which can build credibility."
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 1,
+          "issues": [
+            "The prompt lacks explicit discovery questions to gather information about the prospect's needs or current solutions."
+          ],
+          "strengths": [
+            "N/A"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 2,
+          "issues": [
+            "Responses to objections are generic and may not address specific concerns effectively.",
+            "Lacks depth in providing alternative solutions or value propositions."
+          ],
+          "strengths": [
+            "Attempts to keep the conversation open by suggesting future contact."
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 3,
+          "issues": [
+            "The call-to-action is clear but may be too abrupt without sufficient engagement or interest-building."
+          ],
+          "strengths": [
+            "Provides a clear next step with the option to book a meeting."
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "There is no mention of 'Young Caesar' in the prompt, leading to a lack of brand integration."
+          ],
+          "strengths": [
+            "N/A"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of engagement and personalization in the opening and value proposition.",
+        "key_strength": "Clear call-to-action with meeting scheduling.",
+        "improvement_potential": "Enhancing objection handling and integrating brand messaging."
+      },
+      "evidence_based_insights": [
+        "The opening line's acknowledgment of a cold call may lead to high hang-up rates, as seen in the 0/30 dynamics score.",
+        "The absence of discovery questions correlates with poor engagement and low outcome achievement scores."
+      ]
+    },
+    "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+      "name": "Assistant 35cd1a47",
+      "performance": {
+        "total_calls": 447,
+        "avg_duration": 0,
+        "total_cost": 73.47029999999994,
+        "avg_cost": 0.16436308724832202,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "The opening is too abrupt and may not engage the listener effectively.",
+            "Lack of personalization or context for the call."
+          ],
+          "strengths": [
+            "Directly asks for permission to proceed, which can be seen as respectful."
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 3,
+          "issues": [
+            "The pitch is too generic and may not resonate with specific pain points of different prospects.",
+            "Lacks differentiation from competitors."
+          ],
+          "strengths": [
+            "Uses a strong analogy ('Porsche' of CNC machines) to convey quality."
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 3,
+          "issues": [
+            "Limited to only a few questions, which may not gather enough information.",
+            "Questions may not be tailored to the prospect's specific industry or needs."
+          ],
+          "strengths": [
+            "Questions are direct and relevant to the product's capabilities."
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 2,
+          "issues": [
+            "Responses to objections are generic and may not address specific concerns.",
+            "Lack of follow-up questions to understand the objection better."
+          ],
+          "strengths": [
+            "Acknowledges objections and offers alternative solutions."
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 2,
+          "issues": [
+            "Relies heavily on email confirmation, which can be a barrier to immediate action.",
+            "Lack of urgency or compelling reason to book a meeting."
+          ],
+          "strengths": [
+            "Clear instructions on next steps if email is confirmed."
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "Brand 'Young Caesar' is not mentioned or integrated into the conversation.",
+            "Lack of consistent brand messaging throughout the call."
+          ],
+          "strengths": [
+            "Mentions Biesse consistently, maintaining some level of brand presence."
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of effective objection handling and call-to-action strategies.",
+        "key_strength": "Consistent mention of Biesse as a quality brand.",
+        "improvement_potential": "Enhancing objection handling and creating a more compelling call-to-action could significantly improve QCI scores."
+      },
+      "evidence_based_insights": [
+        "The opening hook's abruptness may lead to disengagement, as seen in low Dynamics scores.",
+        "Generic objection handling fails to address specific concerns, contributing to low Objections scores.",
+        "The absence of 'Young Caesar' branding results in poor Brand Consistency scores."
+      ]
+    },
+    "8cd7551f-2ac8-441d-8f49-0abf053fb9b6": {
+      "name": "Assistant 8cd7551f",
+      "performance": {
+        "total_calls": 1,
+        "avg_duration": 0,
+        "total_cost": 0.4173,
+        "avg_cost": 0.4173,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 1,
+          "issues": [
+            "No sample calls available to assess the opening strategy",
+            "Potential lack of engaging or personalized introduction"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 1,
+          "issues": [
+            "No clear presentation of product/service benefits",
+            "Potential failure to align with customer needs"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 1,
+          "issues": [
+            "No information gathering strategy evident",
+            "Lack of tailored questions to understand customer needs"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "No strategy for recognizing or addressing objections",
+            "Potential lack of alternative solutions"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 1,
+          "issues": [
+            "No clear next steps proposed",
+            "Potential lack of urgency or clarity in action items"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 1,
+          "issues": [
+            "No evidence of brand mention or integration",
+            "Potential inconsistency in brand messaging"
+          ],
+          "strengths": [
+            "N/A due to lack of data"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Lack of structured prompt content and strategy",
+        "key_strength": "None identified due to lack of data",
+        "improvement_potential": "Developing a structured prompt with clear sections and strategies"
+      },
+      "evidence_based_insights": [
+        "No specific insights available due to lack of sample calls",
+        "Potential improvement by incorporating structured opening and value proposition"
+      ]
+    },
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "name": "Assistant 0eddf4db",
+      "performance": {
+        "total_calls": 14,
+        "avg_duration": 0,
+        "total_cost": 1.2965999999999998,
+        "avg_cost": 0.09261428571428569,
+        "avg_qci": 0,
+        "avg_dynamics": 0,
+        "avg_objections": 0,
+        "avg_brand": 0,
+        "avg_outcome": 0,
+        "success_rate": 0
+      },
+      "structural_analysis": {
+        "opening_hook": {
+          "effectiveness": 2,
+          "issues": [
+            "Lack of personalization if 'Karl' is empty",
+            "Fallbacks may sound generic and impersonal"
+          ],
+          "strengths": [
+            "Clear identification of the caller and purpose"
+          ]
+        },
+        "value_proposition": {
+          "effectiveness": 3,
+          "issues": [
+            "Repetitive phrasing ('5 new clients for their Drilling machines every month')",
+            "Lack of differentiation from competitors"
+          ],
+          "strengths": [
+            "Direct mention of potential benefits (new clients)"
+          ]
+        },
+        "discovery_questions": {
+          "effectiveness": 2,
+          "issues": [
+            "Limited probing questions to understand client needs",
+            "Over-reliance on email reference without deeper engagement"
+          ],
+          "strengths": [
+            "Attempts to confirm interest in new clients"
+          ]
+        },
+        "objection_handling": {
+          "effectiveness": 1,
+          "issues": [
+            "Scripted responses may not address specific concerns",
+            "Lack of flexibility in handling diverse objections"
+          ],
+          "strengths": [
+            "Provides mapped responses for common objections"
+          ]
+        },
+        "call_to_action": {
+          "effectiveness": 2,
+          "issues": [
+            "Weak transition from interest confirmation to scheduling",
+            "Limited options if initial scheduling attempt fails"
+          ],
+          "strengths": [
+            "Clear steps for booking a meeting"
+          ]
+        },
+        "brand_integration": {
+          "effectiveness": 3,
+          "issues": [
+            "Brand mention may feel forced if overused",
+            "Lack of unique brand value proposition"
+          ],
+          "strengths": [
+            "Consistent mention of 'Young Caesar'"
+          ]
+        }
+      },
+      "performance_correlations": {
+        "primary_weakness": "Objection handling and discovery questions",
+        "key_strength": "Consistent brand mention",
+        "improvement_potential": "Enhancing objection handling and discovery questions for better engagement"
+      },
+      "evidence_based_insights": [
+        "The lack of personalization in openings leads to disengagement.",
+        "Repetitive phrasing in value proposition fails to capture interest."
+      ]
+    }
+  },
+  "patterns": {
+    "high_performance": [],
+    "low_performance": [
+      {
+        "id": "8a51eae6-a29e-45c7-bea9-32c6d871e1bd",
+        "name": "Assistant 8a51eae6",
+        "qci": 0,
+        "main_strength": "Immediate engagement with name confirmation",
+        "main_weakness": "Lack of objection handling and value proposition"
+      },
+      {
+        "id": "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda",
+        "name": "Assistant 0d55fd8a",
+        "qci": 0,
+        "main_strength": "The opening hook is the strongest performing element due to its clarity.",
+        "main_weakness": "Objection handling is the main area limiting performance."
+      },
+      {
+        "id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+        "name": "Assistant 1a9692a3",
+        "qci": 0,
+        "main_strength": "The structured call flow provides a clear framework for the conversation.",
+        "main_weakness": "Objection handling is the main area limiting performance due to its rigidity and lack of personalization."
+      },
+      {
+        "id": "8e928338-22dc-42d1-b459-f4c52a6395f1",
+        "name": "Assistant 8e928338",
+        "qci": 0,
+        "main_strength": "Discovery questions",
+        "main_weakness": "Objection handling and brand integration"
+      },
+      {
+        "id": "613d30cd-0f98-4fcb-be3d-f39fee5c6406",
+        "name": "Assistant 613d30cd",
+        "qci": 0,
+        "main_strength": "None identified due to lack of content.",
+        "main_weakness": "Lack of comprehensive conversational structure and engagement."
+      },
+      {
+        "id": "861f2ce7-fdee-401d-8554-29dada4725de",
+        "name": "Assistant 861f2ce7",
+        "qci": 0,
+        "main_strength": "N/A due to lack of sample calls",
+        "main_weakness": "Lack of structured and engaging conversation elements"
+      },
+      {
+        "id": "163cc924-0e8c-45b1-b6cf-46e423885240",
+        "name": "Assistant 163cc924",
+        "qci": 0,
+        "main_strength": "N/A due to lack of data",
+        "main_weakness": "Lack of available data for analysis"
+      },
+      {
+        "id": "10f76383-d5aa-408d-9aca-3708bb9f8b22",
+        "name": "Assistant 10f76383",
+        "qci": 0,
+        "main_strength": "Clear call-to-action with meeting scheduling.",
+        "main_weakness": "Lack of engagement and personalization in the opening and value proposition."
+      },
+      {
+        "id": "35cd1a47-714b-4436-9a19-34d7f2d00b56",
+        "name": "Assistant 35cd1a47",
+        "qci": 0,
+        "main_strength": "Consistent mention of Biesse as a quality brand.",
+        "main_weakness": "Lack of effective objection handling and call-to-action strategies."
+      },
+      {
+        "id": "8cd7551f-2ac8-441d-8f49-0abf053fb9b6",
+        "name": "Assistant 8cd7551f",
+        "qci": 0,
+        "main_strength": "None identified due to lack of data",
+        "main_weakness": "Lack of structured prompt content and strategy"
+      },
+      {
+        "id": "0eddf4db-3bfa-4eb2-8053-082d94aa786d",
+        "name": "Assistant 0eddf4db",
+        "qci": 0,
+        "main_strength": "Consistent brand mention",
+        "main_weakness": "Objection handling and discovery questions"
+      }
+    ],
+    "insights": [
+      {
+        "type": "improvement_opportunities",
+        "title": "Critical Improvement Areas",
+        "description": "11 assistants need optimization (QCI <50)",
+        "assistants": [
+          {
+            "name": "Assistant 8a51eae6",
+            "qci": 0,
+            "weakness": "Lack of objection handling and value proposition"
+          },
+          {
+            "name": "Assistant 0d55fd8a",
+            "qci": 0,
+            "weakness": "Objection handling is the main area limiting performance."
+          },
+          {
+            "name": "Assistant 1a9692a3",
+            "qci": 0,
+            "weakness": "Objection handling is the main area limiting performance due to its rigidity and lack of personalization."
+          },
+          {
+            "name": "Assistant 8e928338",
+            "qci": 0,
+            "weakness": "Objection handling and brand integration"
+          },
+          {
+            "name": "Assistant 613d30cd",
+            "qci": 0,
+            "weakness": "Lack of comprehensive conversational structure and engagement."
+          },
+          {
+            "name": "Assistant 861f2ce7",
+            "qci": 0,
+            "weakness": "Lack of structured and engaging conversation elements"
+          },
+          {
+            "name": "Assistant 163cc924",
+            "qci": 0,
+            "weakness": "Lack of available data for analysis"
+          },
+          {
+            "name": "Assistant 10f76383",
+            "qci": 0,
+            "weakness": "Lack of engagement and personalization in the opening and value proposition."
+          },
+          {
+            "name": "Assistant 35cd1a47",
+            "qci": 0,
+            "weakness": "Lack of effective objection handling and call-to-action strategies."
+          },
+          {
+            "name": "Assistant 8cd7551f",
+            "qci": 0,
+            "weakness": "Lack of structured prompt content and strategy"
+          },
+          {
+            "name": "Assistant 0eddf4db",
+            "qci": 0,
+            "weakness": "Objection handling and discovery questions"
+          }
+        ]
+      },
+      {
+        "type": "overall_performance",
+        "title": "Performance Overview",
+        "description": "Average QCI across all assistants: 0.0",
+        "metrics": {
+          "total_assistants": 11,
+          "average_qci": 0,
+          "high_performers": 0,
+          "need_improvement": 11
+        }
+      }
+    ]
+  }
+}

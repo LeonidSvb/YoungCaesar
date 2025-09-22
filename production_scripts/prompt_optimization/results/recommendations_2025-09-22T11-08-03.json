@@ -1,0 +1,979 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-22T11:08:45.146Z",
+    "assistants_processed": 7,
+    "recommendations_generated": 7,
+    "total_cost": "0.1943",
+    "processing_time": "209.9s",
+    "ai_model": "gpt-4o",
+    "target_improvement": "+15 QCI points"
+  },
+  "executive_summary": {
+    "overview": {
+      "assistants_optimized": 7,
+      "total_improvement_potential": "+105 QCI points",
+      "high_priority_issues": 0,
+      "quick_wins_available": 0
+    },
+    "high_priority_issues": [],
+    "quick_wins": [],
+    "next_steps": [
+      "Review high-priority recommendations",
+      "Implement quick wins first",
+      "Set up A/B testing framework",
+      "Monitor QCI improvements weekly"
+    ]
+  },
+  "recommendations": {
+    "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": {
+      "assistant_name": "Assistant 8a51eae6",
+      "current_performance": {
+        "total_calls": 89,
+        "avg_duration": 0,
+        "total_cost": 12.2887,
+        "avg_cost": 0.1380752808988764
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Opening Hook and Value Proposition",
+          "expected_timeline": "4-6 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Personalized and Compelling Opening Hook",
+            "current_value_equation": "Lack of personalization and unclear introductions reduce engagement",
+            "proposed_change": "Incorporate personalized greetings and specific industry-related benefits",
+            "value_improvement": "Increases engagement by making the conversation relevant and compelling from the start",
+            "implementation_script": "Hi [Name], this is [Your Name] from Young Caesar. We specialize in helping companies like [Company Name] improve their drilling efficiency by up to 30% within 3 months.",
+            "hormozi_evidence": "Personalization and specific outcomes align with Hormozi's Dream Outcome principle",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Enhanced Value Proposition with Proof Elements",
+            "current_value_equation": "Generic service presentation lacks credibility and fails to build trust",
+            "proposed_change": "Include case studies and testimonials in the value proposition",
+            "value_improvement": "Builds trust and credibility, increasing the perceived likelihood of achieving the desired outcome",
+            "implementation_script": "Our clients, like [Client Name], have seen a 25% increase in productivity using our machines. Would you like to hear how we can achieve similar results for you?",
+            "hormozi_evidence": "Proof elements enhance credibility, aligning with Hormozi's Perceived Likelihood principle",
+            "expected_impact": "+5 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Reduction",
+            "title": "Simplified Call-to-Action",
+            "current_value_equation": "Vague next steps create friction and reduce conversion",
+            "proposed_change": "Provide clear, simple next steps with minimal effort required from the prospect",
+            "value_improvement": "Reduces friction and makes it easier for prospects to commit to a meeting",
+            "implementation_script": "Can we schedule a quick 15-minute call next week to discuss how we can help you achieve similar results?",
+            "hormozi_evidence": "Simplifying the process reduces effort, aligning with Hormozi's Effort & Sacrifice principle",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hi [Name], this is [Your Name] from Young Caesar. We specialize in helping companies like [Company Name] improve their drilling efficiency by up to 30% within 3 months. Our clients, like [Client Name], have seen a 25% increase in productivity using our machines. Would you like to hear how we can achieve similar results for you? Can we schedule a quick 15-minute call next week to discuss how we can help you achieve similar results?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Personalized Opening Hook",
+            "Enhanced Value Proposition"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "A 10% improvement in QCI score and meeting rate will determine the winner"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop personalized opening scripts",
+              "Gather case studies and testimonials"
+            ],
+            "expected_results": [
+              "Ready-to-use personalized scripts",
+              "Credible proof elements"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Train sales team on new scripts",
+              "Implement A/B testing"
+            ],
+            "expected_results": [
+              "Sales team prepared",
+              "A/B testing initiated"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Monitor A/B test results",
+              "Collect feedback from sales team"
+            ],
+            "expected_results": [
+              "Initial data on performance",
+              "Insights for further optimization"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze test results",
+              "Decide on prompt adjustments"
+            ],
+            "expected_results": [
+              "Data-driven decision on prompt effectiveness",
+              "Finalized optimized prompt"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:05:30.697Z"
+    },
+    "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda": {
+      "assistant_name": "Assistant 0d55fd8a",
+      "current_performance": {
+        "total_calls": 6,
+        "avg_duration": 0,
+        "total_cost": 0.46940000000000004,
+        "avg_cost": 0.07823333333333334
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Brand Integration",
+          "expected_timeline": "4 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Dream Outcome with Specific Benefits",
+            "current_value_equation": "Vague presentation of benefits",
+            "proposed_change": "Include specific benefits such as 'Increase production efficiency by 20% within 3 months'",
+            "value_improvement": "Makes the outcome more specific and compelling, increasing perceived value",
+            "implementation_script": "Our industrial drilling machines can boost your production efficiency by 20% in just 3 months.",
+            "hormozi_evidence": "Aligns with Hormozi's principle of making outcomes specific and compelling",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Increase Credibility with Testimonials",
+            "current_value_equation": "Lack of compelling reasons for engagement",
+            "proposed_change": "Add testimonials from satisfied clients",
+            "value_improvement": "Increases perceived likelihood of achieving the dream outcome",
+            "implementation_script": "Our clients, like XYZ Corp, have seen a 30% increase in efficiency using our machines.",
+            "hormozi_evidence": "Incorporates proof elements to enhance credibility",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Time Delay",
+            "title": "Show Immediate Value with Quick Wins",
+            "current_value_equation": "Lack of urgency or compelling reason to act",
+            "proposed_change": "Highlight quick wins achievable within the first month",
+            "value_improvement": "Reduces perceived time delay, encouraging immediate action",
+            "implementation_script": "Experience a noticeable improvement in your production process within the first month.",
+            "hormozi_evidence": "Demonstrates fast time-to-value",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort Reduction",
+            "title": "Simplify the Scheduling Process",
+            "current_value_equation": "Unclear scheduling process",
+            "proposed_change": "Streamline the meeting scheduling with a clear, easy-to-follow process",
+            "value_improvement": "Minimizes effort and friction in scheduling meetings",
+            "implementation_script": "Let's schedule a quick 15-minute call at your convenience. How does tomorrow at 10 AM sound?",
+            "hormozi_evidence": "Simplifies the process, reducing effort and sacrifice",
+            "expected_impact": "+2 QCI points",
+            "timeline": "2-3 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello, this is [Assistant Name] from Young Caesar. Our industrial drilling machines have helped companies like XYZ Corp increase their production efficiency by 30%. We can help you achieve similar results, boosting your efficiency by 20% in just 3 months. Let's discuss how we can support your manufacturing goals. How about a quick 15-minute call tomorrow at 10 AM? If that doesn't work, please let me know a time that suits you better.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Specific benefits in value proposition",
+            "Inclusion of testimonials",
+            "Streamlined scheduling process"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Improvement in QCI score and meeting scheduling rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Integrate specific benefits and testimonials into the prompt",
+              "Train assistants on new prompt"
+            ],
+            "expected_results": [
+              "Improved engagement and interest from prospects"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Begin A/B testing with optimized prompt",
+              "Monitor initial results"
+            ],
+            "expected_results": [
+              "Initial data on QCI improvement and meeting rates"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Analyze A/B test results",
+              "Adjust prompt based on feedback"
+            ],
+            "expected_results": [
+              "Refined prompt for better performance"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Finalize optimized prompt",
+              "Implement across all calls"
+            ],
+            "expected_results": [
+              "Sustained improvement in QCI score and meeting rates"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:06:38.192Z"
+    },
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "assistant_name": "Assistant 1a9692a3",
+      "current_performance": {
+        "total_calls": 248,
+        "avg_duration": 0,
+        "total_cost": 31.563500000000012,
+        "avg_cost": 0.1272721774193549
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Value Proposition",
+          "expected_timeline": "4-6 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Specificity of Value Proposition",
+            "current_value_equation": "Unclear articulation of benefits and differentiation",
+            "proposed_change": "Incorporate specific benefits and unique selling points of Young Caesar's drilling machines",
+            "value_improvement": "Clarifies the dream outcome by highlighting specific advantages and results",
+            "implementation_script": "Our drilling machines increase efficiency by 30% within the first month, reducing operational costs significantly.",
+            "hormozi_evidence": "Focuses on a specific, compelling outcome with quantifiable benefits",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Incorporate Proof Elements",
+            "current_value_equation": "Lack of differentiation from competitors",
+            "proposed_change": "Include case studies and testimonials in the conversation",
+            "value_improvement": "Increases perceived likelihood of success by providing evidence of past successes",
+            "implementation_script": "Our clients, like XYZ Corp, have seen a 25% increase in productivity using our machines.",
+            "hormozi_evidence": "Builds credibility and reduces perceived risk with proof elements",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Minimization",
+            "title": "Simplify Meeting Scheduling",
+            "current_value_equation": "Vague next steps and inconsistent scheduling",
+            "proposed_change": "Use a streamlined scheduling tool link in follow-ups",
+            "value_improvement": "Reduces effort by simplifying the process of setting up meetings",
+            "implementation_script": "I’ll send you a link to easily book a time that works for you.",
+            "hormozi_evidence": "Minimizes effort and friction in the scheduling process",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          }
+        ],
+        "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects. Key objectives: - Be professional and helpful - Clearly articulate the unique benefits of our drilling machines, such as a 30% efficiency increase within the first month - Use case studies and testimonials to build credibility - Ask probing questions to understand client needs - Handle objections by offering alternative solutions and reassurances - Book meetings with interested prospects using a streamlined scheduling tool - Always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Value Proposition Clarity",
+            "Objection Handling Techniques"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Improvement in QCI score and meeting scheduling rate"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Train sales team on new value proposition and proof elements",
+              "Integrate scheduling tool"
+            ],
+            "expected_results": [
+              "Improved understanding of product benefits",
+              "Simplified meeting scheduling process"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Deploy optimized prompt",
+              "Monitor initial feedback and adjust as necessary"
+            ],
+            "expected_results": [
+              "Initial QCI score improvement",
+              "Higher engagement rates"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Conduct A/B testing",
+              "Collect data on performance"
+            ],
+            "expected_results": [
+              "Data-driven insights on prompt effectiveness"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze test results",
+              "Implement winning strategies"
+            ],
+            "expected_results": [
+              "Sustained QCI improvement",
+              "Increased meeting scheduling"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:06:56.321Z"
+    },
+    "163cc924-0e8c-45b1-b6cf-46e423885240": {
+      "assistant_name": "Assistant 163cc924",
+      "current_performance": {
+        "total_calls": 8,
+        "avg_duration": 0,
+        "total_cost": 0.5869,
+        "avg_cost": 0.0733625
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Opening Hook and Value Proposition",
+          "expected_timeline": "4-6 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Opening Hook with Specific Outcomes",
+            "current_value_equation": "Generic and unengaging opening",
+            "proposed_change": "Incorporate specific benefits and outcomes in the opening",
+            "value_improvement": "Increases engagement by clearly stating the value proposition",
+            "implementation_script": "Hello, this is [Your Name] from Young Caesar. We help industrial manufacturers like [Prospect's Company] increase efficiency by 20% using our advanced drilling machines. Can I share how we achieve this?",
+            "hormozi_evidence": "Aligns with Dream Outcome by specifying a clear benefit",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Incorporate Proof Elements",
+            "current_value_equation": "Lack of credibility and trust",
+            "proposed_change": "Add case studies or testimonials to the conversation",
+            "value_improvement": "Builds trust and credibility, increasing perceived likelihood of success",
+            "implementation_script": "We've helped companies like [Client Name] achieve [Specific Result]. Would you be interested in learning how?",
+            "hormozi_evidence": "Increases perceived likelihood by providing evidence of success",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort Reduction",
+            "title": "Simplify Meeting Scheduling",
+            "current_value_equation": "Complex and time-consuming scheduling process",
+            "proposed_change": "Offer a streamlined scheduling process",
+            "value_improvement": "Reduces effort and friction in booking meetings",
+            "implementation_script": "I can schedule a quick 15-minute call at your convenience. How does [Date/Time] work for you?",
+            "hormozi_evidence": "Reduces effort by simplifying the process",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello, this is [Your Name] from Young Caesar. We specialize in helping industrial manufacturers like [Prospect's Company] increase efficiency by 20% using our advanced drilling machines. We've helped companies like [Client Name] achieve [Specific Result]. Would you be interested in learning how? I can schedule a quick 15-minute call at your convenience. How does [Date/Time] work for you?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Opening Hook",
+            "Value Proposition"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Higher QCI and meeting rate in test group"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Train sales team on new opening hook and value proposition"
+            ],
+            "expected_results": [
+              "Improved engagement in calls"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Introduce proof elements into conversations"
+            ],
+            "expected_results": [
+              "Increased trust and credibility"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Streamline meeting scheduling process"
+            ],
+            "expected_results": [
+              "Reduced friction in booking meetings"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Conduct A/B testing and analyze results"
+            ],
+            "expected_results": [
+              "Determine effectiveness of optimized prompt"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:07:13.249Z"
+    },
+    "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+      "assistant_name": "Assistant 10f76383",
+      "current_performance": {
+        "total_calls": 237,
+        "avg_duration": 0,
+        "total_cost": 30.714500000000005,
+        "avg_cost": 0.12959704641350214
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Objection Handling and Discovery Questions",
+          "expected_timeline": "4-6 weeks to see improvement"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Dream Outcome with Specific Benefits",
+            "current_value_equation": "Lack of specific, compelling outcomes",
+            "proposed_change": "Incorporate specific benefits and outcomes, such as 'increase production efficiency by 20% within 3 months'",
+            "value_improvement": "Makes the outcome more specific and compelling, increasing perceived value",
+            "implementation_script": "By choosing Young Caesar, you can expect a 20% increase in production efficiency within just 3 months.",
+            "hormozi_evidence": "Focuses on transformation with specific numbers and timelines",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Increase Credibility with Testimonials",
+            "current_value_equation": "Low perceived likelihood of achievement",
+            "proposed_change": "Add testimonials and case studies to the prompt",
+            "value_improvement": "Increases credibility and reduces perceived risk",
+            "implementation_script": "Our clients, like XYZ Corp, have seen remarkable improvements. 'We boosted our output by 25% in just 2 months,' says John Doe, CEO of XYZ Corp.",
+            "hormozi_evidence": "Adds proof elements to increase perceived likelihood",
+            "expected_impact": "+4 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice",
+            "title": "Simplify the Process with Clear Steps",
+            "current_value_equation": "Complex and vague next steps",
+            "proposed_change": "Outline clear, simple steps for the next actions",
+            "value_improvement": "Reduces effort and friction, making it easier for prospects to engage",
+            "implementation_script": "Let's schedule a quick 15-minute call to discuss how we can achieve these results for you.",
+            "hormozi_evidence": "Simplifies the process and reduces perceived effort",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello, this is [Your Name] from Young Caesar. We specialize in helping industrial manufacturers like you increase production efficiency by 20% within just 3 months. Our clients, such as XYZ Corp, have seen remarkable improvements. 'We boosted our output by 25% in just 2 months,' says John Doe, CEO of XYZ Corp. I'd love to ask a few questions to understand your needs better and see how we can achieve similar results for you. Can we schedule a quick 15-minute call to discuss this further?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "opening hook",
+            "value proposition",
+            "call to action"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "A 10% increase in QCI score and meeting rate in the test group compared to the control group"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Train sales team on new prompt",
+              "Implement A/B testing"
+            ],
+            "expected_results": [
+              "Initial feedback and adjustments"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Monitor call performance",
+              "Collect data on QCI scores"
+            ],
+            "expected_results": [
+              "Identify trends and areas for further improvement"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Analyze A/B test results",
+              "Refine prompt based on data"
+            ],
+            "expected_results": [
+              "Improved QCI scores and meeting rates"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Finalize optimized prompt",
+              "Full rollout to all sales calls"
+            ],
+            "expected_results": [
+              "Sustained improvement in QCI scores"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:07:22.571Z"
+    },
+    "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+      "assistant_name": "Assistant 35cd1a47",
+      "current_performance": {
+        "total_calls": 447,
+        "avg_duration": 0,
+        "total_cost": 73.47029999999994,
+        "avg_cost": 0.16436308724832202
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "opening_hook and brand_integration",
+          "expected_timeline": "4-6 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Enhance Opening Hook with Specific Outcomes",
+            "current_value_equation": "Lack of compelling and specific outcomes in the opening",
+            "proposed_change": "Modify the opening to include specific benefits and outcomes, such as 'increase efficiency by 20%' or 'reduce downtime by 30%'",
+            "value_improvement": "Makes the outcome more specific and compelling, increasing engagement",
+            "implementation_script": "Hello, this is [Your Name] from Young Caesar. We specialize in helping manufacturers like you increase efficiency by 20% with our advanced drilling machines. Can I share how we can achieve this for your operations?",
+            "hormozi_evidence": "Focuses on specific, measurable outcomes that align with Hormozi's Dream Outcome principle",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Incorporate Proof Elements",
+            "current_value_equation": "Lack of credibility and proof in the conversation",
+            "proposed_change": "Add testimonials or case studies to the conversation to increase credibility",
+            "value_improvement": "Increases perceived likelihood of success by demonstrating past successes",
+            "implementation_script": "Our clients, such as [Client Name], have seen a 30% reduction in downtime using our machines. Would you like to hear more about their experience?",
+            "hormozi_evidence": "Uses proof elements to enhance credibility and perceived likelihood",
+            "expected_impact": "+3 QCI points",
+            "timeline": "2-3 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Minimization",
+            "title": "Simplify the Process",
+            "current_value_equation": "Complex and unclear next steps",
+            "proposed_change": "Streamline the call-to-action with clear, simple steps",
+            "value_improvement": "Reduces perceived effort and makes the process more approachable",
+            "implementation_script": "Let's schedule a quick 15-minute call to discuss how we can help. I can send over a calendar invite for a time that suits you best.",
+            "hormozi_evidence": "Simplifies the process, reducing effort and sacrifice",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hello, this is [Your Name] from Young Caesar. We specialize in helping manufacturers like you increase efficiency by 20% with our advanced drilling machines. Our clients, such as [Client Name], have seen a 30% reduction in downtime using our machines. Let's schedule a quick 15-minute call to discuss how we can help. I can send over a calendar invite for a time that suits you best.",
+        "ab_testing_plan": {
+          "test_variables": [
+            "opening_hook",
+            "proof_elements"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Improvement in QCI score and meeting scheduling rate by at least 10%"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Develop optimized prompt",
+              "Train sales team on new script"
+            ],
+            "expected_results": [
+              "Team readiness for A/B testing"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Launch A/B testing",
+              "Monitor initial results"
+            ],
+            "expected_results": [
+              "Initial feedback and data collection"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Analyze test data",
+              "Adjust strategy if needed"
+            ],
+            "expected_results": [
+              "Refined approach based on data"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Finalize successful prompt",
+              "Implement across all calls"
+            ],
+            "expected_results": [
+              "Improved QCI scores and meeting rates"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:07:41.355Z"
+    },
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "assistant_name": "Assistant 0eddf4db",
+      "current_performance": {
+        "total_calls": 14,
+        "avg_duration": 0,
+        "total_cost": 1.2965999999999998,
+        "avg_cost": 0.09261428571428569
+      },
+      "recommendations": {
+        "executive_summary": {
+          "current_qci": 0,
+          "target_qci": 15,
+          "improvement_potential": "+15 points",
+          "primary_focus_area": "Opening Hook and Objection Handling",
+          "expected_timeline": "3-4 weeks"
+        },
+        "hormozi_recommendations": [
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Dream Outcome",
+            "title": "Personalized Opening Hook",
+            "current_value_equation": "Lack of personalization and unclear introduction",
+            "proposed_change": "Include recipient's name and a personalized fact about their company in the opening",
+            "value_improvement": "Increases engagement by making the call relevant and specific to the recipient",
+            "implementation_script": "Hi [Recipient's Name], this is [Your Name] from Young Caesar. I noticed your company specializes in [specific industry detail], and I believe we can help enhance your operations.",
+            "hormozi_evidence": "Personalization increases perceived value by making the interaction relevant to the recipient's context",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "HIGH",
+            "hormozi_principle": "Perceived Likelihood",
+            "title": "Enhanced Objection Handling",
+            "current_value_equation": "Failure to recognize and address objections",
+            "proposed_change": "Implement a structured objection handling script that acknowledges concerns and offers tailored solutions",
+            "value_improvement": "Increases trust and credibility by showing understanding and providing clear solutions",
+            "implementation_script": "I understand that [objection]. Many of our clients had similar concerns, and we helped them achieve [specific result]. Would you be open to a quick call to explore how we can do the same for you?",
+            "hormozi_evidence": "Addressing objections with evidence of past success increases the likelihood of achieving the desired outcome",
+            "expected_impact": "+5 QCI points",
+            "timeline": "1-2 weeks"
+          },
+          {
+            "priority": "MEDIUM",
+            "hormozi_principle": "Effort & Sacrifice Minimization",
+            "title": "Streamlined Call-to-Action",
+            "current_value_equation": "Vague next steps and lack of urgency",
+            "proposed_change": "Provide a clear, easy-to-follow next step with a specific time frame",
+            "value_improvement": "Reduces effort by making the next steps clear and actionable",
+            "implementation_script": "Let's schedule a 15-minute call this week to discuss how we can support your goals. Does Thursday at 2 PM work for you?",
+            "hormozi_evidence": "Clear and specific CTAs reduce decision fatigue and increase the likelihood of follow-through",
+            "expected_impact": "+3 QCI points",
+            "timeline": "1-2 weeks"
+          }
+        ],
+        "optimized_prompt": "Hi [Recipient's Name], this is [Your Name] from Young Caesar. I noticed your company specializes in [specific industry detail], and I believe we can help enhance your operations. Our industrial drilling machines have helped companies like yours achieve [specific result]. I understand that [objection]. Many of our clients had similar concerns, and we helped them achieve [specific result]. Would you be open to a quick call to explore how we can do the same for you? Let's schedule a 15-minute call this week to discuss how we can support your goals. Does Thursday at 2 PM work for you?",
+        "ab_testing_plan": {
+          "test_variables": [
+            "Personalized Opening Hook",
+            "Enhanced Objection Handling"
+          ],
+          "control_group": "50% current prompt usage",
+          "test_group": "50% optimized prompt usage",
+          "success_metrics": [
+            "QCI improvement",
+            "meeting rate"
+          ],
+          "timeline": "4 weeks",
+          "decision_criteria": "Higher QCI score and meeting rate in test group"
+        },
+        "implementation_roadmap": [
+          {
+            "week": 1,
+            "actions": [
+              "Train team on new personalized opening hook",
+              "Develop objection handling scripts"
+            ],
+            "expected_results": [
+              "Improved engagement and objection handling"
+            ]
+          },
+          {
+            "week": 2,
+            "actions": [
+              "Implement streamlined call-to-action",
+              "Begin A/B testing"
+            ],
+            "expected_results": [
+              "Clearer next steps and initial data collection"
+            ]
+          },
+          {
+            "week": 3,
+            "actions": [
+              "Monitor A/B test results",
+              "Adjust scripts based on feedback"
+            ],
+            "expected_results": [
+              "Refined approach and increased meeting scheduling"
+            ]
+          },
+          {
+            "week": 4,
+            "actions": [
+              "Analyze test results",
+              "Finalize optimized prompt"
+            ],
+            "expected_results": [
+              "Selection of the most effective prompt version"
+            ]
+          }
+        ]
+      },
+      "generated_at": "2025-09-22T11:08:01.990Z"
+    }
+  },
+  "optimized_prompts": {
+    "8a51eae6-a29e-45c7-bea9-32c6d871e1bd": {
+      "assistant_name": "Assistant 8a51eae6",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nTo enhance engagement and build trust, incorporate the following strategies:\n\n1. **Personalized and Compelling Opening Hook**: \n   - Start conversations with personalized greetings and specific industry-related benefits.\n   - Example: \"Hi [Name], this is [Your Name] from Young Caesar. We specialize in helping companies like [Company Name] improve their drilling efficiency by up to 30% within 3 months.\"\n\n2. **Enhanced Value Proposition with Proof Elements**:\n   - Include case studies and testimonials in your value proposition to build credibility.\n   - Example: \"Our clients, like [Client Name], have seen a 25% increase in productivity using our machines. Would you like to hear how we can achieve similar results for you?\"\n\n3. **Simplified Call-to-Action**:\n   - Provide clear, simple next steps with minimal effort required from the prospect.\n   - Example: \"Can we schedule a quick 15-minute call next week to discuss how we can help you achieve similar results?\"\n\nBy implementing these strategies, you will align with Alex Hormozi's Value Equation principles, improving engagement, trust, and conversion rates.",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Incorporate personalized greetings and specific industry-related benefits"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Include case studies and testimonials in the value proposition"
+        },
+        {
+          "section": "Effort & Sacrifice Reduction",
+          "change": "Provide clear, simple next steps with minimal effort required from the prospect"
+        }
+      ]
+    },
+    "0d55fd8a-a7ea-406f-8bf4-042c9c8e1fda": {
+      "assistant_name": "Assistant 0d55fd8a",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nOur industrial drilling machines can boost your production efficiency by 20% in just 3 months. Our clients, like XYZ Corp, have seen a 30% increase in efficiency using our machines. Let's schedule a quick 15-minute call at your convenience. How does tomorrow at 10 AM sound?",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Include specific benefits such as 'Increase production efficiency by 20% within 3 months'"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Add testimonials from satisfied clients"
+        },
+        {
+          "section": "Time Delay",
+          "change": "Highlight quick wins achievable within the first month"
+        }
+      ]
+    },
+    "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe": {
+      "assistant_name": "Assistant 1a9692a3",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nEnhance Specificity of Value Proposition:\n- Highlight specific benefits and unique selling points of Young Caesar's drilling machines.\n- Example: \"Our drilling machines increase efficiency by 30% within the first month, reducing operational costs significantly.\"\n\nIncorporate Proof Elements:\n- Include case studies and testimonials in the conversation to build credibility.\n- Example: \"Our clients, like XYZ Corp, have seen a 25% increase in productivity using our machines.\"\n\nMaintain all original tools and functionality, ensuring a seamless experience for the customer.",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Incorporate specific benefits and unique selling points of Young Caesar's drilling machines"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Include case studies and testimonials in the conversation"
+        },
+        {
+          "section": "Effort & Sacrifice Minimization",
+          "change": "Use a streamlined scheduling tool link in follow-ups"
+        }
+      ]
+    },
+    "163cc924-0e8c-45b1-b6cf-46e423885240": {
+      "assistant_name": "Assistant 163cc924",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nHello, this is [Your Name] from Young Caesar. We help industrial manufacturers like [Prospect's Company] increase efficiency by 20% using our advanced drilling machines. Can I share how we achieve this?\n\nWe've helped companies like [Client Name] achieve [Specific Result]. Would you be interested in learning how?\n\nI can schedule a quick 15-minute call at your convenience. How does [Date/Time] work for you?",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Incorporate specific benefits and outcomes in the opening"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Add case studies or testimonials to the conversation"
+        },
+        {
+          "section": "Effort Reduction",
+          "change": "Offer a streamlined scheduling process"
+        }
+      ]
+    },
+    "10f76383-d5aa-408d-9aca-3708bb9f8b22": {
+      "assistant_name": "Assistant 10f76383",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nBy choosing Young Caesar, you can expect a 20% increase in production efficiency within just 3 months. Our clients, like XYZ Corp, have seen remarkable improvements. \"We boosted our output by 25% in just 2 months,\" says John Doe, CEO of XYZ Corp.\n\nLet's schedule a quick 15-minute call to discuss how we can achieve these results for you.",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Incorporate specific benefits and outcomes, such as 'increase production efficiency by 20% within 3 months'"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Add testimonials and case studies to the prompt"
+        },
+        {
+          "section": "Effort & Sacrifice",
+          "change": "Outline clear, simple steps for the next actions"
+        }
+      ]
+    },
+    "35cd1a47-714b-4436-9a19-34d7f2d00b56": {
+      "assistant_name": "Assistant 35cd1a47",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nHello, this is [Your Name] from Young Caesar. We specialize in helping manufacturers like you increase efficiency by 20% with our advanced drilling machines. Can I share how we can achieve this for your operations?\n\nOur clients, such as [Client Name], have seen a 30% reduction in downtime using our machines. Would you like to hear more about their experience?\n\nLet's schedule a quick 15-minute call to discuss how we can help. I can send over a calendar invite for a time that suits you best.",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Modify the opening to include specific benefits and outcomes, such as 'increase efficiency by 20%' or 'reduce downtime by 30%'"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Add testimonials or case studies to the conversation to increase credibility"
+        },
+        {
+          "section": "Effort & Sacrifice Minimization",
+          "change": "Streamline the call-to-action with clear, simple steps"
+        }
+      ]
+    },
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "assistant_name": "Assistant 0eddf4db",
+      "original_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.",
+      "optimized_prompt": "You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.\n\nKey objectives:\n- Be professional and helpful\n- Ask qualifying questions\n- Book meetings with interested prospects\n- Handle objections politely\n\nRemember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.\n\nTo enhance your effectiveness, implement the following strategies:\n\n1. **Personalized Opening Hook**: Begin each interaction with a personalized introduction to increase engagement.\n   - Implementation: \"Hi [Recipient's Name], this is [Your Name] from Young Caesar. I noticed your company specializes in [specific industry detail], and I believe we can help enhance your operations.\"\n\n2. **Enhanced Objection Handling**: Recognize and address objections with a structured script to build trust and credibility.\n   - Implementation: \"I understand that [objection]. Many of our clients had similar concerns, and we helped them achieve [specific result]. Would you be open to a quick call to explore how we can do the same for you?\"\n\n3. **Streamlined Call-to-Action**: Provide clear, easy-to-follow next steps with a specific time frame to minimize effort and increase follow-through.\n   - Implementation: \"Let's schedule a 15-minute call this week to discuss how we can support your goals. Does Thursday at 2 PM work for you?\"\n\nBy applying these strategies, you will enhance the perceived value of our offerings and improve the likelihood of successful engagements with prospects.",
+      "key_changes_made": [
+        {
+          "section": "Dream Outcome",
+          "change": "Include recipient's name and a personalized fact about their company in the opening"
+        },
+        {
+          "section": "Perceived Likelihood",
+          "change": "Implement a structured objection handling script that acknowledges concerns and offers tailored solutions"
+        },
+        {
+          "section": "Effort & Sacrifice Minimization",
+          "change": "Provide a clear, easy-to-follow next step with a specific time frame"
+        }
+      ]
+    }
+  }
+}

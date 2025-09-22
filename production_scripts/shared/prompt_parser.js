@@ -45,8 +45,34 @@ function parsePrompts(markdownPath) {
                 continue;
             }
 
-            // Find the start of the next ## or end of file
-            const nextHeaderMatch = content.indexOf('\n## ', headerPos + 1);
+            // Find the start of the next ## header (outside code blocks)
+            let searchPos = headerPos + 1;
+            let nextHeaderMatch = -1;
+
+            while (true) {
+                const headerCandidate = content.indexOf('\n## ', searchPos);
+                if (headerCandidate === -1) break;
+
+                // Check if this header is inside a code block
+                const textBefore = content.substring(headerPos, headerCandidate);
+                const codeBlocksStart = (textBefore.match(/```/g) || []).length;
+
+                // If odd number of ``` before this header, it's inside a code block
+                if (codeBlocksStart % 2 === 1) {
+                    searchPos = headerCandidate + 1;
+                    continue;
+                }
+
+                // Also check if it's a real section header (all caps with underscores)
+                const headerText = content.substring(headerCandidate + 1, content.indexOf('\n', headerCandidate + 1));
+                if (/^## ([A-Z_]+)$/.test(headerText)) {
+                    nextHeaderMatch = headerCandidate;
+                    break;
+                }
+
+                searchPos = headerCandidate + 1;
+            }
+
             const sectionEnd = nextHeaderMatch === -1 ? content.length : nextHeaderMatch;
             const section = content.substring(headerPos, sectionEnd);
 

@@ -222,20 +222,26 @@
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <h3 class="font-semibold mb-3" x-text="translations[language].recommendations"></h3>
                             <div class="space-y-3">
-                                <div class="bg-red-50 border-l-4 border-red-400 p-3 rounded">
-                                    <div class="text-xs text-red-600 font-bold mb-1">HIGH PRIORITY</div>
-                                    <div class="font-semibold text-gray-800 mb-1">Fix Rigid Conversation Flow</div>
-                                    <div class="text-sm text-gray-600">Add conditional branching to adapt to caller responses. Expected +5 points in dynamics.</div>
-                                </div>
-                                <div class="bg-red-50 border-l-4 border-red-400 p-3 rounded">
-                                    <div class="text-xs text-red-600 font-bold mb-1">HIGH PRIORITY</div>
-                                    <div class="font-semibold text-gray-800 mb-1">Expand Objection Handling</div>
-                                    <div class="text-sm text-gray-600">Include empathy statements and alternative solutions. Expected +5 points in objections.</div>
-                                </div>
-                                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
-                                    <div class="text-xs text-yellow-600 font-bold mb-1">MEDIUM PRIORITY</div>
-                                    <div class="font-semibold text-gray-800 mb-1">Enhance Call-to-Action</div>
-                                    <div class="text-sm text-gray-600">Make language more direct and time-sensitive. Expected +5 points in outcome.</div>
+                                <template x-for="rec in getRecommendations()" :key="rec.title">
+                                    <div class="border-l-4 p-3 rounded"
+                                         :class="{
+                                             'bg-red-50 border-red-400': rec.priority === 'HIGH',
+                                             'bg-yellow-50 border-yellow-400': rec.priority === 'MEDIUM',
+                                             'bg-blue-50 border-blue-400': rec.priority === 'LOW'
+                                         }">
+                                        <div class="text-xs font-bold mb-1"
+                                             :class="{
+                                                 'text-red-600': rec.priority === 'HIGH',
+                                                 'text-yellow-600': rec.priority === 'MEDIUM',
+                                                 'text-blue-600': rec.priority === 'LOW'
+                                             }"
+                                             x-text="rec.priority + ' PRIORITY'"></div>
+                                        <div class="font-semibold text-gray-800 mb-1" x-text="rec.title"></div>
+                                        <div class="text-sm text-gray-600" x-text="rec.description"></div>
+                                    </div>
+                                </template>
+                                <div x-show="getRecommendations().length === 0" class="text-gray-500 text-center py-4">
+                                    No recommendations available
                                 </div>
                             </div>
                         </div>
@@ -249,6 +255,19 @@
                                 <div class="toggle-slider"></div>
                             </div>
                             <span class="toggle-label" :class="{ 'active': showOptimizedPrompt }" x-text="translations[language].optimizedPrompt"></span>
+                        </div>
+
+                        <!-- Key Changes Panel -->
+                        <div x-show="showOptimizedPrompt && selectedAssistant?.keyChanges?.length > 0" class="mb-4 bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-800 mb-2">Key Changes Made:</h4>
+                            <div class="space-y-2">
+                                <template x-for="change in selectedAssistant.keyChanges" :key="change.section">
+                                    <div class="text-sm">
+                                        <span class="font-medium text-green-700" x-text="change.section + ':'"></span>
+                                        <span class="text-green-600 ml-2" x-text="change.change || change.rationale"></span>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
 
                         <div class="prompt-display rounded-lg p-4 overflow-auto max-h-screen"
@@ -513,7 +532,12 @@
                     } else if (data.recommendations) {
                         assistants = Object.keys(data.recommendations).map(id => ({
                             id,
-                            ...data.recommendations[id]
+                            name: data.recommendations[id].assistant_name || `Assistant ${id.substr(0, 8)}`,
+                            ...data.recommendations[id],
+                            // Extract optimized prompts from optimized_prompts section
+                            currentPrompt: data.optimized_prompts?.[id]?.original_prompt || 'No prompt available',
+                            optimizedPrompt: data.optimized_prompts?.[id]?.optimized_prompt || 'No optimized prompt available',
+                            keyChanges: data.optimized_prompts?.[id]?.key_changes_made || []
                         }));
                     } else if (Array.isArray(data)) {
                         assistants = data.map((item, index) => ({
@@ -649,11 +673,48 @@
 
                 getOptimizedPromptHTML() {
                     if (!this.selectedAssistant || !this.selectedAssistant.optimizedPrompt) return '';
-                    return this.selectedAssistant.optimizedPrompt
+
+                    let optimizedHTML = this.selectedAssistant.optimizedPrompt
                         .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
+                        .replace(/>/g, '&gt;');
+
+                    // Highlight key changes based on keyChanges data
+                    if (this.selectedAssistant.keyChanges && this.selectedAssistant.keyChanges.length > 0) {
+                        this.selectedAssistant.keyChanges.forEach(change => {
+                            if (change.change) {
+                                // Try to highlight the change in the optimized prompt
+                                const changeText = change.change.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                                const regex = new RegExp(`(${changeText})`, 'gi');
+                                optimizedHTML = optimizedHTML.replace(regex, '<span class="changes-highlight">$1</span>');
+                            }
+                        });
+                    }
+
+                    // Also handle existing span highlights
+                    optimizedHTML = optimizedHTML
                         .replace(/&lt;span class=\"changes-highlight\"&gt;/g, '<span class="changes-highlight">')
                         .replace(/&lt;\/span&gt;/g, '</span>');
+
+                    return optimizedHTML;
+                },
+
+                getRecommendations() {
+                    if (!this.selectedAssistant || !this.selectedAssistant.recommendations) return [];
+
+                    // Extract recommendations from Alex Hormozi framework
+                    const recommendations = [];
+
+                    if (this.selectedAssistant.recommendations.hormozi_recommendations) {
+                        this.selectedAssistant.recommendations.hormozi_recommendations.forEach(rec => {
+                            recommendations.push({
+                                title: rec.title || rec.hormozi_principle || 'Recommendation',
+                                description: rec.proposed_change || rec.current_value_equation || 'No description',
+                                priority: rec.priority || 'MEDIUM'
+                            });
+                        });
+                    }
+
+                    return recommendations;
                 }
             }
         }

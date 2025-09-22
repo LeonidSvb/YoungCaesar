@@ -57,13 +57,27 @@ docs/                   # Project documentation
 
 ## 🚀 Live Dashboards
 
-### Production Dashboards (GitHub Pages)
-[![🎯 Prompt Optimization Dashboard](https://img.shields.io/badge/📊_Prompt_Optimization-Dashboard-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/index.html)
-[![📈 QCI Analysis Dashboard](https://img.shields.io/badge/📈_QCI_Analysis-Dashboard-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/qci_analysis/dashboard/)
+### Main Production Dashboards
+[![📊 VAPI Analytics](https://img.shields.io/badge/📊_VAPI_Analytics-PRODUCTION_READY-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/dashboards/vapi_final_dashboard.html)
+[![🎯 Prompt Optimization](https://img.shields.io/badge/🎯_Prompt_Optimization-CLAUDE_WINS-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/index.html)
 
-### Main Analytics Dashboards
-[![📊 Main Analytics](https://img.shields.io/badge/📊_Main-Analytics-orange?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/dashboards/vapi_dashboard.html)
-[![🔄 Consolidation Report](https://img.shields.io/badge/🔄_Consolidation-Report-purple?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/dashboards/consolidation_report.html)
+**🎯 VAPI Analytics Features:**
+- Interactive assistant filtering (BIESSE-MS, QC Advisor, Alex1, etc.)
+- Time period selection (7D, 30D, 3M, All Time, Custom)
+- Click-to-filter assistant cards
+- Real-time call analytics and cost tracking
+- Upload your VAPI calls JSON file to view analytics
+
+**🎯 Prompt Optimization Features:**
+- Claude vs OpenAI comparison (Claude wins significantly)
+- Real performance data analysis
+- Cost optimization recommendations
+- Interactive insights and metrics
+
+### Additional Tools
+[![📈 QCI Analysis](https://img.shields.io/badge/📈_QCI-Analysis-orange?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/qci_analysis/dashboard/)
+[![🔄 Data Report](https://img.shields.io/badge/🔄_Data-Report-purple?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/dashboards/consolidation_report.html)
+[![📋 Complete Report](https://img.shields.io/badge/📋_Complete-Report-gray?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/reports/html/VAPI_Analytics_Complete_Report_EN.html)
 
 ### Reports & Analysis
 [![📋 Complete VAPI Report](https://img.shields.io/badge/📋_Complete-VAPI_Report-red?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/reports/html/VAPI_Analytics_Complete_Report_EN.html)

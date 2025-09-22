@@ -37,7 +37,9 @@ const CONFIG = {
     },
     OPTIONS: {
         TARGET_QCI_IMPROVEMENT: 15,
-        FOCUS_ON_HIGH_IMPACT: true
+        FOCUS_ON_HIGH_IMPACT: true,
+        GENERATE_OPTIMIZED_PROMPTS: true,
+        INCLUDE_ORIGINAL_PROMPTS: true
     }
 };
 
@@ -183,8 +185,115 @@ class RecommendationEngine {
         }
     }
 
+    async generateOptimizedPrompts() {
+        if (!CONFIG.OPTIONS.GENERATE_OPTIMIZED_PROMPTS) return {};
+
+        logger.info('Generating optimized prompts...');
+        const optimizedPrompts = {};
+
+        for (const [assistantId, recData] of Object.entries(this.recommendations)) {
+            logger.progress(`Generating optimized prompt for ${recData.assistant_name}...`);
+
+            try {
+                const correlationData = this.correlations[assistantId];
+                const currentPrompt = this.getAssistantPrompt(assistantId);
+
+                // Generate full optimized prompt using GPT-4o
+                const promptTemplate = `Generate a complete optimized system prompt for this VAPI assistant based on the recommendations:
+
+CURRENT PROMPT:
+${currentPrompt || 'No current prompt found'}
+
+PERFORMANCE ISSUES:
+${JSON.stringify(recData.recommendations.hormozi_recommendations || [], null, 2)}
+
+REQUIREMENTS:
+1. Maintain the original structure and format
+2. Apply all HIGH priority recommendations
+3. Improve based on Alex Hormozi Value Equation principles
+4. Keep all original tools and functionality
+5. Output ONLY the complete optimized prompt
+
+OPTIMIZED PROMPT:`;
+
+                const response = await openai.chat.completions.create({
+                    model: CONFIG.AI.MODEL,
+                    messages: [{ role: 'user', content: promptTemplate }],
+                    max_tokens: CONFIG.AI.MAX_TOKENS,
+                    temperature: CONFIG.AI.TEMPERATURE
+                });
+
+                const optimizedPrompt = response.choices[0].message.content.trim();
+
+                optimizedPrompts[assistantId] = {
+                    assistant_name: recData.assistant_name,
+                    original_prompt: currentPrompt || 'No original prompt available',
+                    optimized_prompt: optimizedPrompt,
+                    key_changes_made: recData.recommendations.hormozi_recommendations?.slice(0, 3).map(rec => ({
+                        section: rec.hormozi_principle,
+                        change: rec.proposed_change,
+                        rationale: rec.business_impact
+                    })) || []
+                };
+
+                // Track cost
+                const usage = response.usage;
+                const inputCost = (usage.prompt_tokens / 1000000) * 2.5;
+                const outputCost = (usage.completion_tokens / 1000000) * 15;
+                this.stats.totalCost += inputCost + outputCost;
+
+                logger.success(`✅ Optimized prompt generated for ${recData.assistant_name}`);
+            } catch (error) {
+                logger.error(`❌ Failed to generate optimized prompt for ${recData.assistant_name}: ${error.message}`);
+            }
+
+            await this.sleep(2000);
+        }
+
+        return optimizedPrompts;
+    }
+
     async sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    getAssistantPrompt(assistantId) {
+        // Try to get prompt from correlation data
+        const correlationData = this.correlations[assistantId];
+        if (correlationData && correlationData.prompt) {
+            return correlationData.prompt;
+        }
+
+        // Try to load prompt directly from aggregated data
+        try {
+            const fs = require('fs');
+            const path = require('path');
+            const aggregatedDataPath = path.resolve(__dirname, '../results/aggregated_data_latest.json');
+
+            if (fs.existsSync(aggregatedDataPath)) {
+                const aggregatedData = JSON.parse(fs.readFileSync(aggregatedDataPath, 'utf8'));
+
+                if (aggregatedData.assistants) {
+                    const assistant = aggregatedData.assistants.find(a => a.id === assistantId);
+                    if (assistant && assistant.prompt) {
+                        return assistant.prompt;
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(`Could not load prompt from aggregated data: ${error.message}`);
+        }
+
+        // Fallback: basic placeholder prompt
+        return `You are a sales assistant for Young Caesar. Your role is to help customers with inquiries about industrial drilling machines and schedule meetings with qualified prospects.
+
+Key objectives:
+- Be professional and helpful
+- Ask qualifying questions
+- Book meetings with interested prospects
+- Handle objections politely
+
+Remember to always mention Young Caesar and focus on the value we provide to industrial manufacturers.`;
     }
 
     generateExecutiveSummary() {
@@ -249,6 +358,9 @@ class RecommendationEngine {
 
         const executiveSummary = this.generateExecutiveSummary();
 
+        // Generate optimized prompts if enabled
+        const optimizedPrompts = await this.generateOptimizedPrompts();
+
         const report = {
             metadata: {
                 generated_at: new Date().toISOString(),
@@ -260,7 +372,8 @@ class RecommendationEngine {
                 target_improvement: `+${CONFIG.OPTIONS.TARGET_QCI_IMPROVEMENT} QCI points`
             },
             executive_summary: executiveSummary,
-            recommendations: this.recommendations
+            recommendations: this.recommendations,
+            optimized_prompts: optimizedPrompts
         };
 
         fs.writeFileSync(outputPath, JSON.stringify(report, null, 2));

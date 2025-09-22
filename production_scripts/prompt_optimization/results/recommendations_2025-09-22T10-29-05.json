@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-22T10:29:05.861Z",
+    "assistants_processed": 7,
+    "recommendations_generated": 0,
+    "total_cost": "0.0000",
+    "processing_time": "10.6s",
+    "ai_model": "gpt-4o",
+    "target_improvement": "+15 QCI points"
+  },
+  "executive_summary": {
+    "overview": {
+      "assistants_optimized": 0,
+      "total_improvement_potential": "+0 QCI points",
+      "high_priority_issues": 0,
+      "quick_wins_available": 0
+    },
+    "high_priority_issues": [],
+    "quick_wins": [],
+    "next_steps": [
+      "Review high-priority recommendations",
+      "Implement quick wins first",
+      "Set up A/B testing framework",
+      "Monitor QCI improvements weekly"
+    ]
+  },
+  "recommendations": {}
+}

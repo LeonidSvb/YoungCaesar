@@ -5,179 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VAPI Analytics Dashboard Index</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px 20px;
         }
 
-        h1 {
-            color: #333;
+        .header {
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: white;
         }
 
-        .dashboard-grid {
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .dashboards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
         .dashboard-card {
-            border: 2px solid #e9ecef;
-            border-radius: 15px;
-            padding: 25px;
-            background: #f8f9fa;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
-            cursor: pointer;
+            border-left: 6px solid #667eea;
         }
 
         .dashboard-card:hover {
-            border-color: #667eea;
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-card.featured {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .dashboard-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
         }
 
         .dashboard-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #495057;
-            margin-bottom: 10px;
-        }
-
-        .dashboard-desc {
-            color: #6c757d;
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 15px;
-            line-height: 1.5;
+            color: #0f172a;
         }
 
-        .dashboard-link {
+        .dashboard-description {
+            color: #64748b;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .dashboard-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-features li {
+            color: #475569;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .dashboard-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .dashboard-button {
             display: inline-block;
             background: #667eea;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
 
-        .dashboard-link:hover {
+        .dashboard-button:hover {
             background: #5a6fd8;
+            transform: translateY(-2px);
         }
 
-        .status {
+        .dashboard-button.primary {
+            background: #10b981;
+        }
+
+        .dashboard-button.primary:hover {
+            background: #059669;
+        }
+
+        .featured-badge {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
             display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-left: 10px;
         }
 
-        .status.working { background: #d4edda; color: #155724; }
-        .status.issue { background: #f8d7da; color: #721c24; }
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 60px;
+        }
 
-        .note {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 30px;
-            color: #856404;
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .dashboards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🚀 VAPI Analytics Dashboard Index</h1>
+        <div class="header">
+            <h1>🚀 VAPI Analytics Dashboard Index</h1>
+            <p>Comprehensive call analytics and performance insights for VAPI voice AI systems</p>
+        </div>
 
-        <div class="dashboard-grid">
-            <div class="dashboard-card">
-                <div class="dashboard-title">
-                    📊 QCI Analysis Dashboard
-                    <span class="status working">Working</span>
-                </div>
-                <div class="dashboard-desc">
-                    Comprehensive Quality Call Index analysis with agent performance metrics and recommendations.
-                </div>
-                <a href="dashboards/qci_analysis_dashboard.html" class="dashboard-link">Open Dashboard</a>
+        <!-- Main Dashboards -->
+        <div class="dashboards-grid">
+            <!-- VAPI Analytics Dashboard -->
+            <div class="dashboard-card featured">
+                <div class="featured-badge">PRODUCTION READY</div>
+                <div class="dashboard-icon">📊</div>
+                <h3 class="dashboard-title">VAPI Analytics Dashboard</h3>
+                <p class="dashboard-description">
+                    <span class="status-indicator"></span>Working
+                    <br>
+                    Complete VAPI call analytics with interactive assistant filtering and real-time metrics.
+                </p>
+                <ul class="dashboard-features">
+                    <li>11 assistant names (BIESSE-MS, QC Advisor, Alex1, etc.)</li>
+                    <li>Time period filters (7D, 30D, 3M, All Time, Custom)</li>
+                    <li>Click-to-filter assistant cards</li>
+                    <li>Cost tracking and success rate analysis</li>
+                    <li>Upload your own VAPI JSON data</li>
+                </ul>
+                <a href="dashboards/vapi_final_dashboard.html" class="dashboard-button primary">Open Dashboard</a>
             </div>
 
-            <div class="dashboard-card">
-                <div class="dashboard-title">
-                    🎯 Prompt Optimization Dashboard
-                    <span class="status issue">GitHub Issue</span>
-                </div>
-                <div class="dashboard-desc">
-                    Advanced prompt optimization with A/B testing recommendations and performance correlations.
-                </div>
-                <a href="http://localhost:8000/dashboards/prompt_optimization_static.html" class="dashboard-link">Open Local</a>
-            </div>
-
-            <div class="dashboard-card">
-                <div class="dashboard-title">
-                    📈 VAPI Analytics Dashboard
-                    <span class="status working">Working</span>
-                </div>
-                <div class="dashboard-desc">
-                    Complete VAPI call analytics with timeline analysis and performance trends.
-                </div>
-                <a href="dashboards/vapi_analytics_dashboard_2025-09-17.html" class="dashboard-link">Open Dashboard</a>
-            </div>
-
-            <div class="dashboard-card">
-                <div class="dashboard-title">
-                    📋 Comprehensive QCI Analysis
-                    <span class="status working">Working</span>
-                </div>
-                <div class="dashboard-desc">
-                    Detailed breakdown of call quality metrics with assistant-specific insights.
-                </div>
-                <a href="dashboards/qci_comprehensive_dashboard.html" class="dashboard-link">Open Dashboard</a>
-            </div>
-
-            <div class="dashboard-card">
-                <div class="dashboard-title">
-                    🔄 Static QCI Analysis
-                    <span class="status working">Working</span>
-                </div>
-                <div class="dashboard-desc">
-                    Static version of QCI analysis with embedded data for offline viewing.
-                </div>
-                <a href="dashboards/qci_analysis_static.html" class="dashboard-link">Open Dashboard</a>
-            </div>
-
-            <div class="dashboard-card">
-                <div class="dashboard-title">
-                    📊 Consolidation Report
-                    <span class="status working">Working</span>
-                </div>
-                <div class="dashboard-desc">
-                    Data consolidation report showing CRM integration and data quality metrics.
-                </div>
-                <a href="dashboards/consolidation_report.html" class="dashboard-link">Open Report</a>
+            <!-- Prompt Optimization Dashboard -->
+            <div class="dashboard-card featured">
+                <div class="featured-badge">CLAUDE WINS</div>
+                <div class="dashboard-icon">🎯</div>
+                <h3 class="dashboard-title">Prompt Optimization Dashboard</h3>
+                <p class="dashboard-description">
+                    <span class="status-indicator"></span>Working
+                    <br>
+                    Advanced prompt optimization with Claude vs OpenAI analysis and performance metrics.
+                </p>
+                <ul class="dashboard-features">
+                    <li>Claude vs OpenAI comparison (Claude wins significantly)</li>
+                    <li>Real performance data analysis</li>
+                    <li>Cost optimization recommendations</li>
+                    <li>Prompt effectiveness scoring</li>
+                    <li>Interactive optimization insights</li>
+                </ul>
+                <a href="production_scripts/prompt_optimization/dashboard/index.html" class="dashboard-button primary">Open Dashboard</a>
             </div>
         </div>
 
-        <div class="note">
-            <strong>✅ Direct Access:</strong>
-            <a href="https://raw.githubusercontent.com/LeonidSvb/YoungCaesar/master/dashboards/prompt_optimization_static.html" target="_blank" style="color: #667eea; font-weight: bold;">Open Prompt Optimization Dashboard (Direct Link)</a>
-            <br><br>
-            <strong>Local Alternative:</strong> <code>python -m http.server 8000</code> from project directory, then
-            <a href="http://localhost:8000/dashboards/prompt_optimization_static.html">Open Local</a>
+        <!-- Additional Tools -->
+        <div style="margin-top: 40px;">
+            <h3 style="color: white; text-align: center; margin-bottom: 20px; opacity: 0.8;">Additional Tools</h3>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="production_scripts/qci_analysis/dashboard/" class="dashboard-button" style="font-size: 0.9rem; padding: 8px 16px;">QCI Analysis</a>
+                <a href="dashboards/consolidation_report.html" class="dashboard-button" style="font-size: 0.9rem; padding: 8px 16px;">Data Report</a>
+                <a href="reports/html/VAPI_Analytics_Complete_Report_EN.html" class="dashboard-button" style="font-size: 0.9rem; padding: 8px 16px;">Complete Report</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📞 VAPI Analytics Platform | 🚀 Hosted on Vercel | 💻 Open Source Dashboard Suite</p>
+            <p>🔗 <strong>Quick Setup:</strong> python -m http.server 8000 from project directory for local development</p>
         </div>
     </div>
 </body>

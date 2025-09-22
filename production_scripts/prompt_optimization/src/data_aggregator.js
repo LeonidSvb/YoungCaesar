@@ -23,7 +23,8 @@ const logger = createLogger('DATA_AGGREGATOR');
 const CONFIG = {
     INPUT: {
         VAPI_CALLS: '../../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json',
-        QCI_RESULTS: '../../qci_analysis/results/latest_qci_full_calls.json',
+        QCI_RESULTS: '../../qci_analysis/results/qci_complete_analysis_2025-09-17T11-37-11.json',
+        EXTRACTED_PROMPTS: '../results/extracted_prompts_2025-09-17T12-35-35.json',
         FALLBACK_CALLS: '../../../data/raw/vapi_filtered_calls_2025-09-17T09-23-36-349.json'
     },
     OUTPUT: {
@@ -31,9 +32,9 @@ const CONFIG = {
         FILE_PREFIX: 'aggregated_data'
     },
     OPTIONS: {
-        MIN_CALLS_FOR_ANALYSIS: 5,
+        MIN_CALLS_FOR_ANALYSIS: 0,
         EXTRACT_SAMPLE_CALLS: true,
-        MAX_SAMPLE_CALLS: 30
+        MAX_SAMPLE_CALLS: 50
     }
 };
 
@@ -62,6 +63,9 @@ class DataAggregator {
         // Try to load QCI results
         const qciData = this.loadCallsFile(CONFIG.INPUT.QCI_RESULTS);
 
+        // Try to load extracted prompts
+        const promptsData = this.loadCallsFile(CONFIG.INPUT.EXTRACTED_PROMPTS);
+
         this.stats.totalCalls = callsData.length;
         logger.success(`Loaded ${this.stats.totalCalls} calls`);
 
@@ -70,7 +74,12 @@ class DataAggregator {
             logger.success(`Loaded ${this.stats.callsWithQCI} QCI results`);
         }
 
-        return { callsData, qciData };
+        if (promptsData) {
+            const assistantCount = promptsData.assistants ? promptsData.assistants.length : 0;
+            logger.success(`Loaded prompts for ${assistantCount} assistants`);
+        }
+
+        return { callsData, qciData, promptsData };
     }
 
     loadCallsFile(relativePath) {
@@ -83,14 +92,19 @@ class DataAggregator {
             }
 
             const data = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
-            return Array.isArray(data) ? data : data.calls || data.data || [];
+            // For prompts data, return the whole object
+            if (relativePath.includes('extracted_prompts')) {
+                return data;
+            }
+            // For other data, extract arrays
+            return Array.isArray(data) ? data : data.calls || data.data || data.results || [];
         } catch (error) {
             logger.warning(`Failed to load ${relativePath}: ${error.message}`);
             return null;
         }
     }
 
-    aggregateAssistantData(callsData, qciData = null) {
+    aggregateAssistantData(callsData, qciData = null, promptsData = null) {
         logger.info('Aggregating assistant data...');
 
         // Create QCI lookup map
@@ -99,6 +113,16 @@ class DataAggregator {
             qciData.forEach(call => {
                 if (call.call_id) {
                     qciMap.set(call.call_id, call);
+                }
+            });
+        }
+
+        // Create prompts lookup map
+        const promptsMap = new Map();
+        if (promptsData && promptsData.assistants) {
+            promptsData.assistants.forEach(assistant => {
+                if (assistant.id && assistant.primaryPrompt) {
+                    promptsMap.set(assistant.id, assistant.primaryPrompt.prompt);
                 }
             });
         }
@@ -113,7 +137,7 @@ class DataAggregator {
                 this.assistants.set(assistantId, {
                     id: assistantId,
                     name: this.extractAssistantName(call),
-                    prompt: this.extractPrompt(call),
+                    prompt: promptsMap.get(assistantId) || this.extractPrompt(call) || '',
                     calls: [],
                     qci_scores: [],
                     performance: {}
@@ -320,8 +344,8 @@ async function main() {
     try {
         const aggregator = new DataAggregator();
 
-        const { callsData, qciData } = await aggregator.loadInputData();
-        aggregator.aggregateAssistantData(callsData, qciData);
+        const { callsData, qciData, promptsData } = await aggregator.loadInputData();
+        aggregator.aggregateAssistantData(callsData, qciData, promptsData);
         aggregator.calculatePerformanceMetrics();
         aggregator.filterAssistants();
 
