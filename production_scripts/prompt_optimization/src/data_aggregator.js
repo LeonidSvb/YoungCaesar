@@ -157,10 +157,17 @@ class DataAggregator {
     }
 
     extractAssistantName(call) {
-        return call.assistant?.name ||
-               call.assistantName ||
-               call.assistant_name ||
-               'Unknown Assistant';
+        // Try various sources for assistant name
+        if (call.assistant?.name) return call.assistant.name;
+        if (call.assistantName) return call.assistantName;
+        if (call.assistant_name) return call.assistant_name;
+
+        // Fallback to short ID format if no name found
+        if (call.assistantId) {
+            return `Assistant ${call.assistantId.split('-')[0]}`;
+        }
+
+        return 'Unknown Assistant';
     }
 
     extractPrompt(call) {
@@ -223,34 +230,40 @@ class DataAggregator {
     }
 
     extractSampleCalls(calls, qciScores) {
-        if (qciScores.length === 0) return [];
+        // If we have QCI scores, use them for intelligent sampling
+        if (qciScores.length > 0) {
+            const callsWithQCI = calls
+                .map((call, index) => ({
+                    ...call,
+                    qci_score: qciScores[index]?.total || 0
+                }))
+                .filter(call => call.qci_score > 0)
+                .sort((a, b) => b.qci_score - a.qci_score);
 
-        // Sort calls by QCI score
-        const callsWithQCI = calls
-            .map((call, index) => ({
-                ...call,
-                qci_score: qciScores[index]?.total || 0
-            }))
-            .filter(call => call.qci_score > 0)
-            .sort((a, b) => b.qci_score - a.qci_score);
+            const samples = [];
+            if (callsWithQCI.length > 0) {
+                samples.push(callsWithQCI[0]); // Best
 
-        // Extract best, worst, and middle calls
-        const samples = [];
+                if (callsWithQCI.length > 2) {
+                    const middleIndex = Math.floor(callsWithQCI.length / 2);
+                    samples.push(callsWithQCI[middleIndex]); // Middle
+                }
 
-        if (callsWithQCI.length > 0) {
-            samples.push(callsWithQCI[0]); // Best
-
-            if (callsWithQCI.length > 2) {
-                const middleIndex = Math.floor(callsWithQCI.length / 2);
-                samples.push(callsWithQCI[middleIndex]); // Middle
+                if (callsWithQCI.length > 1) {
+                    samples.push(callsWithQCI[callsWithQCI.length - 1]); // Worst
+                }
             }
-
-            if (callsWithQCI.length > 1) {
-                samples.push(callsWithQCI[callsWithQCI.length - 1]); // Worst
-            }
+            return samples.slice(0, CONFIG.OPTIONS.MAX_SAMPLE_CALLS);
         }
 
-        return samples.slice(0, CONFIG.OPTIONS.MAX_SAMPLE_CALLS);
+        // Fallback: Random sampling when no QCI data available
+        if (calls.length === 0) return [];
+
+        const shuffled = [...calls].sort(() => 0.5 - Math.random());
+        const sampleCount = Math.min(CONFIG.OPTIONS.MAX_SAMPLE_CALLS, calls.length);
+
+        logger.info(`No QCI data available, using random sampling: ${sampleCount} calls`);
+        return shuffled.slice(0, sampleCount);
     }
 
     filterAssistants() {

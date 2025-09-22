@@ -58,7 +58,7 @@ docs/                   # Project documentation
 ## 🚀 Live Dashboards
 
 ### Production Dashboards (GitHub Pages)
-[![🎯 Prompt Optimization Dashboard](https://img.shields.io/badge/📊_Prompt_Optimization-Dashboard-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/)
+[![🎯 Prompt Optimization Dashboard](https://img.shields.io/badge/📊_Prompt_Optimization-Dashboard-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/index.html)
 [![📈 QCI Analysis Dashboard](https://img.shields.io/badge/📈_QCI_Analysis-Dashboard-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/qci_analysis/dashboard/)
 
 ### Main Analytics Dashboards

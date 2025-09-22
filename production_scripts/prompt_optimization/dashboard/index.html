@@ -390,7 +390,7 @@
 
                 async loadManifest() {
                     try {
-                        const response = await fetch('data/manifest.json');
+                        const response = await fetch('./data/manifest.json');
                         const manifest = await response.json();
                         this.runs = manifest.runs || [];
 
@@ -469,7 +469,7 @@
 
                 async loadRun(runId) {
                     try {
-                        const response = await fetch(`data/runs/${runId}.json`);
+                        const response = await fetch(`./data/runs/${runId}.json`);
                         const data = await response.json();
                         this.processRunData(data);
                         this.activeTab = 'analytics';
@@ -561,7 +561,7 @@
 
                 async loadAssistantHistory() {
                     try {
-                        const response = await fetch('data/assistant_timeline.json');
+                        const response = await fetch('./data/assistant_timeline.json');
                         const timeline = await response.json();
 
                         if (timeline.assistants && timeline.assistants[this.selectedAssistantId]) {
