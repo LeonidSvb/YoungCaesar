@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-09-17T12:51:27.600Z",
+  "latest": "2025-09-17_12-51-27",
+  "runs": [
+    {
+      "id": "2025-09-17_12-51-27",
+      "timestamp": "2025-09-17T12:51:27.600Z",
+      "assistants": 1,
+      "totalCalls": 14,
+      "avgQCI": 33.9,
+      "status": "completed",
+      "duration": 65.4,
+      "cost": 0.0494
+    }
+  ]
+}

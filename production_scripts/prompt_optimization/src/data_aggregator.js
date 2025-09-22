@@ -22,9 +22,9 @@ const logger = createLogger('DATA_AGGREGATOR');
 // CONFIGURATION
 const CONFIG = {
     INPUT: {
-        VAPI_CALLS: '../vapi_collection/results/latest_vapi_calls.json',
-        QCI_RESULTS: '../qci_analysis/results/latest_qci_full_calls.json',
-        FALLBACK_CALLS: '../../data/raw/vapi_raw_calls_20250909.json'
+        VAPI_CALLS: '../../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json',
+        QCI_RESULTS: '../../qci_analysis/results/latest_qci_full_calls.json',
+        FALLBACK_CALLS: '../../../data/raw/vapi_filtered_calls_2025-09-17T09-23-36-349.json'
     },
     OUTPUT: {
         DIR: '../results',
@@ -33,7 +33,7 @@ const CONFIG = {
     OPTIONS: {
         MIN_CALLS_FOR_ANALYSIS: 5,
         EXTRACT_SAMPLE_CALLS: true,
-        MAX_SAMPLE_CALLS: 3
+        MAX_SAMPLE_CALLS: 30
     }
 };
 
@@ -76,8 +76,9 @@ class DataAggregator {
     loadCallsFile(relativePath) {
         try {
             const fullPath = path.resolve(__dirname, relativePath);
+            logger.info(`Trying to load: ${fullPath}`);
             if (!fs.existsSync(fullPath)) {
-                logger.warning(`File not found: ${relativePath}`);
+                logger.warning(`File not found: ${fullPath}`);
                 return null;
             }
 
@@ -173,7 +174,8 @@ class DataAggregator {
     extractTranscript(call) {
         if (call.messages && Array.isArray(call.messages)) {
             return call.messages
-                .map(m => `${m.role}: ${m.content}`)
+                .filter(m => m.role !== 'system')  // Skip system messages
+                .map(m => `${m.role}: ${m.message || m.content || 'undefined'}`)
                 .join('\n');
         }
         return call.transcript || '';

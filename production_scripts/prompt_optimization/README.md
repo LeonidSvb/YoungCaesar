@@ -2,7 +2,32 @@
 
 ## 🚀 AI-POWERED VAPI PROMPT OPTIMIZATION SYSTEM [v2.0.0]
 
-Advanced modular system for analyzing and optimizing VAPI assistant prompts with static HTML dashboards.
+Advanced modular system for analyzing and optimizing VAPI assistant prompts using proven sales frameworks and generating specific, actionable recommendations.
+
+## 📋 SALES FRAMEWORKS
+
+### Available Frameworks (`frameworks/`)
+
+**SPIN Selling** (`spin_selling.md`)
+- Consultative selling methodology
+- Question-based approach: Situation → Problem → Implication → Need-payoff
+- Best for: Discovery and needs development
+
+**Challenger Sale** (`challenger_sale.md`)
+- Teach-Tailor-Take Control methodology
+- Focus on commercial insights and conversation control
+- Best for: Competitive differentiation and urgency creation
+
+**Custom B2B Manufacturing** (`custom_b2b_manufacturing.md`)
+- IMPACT model specifically for industrial sales
+- Manufacturing-specific metrics (OEE, MTBF, downtime costs)
+- Best for: Young Caesar's industrial cold calling
+
+### Framework Selection
+Agent automatically selects most appropriate framework based on:
+- Current QCI weaknesses
+- Assistant's conversation style
+- Target improvement areas
 
 ## 📊 MODULE ARCHITECTURE
 
@@ -17,6 +42,7 @@ Advanced modular system for analyzing and optimizing VAPI assistant prompts with
 - GPT-4o powered analysis of prompt-performance correlations
 - Uses centralized prompts from `prompts.md`
 - Identifies structural strengths and weaknesses
+- Applies sales framework criteria for analysis
 
 ### 3. Recommendation Engine
 **File:** `src/recommendation_engine.js` (v2.0.0)

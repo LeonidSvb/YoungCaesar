@@ -180,6 +180,31 @@ Design testing approach:
 - **Timeline:** Implementation schedule
 - **Risk Mitigation:** Fallback strategies
 
+## ALEX HORMOZI FRAMEWORK REQUIREMENTS:
+
+All recommendations MUST follow Alex Hormozi's Value Equation principles:
+Value = (Dream Outcome × Perceived Likelihood of Achievement) / (Time Delay × Effort & Sacrifice)
+
+**DREAM OUTCOME OPTIMIZATION:**
+- Make the outcome more specific and compelling
+- Use exact numbers and timelines
+- Focus on transformation, not features
+
+**PERCEIVED LIKELIHOOD IMPROVEMENTS:**
+- Add proof elements (case studies, testimonials)
+- Reduce risk with guarantees/trials
+- Increase credibility through authority
+
+**TIME DELAY REDUCTION:**
+- Show immediate value/quick wins
+- Break down implementation into phases
+- Demonstrate fast time-to-value
+
+**EFFORT & SACRIFICE MINIMIZATION:**
+- Simplify the process
+- Remove friction points
+- Make it "done-for-you" where possible
+
 ## YOUNG CAESAR CONTEXT:
 - Industrial manufacturing focus
 - B2B cold calling campaigns
@@ -198,16 +223,17 @@ Provide comprehensive JSON response:
     "primary_focus_area": "main area to address",
     "expected_timeline": "weeks to see improvement"
   },
-  "priority_recommendations": [
+  "hormozi_recommendations": [
     {
       "priority": "HIGH",
-      "category": "dynamics/objections/brand/outcome",
-      "title": "Fix Rigid Conversation Flow",
-      "description": "Specific change needed",
-      "current_issue": "What's wrong now",
-      "proposed_solution": "Exact prompt modification",
-      "expected_impact": "+5 QCI points",
-      "implementation": "Easy/Medium/Hard",
+      "hormozi_principle": "Dream Outcome / Perceived Likelihood / Time Delay / Effort Reduction",
+      "title": "Specific Hormozi-based improvement",
+      "current_value_equation": "What reduces value now",
+      "proposed_change": "Exact prompt modification following Hormozi principle",
+      "value_improvement": "How this increases the value equation",
+      "implementation_script": "Ready-to-use prompt text",
+      "hormozi_evidence": "Why this follows Hormozi methodology",
+      "expected_impact": "+X QCI points",
       "timeline": "1-2 weeks"
     }
   ],
@@ -230,6 +256,13 @@ Provide comprehensive JSON response:
 }
 
 Focus on actionable, specific improvements with measurable impact potential.
+
+IMPORTANT: Use one of these sales frameworks for analysis:
+- SPIN Selling (frameworks/spin_selling.md)
+- Challenger Sale (frameworks/challenger_sale.md)
+- Custom B2B Manufacturing (frameworks/custom_b2b_manufacturing.md)
+
+Select the most appropriate framework based on the assistant's current approach and QCI weaknesses. Apply the framework's specific scoring criteria and recommendation categories.
 ```
 
 ---

@@ -1,0 +1,22 @@
+{
+  "assistants": {
+    "0eddf4db-3bfa-4eb2-8053-082d94aa786d": {
+      "name": "YC Assistant | HOT",
+      "history": [
+        {
+          "runId": "2025-09-17_12-51-27",
+          "date": "2025-09-17",
+          "qci": 33.9,
+          "calls": 14,
+          "successRate": 7.1,
+          "recommendations": [
+            "Fix rigid conversation flow",
+            "Expand objection handling",
+            "Enhance call-to-action"
+          ],
+          "status": "analyzed"
+        }
+      ]
+    }
+  }
+}
