@@ -79,7 +79,7 @@ const CONFIG = {
 const fs = require('fs');
 const path = require('path');
 const OpenAI = require('openai');
-const { QCI_PROMPT } = require('./prompts');
+const { loadPrompt } = require('../shared/prompt_parser');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -119,7 +119,11 @@ class QCIAnalyzer {
 
     async analyzeCall(callData, retryCount = 0) {
         try {
-            const prompt = QCI_PROMPT.replace('{transcript}', callData.transcript);
+            // Load prompt from local prompts.md
+            const promptsPath = require('path').resolve(__dirname, './prompts.md');
+            const prompt = loadPrompt(promptsPath, 'QCI_ANALYSIS_PROMPT', {
+                transcript: callData.transcript
+            });
 
             const response = await openai.chat.completions.create({
                 model: CONFIG.OPENAI.MODEL,

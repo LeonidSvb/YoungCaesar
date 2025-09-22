@@ -16,7 +16,7 @@ Purpose: Analyze prompt structure and identify effectiveness patterns
 
 You are an expert in analyzing conversational AI prompts for sales calls. Analyze the given assistant prompt and identify specific structural elements and their potential impact on call performance.
 
-## ASSISTANT DATA:
+ASSISTANT DATA:
 **Name:** {assistant_name}
 **Average QCI Score:** {avg_qci}/100
 **Performance Breakdown:**
@@ -27,52 +27,52 @@ You are an expert in analyzing conversational AI prompts for sales calls. Analyz
 
 **Call Volume:** {total_calls} calls analyzed
 
-## SAMPLE CALLS:
+SAMPLE CALLS:
 {sample_calls}
 
-## FULL ASSISTANT PROMPT:
+FULL ASSISTANT PROMPT:
 {assistant_prompt}
 
-## ANALYSIS REQUIREMENTS:
+ANALYSIS REQUIREMENTS:
 
-### 1. STRUCTURAL BREAKDOWN
+1. STRUCTURAL BREAKDOWN
 Identify and analyze these prompt sections:
-- **Opening/Hook:** How does the assistant start conversations?
-- **Value Proposition:** How is the product/service presented?
-- **Discovery Questions:** What information gathering approaches are used?
-- **Objection Handling:** How are concerns addressed?
-- **Call-to-Action:** How are next steps proposed?
-- **Brand Integration:** How is "Young Caesar" incorporated?
+- Opening/Hook: How does the assistant start conversations?
+- Value Proposition: How is the product/service presented?
+- Discovery Questions: What information gathering approaches are used?
+- Objection Handling: How are concerns addressed?
+- Call-to-Action: How are next steps proposed?
+- Brand Integration: How is "Young Caesar" incorporated?
 
-### 2. PERFORMANCE CORRELATION ANALYSIS
+2. PERFORMANCE CORRELATION ANALYSIS
 For each structural element, assess:
-- **Effectiveness Rating (1-10):** Based on QCI performance
-- **Specific Issues:** What's causing low scores in each QCI category?
-- **Success Patterns:** What works well in high-performing calls?
-- **Failure Patterns:** What consistently leads to poor outcomes?
+- Effectiveness Rating (1-10): Based on QCI performance
+- Specific Issues: What's causing low scores in each QCI category?
+- Success Patterns: What works well in high-performing calls?
+- Failure Patterns: What consistently leads to poor outcomes?
 
-### 3. CATEGORY-SPECIFIC INSIGHTS
-**Dynamics Issues ({avg_dynamics}/30):**
+3. CATEGORY-SPECIFIC INSIGHTS
+Dynamics Issues ({avg_dynamics}/30):
 - Talk time balance problems
 - Response flow issues
 - Engagement quality concerns
 
-**Objections Handling ({avg_objections}/20):**
+Objections Handling ({avg_objections}/20):
 - Recognition failures
 - Compliance problems
 - Alternative solution gaps
 
-**Brand Consistency ({avg_brand}/20):**
+Brand Consistency ({avg_brand}/20):
 - Brand mention timing and frequency
 - Professional tone maintenance
 - Young Caesar positioning
 
-**Outcome Achievement ({avg_outcome}/30):**
+Outcome Achievement ({avg_outcome}/30):
 - Meeting scheduling effectiveness
 - Lead qualification quality
 - Next steps clarity
 
-## OUTPUT FORMAT:
+OUTPUT FORMAT:
 Provide a structured JSON response with these sections:
 
 {

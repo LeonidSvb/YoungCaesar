@@ -26,26 +26,39 @@ function parsePrompts(markdownPath) {
             throw new Error(`Prompts file not found: ${markdownPath}`);
         }
 
-        const content = fs.readFileSync(markdownPath, 'utf8');
+        const content = fs.readFileSync(markdownPath, 'utf8')
+            .replace(/\r\n/g, '\n')  // Normalize Windows line endings
+            .replace(/\r/g, '\n');   // Normalize Mac line endings
         const prompts = {};
 
-        // Split by ## headings
-        const sections = content.split(/^## /gm);
+        // Find all ## headers that are prompt names (no colons, not subsections)
+        const headerRegex = /^## ([A-Z_]+)$/gm;
+        let match;
 
-        for (let i = 1; i < sections.length; i++) { // Skip first empty section
-            const section = sections[i];
-            const lines = section.split('\n');
-            const promptName = lines[0].trim();
+        while ((match = headerRegex.exec(content)) !== null) {
+            const promptName = match[1];
+            const headerPos = match.index;
 
-            // Find code blocks with ``` markers
-            const codeBlockRegex = /```\n([\s\S]*?)\n```/g;
-            const matches = section.match(codeBlockRegex);
+            // Skip version, archive sections
+            if (promptName.toLowerCase().includes('VERSION') ||
+                promptName.toLowerCase().includes('ARCHIVE')) {
+                continue;
+            }
 
-            if (matches && matches.length > 0) {
-                // Take the first code block, remove the ``` markers
-                const promptContent = matches[0]
-                    .replace(/^```\n/, '')
-                    .replace(/\n```$/, '');
+            // Find the start of the next ## or end of file
+            const nextHeaderMatch = content.indexOf('\n## ', headerPos + 1);
+            const sectionEnd = nextHeaderMatch === -1 ? content.length : nextHeaderMatch;
+            const section = content.substring(headerPos, sectionEnd);
+
+            // Find complete code block within this section
+            const codeBlockStart = section.indexOf('```');
+            const codeBlockEnd = section.lastIndexOf('```');
+
+            if (codeBlockStart !== -1 && codeBlockEnd > codeBlockStart + 3) {
+                // Extract content between ``` markers
+                const startPos = codeBlockStart + 3;
+                let promptContent = section.substring(startPos, codeBlockEnd).trim();
+                promptContent = promptContent.replace(/^\n+/, '');
 
                 prompts[promptName] = promptContent;
             }

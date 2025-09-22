@@ -1,12 +1,22 @@
-// ПРОМПТЫ ДЛЯ QCI АНАЛИЗА
-// Из: production_scripts/qci_analysis/prompts.js
+# QCI Analysis Module - AI Prompts
 
-// ОСНОВНОЙ ПРОМПТ ДЛЯ QCI АНАЛИЗА
-const QCI_ANALYSIS_PROMPT = `Analyze this VAPI call transcript for Quality Call Index (QCI) scoring.
+## Version History
+- v2.0.0 (2025-09-22): Migrated from JS files to MD format, standardized structure
+- v1.0.0 (2025-09-11): Initial embedded prompts in scripts
+
+---
+
+## QCI_ANALYSIS_PROMPT
+
+Used in: qci_analyzer.js, qci_batch_analyzer.js
+Purpose: Standard QCI scoring for individual calls
+
+```
+Analyze this VAPI call transcript for Quality Call Index (QCI) scoring.
 
 Transcript: "{transcript}"
 
-CRITICAL: Respond ONLY with valid JSON. NO explanations, NO markdown formatting, NO \`\`\`json blocks.
+CRITICAL: Respond ONLY with valid JSON. NO explanations, NO markdown formatting, NO ```json blocks.
 
 {
   "qci_total_score": 0-100,
@@ -57,10 +67,18 @@ EVIDENCE REQUIREMENTS:
 TALK RATIO CALCULATION:
 - Count lines starting with "Agent:" vs "User:" to estimate talk ratio
 - Agent ratio = Agent turns / (Agent turns + User turns) * 100
-- Report this percentage in agent_talk_ratio field`;
+- Report this percentage in agent_talk_ratio field
+```
 
-// УЛУЧШЕННЫЙ ПРОМПТ С ФРЕЙМВОРКОМ ALEX HORMOZI
-const QCI_ANALYSIS_HORMOZI = `Analyze this VAPI call transcript using the advanced Alex Hormozi sales framework for Quality Call Index (QCI) scoring.
+---
+
+## QCI_ANALYSIS_HORMOZI
+
+Used in: qci_analyzer_advanced.js
+Purpose: Advanced QCI scoring using Alex Hormozi sales framework
+
+```
+Analyze this VAPI call transcript using the advanced Alex Hormozi sales framework for Quality Call Index (QCI) scoring.
 
 Transcript: "{transcript}"
 
@@ -123,10 +141,18 @@ HORMOZI INSIGHTS SCORING:
 - Time Delay: How quickly can results be achieved?
 - Effort & Sacrifice: How much work is required from prospect?
 
-Base all scoring on actual transcript evidence with specific quotes.`;
+Base all scoring on actual transcript evidence with specific quotes.
+```
 
-// ПРОМПТ ДЛЯ BATCH АНАЛИЗА
-const QCI_BATCH_ANALYSIS = `You are analyzing VAPI call transcripts in batch for Quality Call Index scoring. Process each transcript efficiently while maintaining quality.
+---
+
+## QCI_BATCH_ANALYSIS
+
+Used in: qci_analyzer_batch.js
+Purpose: Optimized prompt for batch processing multiple calls
+
+```
+You are analyzing VAPI call transcripts in batch for Quality Call Index scoring. Process each transcript efficiently while maintaining quality.
 
 Transcript {call_number} of {total_calls}: "{transcript}"
 
@@ -135,10 +161,78 @@ Use the same QCI framework but optimize for speed:
 - Provide concise coaching tips
 - Maintain consistent scoring standards
 
-Return the same JSON format as standard QCI analysis.`;
+Return the same JSON format as standard QCI analysis.
+```
 
-module.exports = {
-    QCI_ANALYSIS_PROMPT,
-    QCI_ANALYSIS_HORMOZI,
-    QCI_BATCH_ANALYSIS
-};
+---
+
+## QCI_COMPREHENSIVE_ANALYSIS
+
+Used in: qci_comprehensive_analysis.js
+Purpose: Deep analysis with multiple dimensions
+
+```
+# COMPREHENSIVE QCI ANALYSIS
+
+Analyze this VAPI call for complete quality assessment across all dimensions.
+
+## CALL DATA:
+**Assistant:** {assistant_name}
+**Duration:** {duration} seconds
+**Cost:** ${cost}
+**Transcript:** {transcript}
+
+## MULTI-DIMENSIONAL ANALYSIS:
+
+### 1. STANDARD QCI (100 points)
+- Dynamics (30): Talk ratio, flow, engagement
+- Objections (20): Recognition, handling, alternatives
+- Brand (20): Young Caesar mentions, consistency
+- Outcome (30): Meeting, lead, next steps
+
+### 2. CONVERSATION QUALITY
+- Opening effectiveness
+- Discovery depth
+- Value articulation
+- Closing strength
+
+### 3. LEAD CLASSIFICATION
+Classify as: hot_lead, warm_lead, cold_lead, callback_requested, not_decision_maker, invalid
+
+### 4. IMPROVEMENT AREAS
+Identify top 3 specific areas for improvement with examples
+
+## OUTPUT FORMAT:
+{
+  "qci_scores": {standard QCI JSON},
+  "conversation_quality": {
+    "opening": 1-10,
+    "discovery": 1-10,
+    "value": 1-10,
+    "closing": 1-10
+  },
+  "lead_classification": "category",
+  "improvement_priorities": [
+    {
+      "area": "specific aspect",
+      "current_issue": "what's wrong",
+      "recommendation": "how to fix",
+      "example": "quote from transcript"
+    }
+  ]
+}
+```
+
+---
+
+## ARCHIVE
+
+### Previous Versions
+
+#### v1.0.0 QCI Analysis (DEPRECATED)
+Original embedded in `prompts.js`
+Issues: Mixed with code logic, hard to maintain
+
+#### v1.0.0 Batch Analysis (DEPRECATED)
+Original embedded in `qci_analyzer_batch.js`
+Issues: No standardization, inconsistent formatting

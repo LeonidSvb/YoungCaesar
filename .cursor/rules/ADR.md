@@ -55,6 +55,7 @@ END ADR_AGENT_PROTOCOL
 
 | ID   | Title                                                        | Date       | Status   | Supersedes | Superseded by |
 | ---- | ------------------------------------------------------------ | ---------- | -------- | ---------- | ------------- |
+| 0007 | [Local Prompt Management Migration](#adr-0007)             | 2025-09-22 | Accepted | —          | —             |
 | 0006 | [Module-based Architecture with Shared Utilities](#adr-0006) | 2025-09-19 | Accepted | 0001       | —             |
 | 0005 | [Markdown-based Prompt Management](#adr-0005)              | 2025-09-19 | Accepted | —          | —             |
 | 0004 | [Airtable as Primary CRM Database](#adr-0004)              | 2025-09-03 | Accepted | —          | —             |
@@ -311,6 +312,41 @@ Implement module-based architecture where each functional area becomes a self-co
 ### Compliance / Verification
 
 All modules must follow standard structure: src/, prompts.md, history.txt, README.md. Use project-level shared utilities in ../shared/. No code duplication between modules. Follow naming convention: snake_case for files, shorter descriptive names for scripts.
+
+---
+
+## ADR-0007 — Local Prompt Management Migration
+
+<a id="adr-0007"></a>
+**Date**: 2025-09-22
+**Status**: Accepted
+**Owner**: VAPI Team
+
+### Context
+
+Prompts were scattered across global `prompts/` folder and embedded in JS files, causing maintenance issues and breaking module independence. Module architecture requires each module to be self-contained with local prompts. Need to consolidate and standardize prompt management.
+
+### Alternatives
+
+- **Keep global prompts/ folder**: Breaks module independence, shared dependencies
+- **Embed prompts in JS files**: Difficult to edit, escaping issues, poor version control
+- **Mixed approach**: Inconsistent structure, confusing for developers
+- **Centralized prompt database**: Overkill for current needs, adds complexity
+
+### Decision
+
+Migrate all prompts to local `prompts.md` files within each module, update all scripts to use shared `prompt_parser.js`, and remove global prompt dependencies.
+
+### Consequences
+
+- **Pros**: Module independence, easier editing, better versioning, cleaner structure
+- **Cons / risks**: Required updating multiple scripts, temporary breaking changes during migration
+- **Supersedes**: —
+- **Superseded by**: —
+
+### Compliance / Verification
+
+All modules must have local `prompts.md`, use `loadPrompt()` from shared parser, no global prompt dependencies. Old `prompts/` folder and `prompts.js` files removed.
 
 ---
 
