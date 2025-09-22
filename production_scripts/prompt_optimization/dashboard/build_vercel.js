@@ -11,13 +11,35 @@ const path = require('path');
 const htmlPath = path.join(__dirname, 'index.html');
 let htmlContent = fs.readFileSync(htmlPath, 'utf8');
 
+// Extract existing hardcoded data from the HTML
+const existingDataStart = htmlContent.indexOf('this.allRunData = {');
+const existingDataEnd = htmlContent.indexOf('};', existingDataStart) + 2;
+const existingDataSection = htmlContent.substring(existingDataStart, existingDataEnd);
+
+console.log('Found existing hardcoded data in HTML...');
+
 // Read all run data files
 const runsDir = path.join(__dirname, 'data', 'runs');
 const runFiles = fs.readdirSync(runsDir).filter(f => f.endsWith('.json'));
 
 console.log(`\n🚀 Building Vercel version with ${runFiles.length} embedded runs...\n`);
 
-// Build the embedded data object
+// Parse existing hardcoded data from HTML
+let existingData = {};
+try {
+    // Extract the object content between { and }
+    const dataContent = existingDataSection.substring(
+        existingDataSection.indexOf('{') + 1,
+        existingDataSection.lastIndexOf('}')
+    );
+
+    // This is complex JS object, so we'll just preserve it as-is
+    console.log('Preserving existing hardcoded data with real prompts...');
+} catch (error) {
+    console.log('Could not parse existing data, will use file data only');
+}
+
+// Build the embedded data object from files
 const embeddedData = {};
 let totalSize = 0;
 

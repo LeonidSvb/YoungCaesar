@@ -60,6 +60,7 @@ docs/                   # Project documentation
 ### Main Production Dashboards
 [![📊 VAPI Analytics](https://img.shields.io/badge/📊_VAPI_Analytics-PRODUCTION_READY-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/vapi_analytics/dashboard/index.html)
 [![🎯 Prompt Optimization](https://img.shields.io/badge/🎯_Prompt_Optimization-CLAUDE_WINS-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/index.html)
+[![📡 VAPI Collection](https://img.shields.io/badge/📡_VAPI_Collection-ACTIVE-brightgreen?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/vapi_collection/dashboard/index.html)
 
 **🎯 VAPI Analytics Features:**
 - Interactive assistant filtering (BIESSE-MS, QC Advisor, Alex1, etc.)
@@ -73,6 +74,13 @@ docs/                   # Project documentation
 - Real performance data analysis
 - Cost optimization recommendations
 - Interactive insights and metrics
+
+**📡 VAPI Collection Features:**
+- Complete VAPI call data collection (1,069+ calls)
+- Real-time analytics dashboard
+- Assistant filtering and time periods
+- Cost tracking ($0.03 average per collection)
+- Upload JSON data functionality
 
 ### Additional Tools
 [![📈 QCI Analysis](https://img.shields.io/badge/📈_QCI-Analysis-orange?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/qci_analysis/dashboard/)
