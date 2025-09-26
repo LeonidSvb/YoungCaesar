@@ -69,7 +69,7 @@ function getConfig(runtimeParams = null) {
 // ============================================================
 
 const { createClient } = require('@supabase/supabase-js');
-const VapiClient = require('../../../scripts/api/vapi_client');
+const VapiClient = require('../../shared/api/vapi_client');
 
 class VapiSupabaseSync {
     constructor(config = null) {
@@ -92,9 +92,11 @@ class VapiSupabaseSync {
             cost: 0
         };
 
-        // Assistant names cache
+        // Assistant names and prompts cache
         this.assistantNamesCache = new Map();
         this.assistantNamesLoaded = false;
+        this.assistantPromptsCache = new Map();
+        this.assistantPromptsLoaded = false;
 
         this.log('🚀 VAPI → Supabase Sync initialized');
         this.log(`📅 Date range: ${this.config.DATE_RANGE.START_DATE} to ${this.config.DATE_RANGE.END_DATE}`);
@@ -224,6 +226,75 @@ class VapiSupabaseSync {
         } catch (error) {
             this.log(`⚠️ Failed to load assistant names: ${error.message}`);
             // Continue without real names - will use fallback
+        }
+    }
+
+    async loadAssistantPrompts() {
+        if (this.assistantPromptsLoaded) {
+            return;
+        }
+
+        try {
+            this.log('📝 Loading assistant prompts from VAPI...');
+            const assistants = await this.vapi.getAssistants();
+
+            for (const assistant of assistants) {
+                this.assistantPromptsCache.set(assistant.id, {
+                    id: assistant.id,
+                    name: assistant.name || 'Unnamed Assistant',
+                    prompt: assistant.model?.messages?.[0]?.content || assistant.prompt || '',
+                    model: assistant.model?.model || 'unknown',
+                    voice: assistant.voice?.provider || 'unknown',
+                    updated_at: new Date().toISOString()
+                });
+            }
+
+            this.assistantPromptsLoaded = true;
+            this.log(`✅ Loaded prompts for ${assistants.length} assistants`);
+        } catch (error) {
+            this.log(`❌ Failed to load assistant prompts: ${error.message}`);
+        }
+    }
+
+    async syncAssistantPrompts() {
+        try {
+            await this.loadAssistantPrompts();
+
+            this.log('💾 Syncing assistant prompts to Supabase...');
+
+            const prompts = Array.from(this.assistantPromptsCache.values());
+            let syncedCount = 0;
+
+            for (const promptData of prompts) {
+                try {
+                    const { error } = await this.supabase
+                        .from('assistant_prompts')
+                        .upsert({
+                            assistant_id: promptData.id,
+                            name: promptData.name,
+                            prompt: promptData.prompt,
+                            model: promptData.model,
+                            voice_provider: promptData.voice,
+                            updated_at: promptData.updated_at
+                        }, {
+                            onConflict: 'assistant_id'
+                        });
+
+                    if (error) {
+                        this.log(`❌ Error syncing prompt for ${promptData.name}: ${error.message}`);
+                    } else {
+                        syncedCount++;
+                    }
+                } catch (error) {
+                    this.log(`❌ Error processing prompt for ${promptData.name}: ${error.message}`);
+                }
+            }
+
+            this.log(`✅ Synced ${syncedCount}/${prompts.length} assistant prompts`);
+            return syncedCount;
+        } catch (error) {
+            this.log(`❌ Failed to sync assistant prompts: ${error.message}`);
+            return 0;
         }
     }
 
@@ -418,6 +489,10 @@ class VapiSupabaseSync {
 
             // Load assistant names from VAPI
             await this.loadAssistantNames();
+
+            // Sync assistant prompts first
+            const promptsSynced = await this.syncAssistantPrompts();
+            this.stats.prompts_synced = promptsSynced;
 
             // Fetch calls from VAPI
             const calls = await this.fetchVapiCalls();

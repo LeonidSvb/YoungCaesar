@@ -103,6 +103,8 @@ export default function VapiManager() {
 
   const [collectionResult, setCollectionResult] = useState<CollectionResult | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+  const [logPollingActive, setLogPollingActive] = useState(false);
   const [dbStats, setDbStats] = useState<DatabaseStats>({
     lastSync: '2025-09-26 09:09',
     totalInDB: 2456,
@@ -111,12 +113,55 @@ export default function VapiManager() {
   });
 
   const addLog = (message: string) => {
-    setLogs(prev => [...prev, `${new Date().toLocaleTimeString()}: ${message}`]);
+    setLogs(prev => [...prev, message]);
+  };
+
+  // Poll logs from server
+  const pollLogs = async (sessionId: string) => {
+    try {
+      let lastIndex = 0;
+      const pollInterval = setInterval(async () => {
+        try {
+          const response = await fetch(`http://localhost:3001/api/logs/${sessionId}?lastIndex=${lastIndex}`);
+          if (response.ok) {
+            const result = await response.json();
+            if (result.success && result.logs.length > 0) {
+              result.logs.forEach((log: string) => addLog(log));
+              lastIndex = result.totalIndex;
+            }
+            if (result.finished) {
+              clearInterval(pollInterval);
+              setLogPollingActive(false);
+            }
+          }
+        } catch (error) {
+          console.error('Error polling logs:', error);
+        }
+      }, 1000); // Poll every second
+
+      // Clean up after 5 minutes
+      setTimeout(() => {
+        clearInterval(pollInterval);
+        setLogPollingActive(false);
+      }, 300000);
+
+    } catch (error) {
+      console.error('Error setting up log polling:', error);
+    }
   };
 
   const handleStartCollection = async () => {
     setCollectStatus('running');
     setLogs([]);
+    setLogPollingActive(true);
+
+    // Generate session ID for this collection
+    const sessionId = Math.random().toString(36).substr(2, 9);
+    setCurrentSessionId(sessionId);
+
+    // Start polling logs
+    pollLogs(sessionId);
+
     addLog('📞 VAPI DATA COLLECTION 🌐 API MODE');
     addLog(`📅 Period: ${collectionConfig.startDate} to ${collectionConfig.endDate}`);
     addLog(`📋 Active Filters: Min Cost: $${collectionConfig.minCost}`);
@@ -133,7 +178,8 @@ export default function VapiManager() {
           minCost: collectionConfig.minCost,
           exportBackup: collectionConfig.exportBackup,
           exportFormat: collectionConfig.exportFormat,
-          verbose: collectionConfig.verbose
+          verbose: collectionConfig.verbose,
+          sessionId: sessionId
         }),
       });
 
@@ -147,10 +193,6 @@ export default function VapiManager() {
         throw new Error(result.error || 'Collection failed');
       }
 
-      addLog(`✅ Got ${Math.floor(result.data.stats.collected / 3)} calls`);
-      addLog(`✅ Got ${Math.floor(result.data.stats.collected / 2)} calls`);
-      addLog(`✅ Got ${result.data.stats.collected} calls`);
-
       const collectionResult: CollectionResult = {
         calls: result.data.calls,
         stats: result.data.stats
@@ -159,6 +201,8 @@ export default function VapiManager() {
       setCollectionResult(collectionResult);
       setCollectStatus('completed');
       setCurrentStep('preview');
+      setLogPollingActive(false);
+
       addLog(`✅ Collection completed! ${result.data.stats.collected} calls`);
 
       if (collectionConfig.exportBackup && result.files?.length > 0) {
@@ -167,6 +211,7 @@ export default function VapiManager() {
 
     } catch (error) {
       setCollectStatus('error');
+      setLogPollingActive(false);
       addLog(`❌ Collection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };

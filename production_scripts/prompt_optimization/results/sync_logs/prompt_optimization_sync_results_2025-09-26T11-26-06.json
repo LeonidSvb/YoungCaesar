@@ -1,0 +1,97 @@
+{
+  "success": false,
+  "timestamp": "2025-09-26T11:26:06.397Z",
+  "config": {
+    "INPUT": {
+      "RECOMMENDATIONS_FILE": "results/recommendations_2025-09-22T11-24-53.json",
+      "CORRELATIONS_FILE": "results/correlations_latest.json",
+      "MIN_IMPROVEMENT_POTENTIAL": 0,
+      "INCLUDE_METADATA": true
+    },
+    "SYNC": {
+      "MODE": "incremental",
+      "UPDATE_EXISTING": true,
+      "SKIP_ORPHANED_ASSISTANTS": false,
+      "AUTO_MATCH_ASSISTANTS": true
+    },
+    "OUTPUT": {
+      "VERBOSE": true,
+      "LOG_PROGRESS": true,
+      "SAVE_RESULTS": true,
+      "RESULTS_DIR": "results/sync_logs"
+    },
+    "PROCESSING": {
+      "BATCH_SIZE": 10,
+      "CONCURRENT_REQUESTS": 2,
+      "RETRY_ATTEMPTS": 3,
+      "RETRY_DELAY": 2000,
+      "TEST_LIMIT": 10
+    }
+  },
+  "stats": {
+    "recommendations_loaded": 11,
+    "correlations_loaded": 11,
+    "optimizations_processed": 10,
+    "optimizations_synced": 0,
+    "optimizations_updated": 0,
+    "optimizations_skipped": 0,
+    "optimizations_failed": 10,
+    "assistants_matched": 10,
+    "assistants_orphaned": 0,
+    "processing_time": 1623,
+    "errors": [
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:05.988Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.158Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.162Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.203Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.261Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.330Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.355Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.377Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.396Z"
+      },
+      {
+        "error": "there is no unique or exclusion constraint matching the ON CONFLICT specification",
+        "timestamp": "2025-09-26T11:26:06.397Z"
+      }
+    ]
+  },
+  "summary": {
+    "total_loaded": 11,
+    "total_processed": 10,
+    "synced": 0,
+    "updated": 0,
+    "skipped": 0,
+    "failed": 10,
+    "success_rate": "0.0%",
+    "processing_time": "1.6s",
+    "assistants_matched": 10,
+    "assistants_orphaned": 0
+  }
+}
