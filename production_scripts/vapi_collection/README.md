@@ -1,8 +1,8 @@
-# VAPI Data Collection Module
+# VAPI Collection & Sync Module
 
-## 🚀 PRODUCTION-READY VAPI DATA COLLECTION SYSTEM [v1.0.0]
+## 🚀 PRODUCTION-READY VAPI DATA PIPELINE [v2.0.0]
 
-Comprehensive module for collecting and monitoring VAPI call data with real-time analytics dashboard.
+Complete module for collecting VAPI call data and syncing to Supabase with real-time analytics dashboard.
 
 ## 📊 Current Status
 
@@ -14,10 +14,13 @@ Comprehensive module for collecting and monitoring VAPI call data with real-time
 ## 🎯 Quick Start
 
 ```bash
-# Collect VAPI data for date range
+# Step 1: Collect VAPI data to JSON
 node src/collect_vapi_data.js
 
-# View collection dashboard
+# Step 2: Sync JSON data to Supabase
+node src/sync_to_supabase.js
+
+# View analytics dashboard
 open dashboard/index.html
 ```
 
@@ -26,7 +29,8 @@ open dashboard/index.html
 ```
 vapi_collection/
 ├── src/
-│   └── collect_vapi_data.js     # Main collection script
+│   ├── collect_vapi_data.js    # VAPI → JSON collection
+│   └── sync_to_supabase.js     # JSON → Supabase sync
 ├── dashboard/
 │   └── index.html              # VAPI analytics dashboard
 ├── results/                    # Collection outputs
@@ -35,15 +39,21 @@ vapi_collection/
 └── history.txt                 # Module history
 ```
 
-## 🔧 Main Script
+## 🔧 Scripts
 
+### Collection Script
 **File:** `src/collect_vapi_data.js`
-
-Production script that:
 - Collects call data from VAPI API
 - Exports to JSON with metadata
 - Handles rate limiting and retries
 - Generates cost reports
+
+### Sync Script
+**File:** `src/sync_to_supabase.js`
+- Syncs VAPI data directly to Supabase
+- Full field mapping with relationships
+- Batch processing with error handling
+- Incremental and full sync modes
 
 ## 📊 Dashboard Features
 
@@ -62,8 +72,9 @@ Collection generates:
 
 ## 🔗 Integration
 
-Part of the VAPI Analytics ecosystem:
-- **Collection** → This module (data gathering)
+Complete VAPI data pipeline:
+- **Collection** → `collect_vapi_data.js` (VAPI API → JSON)
+- **Sync** → `sync_to_supabase.js` (JSON → Supabase)
 - **Analytics** → `../vapi_analytics/` (data analysis)
 - **Optimization** → `../prompt_optimization/` (prompt improvement)
 

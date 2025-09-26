@@ -8,9 +8,34 @@ class VapiClient {
         this.maxCallsPerRequest = 100;
     }
 
+    async testConnection() {
+        try {
+            const response = await fetch(`${this.baseUrl}/call?limit=1`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            }
+
+            return true;
+        } catch (error) {
+            throw new Error(`VAPI connection failed: ${error.message}`);
+        }
+    }
+
     async getAllCalls(startDate, endDate) {
         console.log(`📞 Collecting VAPI calls from ${startDate} to ${endDate}`);
         return await this.getAllCallsRecursive(startDate, endDate);
+    }
+
+    // Алиас для совместимости
+    async getCalls(startDate, endDate) {
+        return await this.getAllCalls(startDate, endDate);
     }
 
     async getCallsInPeriod(startTime, endTime, limit = 100) {

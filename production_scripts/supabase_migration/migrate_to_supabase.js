@@ -14,6 +14,12 @@ const path = require('path');
 // ============================================================
 
 const CONFIG = {
+    // 📅 ДАТЫ - Последние 6 месяцев (март - сентябрь 2025)
+    DATE_RANGE: {
+        START_DATE: '2025-03-26', // 6 месяцев назад
+        END_DATE: '2025-09-26',   // сегодня
+    },
+
     // Пути к данным
     INPUT_FILES: {
         VAPI_CALLS: '../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json',
@@ -21,8 +27,15 @@ const CONFIG = {
         PROMPT_OPTIMIZATIONS: '../prompt_optimization/results/recommendations_2025-09-22T11-24-53.json'
     },
 
+    // 🎯 ФИЛЬТРЫ - БЕЗ ОГРАНИЧЕНИЙ (грузим все подряд)
+    FILTERS: {
+        MIN_COST: 0,           // включаем даже 0-секундные звонки
+        INCLUDE_ALL_CALLS: true,
+        NO_TRANSCRIPT_FILTER: true, // грузим даже без транскриптов
+    },
+
     // Настройки батчей
-    BATCH_SIZE: 100,
+    BATCH_SIZE: 50,
 
     // Режим сухого прогона (не записывает в БД)
     DRY_RUN: false,
@@ -158,7 +171,7 @@ class SupabaseMigrator {
         }
     }
 
-    async createAssistant(assistantId, organizationId, name = `Assistant ${assistantId.substring(0, 8)}`) {
+    async createAssistant(assistantId, organizationId, name = `Assistant ${assistantId ? assistantId.substring(0, 8) : 'unknown'}`) {
         if (this.cache.assistants.has(assistantId)) {
             return this.cache.assistants.get(assistantId);
         }

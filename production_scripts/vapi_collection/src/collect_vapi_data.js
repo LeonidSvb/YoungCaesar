@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../../../.env' });
 
 // ============================================================
 // CONFIGURATION - CHANGE ALL SETTINGS HERE
@@ -6,20 +6,14 @@ require('dotenv').config();
 
 // DATE RANGE - What period to collect data for
 const CONFIG = {
-    // Dates (YYYY-MM-DD format)
-    START_DATE: '2025-01-01',
-    END_DATE: '2025-09-17',
+    // Dates (YYYY-MM-DD format) - Проверенные даты
+    START_DATE: '2025-09-01',
+    END_DATE: '2025-09-26',
 
-    // FILTERS - Set your filtering parameters
+    // FILTERS - Грузим все без ограничений
     FILTERS: {
-        // Minimum call cost to include (set to 0 to include all)
-        // 💰 СТОИМОСТЬ ЗВОНКОВ: ~$0.07 за минуту разговора
-        // 📊 РЕКОМЕНДУЕМЫЕ ПОРОГИ:
-        //   • $0.01 - исключает технические сбои (очень короткие звонки)
-        //   • $0.05 - звонки от ~45 секунд
-        //   • $0.10 - звонки от ~1.5 минут
-        //   • $0.20 - звонки от ~3 минут
-        MIN_COST: 0.03
+        // Minimum call cost to include (0 = все звонки)
+        MIN_COST: 0
     },
 
     // OUTPUT SETTINGS
@@ -39,9 +33,9 @@ const CONFIG = {
 // MAIN SCRIPT - NO NEED TO CHANGE BELOW
 // ============================================================
 
-const VapiClient = require('../../scripts/api/vapi_client');
-const DataUtils = require('../../scripts/utils/data_utils');
-const Logger = require('../../scripts/utils/logger');
+const VapiClient = require('../../../scripts/api/vapi_client');
+const DataUtils = require('../../../scripts/utils/data_utils');
+const Logger = require('../../../scripts/utils/logger');
 
 const logger = new Logger('vapi_collection.log');
 

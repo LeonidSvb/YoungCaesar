@@ -5,23 +5,23 @@ require('dotenv').config({ path: '../../.env' });
 // ============================================================
 
 const CONFIG = {
-    // 📅 DATE RANGE - What period to sync
+    // 📅 DATE RANGE - Последние 6 месяцев
     DATE_RANGE: {
-        START_DATE: '2025-01-01', // YYYY-MM-DD
-        END_DATE: new Date().toISOString().split('T')[0], // Today
+        START_DATE: '2025-03-26', // 6 месяцев назад
+        END_DATE: '2025-09-26',   // сегодня
     },
 
-    // 🎯 SYNC SETTINGS - What to include
+    // 🎯 SYNC SETTINGS - Грузим ВСЕ без ограничений
     SYNC: {
-        // Include ALL calls (even 0-second ones)
+        // Include ALL calls (даже 0-секундные)
         INCLUDE_ALL_CALLS: true,
 
-        // Minimum call cost (0 = include everything)
+        // Minimum call cost (0 = включаем все)
         MIN_COST: 0,
 
         // Sync modes
-        INCREMENTAL: true, // Only new calls since last sync
-        FORCE_FULL: false, // Force full resync (ignores incremental)
+        INCREMENTAL: false, // Полная синхронизация
+        FORCE_FULL: true,  // Принудительная полная синхронизация
     },
 
     // 📊 OUTPUT SETTINGS
@@ -66,6 +66,10 @@ class VapiSupabaseSync {
             errors: 0,
             cost: 0
         };
+
+        // Assistant names cache
+        this.assistantNamesCache = new Map();
+        this.assistantNamesLoaded = false;
 
         this.log('🚀 VAPI → Supabase Sync initialized');
         this.log(`📅 Date range: ${this.config.DATE_RANGE.START_DATE} to ${this.config.DATE_RANGE.END_DATE}`);
@@ -124,6 +128,37 @@ class VapiSupabaseSync {
         return null;
     }
 
+    async loadAssistantNames() {
+        if (this.assistantNamesLoaded) {
+            return;
+        }
+
+        try {
+            this.log('🤖 Loading assistant names from VAPI...');
+            const assistants = await this.vapi.getAssistants();
+
+            assistants.forEach(assistant => {
+                this.assistantNamesCache.set(assistant.id, {
+                    name: assistant.name || 'Unnamed Assistant',
+                    model: assistant.model?.model || 'Unknown',
+                    voice: assistant.voice?.voiceId || 'Unknown'
+                });
+            });
+
+            this.assistantNamesLoaded = true;
+            this.log(`✅ Loaded ${assistants.length} assistant names`);
+
+        } catch (error) {
+            this.log(`⚠️ Failed to load assistant names: ${error.message}`);
+            // Continue without real names - will use fallback
+        }
+    }
+
+    getAssistantRealName(assistantId) {
+        const cached = this.assistantNamesCache.get(assistantId);
+        return cached ? cached.name : `Assistant ${assistantId.substring(0, 8)}`;
+    }
+
     async fetchVapiCalls() {
         this.log('📞 Fetching calls from VAPI...');
 
@@ -131,11 +166,10 @@ class VapiSupabaseSync {
         const startDate = lastSync || this.config.DATE_RANGE.START_DATE;
 
         try {
-            const calls = await this.vapi.getCalls({
-                startDate: startDate,
-                endDate: this.config.DATE_RANGE.END_DATE,
-                minCost: this.config.SYNC.MIN_COST
-            });
+            const calls = await this.vapi.getCalls(
+                startDate,
+                this.config.DATE_RANGE.END_DATE
+            );
 
             this.stats.vapi_calls_fetched = calls.length;
             this.log(`📊 Fetched ${calls.length} calls from VAPI`);
@@ -165,12 +199,15 @@ class VapiSupabaseSync {
     }
 
     async ensureAssistantExists(assistantId, organizationId) {
+        // Get real name from VAPI API cache
+        const realName = this.getAssistantRealName(assistantId);
+
         const { data, error } = await this.supabase
             .from('assistants')
             .upsert({
                 vapi_assistant_id: assistantId,
                 organization_id: organizationId,
-                name: `Assistant ${assistantId.substring(0, 8)}`,
+                name: realName,
                 is_active: true
             }, {
                 onConflict: 'vapi_assistant_id',
@@ -305,6 +342,9 @@ class VapiSupabaseSync {
 
             // Test connections
             await this.testConnections();
+
+            // Load assistant names from VAPI
+            await this.loadAssistantNames();
 
             // Fetch calls from VAPI
             const calls = await this.fetchVapiCalls();
