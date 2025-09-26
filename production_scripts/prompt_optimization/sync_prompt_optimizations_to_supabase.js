@@ -38,7 +38,7 @@ const DEFAULT_CONFIG = {
         CONCURRENT_REQUESTS: 2,          // Conservative concurrency
         RETRY_ATTEMPTS: 3,
         RETRY_DELAY: 2000,
-        TEST_LIMIT: 10                   // For testing: limit number of records
+        TEST_LIMIT: null                   // For testing: limit number of records
     }
 };
 
