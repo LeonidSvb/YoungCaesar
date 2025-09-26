@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young Caesar VAPI Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-4">Young Caesar</h1>
+            <p class="text-xl mb-2 opacity-90">VAPI Analytics & Optimization Platform</p>
+            <p class="text-lg opacity-75">Comprehensive call analysis, quality scoring, and AI-powered optimization</p>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold">2,612</div>
+                    <div class="opacity-80">Total Calls Analyzed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold">11</div>
+                    <div class="opacity-80">AI Assistants Optimized</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold">100%</div>
+                    <div class="opacity-80">Data Integration Success</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 py-12">
+
+        <!-- Core Analytics Modules -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Core Analytics Modules</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- VAPI Data Collection -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-blue-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">VAPI Collection</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Real-time call data collection from VAPI API with advanced filtering and analytics.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">2,612 calls</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Live Data</span>
+                        </div>
+                        <a href="/production_scripts/vapi_collection/dashboard/index.html"
+                           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            View Dashboard
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- QCI Analysis -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-green-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">QCI Analysis</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Quality Call Intelligence scoring with AI-powered insights and coaching recommendations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">883 analyzed</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded">AI Coaching</span>
+                        </div>
+                        <a href="/dashboards/qci_analysis_comprehensive_dashboard.html"
+                           class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            View Analysis
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Prompt Optimization -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-purple-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">Prompt Optimization</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">AI-powered prompt optimization using Alex Hormozi methodology for maximum conversion.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">11 optimized</span>
+                            <span class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">+165 QCI points</span>
+                        </div>
+                        <a href="/production_scripts/prompt_optimization/dashboard/index.html"
+                           class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            View Optimization
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Integration & Sync -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Data Integration</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Supabase Integration -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-emerald-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">Supabase Sync</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Automated synchronization with Supabase database for real-time analytics and reporting.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded">100% Success</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">8 Tables</span>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <div>• QCI Data: 883/884 synced (99.9%)</div>
+                            <div>• Prompt Optimizations: 11/11 synced (100%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- React Frontend -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-cyan-500 h-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900">Frontend Interface</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Modern React/Next.js frontend with real-time data management and professional UI.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-cyan-100 text-cyan-800 text-xs rounded">React/Next.js</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded">shadcn/ui</span>
+                        </div>
+                        <a href="/frontend"
+                           class="inline-flex items-center px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors">
+                            Access Frontend
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Quick Actions</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <a href="/reports/html" class="flex items-center justify-center px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Reports
+                </a>
+
+                <a href="https://github.com/LeonidSvb/YoungCaesar" class="flex items-center justify-center px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    GitHub
+                </a>
+
+                <a href="/CHANGELOG.md" class="flex items-center justify-center px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Changelog
+                </a>
+
+                <a href="/README.md" class="flex items-center justify-center px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Docs
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h3 class="text-xl font-semibold mb-2">Young Caesar VAPI Analytics</h3>
+            <p class="text-gray-400 mb-4">Advanced AI-powered call analysis and optimization platform</p>
+            <div class="text-sm text-gray-500">
+                Last updated: September 26, 2025 | Version 2.1.0 |
+                <a href="https://github.com/LeonidSvb/YoungCaesar" class="hover:text-white">Open Source</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
