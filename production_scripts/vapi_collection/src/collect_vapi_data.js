@@ -62,9 +62,10 @@ function getConfig(runtimeParams = null) {
 // MAIN SCRIPT - NO NEED TO CHANGE BELOW
 // ============================================================
 
-const VapiClient = require('../../../scripts/api/vapi_client');
+const VapiClient = require('../../shared/api/vapi_client');
 const DataUtils = require('../../../scripts/utils/data_utils');
 const Logger = require('../../../scripts/utils/logger');
+const ExecutionLogger = require('./execution_logger');
 
 const logger = new Logger('vapi_collection.log');
 
@@ -159,6 +160,14 @@ async function collectVapiData(runtimeParams = null) {
         const endDate = CONFIG.END_DATE;
 
         const mode = runtimeParams ? '🌐 API MODE' : '💻 TERMINAL MODE';
+
+        // Initialize execution logger for API mode
+        let executionLogger = null;
+        if (runtimeParams && runtimeParams.executionLogger) {
+            executionLogger = runtimeParams.executionLogger;
+            await executionLogger.info(`Starting VAPI data collection: ${startDate} to ${endDate} [${mode}]`);
+        }
+
         logger.info(`Starting VAPI data collection: ${startDate} to ${endDate} [${mode}]`);
 
         if (CONFIG.OUTPUT.VERBOSE) {
@@ -180,11 +189,18 @@ async function collectVapiData(runtimeParams = null) {
 
         const vapiClient = new VapiClient();
 
+        // Set execution logger for detailed recursive logging
+        if (executionLogger) {
+            vapiClient.setExecutionLogger(executionLogger);
+        }
+
         // Collect all calls
+        await executionLogger?.info(`Starting data collection from VAPI API...`);
         const allCalls = await vapiClient.getAllCalls(
             `${startDate}T00:00:00.000Z`,
             `${endDate}T23:59:59.999Z`
         );
+        await executionLogger?.success(`Collected ${allCalls.length} calls from VAPI API`);
 
         if (allCalls.length === 0) {
             logger.warning('No calls found in the specified date range');

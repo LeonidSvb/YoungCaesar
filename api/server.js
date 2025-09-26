@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const collectVapiData = require('../production_scripts/vapi_collection/src/collect_vapi_data.js');
 const syncVapiToSupabase = require('../production_scripts/vapi_collection/src/sync_to_supabase.js');
+const ExecutionLogger = require('../production_scripts/vapi_collection/src/execution_logger.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,9 @@ app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Global log storage for real-time access
+const activeLogs = new Map();
+
 // VAPI Data Collection Endpoint
 app.post('/api/collect-vapi', async (req, res) => {
     try {
@@ -26,22 +30,54 @@ app.post('/api/collect-vapi', async (req, res) => {
             minCost = 0,
             exportBackup = true,
             exportFormat = 'json',
-            verbose = true
+            verbose = true,
+            sessionId = Math.random().toString(36).substr(2, 9)
         } = req.body;
 
-        console.log('🚀 Starting VAPI collection via API:', { startDate, endDate, minCost });
+        console.log('🚀 Starting VAPI collection via API:', { startDate, endDate, minCost, sessionId });
+
+        // Initialize execution logger with session ID
+        const executionLogger = new ExecutionLogger('vapi_collection', 'api');
+        const executionId = await executionLogger.startExecution({
+            startDate,
+            endDate,
+            minCost,
+            exportBackup,
+            exportFormat
+        }, sessionId);
+
+        // Store logs for real-time access
+        activeLogs.set(sessionId, { logger: executionLogger, logs: [] });
+
+        // Set up log callback for capturing logs
+        executionLogger.setLogCallback((logMessage) => {
+            const session = activeLogs.get(sessionId);
+            if (session) {
+                session.logs.push(logMessage);
+            }
+        });
 
         const result = await collectVapiData({
             startDate,
             endDate,
             minCost,
             saveToFile: exportBackup,
-            verbose
+            verbose,
+            executionLogger
+        });
+
+        // Mark execution as completed
+        await executionLogger.updateExecution('completed', {
+            calls_collected: result.calls.length,
+            calls_filtered: result.calls.length
+        }, {
+            efficiency: result.stats?.summary?.filterEfficiency || '100%'
         });
 
         // Transform result for frontend
         const response = {
             success: true,
+            sessionId: sessionId,
             data: {
                 calls: result.calls.map(call => ({
                     id: call.id.substring(0, 12) + '...',
@@ -60,6 +96,11 @@ app.post('/api/collect-vapi', async (req, res) => {
             files: exportBackup ? [`vapi_calls_${startDate}_to_${endDate}.${exportFormat}`] : [],
             timestamp: new Date().toISOString()
         };
+
+        // Clean up logs after a delay
+        setTimeout(() => {
+            activeLogs.delete(sessionId);
+        }, 300000); // 5 minutes
 
         res.json(response);
 
@@ -111,6 +152,31 @@ app.post('/api/sync-supabase', async (req, res) => {
             error: error.message,
             timestamp: new Date().toISOString()
         });
+    }
+});
+
+// Get logs for a session
+app.get('/api/logs/:sessionId', async (req, res) => {
+    try {
+        const { sessionId } = req.params;
+        const { lastIndex = 0 } = req.query;
+
+        const session = activeLogs.get(sessionId);
+        if (!session) {
+            return res.json({ success: true, logs: [], finished: true });
+        }
+
+        // Get new logs since lastIndex
+        const newLogs = session.logs.slice(parseInt(lastIndex));
+
+        res.json({
+            success: true,
+            logs: newLogs,
+            totalIndex: session.logs.length,
+            finished: false
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 

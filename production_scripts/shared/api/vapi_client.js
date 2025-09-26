@@ -6,6 +6,11 @@ class VapiClient {
         this.apiKey = process.env.VAPI_API_KEY;
         this.baseUrl = 'https://api.vapi.ai';
         this.maxCallsPerRequest = 100;
+        this.executionLogger = null;
+    }
+
+    setExecutionLogger(logger) {
+        this.executionLogger = logger;
     }
 
     async testConnection() {
@@ -80,16 +85,28 @@ class VapiClient {
                 return calls;
                 
             } else {
-                console.log(`${indent}⚡ Splitting period (${this.maxCallsPerRequest} calls limit reached)`);
-                
+                const splitMsg = `⚡ Splitting period (${this.maxCallsPerRequest} calls limit reached)`;
+                console.log(`${indent}${splitMsg}`);
+
+                // Log detailed splitting to frontend if logger available
+                if (this.executionLogger) {
+                    const periodStr = `${startTime.split('T')[0]} - ${endTime.split('T')[0]}`;
+                    await this.executionLogger.info(`${splitMsg} - Period: ${periodStr} (depth: ${depth})`);
+                }
+
                 const startMs = new Date(startTime).getTime();
                 const endMs = new Date(endTime).getTime();
                 const middleMs = startMs + (endMs - startMs) / 2;
                 const middleTime = new Date(middleMs).toISOString();
-                
+
                 const part1 = await this.getAllCallsRecursive(startTime, middleTime, depth + 1);
                 const part2 = await this.getAllCallsRecursive(middleTime, endTime, depth + 1);
-                
+
+                // Log completion of splitting
+                if (this.executionLogger && depth === 0) {
+                    await this.executionLogger.success(`Recursive collection complete - Combined ${part1.length + part2.length} calls`);
+                }
+
                 return [...part1, ...part2];
             }
             

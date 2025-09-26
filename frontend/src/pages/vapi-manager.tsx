@@ -34,7 +34,6 @@ interface CollectionConfig {
 
 interface SyncConfig {
   syncMode: 'auto' | 'incremental' | 'full';
-  includeZeroCost: boolean;
 }
 
 interface CallData {
@@ -99,8 +98,7 @@ export default function VapiManager() {
   });
 
   const [syncConfig, setSyncConfig] = useState<SyncConfig>({
-    syncMode: 'auto',
-    includeZeroCost: true
+    syncMode: 'auto'
   });
 
   const [collectionResult, setCollectionResult] = useState<CollectionResult | null>(null);
@@ -178,7 +176,6 @@ export default function VapiManager() {
     setCurrentStep('sync');
     addLog('🔄 SUPABASE SYNC STARTING');
     addLog(`🎯 Mode: ${syncConfig.syncMode.toUpperCase()}`);
-    addLog(`📊 Including zero-cost calls: ${syncConfig.includeZeroCost ? 'YES' : 'NO'}`);
 
     try {
       const response = await fetch('http://localhost:3001/api/sync-supabase', {
@@ -188,7 +185,6 @@ export default function VapiManager() {
         },
         body: JSON.stringify({
           syncMode: syncConfig.syncMode,
-          includeZeroCost: syncConfig.includeZeroCost,
           verbose: collectionConfig.verbose
         }),
       });
@@ -380,14 +376,6 @@ export default function VapiManager() {
                   <p className="text-xs text-gray-500 mt-1">Auto mode prevents duplicates</p>
                 </div>
 
-                <div className="flex items-center space-x-2 mt-3">
-                  <Checkbox
-                    id="includeZero"
-                    checked={syncConfig.includeZeroCost}
-                    onCheckedChange={(checked) => setSyncConfig({...syncConfig, includeZeroCost: !!checked})}
-                  />
-                  <Label htmlFor="includeZero" className="text-sm">Include zero-cost calls</Label>
-                </div>
               </div>
 
               {/* Action Button */}
@@ -429,7 +417,7 @@ export default function VapiManager() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
                     <div className="text-2xl font-bold text-blue-600">{collectionResult.stats.totalFound}</div>
                     <div className="text-sm text-gray-600">Total Found</div>
@@ -446,6 +434,47 @@ export default function VapiManager() {
                     <div className="text-2xl font-bold text-purple-600">{collectionResult.stats.duration}</div>
                     <div className="text-sm text-gray-600">Duration</div>
                   </div>
+                </div>
+
+                {/* Download Buttons */}
+                <div className="flex gap-2 justify-center">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const dataStr = JSON.stringify(collectionResult.calls, null, 2);
+                      const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                      const url = URL.createObjectURL(dataBlob);
+                      const link = document.createElement('a');
+                      link.href = url;
+                      link.download = `vapi-calls-${new Date().toISOString().split('T')[0]}.json`;
+                      link.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Download JSON
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const csvHeader = 'ID,Date,Duration,Cost,Status\n';
+                      const csvData = collectionResult.calls.map(call =>
+                        `${call.id},${call.date},${call.duration},${call.cost},${call.status}`
+                      ).join('\n');
+                      const csvBlob = new Blob([csvHeader + csvData], {type: 'text/csv'});
+                      const url = URL.createObjectURL(csvBlob);
+                      const link = document.createElement('a');
+                      link.href = url;
+                      link.download = `vapi-calls-${new Date().toISOString().split('T')[0]}.csv`;
+                      link.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Download CSV
+                  </Button>
                 </div>
               </CardContent>
             </Card>
