@@ -1,54 +1,79 @@
-require('dotenv').config({ path: '../../.env' });
+require('dotenv').config({ path: '../../../.env' });
 
 // ============================================================
-// VAPI TO SUPABASE SYNC - CONFIGURATION
+// VAPI TO SUPABASE SYNC - CONFIGURATION SYSTEM
 // ============================================================
 
-const CONFIG = {
-    // 📅 DATE RANGE - Последние 6 месяцев
+// DEFAULT CONFIG for terminal usage
+const DEFAULT_CONFIG = {
     DATE_RANGE: {
-        START_DATE: '2025-03-26', // 6 месяцев назад
-        END_DATE: '2025-09-26',   // сегодня
+        START_DATE: '2025-03-26',
+        END_DATE: '2025-09-26'
     },
-
-    // 🎯 SYNC SETTINGS - Грузим ВСЕ без ограничений
     SYNC: {
-        // Include ALL calls (даже 0-секундные)
+        MODE: 'auto',            // 'auto', 'incremental', 'full'
         INCLUDE_ALL_CALLS: true,
-
-        // Minimum call cost (0 = включаем все)
         MIN_COST: 0,
-
-        // Sync modes
-        INCREMENTAL: false, // Полная синхронизация
-        FORCE_FULL: true,  // Принудительная полная синхронизация
+        AUTO_DETECT: true,       // Auto detect last sync point
+        FORCE_FULL: false
     },
-
-    // 📊 OUTPUT SETTINGS
     OUTPUT: {
         VERBOSE: true,
         LOG_PROGRESS: true,
         SAVE_RESULTS: true
     },
-
-    // ⚡ PERFORMANCE
     PROCESSING: {
         BATCH_SIZE: 50,
         CONCURRENT_REQUESTS: 10,
-        RETRY_ATTEMPTS: 3
+        RETRY_ATTEMPTS: 3,
+        TEST_LIMIT: null         // For testing: limit number of calls
     }
 };
+
+// UNIVERSAL CONFIG FUNCTION - Terminal vs API
+function getConfig(runtimeParams = null) {
+    if (runtimeParams) {
+        // RUNTIME MODE (from API/Frontend)
+        return {
+            DATE_RANGE: {
+                START_DATE: runtimeParams.startDate || null, // null = auto-detect
+                END_DATE: runtimeParams.endDate || new Date().toISOString().split('T')[0]
+            },
+            SYNC: {
+                MODE: runtimeParams.syncMode || 'auto',
+                INCLUDE_ALL_CALLS: runtimeParams.includeAllCalls !== false,
+                MIN_COST: runtimeParams.minCost || 0,
+                AUTO_DETECT: runtimeParams.autoDetect !== false,
+                FORCE_FULL: runtimeParams.forceFull || false
+            },
+            OUTPUT: {
+                VERBOSE: runtimeParams.verbose !== false,
+                LOG_PROGRESS: true,
+                SAVE_RESULTS: runtimeParams.saveResults !== false
+            },
+            PROCESSING: {
+                BATCH_SIZE: DEFAULT_CONFIG.PROCESSING.BATCH_SIZE,
+                CONCURRENT_REQUESTS: DEFAULT_CONFIG.PROCESSING.CONCURRENT_REQUESTS,
+                RETRY_ATTEMPTS: DEFAULT_CONFIG.PROCESSING.RETRY_ATTEMPTS,
+                TEST_LIMIT: runtimeParams.testLimit || null
+            }
+        };
+    } else {
+        // TERMINAL MODE (default config)
+        return DEFAULT_CONFIG;
+    }
+}
 
 // ============================================================
 // MAIN SYNC ENGINE
 // ============================================================
 
 const { createClient } = require('@supabase/supabase-js');
-const VapiClient = require('../../scripts/api/vapi_client');
+const VapiClient = require('../../../scripts/api/vapi_client');
 
 class VapiSupabaseSync {
-    constructor(options = {}) {
-        this.config = { ...CONFIG, ...options };
+    constructor(config = null) {
+        this.config = config || DEFAULT_CONFIG;
         this.startTime = Date.now();
 
         // Initialize clients
@@ -78,6 +103,54 @@ class VapiSupabaseSync {
     log(message) {
         if (this.config.OUTPUT.VERBOSE) {
             console.log(`[${new Date().toISOString()}] ${message}`);
+        }
+    }
+
+    async getLastSyncPoint() {
+        if (this.config.SYNC.MODE === 'full' || this.config.SYNC.FORCE_FULL) {
+            return {
+                mode: 'full',
+                startDate: this.config.DATE_RANGE.START_DATE,
+                endDate: this.config.DATE_RANGE.END_DATE
+            };
+        }
+
+        try {
+            // Get last call from Supabase
+            const { data, error } = await this.supabase
+                .from('calls')
+                .select('created_at, id')
+                .order('created_at', { ascending: false })
+                .limit(1);
+
+            if (error) throw error;
+
+            if (data && data.length > 0) {
+                const lastDate = new Date(data[0].created_at);
+                const startDate = new Date(lastDate.getTime() - 24 * 60 * 60 * 1000); // 1 day overlap
+
+                this.log(`🔄 INCREMENTAL mode: Last sync from ${data[0].created_at}`);
+                return {
+                    mode: 'incremental',
+                    startDate: startDate.toISOString().split('T')[0],
+                    endDate: this.config.DATE_RANGE.END_DATE,
+                    lastId: data[0].id
+                };
+            } else {
+                this.log(`📊 Database empty, switching to FULL mode`);
+                return {
+                    mode: 'full',
+                    startDate: this.config.DATE_RANGE.START_DATE,
+                    endDate: this.config.DATE_RANGE.END_DATE
+                };
+            }
+        } catch (error) {
+            this.log(`⚠️ Auto-detect failed: ${error.message}, using FULL mode`);
+            return {
+                mode: 'full',
+                startDate: this.config.DATE_RANGE.START_DATE,
+                endDate: this.config.DATE_RANGE.END_DATE
+            };
         }
     }
 
@@ -394,14 +467,69 @@ class VapiSupabaseSync {
 // CLI EXECUTION & MODULE EXPORT
 // ============================================================
 
-async function main() {
-    const sync = new VapiSupabaseSync();
-
+// UNIVERSAL SYNC FUNCTION - Terminal vs API
+async function syncVapiToSupabase(runtimeParams = null) {
     try {
+        const config = getConfig(runtimeParams);
+        const sync = new VapiSupabaseSync(config);
+
+        // Auto-detect sync mode if enabled
+        if (config.SYNC.MODE === 'auto' && config.SYNC.AUTO_DETECT) {
+            const syncPoint = await sync.getLastSyncPoint();
+
+            // Update config with detected dates
+            config.DATE_RANGE.START_DATE = syncPoint.startDate;
+            config.DATE_RANGE.END_DATE = syncPoint.endDate;
+
+            sync.log(`🎯 AUTO mode detected: ${syncPoint.mode.toUpperCase()} sync`);
+            sync.log(`📅 Sync range: ${syncPoint.startDate} to ${syncPoint.endDate}`);
+        }
+
+        // Apply test limit if specified
+        if (config.PROCESSING.TEST_LIMIT) {
+            sync.log(`🧪 TESTING MODE: Limited to ${config.PROCESSING.TEST_LIMIT} calls`);
+        }
+
+        const mode = runtimeParams ? '🌐 API MODE' : '💻 TERMINAL MODE';
+        sync.log(`Starting sync [${mode}]`);
+
         const results = await sync.run();
+
+        // Add metadata for API consumers
+        return {
+            ...results,
+            metadata: {
+                mode: mode,
+                syncType: config.SYNC.MODE,
+                dateRange: `${config.DATE_RANGE.START_DATE} to ${config.DATE_RANGE.END_DATE}`,
+                testLimit: config.PROCESSING.TEST_LIMIT,
+                timestamp: new Date().toISOString()
+            }
+        };
+    } catch (error) {
+        const errorResult = {
+            success: false,
+            error: error.message,
+            timestamp: new Date().toISOString()
+        };
+
+        if (runtimeParams) {
+            // API mode - return error object
+            return errorResult;
+        } else {
+            // Terminal mode - log and exit
+            console.error('❌ Sync failed:', error.message);
+            throw error;
+        }
+    }
+}
+
+// TERMINAL MODE
+async function main() {
+    try {
+        await syncVapiToSupabase();
         process.exit(0);
     } catch (error) {
-        console.error('❌ Sync failed:', error.message);
         process.exit(1);
     }
 }
@@ -412,4 +540,4 @@ if (require.main === module) {
 }
 
 // Export for use in other modules/API
-module.exports = { VapiSupabaseSync, CONFIG };
+module.exports = syncVapiToSupabase;

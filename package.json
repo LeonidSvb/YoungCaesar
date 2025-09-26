@@ -23,7 +23,10 @@
     "analyze": "python scripts/analysis/transcript_analyzer.py",
     "vectorize": "python scripts/training/vector_embedder.py",
     "train": "python scripts/training/agent_trainer.py",
-    "test": "echo \"All systems operational - use 'npm run sync-full' for complete data collection and sync\""
+    "test": "echo \"All systems operational - use 'npm run sync-full' for complete data collection and sync\"",
+    "api": "node api/server.js",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run api\" \"npm run frontend\""
   },
   "keywords": [
     "vapi",
@@ -40,7 +43,9 @@
     "@supabase/supabase-js": "^2.58.0",
     "airtable": "^0.12.2",
     "axios": "^1.6.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^4.21.2",
     "fs-extra": "^11.1.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

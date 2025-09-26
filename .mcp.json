@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem"
+      ],
+      "env": {
+        "ALLOWED_DIRECTORIES": "C:\\Users\\79818\\Desktop\\Vapi"
+      }
+    }
+  }
+}

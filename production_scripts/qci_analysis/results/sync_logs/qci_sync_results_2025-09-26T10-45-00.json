@@ -1,0 +1,55 @@
+{
+  "success": true,
+  "timestamp": "2025-09-26T10:45:00.696Z",
+  "config": {
+    "INPUT": {
+      "QCI_DATA_FILE": "results/qci_full_calls_with_assistants_latest.json",
+      "MIN_QCI_SCORE": 0,
+      "INCLUDE_FAILED": true,
+      "MIN_TRANSCRIPT_LENGTH": 100
+    },
+    "SYNC": {
+      "MODE": "incremental",
+      "UPDATE_EXISTING": true,
+      "SKIP_ORPHANED_CALLS": false,
+      "AUTO_MATCH_CALLS": true
+    },
+    "OUTPUT": {
+      "VERBOSE": true,
+      "LOG_PROGRESS": true,
+      "SAVE_RESULTS": true,
+      "RESULTS_DIR": "results/sync_logs"
+    },
+    "PROCESSING": {
+      "BATCH_SIZE": 25,
+      "CONCURRENT_REQUESTS": 3,
+      "RETRY_ATTEMPTS": 3,
+      "RETRY_DELAY": 2000,
+      "TEST_LIMIT": 100
+    }
+  },
+  "stats": {
+    "qci_records_loaded": 884,
+    "qci_records_processed": 100,
+    "qci_records_synced": 100,
+    "qci_records_updated": 0,
+    "qci_records_skipped": 0,
+    "qci_records_failed": 0,
+    "calls_matched": 62,
+    "calls_orphaned": 38,
+    "processing_time": 8967,
+    "errors": []
+  },
+  "summary": {
+    "total_loaded": 884,
+    "total_processed": 100,
+    "synced": 100,
+    "updated": 0,
+    "skipped": 0,
+    "failed": 0,
+    "success_rate": "100.0%",
+    "processing_time": "9.0s",
+    "calls_matched": 62,
+    "calls_orphaned": 38
+  }
+}

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPI Data Manager - Industry Best Practices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .status-running { @apply animate-pulse; }
+        .step-active { @apply border-blue-500 bg-blue-50; }
+        .step-completed { @apply border-green-500 bg-green-50; }
+        .step-waiting { @apply border-gray-300 bg-gray-50; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">VAPI Data Manager</h1>
+            <p class="text-gray-600 mt-2">Collect data from VAPI → Preview → Sync to Supabase</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center step-active border-2 rounded-lg px-4 py-3 bg-white shadow-sm">
+                    <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-download text-sm"></i>
+                    </div>
+                    <span class="font-medium">1. Collect Data</span>
+                </div>
+
+                <div class="flex-1 h-0.5 bg-gray-300 mx-4"></div>
+
+                <div class="flex items-center step-waiting border-2 rounded-lg px-4 py-3 bg-white shadow-sm">
+                    <div class="w-8 h-8 bg-gray-300 text-white rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-eye text-sm"></i>
+                    </div>
+                    <span class="font-medium">2. Preview & Review</span>
+                </div>
+
+                <div class="flex-1 h-0.5 bg-gray-300 mx-4"></div>
+
+                <div class="flex items-center step-waiting border-2 rounded-lg px-4 py-3 bg-white shadow-sm">
+                    <div class="w-8 h-8 bg-gray-300 text-white rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-database text-sm"></i>
+                    </div>
+                    <span class="font-medium">3. Sync to Supabase</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left: Configuration Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-cog mr-2 text-blue-500"></i>
+                        Configuration
+                    </h2>
+
+                    <!-- Collection Settings -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="date" value="2025-09-20" class="border rounded-md px-3 py-2 text-sm">
+                                <input type="date" value="2025-09-26" class="border rounded-md px-3 py-2 text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Min Cost Filter</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="number" step="0.01" value="0.03" class="border rounded-md px-3 py-2 w-20 text-sm">
+                                <span class="text-sm text-gray-500">USD</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Test Limit</label>
+                            <select class="border rounded-md px-3 py-2 w-full text-sm">
+                                <option value="">No limit (all calls)</option>
+                                <option value="50">50 calls (quick test)</option>
+                                <option value="100" selected>100 calls (standard test)</option>
+                                <option value="500">500 calls (large test)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                <span class="text-sm">Save to files</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                <span class="text-sm">Verbose logs</span>
+                            </label>
+                        </div>
+
+                        <div class="pt-4 border-t">
+                            <h3 class="font-medium text-gray-700 mb-3">Sync Settings</h3>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sync Mode</label>
+                                <select class="border rounded-md px-3 py-2 w-full text-sm">
+                                    <option value="auto" selected>Auto (detect last sync)</option>
+                                    <option value="incremental">Incremental only</option>
+                                    <option value="full">Full resync</option>
+                                </select>
+                            </div>
+
+                            <label class="flex items-center mt-3">
+                                <input type="checkbox" checked class="mr-2">
+                                <span class="text-sm">Include zero-cost calls</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <button class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+                        <i class="fas fa-play mr-2"></i>
+                        Start Data Collection
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Results & Preview -->
+            <div class="lg:col-span-2">
+                <!-- Status Panel -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-chart-line mr-2 text-green-500"></i>
+                        Live Status
+                    </h2>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">279</div>
+                            <div class="text-sm text-gray-600">Total Found</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600">100</div>
+                            <div class="text-sm text-gray-600">Collected</div>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                            <div class="text-2xl font-bold text-yellow-600">79%</div>
+                            <div class="text-sm text-gray-600">Efficiency</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">2.3s</div>
+                            <div class="text-sm text-gray-600">Duration</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Console/Logs -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fas fa-terminal mr-2 text-gray-500"></i>
+                            Live Console
+                        </h2>
+                        <button class="text-sm text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-expand mr-1"></i>
+                            Expand
+                        </button>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 font-mono text-sm p-4 rounded-lg h-40 overflow-y-auto">
+                        <div>📞 VAPI DATA COLLECTION 🌐 API MODE</div>
+                        <div>📅 Period: 2025-09-20 to 2025-09-26</div>
+                        <div>📋 Active Filters: TESTING LIMIT: 100 calls</div>
+                        <div>✅ Got 26 calls</div>
+                        <div>✅ Got 15 calls</div>
+                        <div>✅ Got 93 calls</div>
+                        <div class="text-yellow-400">🧪 TESTING MODE: Limiting to 100 calls (from 279)</div>
+                        <div class="text-green-400">✅ Collection completed! 100 calls</div>
+                        <div class="animate-pulse">█</div>
+                    </div>
+                </div>
+
+                <!-- Data Preview -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fas fa-table mr-2 text-blue-500"></i>
+                            Data Preview
+                        </h2>
+                        <span class="text-sm text-gray-500">Last 5 calls</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="text-left p-3">Call ID</th>
+                                    <th class="text-left p-3">Date</th>
+                                    <th class="text-left p-3">Duration</th>
+                                    <th class="text-left p-3">Cost</th>
+                                    <th class="text-left p-3">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-3 font-mono text-xs">fd3b7524...</td>
+                                    <td class="p-3">2025-09-25</td>
+                                    <td class="p-3">45s</td>
+                                    <td class="p-3">$0.07</td>
+                                    <td class="p-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Completed</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-3 font-mono text-xs">e6eac094...</td>
+                                    <td class="p-3">2025-09-25</td>
+                                    <td class="p-3">23s</td>
+                                    <td class="p-3">$0.04</td>
+                                    <td class="p-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Completed</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-3 font-mono text-xs">570d721f...</td>
+                                    <td class="p-3">2025-09-24</td>
+                                    <td class="p-3">67s</td>
+                                    <td class="p-3">$0.12</td>
+                                    <td class="p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Partial</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Next Step Action -->
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium text-blue-900">Ready to sync to Supabase</div>
+                                <div class="text-sm text-blue-700">100 calls collected, 0 duplicates detected</div>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center">
+                                <i class="fas fa-upload mr-2"></i>
+                                Sync to Database
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Stats -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                    <div class="text-sm text-gray-600">Last Sync</div>
+                    <div class="font-medium">2025-09-26 09:09</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-600">Total in DB</div>
+                    <div class="font-medium">2,456 calls</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-600">Sync Mode</div>
+                    <div class="font-medium text-blue-600">Auto (Incremental)</div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-600">Next Auto Sync</div>
+                    <div class="font-medium">In 2h 15m</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock interactions for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive behavior for demo
+            const consoleDiv = document.querySelector('.bg-gray-900');
+            const startButton = document.querySelector('button[class*="bg-blue-600"]');
+
+            startButton.addEventListener('click', function() {
+                // Simulate starting collection
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Collecting...';
+                this.disabled = true;
+
+                // Mock progression
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check mr-2"></i>Collection Complete';
+                    this.className = this.className.replace('bg-blue-600', 'bg-green-600');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

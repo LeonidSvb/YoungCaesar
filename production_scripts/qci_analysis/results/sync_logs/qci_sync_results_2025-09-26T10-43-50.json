@@ -1,0 +1,556 @@
+{
+  "success": false,
+  "timestamp": "2025-09-26T10:43:50.763Z",
+  "config": {
+    "INPUT": {
+      "QCI_DATA_FILE": "results/qci_full_calls_with_assistants_latest.json",
+      "MIN_QCI_SCORE": 0,
+      "INCLUDE_FAILED": true,
+      "MIN_TRANSCRIPT_LENGTH": 100
+    },
+    "SYNC": {
+      "MODE": "incremental",
+      "UPDATE_EXISTING": true,
+      "SKIP_ORPHANED_CALLS": false,
+      "AUTO_MATCH_CALLS": true
+    },
+    "OUTPUT": {
+      "VERBOSE": true,
+      "LOG_PROGRESS": true,
+      "SAVE_RESULTS": true,
+      "RESULTS_DIR": "results/sync_logs"
+    },
+    "PROCESSING": {
+      "BATCH_SIZE": 25,
+      "CONCURRENT_REQUESTS": 3,
+      "RETRY_ATTEMPTS": 3,
+      "RETRY_DELAY": 2000,
+      "TEST_LIMIT": 100
+    }
+  },
+  "stats": {
+    "qci_records_loaded": 884,
+    "qci_records_processed": 100,
+    "qci_records_synced": 0,
+    "qci_records_updated": 0,
+    "qci_records_skipped": 0,
+    "qci_records_failed": 100,
+    "calls_matched": 62,
+    "calls_orphaned": 38,
+    "processing_time": 4065,
+    "errors": [
+      {
+        "call_id": "a8728912-814d-4ee8-a28d-e34ce09a90ab",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.264Z"
+      },
+      {
+        "call_id": "ccc95c20-42d1-4d9d-8fce-35b175353ed4",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.401Z"
+      },
+      {
+        "call_id": "14436d72-abb7-41c5-a0a3-64c56de181de",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.403Z"
+      },
+      {
+        "call_id": "b9a0e538-910a-4b7b-bd27-c94663bf5bb3",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.404Z"
+      },
+      {
+        "call_id": "a9840734-d86b-44c2-8fd4-5ac9b8ee47d2",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.446Z"
+      },
+      {
+        "call_id": "a52a7267-25dd-45a1-88f4-e44cd9470a5b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.447Z"
+      },
+      {
+        "call_id": "5cca41e5-1c54-4045-a326-502c6f69e68c",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.447Z"
+      },
+      {
+        "call_id": "b87ca97b-b74d-4cad-9aee-3206be6fd2c4",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.461Z"
+      },
+      {
+        "call_id": "1c29290f-931d-4f2c-b748-4a09c8bfcfe1",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.461Z"
+      },
+      {
+        "call_id": "af0235ab-6610-42ae-9c3d-557d4a9601c4",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.461Z"
+      },
+      {
+        "call_id": "0f290056-e2f2-4bfc-8175-2559a3d9d9ba",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.462Z"
+      },
+      {
+        "call_id": "8ffe586e-3e3f-4722-9d3d-4f975bae4e64",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.462Z"
+      },
+      {
+        "call_id": "79cc8910-7f90-408f-8d34-7a3685c13dba",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.468Z"
+      },
+      {
+        "call_id": "194a90f0-c8e4-49e9-830a-de30a88b6a89",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.468Z"
+      },
+      {
+        "call_id": "d6e1e4f7-9259-4918-acf6-4e2b748d5423",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.481Z"
+      },
+      {
+        "call_id": "586dac70-581e-488f-84af-3fc2349a44cb",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.482Z"
+      },
+      {
+        "call_id": "af21dcff-dbe8-40a1-a2d8-e5e97c9819c0",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.486Z"
+      },
+      {
+        "call_id": "c2f4b38f-250d-4459-af21-657eeed2a9e8",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.486Z"
+      },
+      {
+        "call_id": "380b097e-ac24-4b42-a4ac-9f7a4814f252",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.486Z"
+      },
+      {
+        "call_id": "2a3bab7e-b890-4cca-bd25-d56bf815d95b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.486Z"
+      },
+      {
+        "call_id": "8c66d974-7102-492f-a07b-931f0a3000f2",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.486Z"
+      },
+      {
+        "call_id": "b5b8eb10-8fa3-4301-af1b-b43db388ff15",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.489Z"
+      },
+      {
+        "call_id": "7b027242-823a-4cea-9f28-056c2d423676",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.489Z"
+      },
+      {
+        "call_id": "276a36d5-7345-4e11-be9a-431ad2cf1593",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.490Z"
+      },
+      {
+        "call_id": "2e339b03-f953-4f1d-9404-12821339ad46",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:48.568Z"
+      },
+      {
+        "call_id": "ec00db84-eb05-4c1e-9831-388f220810cf",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.148Z"
+      },
+      {
+        "call_id": "d301702d-c25d-4a8f-ba6e-78645a114117",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.163Z"
+      },
+      {
+        "call_id": "81e3e492-8c8b-473b-a02e-88869b83f513",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.163Z"
+      },
+      {
+        "call_id": "427fcce5-7ef5-428f-8a49-02a01e64a8a8",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.186Z"
+      },
+      {
+        "call_id": "95ebaba6-9b81-4c9c-a6e4-e6afbb441b72",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.186Z"
+      },
+      {
+        "call_id": "7052d262-c84d-4328-b2a1-1539829b6525",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.186Z"
+      },
+      {
+        "call_id": "09b0df3e-b8a8-4ca2-bc0c-24e83faaf5be",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.186Z"
+      },
+      {
+        "call_id": "0ae03b99-5769-4926-88b6-4b2e9fffd95d",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.187Z"
+      },
+      {
+        "call_id": "842a59ee-34f5-4f54-8208-215beecebe7b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.187Z"
+      },
+      {
+        "call_id": "bc1ba244-4b01-46a6-ad1b-007b51b3f9d1",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.189Z"
+      },
+      {
+        "call_id": "15c13c50-4d0a-4c0b-b202-247dd3ad8b25",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.201Z"
+      },
+      {
+        "call_id": "3a5e5e28-6afb-4468-821f-99d4e99a2957",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.203Z"
+      },
+      {
+        "call_id": "73c7f490-be2c-4a76-96f4-27ab58058462",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.226Z"
+      },
+      {
+        "call_id": "a5ba98cb-0e62-440c-8c93-f5fdb19725b9",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.227Z"
+      },
+      {
+        "call_id": "65fee463-6b20-4f3e-8451-494868a1cc54",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.227Z"
+      },
+      {
+        "call_id": "ada1829a-35a6-4b6d-b8ca-d5436b8a7227",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.227Z"
+      },
+      {
+        "call_id": "fce4856d-5075-45d8-b044-aec198b5c181",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.227Z"
+      },
+      {
+        "call_id": "53ab249b-b6e7-4d19-ac74-870f127d7bfb",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.227Z"
+      },
+      {
+        "call_id": "5bc21466-e26b-4711-9800-92173601395b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.228Z"
+      },
+      {
+        "call_id": "e8240708-2f6c-45c7-8fc1-30ce4877cd7a",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.228Z"
+      },
+      {
+        "call_id": "a67840ce-eb16-4998-89e1-d4390081b6c4",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.228Z"
+      },
+      {
+        "call_id": "c4b9d728-ab93-4c74-ac6a-d14bbd0b4a2f",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.229Z"
+      },
+      {
+        "call_id": "addc81a0-f4a1-4e1f-8ce3-1b9cf333db1c",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.229Z"
+      },
+      {
+        "call_id": "c50d778f-3226-42d5-9c34-3749068394b4",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.236Z"
+      },
+      {
+        "call_id": "3287ba6c-9fb7-4335-9e73-7fedc322b3e8",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.248Z"
+      },
+      {
+        "call_id": "6808eff5-bab2-4ed6-9988-ae0f150e4526",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.887Z"
+      },
+      {
+        "call_id": "e974f613-afd2-4153-a235-24bb289a9daa",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.887Z"
+      },
+      {
+        "call_id": "3bf8320a-5fb0-480a-81c2-30dcbd8fb20b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.887Z"
+      },
+      {
+        "call_id": "bda05fa6-6e06-41ea-b0e2-40e2b2f55e1e",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.887Z"
+      },
+      {
+        "call_id": "1139ec5a-ead7-427f-bf6e-caf88fb91205",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.904Z"
+      },
+      {
+        "call_id": "4bc41960-ecbb-4c54-ba6b-6f22e951234a",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.904Z"
+      },
+      {
+        "call_id": "543b49d5-5ebb-4cc7-bf71-3e3cf5b4a40a",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.938Z"
+      },
+      {
+        "call_id": "6dd0d4c0-f197-4842-af22-f4750c2d70ba",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.938Z"
+      },
+      {
+        "call_id": "275525f9-65b1-4275-83de-71a731c2be6d",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.938Z"
+      },
+      {
+        "call_id": "98184f52-e90f-4bae-be6d-e79480355ce0",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:49.944Z"
+      },
+      {
+        "call_id": "8f8ee2d7-3a49-4fe2-977c-282f54017c7f",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.004Z"
+      },
+      {
+        "call_id": "44ad274e-fe67-4215-a0b2-10e57e5e051c",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.005Z"
+      },
+      {
+        "call_id": "0162cf64-ee8e-4e1d-8368-0acb4a936372",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.005Z"
+      },
+      {
+        "call_id": "054285dd-9b3f-44e2-af2b-64fb3f0cb1d6",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.017Z"
+      },
+      {
+        "call_id": "95944b62-3541-4fc0-9d74-4f8eca15a789",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.017Z"
+      },
+      {
+        "call_id": "200e2a82-ffd8-4282-8320-4349f1846e9b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.018Z"
+      },
+      {
+        "call_id": "5b1648b4-bd55-4ba6-9b7f-360f43a95099",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.023Z"
+      },
+      {
+        "call_id": "f6300286-1b73-4cc7-afce-5dfef777542b",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.023Z"
+      },
+      {
+        "call_id": "9655a961-e3f7-43a9-9cce-124828141824",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.023Z"
+      },
+      {
+        "call_id": "17d23d88-5d42-4f21-939a-f778ba54172d",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.023Z"
+      },
+      {
+        "call_id": "d0cd4573-64b0-45d2-b749-48c7d432288d",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.023Z"
+      },
+      {
+        "call_id": "0e777d37-3d86-4e7d-abaa-b12911fa0c45",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.024Z"
+      },
+      {
+        "call_id": "81bf7cde-366f-4e47-ba9b-4fd6c37d6d4f",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.024Z"
+      },
+      {
+        "call_id": "b6bd7650-7441-4d14-bdf6-3f9bcc5019dd",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.025Z"
+      },
+      {
+        "call_id": "8b10d1bd-603b-4c9a-b48a-35e193eccdfd",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.026Z"
+      },
+      {
+        "call_id": "f9ec14e2-34a7-4809-a0eb-ed5bb9ec00f6",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.636Z"
+      },
+      {
+        "call_id": "5e09dc65-4ce9-43f0-b069-5c389b781735",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.636Z"
+      },
+      {
+        "call_id": "cb33f547-09b6-4c57-a384-0883e3da18c0",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.638Z"
+      },
+      {
+        "call_id": "11a4a100-348a-422c-bef8-b2a932aff0c7",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.640Z"
+      },
+      {
+        "call_id": "646a6cb9-3356-412e-bab4-bc9503cd361c",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.655Z"
+      },
+      {
+        "call_id": "fc6c76b3-6a7c-4d11-90e8-e966dca61958",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.660Z"
+      },
+      {
+        "call_id": "4f4b3efa-8f40-4a61-8c71-5bccd5880780",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.669Z"
+      },
+      {
+        "call_id": "7dbf05b3-6454-41c7-87ce-24a1115ea09f",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.669Z"
+      },
+      {
+        "call_id": "0f225f87-b68c-43c8-80b0-7e946a15aa7f",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.670Z"
+      },
+      {
+        "call_id": "2461342d-078b-4706-994a-06497c0c109a",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.670Z"
+      },
+      {
+        "call_id": "f6d5b4ca-1153-4def-9824-0d4fb1d31b00",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.680Z"
+      },
+      {
+        "call_id": "ec3f3762-0a63-4d83-bde9-bb7f1cf719e2",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.720Z"
+      },
+      {
+        "call_id": "d64d03e3-3b21-4fba-a0da-001f16b95fba",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.726Z"
+      },
+      {
+        "call_id": "a711aa8c-6d62-4b63-b4b5-dfcf913b5ade",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.730Z"
+      },
+      {
+        "call_id": "e93b43fd-7ba2-4b7e-8346-00f4afffb134",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.736Z"
+      },
+      {
+        "call_id": "ef7239af-f67c-4ce3-9d97-f988a41a0aa2",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.741Z"
+      },
+      {
+        "call_id": "1f8db963-17bd-4414-a936-d26b30670f70",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.742Z"
+      },
+      {
+        "call_id": "4a74f21e-6a11-4b6a-92cf-d5d0df4cfd87",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.742Z"
+      },
+      {
+        "call_id": "7f44c55e-b3d5-4b59-92ab-972937c09980",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.747Z"
+      },
+      {
+        "call_id": "4acda144-bbe3-4626-8b12-940bc062352a",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.747Z"
+      },
+      {
+        "call_id": "ea15b613-bab1-4ce5-bf41-353fe6212dca",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.748Z"
+      },
+      {
+        "call_id": "3565e509-2768-4300-ae71-753a518ceca6",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.748Z"
+      },
+      {
+        "call_id": "0cf9585b-258d-40ad-a0f7-6602b50425e6",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.752Z"
+      },
+      {
+        "call_id": "43cf66a1-1e00-4679-a9f5-06934e72afc4",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.763Z"
+      },
+      {
+        "call_id": "2283d19f-04ff-42ab-85fe-af3e56616262",
+        "error": "Could not find the 'analysis_status' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-09-26T10:43:50.763Z"
+      }
+    ]
+  },
+  "summary": {
+    "total_loaded": 884,
+    "total_processed": 100,
+    "synced": 0,
+    "updated": 0,
+    "skipped": 0,
+    "failed": 100,
+    "success_rate": "0.0%",
+    "processing_time": "4.1s",
+    "calls_matched": 62,
+    "calls_orphaned": 38
+  }
+}

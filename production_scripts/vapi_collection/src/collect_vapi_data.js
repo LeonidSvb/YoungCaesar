@@ -1,33 +1,62 @@
 require('dotenv').config({ path: '../../../.env' });
 
 // ============================================================
-// CONFIGURATION - CHANGE ALL SETTINGS HERE
+// CONFIGURATION SYSTEM - RUNTIME + DEFAULT
 // ============================================================
 
-// DATE RANGE - What period to collect data for
-const CONFIG = {
-    // Dates (YYYY-MM-DD format) - Проверенные даты
+// DEFAULT CONFIG for terminal usage
+const DEFAULT_CONFIG = {
     START_DATE: '2025-09-01',
     END_DATE: '2025-09-26',
-
-    // FILTERS - Грузим все без ограничений
     FILTERS: {
-        // Minimum call cost to include (0 = все звонки)
         MIN_COST: 0
     },
-
-    // OUTPUT SETTINGS
     OUTPUT: {
-        // Save filtered results to file?
         SAVE_TO_FILE: true,
-
-        // Output directory
         OUTPUT_DIR: 'production_scripts/vapi_collection/results',
-
-        // Show detailed console output?
         VERBOSE: true
+    },
+    PROCESSING: {
+        LIMIT: null // null = no limit, number = limit for testing
     }
 };
+
+// FIXED CONFIG - Never changes, technical settings
+const FIXED_CONFIG = {
+    BATCH_SIZE: 50,
+    CONCURRENT_REQUESTS: 10,
+    RETRY_ATTEMPTS: 3,
+    API_TIMEOUT: 30000
+};
+
+// UNIVERSAL CONFIG FUNCTION - Terminal vs API
+function getConfig(runtimeParams = null) {
+    if (runtimeParams) {
+        // RUNTIME MODE (from API/Frontend)
+        return {
+            START_DATE: runtimeParams.startDate || DEFAULT_CONFIG.START_DATE,
+            END_DATE: runtimeParams.endDate || DEFAULT_CONFIG.END_DATE,
+            FILTERS: {
+                MIN_COST: runtimeParams.minCost || 0
+            },
+            OUTPUT: {
+                SAVE_TO_FILE: runtimeParams.saveToFile !== false,
+                OUTPUT_DIR: DEFAULT_CONFIG.OUTPUT.OUTPUT_DIR,
+                VERBOSE: runtimeParams.verbose !== false
+            },
+            PROCESSING: {
+                LIMIT: runtimeParams.limit || null
+            },
+            ...FIXED_CONFIG
+        };
+    } else {
+        // TERMINAL MODE (default config)
+        return {
+            ...DEFAULT_CONFIG,
+            ...FIXED_CONFIG
+        };
+    }
+}
 
 // ============================================================
 // MAIN SCRIPT - NO NEED TO CHANGE BELOW
@@ -39,19 +68,25 @@ const Logger = require('../../../scripts/utils/logger');
 
 const logger = new Logger('vapi_collection.log');
 
-function applyFilters(calls) {
+function applyFilters(calls, config) {
     let filtered = [...calls];
-    const filters = CONFIG.FILTERS;
+    const filters = config.FILTERS;
 
     // Apply cost filter only
     if (filters.MIN_COST > 0) {
         filtered = filtered.filter(call => (call.cost || 0) >= filters.MIN_COST);
     }
 
+    // Apply limit for testing
+    if (config.PROCESSING.LIMIT && filtered.length > config.PROCESSING.LIMIT) {
+        console.log(`🧪 TESTING MODE: Limiting to ${config.PROCESSING.LIMIT} calls (from ${filtered.length})`);
+        filtered = filtered.slice(0, config.PROCESSING.LIMIT);
+    }
+
     return filtered;
 }
 
-function generateDailyStats(calls, startDate, endDate) {
+function generateDailyStats(calls, startDate, endDate, config) {
     const stats = {
         summary: {
             dateRange: `${startDate} to ${endDate}`,
@@ -64,8 +99,9 @@ function generateDailyStats(calls, startDate, endDate) {
     };
 
     // Record active filters
-    const filters = CONFIG.FILTERS;
+    const filters = config.FILTERS;
     if (filters.MIN_COST > 0) stats.summary.filtersApplied.minCost = filters.MIN_COST;
+    if (config.PROCESSING.LIMIT) stats.summary.filtersApplied.testLimit = config.PROCESSING.LIMIT;
 
     // Group calls by date
     const callsByDate = {};
@@ -84,7 +120,7 @@ function generateDailyStats(calls, startDate, endDate) {
     while (currentDate <= endDateObj) {
         const dateStr = currentDate.toISOString().split('T')[0];
         const dayCalls = callsByDate[dateStr] || [];
-        const filteredCalls = applyFilters(dayCalls);
+        const filteredCalls = applyFilters(dayCalls, config);
 
         const dayStats = {
             date: dateStr,
@@ -116,16 +152,18 @@ function generateDailyStats(calls, startDate, endDate) {
     return stats;
 }
 
-async function collectVapiData() {
+async function collectVapiData(runtimeParams = null) {
     try {
+        const CONFIG = getConfig(runtimeParams);
         const startDate = CONFIG.START_DATE;
         const endDate = CONFIG.END_DATE;
 
-        logger.info(`Starting VAPI data collection: ${startDate} to ${endDate}`);
+        const mode = runtimeParams ? '🌐 API MODE' : '💻 TERMINAL MODE';
+        logger.info(`Starting VAPI data collection: ${startDate} to ${endDate} [${mode}]`);
 
         if (CONFIG.OUTPUT.VERBOSE) {
             console.log('\n========================================');
-            console.log('📞 VAPI DATA COLLECTION');
+            console.log(`📞 VAPI DATA COLLECTION ${mode}`);
             console.log('========================================');
             console.log(`📅 Period: ${startDate} to ${endDate}`);
             console.log('\n📋 Active Filters:');
@@ -134,6 +172,9 @@ async function collectVapiData() {
                     console.log(`  • ${key}: ${value}`);
                 }
             });
+            if (CONFIG.PROCESSING.LIMIT) {
+                console.log(`  • TESTING LIMIT: ${CONFIG.PROCESSING.LIMIT} calls`);
+            }
             console.log('========================================\n');
         }
 
@@ -151,10 +192,10 @@ async function collectVapiData() {
         }
 
         // Apply filters
-        const filteredCalls = applyFilters(allCalls);
+        const filteredCalls = applyFilters(allCalls, CONFIG);
 
         // Generate statistics
-        const stats = generateDailyStats(allCalls, startDate, endDate);
+        const stats = generateDailyStats(allCalls, startDate, endDate, CONFIG);
 
         // Save results if enabled
         if (CONFIG.OUTPUT.SAVE_TO_FILE) {
