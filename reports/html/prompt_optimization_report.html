@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет по оптимизации промптов - VAPI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .metadata {
+            background: white;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .metric-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .assistant-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .assistant-header {
+            background: #667eea;
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .assistant-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .qci-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .assistant-content {
+            padding: 2rem;
+        }
+
+        .prompt-section {
+            margin-bottom: 2rem;
+        }
+
+        .prompt-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .prompt-content {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .prompt-original {
+            display: block;
+        }
+
+        .prompt-recommended {
+            display: none;
+        }
+
+        .differences {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            font-weight: bold;
+        }
+
+        .recommendations-sidebar {
+            background: #f0f7ff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .recommendation-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #10b981;
+        }
+
+        .recommendation-title {
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .perf-metric {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .perf-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .improvement-potential {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .improvement-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #92400e;
+        }
+
+        .footer {
+            background: #374151;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .assistant-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .metadata-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Отчет по оптимизации промптов</h1>
+        <p>Анализ и рекомендации для VAPI ассистентов</p>
+    </div>
+
+    <div class="metadata">
+        <div class="metadata-grid">
+            <div class="metric">
+                <div class="metric-value" id="assistants-count">11</div>
+                <div class="metric-label">Ассистентов обработано</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" id="improvement-potential">+165</div>
+                <div class="metric-label">Потенциал улучшения QCI</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" id="total-cost">$0.55</div>
+                <div class="metric-label">Стоимость анализа</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" id="processing-time">8.5 мин</div>
+                <div class="metric-label">Время обработки</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="assistants-container">
+        <!-- Ассистенты будут добавлены через JavaScript -->
+    </div>
+
+    <div class="footer">
+        <p>© 2025 VAPI Analytics Dashboard | Сгенерировано автоматически</p>
+    </div>
+
+    <script>
+        let recommendationsData = null;
+
+        // Загрузка данных из JSON файла
+        async function loadData() {
+            try {
+                const response = await fetch('../production_scripts/prompt_optimization/results/recommendations_2025-09-22T11-24-53.json');
+                recommendationsData = await response.json();
+                renderAssistants();
+            } catch (error) {
+                console.error('Ошибка загрузки данных:', error);
+                document.getElementById('assistants-container').innerHTML =
+                    '<div style="text-align: center; padding: 2rem; color: #ef4444;">❌ Ошибка загрузки данных</div>';
+            }
+        }
+
+        function togglePrompt(assistantId, type) {
+            const originalEl = document.getElementById(`prompt-original-${assistantId}`);
+            const recommendedEl = document.getElementById(`prompt-recommended-${assistantId}`);
+            const originalBtn = document.getElementById(`btn-original-${assistantId}`);
+            const recommendedBtn = document.getElementById(`btn-recommended-${assistantId}`);
+
+            if (type === 'original') {
+                originalEl.style.display = 'block';
+                recommendedEl.style.display = 'none';
+                originalBtn.classList.add('active');
+                recommendedBtn.classList.remove('active');
+            } else {
+                originalEl.style.display = 'none';
+                recommendedEl.style.display = 'block';
+                originalBtn.classList.remove('active');
+                recommendedBtn.classList.add('active');
+            }
+        }
+
+        function highlightDifferences(original, recommended) {
+            // Простое выделение различий - можно улучшить алгоритмом diff
+            const originalLines = original.split('\n');
+            const recommendedLines = recommended.split('\n');
+
+            let result = '';
+            for (let i = 0; i < Math.max(originalLines.length, recommendedLines.length); i++) {
+                const origLine = originalLines[i] || '';
+                const recLine = recommendedLines[i] || '';
+
+                if (origLine !== recLine && recLine) {
+                    result += `<span class="differences">${recLine}</span>\n`;
+                } else {
+                    result += `${recLine}\n`;
+                }
+            }
+            return result;
+        }
+
+        function renderAssistants() {
+            if (!recommendationsData) return;
+
+            const container = document.getElementById('assistants-container');
+            let html = '';
+
+            Object.entries(recommendationsData.recommendations).forEach(([id, data]) => {
+                const perfData = data.current_performance;
+                const recData = data.recommendations;
+                const executiveSummary = recData.executive_summary;
+
+                html += `
+                    <div class="assistant-card">
+                        <div class="assistant-header">
+                            <div class="assistant-name">${data.assistant_name}</div>
+                            <div class="qci-badge">
+                                QCI: ${executiveSummary.current_qci} → ${executiveSummary.target_qci}
+                            </div>
+                        </div>
+
+                        <div class="assistant-content">
+                            <div class="performance-metrics">
+                                <div class="perf-metric">
+                                    <div class="perf-value">${perfData.total_calls}</div>
+                                    <div>Всего звонков</div>
+                                </div>
+                                <div class="perf-metric">
+                                    <div class="perf-value">$${perfData.total_cost.toFixed(2)}</div>
+                                    <div>Общая стоимость</div>
+                                </div>
+                                <div class="perf-metric">
+                                    <div class="perf-value">${(perfData.success_rate * 100).toFixed(1)}%</div>
+                                    <div>Успешность</div>
+                                </div>
+                            </div>
+
+                            <div class="improvement-potential">
+                                <div>💡 Потенциал улучшения</div>
+                                <div class="improvement-value">${executiveSummary.improvement_potential}</div>
+                                <div>Основной фокус: ${executiveSummary.primary_focus_area}</div>
+                            </div>
+
+                            <div class="prompt-section">
+                                <h3>📝 Сравнение промптов</h3>
+                                <div class="prompt-toggle">
+                                    <button class="toggle-btn active" id="btn-original-${id}"
+                                            onclick="togglePrompt('${id}', 'original')">
+                                        Текущий промпт
+                                    </button>
+                                    <button class="toggle-btn" id="btn-recommended-${id}"
+                                            onclick="togglePrompt('${id}', 'recommended')">
+                                        Рекомендуемый промпт
+                                    </button>
+                                </div>
+
+                                <div class="prompt-content prompt-original" id="prompt-original-${id}">
+${recData.original_prompt || 'Промпт не найден'}
+                                </div>
+
+                                <div class="prompt-content prompt-recommended" id="prompt-recommended-${id}">
+${highlightDifferences(recData.original_prompt || '', recData.recommended_prompt || '')}
+                                </div>
+                            </div>
+
+                            <div class="recommendations-sidebar">
+                                <h3>🎯 Ключевые рекомендации</h3>
+                                ${recData.hormozi_recommendations ? recData.hormozi_recommendations.slice(0, 5).map(rec => `
+                                    <div class="recommendation-item">
+                                        <div class="recommendation-title">${rec.category || 'Общее'}</div>
+                                        <div>${rec.recommendation || rec}</div>
+                                    </div>
+                                `).join('') : '<div>Рекомендации не найдены</div>'}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Загрузка данных при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
