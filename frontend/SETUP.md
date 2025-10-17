@@ -174,7 +174,7 @@ SELECT * FROM get_timeline_data(
   NULL,
   NOW() - INTERVAL '7 days',
   NOW(),
-  'daily'
+  'day'
 );
 
 -- Тест списка звонков

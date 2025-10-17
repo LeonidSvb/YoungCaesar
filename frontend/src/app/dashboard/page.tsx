@@ -25,7 +25,7 @@ export default async function DashboardPage() {
       p_assistant_id: null,
       p_date_from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
       p_date_to: new Date().toISOString(),
-      p_granularity: 'daily',
+      p_granularity: 'day',
     }
   );
 
