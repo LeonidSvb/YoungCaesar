@@ -2,11 +2,10 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
 const { createClient } = require('@supabase/supabase-js');
 const { randomUUID } = require('crypto');
+const VapiClient = require('../../shared/api/vapi_client');
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-const VAPI_API_KEY = process.env.VAPI_API_KEY;
-const VAPI_BASE_URL = process.env.VAPI_BASE_URL || 'https://api.vapi.ai';
 
 const DEFAULT_CONFIG = {
   SYNC_MODE: 'auto',
@@ -20,6 +19,7 @@ class VapiSupabaseSync {
   constructor(config = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
     this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    this.vapi = new VapiClient();
     this.startTime = Date.now();
     this.stats = {
       calls_fetched: 0,
@@ -84,23 +84,13 @@ class VapiSupabaseSync {
   async fetchVapiCalls(startDate, endDate) {
     this.log(`Fetching calls from VAPI (${startDate} to ${endDate})...`);
 
-    const response = await fetch(
-      `${VAPI_BASE_URL}/call?createdAtGt=${startDate}&createdAtLt=${endDate}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${VAPI_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    const startISO = `${startDate}T00:00:00.000Z`;
+    const endISO = `${endDate}T23:59:59.999Z`;
 
-    if (!response.ok) {
-      throw new Error(`VAPI API error: ${response.status}`);
-    }
+    const calls = await this.vapi.getAllCalls(startISO, endISO);
 
-    const calls = await response.json();
     this.stats.calls_fetched = calls.length;
-    this.log(`Fetched ${calls.length} calls from VAPI`);
+    this.log(`Fetched ${calls.length} calls from VAPI (with pagination)`);
 
     return calls;
   }
@@ -108,18 +98,7 @@ class VapiSupabaseSync {
   async fetchVapiAssistants() {
     this.log('Fetching assistants from VAPI...');
 
-    const response = await fetch(`${VAPI_BASE_URL}/assistant`, {
-      headers: {
-        'Authorization': `Bearer ${VAPI_API_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`VAPI API error: ${response.status}`);
-    }
-
-    const assistants = await response.json();
+    const assistants = await this.vapi.getAssistants();
     this.log(`Fetched ${assistants.length} assistants`);
 
     return assistants;
