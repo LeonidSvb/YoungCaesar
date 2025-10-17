@@ -117,3 +117,6 @@ build/
 
 # VAPI call samples with sensitive data
 scripts/discovery/*vapi-call*.json
+
+# Discovery temp scripts
+scripts/discovery/temp/
