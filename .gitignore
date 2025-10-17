@@ -114,3 +114,6 @@ test-results/
 # Build artifacts
 dist/
 build/
+
+# VAPI call samples with sensitive data
+scripts/discovery/*vapi-call*.json
