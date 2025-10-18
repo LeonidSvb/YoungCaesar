@@ -82,6 +82,7 @@ function getConfig(runtimeParams = null) {
 // ============================================================
 
 const { createClient } = require('@supabase/supabase-js');
+const { createLogger } = require('../shared/logger');
 const fs = require('fs');
 const path = require('path');
 
@@ -89,6 +90,7 @@ class QciSupabaseSync {
     constructor(config = null) {
         this.config = config || DEFAULT_CONFIG;
         this.startTime = Date.now();
+        this.logger = createLogger('qci-sync');
 
         // Initialize Supabase client
         this.supabase = createClient(
@@ -114,10 +116,9 @@ class QciSupabaseSync {
         this.callsCache = new Map();
     }
 
-    log(message, force = false) {
+    log(message, data = {}, force = false) {
         if (this.config.OUTPUT.VERBOSE || force) {
-            const timestamp = new Date().toISOString().substr(11, 8);
-            console.log(`[${timestamp}] ${message}`);
+            this.logger.info(message, data);
         }
     }
 
@@ -135,7 +136,7 @@ class QciSupabaseSync {
             this.log('✅ Supabase connection successful');
             return true;
         } catch (error) {
-            this.log(`❌ Supabase connection failed: ${error.message}`, true);
+            this.logger.error('Supabase connection failed', error);
             return false;
         }
     }
@@ -430,7 +431,7 @@ class QciSupabaseSync {
             this.log(`💾 Results saved to: ${filename}`);
 
         } catch (error) {
-            this.log(`⚠️ Failed to save results: ${error.message}`);
+            this.logger.warn('Failed to save results', { error: error.message });
         }
     }
 
@@ -461,7 +462,7 @@ class QciSupabaseSync {
             return results;
 
         } catch (error) {
-            this.log(`❌ QCI sync failed: ${error.message}`, true);
+            this.logger.error('QCI sync failed', error);
             throw error;
         }
     }
@@ -504,12 +505,13 @@ async function syncQciToSupabase(runtimeParams = null) {
 
 // CLI execution
 if (require.main === module) {
+    const cliLogger = createLogger('qci-sync-cli');
     syncQciToSupabase()
         .then(results => {
             process.exit(results.success ? 0 : 1);
         })
         .catch(error => {
-            console.error('❌ QCI sync failed:', error.message);
+            cliLogger.error('QCI sync failed', error);
             process.exit(1);
         });
 }

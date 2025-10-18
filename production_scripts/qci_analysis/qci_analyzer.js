@@ -80,11 +80,13 @@ const fs = require('fs');
 const path = require('path');
 const OpenAI = require('openai');
 const { loadPrompt } = require('../shared/prompt_parser');
+const { createLogger } = require('../shared/logger');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 class QCIAnalyzer {
     constructor() {
+        this.logger = createLogger('qci-analyzer');
         this.results = [];
         this.stats = {
             processed: 0,
@@ -106,14 +108,14 @@ class QCIAnalyzer {
         if (CONFIG.TESTING.ENABLED) {
             if (CONFIG.TESTING.SPECIFIC_CALL_ID) {
                 calls = calls.filter(c => c.id === CONFIG.TESTING.SPECIFIC_CALL_ID);
-                console.log(`🎯 SPECIFIC CALL TEST: ${CONFIG.TESTING.SPECIFIC_CALL_ID.substring(0,8)}`);
+                this.logger.info('SPECIFIC CALL TEST', { call_id: CONFIG.TESTING.SPECIFIC_CALL_ID.substring(0,8) });
             } else {
                 calls = calls.slice(0, CONFIG.TESTING.BATCH_SIZE);
-                console.log(`🧪 TEST MODE: Analyzing ${calls.length} longest calls`);
+                this.logger.info('TEST MODE', { analyzing_calls: calls.length, mode: 'longest' });
             }
         }
 
-        console.log(`📊 Loaded ${calls.length} calls for analysis`);
+        this.logger.info('Loaded calls for analysis', { total_calls: calls.length });
         return calls;
     }
 
@@ -160,12 +162,16 @@ class QCIAnalyzer {
 
         } catch (error) {
             if (retryCount < CONFIG.PROCESSING.RETRY_ATTEMPTS) {
-                console.log(`🔄 Retry ${retryCount + 1}/${CONFIG.PROCESSING.RETRY_ATTEMPTS} for ${callData.id.substring(0, 8)}...`);
+                this.logger.warn('Retrying call analysis', {
+                    retry: retryCount + 1,
+                    max_retries: CONFIG.PROCESSING.RETRY_ATTEMPTS,
+                    call_id: callData.id.substring(0, 8)
+                });
                 await new Promise(resolve => setTimeout(resolve, CONFIG.PROCESSING.RETRY_DELAY * (retryCount + 1)));
                 return this.analyzeCall(callData, retryCount + 1);
             }
 
-            console.log(`❌ Failed ${callData.id.substring(0, 8)}: ${error.message}`);
+            this.logger.error(`Failed to analyze call ${callData.id.substring(0, 8)}`, error);
             this.stats.failed++;
             this.stats.errors.push({ id: callData.id, error: error.message });
             return null;
@@ -173,7 +179,7 @@ class QCIAnalyzer {
     }
 
     async processBatch(calls) {
-        console.log(`\n🚀 Processing ${calls.length} calls with concurrency ${CONFIG.PROCESSING.CONCURRENCY}...`);
+        this.logger.info('Processing calls batch', { total_calls: calls.length, concurrency: CONFIG.PROCESSING.CONCURRENCY });
 
         const results = [];
 
@@ -186,11 +192,14 @@ class QCIAnalyzer {
                 if (result) {
                     results.push(result);
                     this.stats.processed++;
-                    console.log(`✅ ${result.call_id.substring(0, 8)}: QCI ${result.qci_total}/100`);
+                    this.logger.info('Call analyzed', { call_id: result.call_id.substring(0, 8), qci_score: result.qci_total });
                 }
             });
 
-            console.log(`📊 Progress: ${Math.min(i + CONFIG.PROCESSING.CONCURRENCY, calls.length)}/${calls.length}`);
+            this.logger.info('Batch progress', {
+                processed: Math.min(i + CONFIG.PROCESSING.CONCURRENCY, calls.length),
+                total: calls.length
+            });
 
             if (i + CONFIG.PROCESSING.CONCURRENCY < calls.length) {
                 await new Promise(resolve => setTimeout(resolve, CONFIG.PROCESSING.BATCH_DELAY));
@@ -248,18 +257,19 @@ class QCIAnalyzer {
 
         fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
 
-        console.log(`\n🎉 ANALYSIS COMPLETE`);
-        console.log(`📊 Analyzed: ${this.results.length} calls`);
-        console.log(`⭐ Average QCI: ${avgQCI.toFixed(1)}/100`);
-        console.log(`✅ Success rate: ${data.stats.successRate}%`);
-        console.log(`💰 Total cost: $${this.stats.totalCost.toFixed(4)}`);
-        console.log(`⏱️ Time: ${data.summary.total_time}`);
-        console.log(`📁 Results: ${filename}`);
+        this.logger.info('ANALYSIS COMPLETE', {
+            analyzed_calls: this.results.length,
+            avg_qci: parseFloat(avgQCI.toFixed(1)),
+            success_rate: parseFloat(data.stats.successRate),
+            total_cost: parseFloat(this.stats.totalCost.toFixed(4)),
+            time: data.summary.total_time,
+            results_file: filename
+        });
 
         // Update latest file link for dashboard
         const latestPath = path.join(__dirname, CONFIG.OUTPUT.RESULTS_DIR, 'qci_full_calls_with_assistants_latest.json');
         fs.writeFileSync(latestPath, JSON.stringify(data, null, 2));
-        console.log(`📊 Dashboard link updated: qci_full_calls_with_assistants_latest.json`);
+        this.logger.info('Dashboard link updated', { file: 'qci_full_calls_with_assistants_latest.json' });
 
         // Generate dashboards
         const dashboardTemplatePath = path.join(__dirname, 'dashboard', 'qci_dashboard_template.html');
@@ -268,16 +278,18 @@ class QCIAnalyzer {
         if (fs.existsSync(dashboardTemplatePath)) {
             // Interactive dashboard (needs local server)
             fs.copyFileSync(dashboardTemplatePath, dashboardOutputPath);
-            console.log(`📈 Interactive dashboard: dashboard/qci_dashboard_${timestamp}.html`);
-            console.log(`🌐 Local server: http://localhost:8080 (run: node ../../simple_server.js)`);
+            this.logger.info('Interactive dashboard created', {
+                file: `dashboard/qci_dashboard_${timestamp}.html`,
+                server: 'http://localhost:8080'
+            });
 
             // Static dashboard (GitHub Pages ready)
             try {
                 const createStaticDashboard = require('./create_static_dashboard');
                 createStaticDashboard();
-                console.log(`📊 Static dashboard created for GitHub Pages`);
+                this.logger.info('Static dashboard created for GitHub Pages');
             } catch (error) {
-                console.log(`⚠️ Could not create static dashboard: ${error.message}`);
+                this.logger.warn('Could not create static dashboard', { error: error.message });
             }
         }
 
@@ -293,10 +305,10 @@ async function main() {
         await analyzer.processBatch(calls);
         const resultFile = await analyzer.saveResults();
 
-        console.log(`\n📍 Results saved to: ${resultFile}`);
+        analyzer.logger.info('Results saved', { file_path: resultFile });
 
     } catch (error) {
-        console.error('❌ Analysis failed:', error.message);
+        analyzer.logger.error('Analysis failed', error);
         process.exit(1);
     }
 }

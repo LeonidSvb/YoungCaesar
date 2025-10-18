@@ -1,86 +1,107 @@
-#!/usr/bin/env node
-/**
- * LOGGER - Standardized Logging Utility
- *
- * PURPOSE: Consistent logging across all modules with timestamps and colors
- * USAGE: const logger = require('./shared/logger');
- * OUTPUT: Formatted console logs with timestamps
- *
- * AUTHOR: VAPI Team
- * CREATED: 2025-09-19
- * VERSION: 1.0.0
- */
+const fs = require('fs');
+const path = require('path');
 
-/**
- * Simple logger with consistent formatting across modules
- */
 class Logger {
-    constructor(moduleName = 'VAPI') {
-        this.moduleName = moduleName.toUpperCase();
+    constructor(moduleName = 'vapi') {
+        this.moduleName = moduleName;
+        this.logsDir = path.join(process.cwd(), 'logs');
+        this.errorsDir = path.join(this.logsDir, 'errors');
+        this.ensureDirectories();
     }
 
-    formatMessage(level, message) {
-        const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
-        return `[${timestamp}] [${this.moduleName}] ${level}: ${message}`;
-    }
-
-    info(message) {
-        console.log(`📊 ${this.formatMessage('INFO', message)}`);
-    }
-
-    success(message) {
-        console.log(`✅ ${this.formatMessage('SUCCESS', message)}`);
-    }
-
-    warning(message) {
-        console.log(`⚠️ ${this.formatMessage('WARNING', message)}`);
-    }
-
-    error(message) {
-        console.error(`❌ ${this.formatMessage('ERROR', message)}`);
-    }
-
-    debug(message) {
-        if (process.env.DEBUG === 'true') {
-            console.log(`🔍 ${this.formatMessage('DEBUG', message)}`);
+    ensureDirectories() {
+        if (!fs.existsSync(this.logsDir)) {
+            fs.mkdirSync(this.logsDir, { recursive: true });
+        }
+        if (!fs.existsSync(this.errorsDir)) {
+            fs.mkdirSync(this.errorsDir, { recursive: true });
         }
     }
 
-    progress(message) {
-        console.log(`🔄 ${this.formatMessage('PROGRESS', message)}`);
+    getDateString() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 
-    cost(amount, currency = 'USD') {
-        console.log(`💰 ${this.formatMessage('COST', `$${amount.toFixed(4)} ${currency}`)}`);
+    getLogFilePath() {
+        return path.join(this.logsDir, `${this.getDateString()}.log`);
     }
 
-    timing(duration, unit = 'seconds') {
-        console.log(`⏱️ ${this.formatMessage('TIMING', `${duration} ${unit}`)}`);
+    getErrorLogFilePath() {
+        return path.join(this.errorsDir, `${this.getDateString()}.log`);
+    }
+
+    formatLogEntry(level, message, data = {}) {
+        return {
+            timestamp: new Date().toISOString(),
+            module: this.moduleName,
+            level: level.toUpperCase(),
+            message,
+            ...data
+        };
+    }
+
+    writeLog(level, message, data = {}) {
+        const logEntry = this.formatLogEntry(level, message, data);
+        const logLine = JSON.stringify(logEntry) + '\n';
+
+        fs.appendFileSync(this.getLogFilePath(), logLine, 'utf8');
+
+        if (level.toUpperCase() === 'ERROR') {
+            fs.appendFileSync(this.getErrorLogFilePath(), logLine, 'utf8');
+        }
+
+        if (process.env.DEBUG === 'true' || level.toUpperCase() === 'ERROR') {
+            console.log(logLine.trim());
+        }
+    }
+
+    info(message, data = {}) {
+        this.writeLog('INFO', message, data);
+    }
+
+    error(message, errorObj = null) {
+        const data = {};
+        if (errorObj) {
+            if (errorObj instanceof Error) {
+                data.error_type = errorObj.name;
+                data.error_message = errorObj.message;
+                data.stack = errorObj.stack;
+            } else if (typeof errorObj === 'object') {
+                data.error = errorObj;
+            } else {
+                data.error = String(errorObj);
+            }
+        }
+        this.writeLog('ERROR', message, data);
+    }
+
+    warn(message, data = {}) {
+        this.writeLog('WARN', message, data);
+    }
+
+    debug(message, data = {}) {
+        if (process.env.DEBUG === 'true') {
+            this.writeLog('DEBUG', message, data);
+        }
     }
 }
 
-/**
- * Create a logger instance for a specific module
- * @param {string} moduleName - Name of the module using the logger
- * @returns {Logger} - Logger instance
- */
 function createLogger(moduleName) {
     return new Logger(moduleName);
 }
 
-// Default logger instance
-const defaultLogger = new Logger('VAPI');
+const defaultLogger = new Logger('vapi');
 
 module.exports = {
     Logger,
     createLogger,
     logger: defaultLogger,
     info: defaultLogger.info.bind(defaultLogger),
-    success: defaultLogger.success.bind(defaultLogger),
-    warning: defaultLogger.warning.bind(defaultLogger),
     error: defaultLogger.error.bind(defaultLogger),
-    debug: defaultLogger.debug.bind(defaultLogger),
-    progress: defaultLogger.progress.bind(defaultLogger),
-    cost: defaultLogger.cost.bind(defaultLogger),
-    timing: defaultLogger.timing.bind(defaultLogger)
+    warn: defaultLogger.warn.bind(defaultLogger),
+    debug: defaultLogger.debug.bind(defaultLogger)
 };

@@ -33,15 +33,15 @@ export function MetricCard({
 
   return (
     <Card className={className}>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium text-gray-600">
+      <CardHeader className="pb-1 pt-3 px-3">
+        <CardTitle className="text-xs font-medium text-gray-600">
           {title}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{formatValue(value)}</div>
+      <CardContent className="px-3 pb-3">
+        <div className="text-xl font-bold">{formatValue(value)}</div>
         {subtitle && (
-          <p className="text-xs text-gray-500 mt-1">{subtitle}</p>
+          <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>
         )}
       </CardContent>
     </Card>

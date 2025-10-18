@@ -80,7 +80,7 @@ export function CallsTable() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Calls</SelectItem>
-              <SelectItem value="quality">Quality Only (>30s)</SelectItem>
+              <SelectItem value="quality">Quality Only ({'>'}30s)</SelectItem>
               <SelectItem value="excellent">Excellent Only</SelectItem>
               <SelectItem value="with_qci">With QCI Analysis</SelectItem>
               <SelectItem value="with_transcript">With Transcript</SelectItem>

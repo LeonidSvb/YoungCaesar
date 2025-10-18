@@ -3,6 +3,7 @@ require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
 const { createClient } = require('@supabase/supabase-js');
 const { randomUUID } = require('crypto');
 const VapiClient = require('../../shared/api/vapi_client');
+const { createLogger } = require('../../shared/logger');
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
@@ -21,6 +22,7 @@ class VapiSupabaseSync {
     this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
     this.vapi = new VapiClient();
     this.startTime = Date.now();
+    this.logger = createLogger('vapi-sync');
     this.stats = {
       calls_fetched: 0,
       calls_inserted: 0,
@@ -31,9 +33,9 @@ class VapiSupabaseSync {
     };
   }
 
-  log(message) {
+  log(message, data = {}) {
     if (this.config.VERBOSE) {
-      console.log(`[${new Date().toISOString().split('T')[1].split('.')[0]}] ${message}`);
+      this.logger.info(message, data);
     }
   }
 
@@ -72,7 +74,7 @@ class VapiSupabaseSync {
         };
       }
     } catch (error) {
-      this.log(`Auto-detect failed: ${error.message}, using FULL mode`);
+      this.logger.error('Auto-detect failed, using FULL mode', error);
       return {
         mode: 'full',
         startDate: this.config.START_DATE,
@@ -167,7 +169,7 @@ class VapiSupabaseSync {
         });
 
       if (error) {
-        this.log(`Batch ${Math.floor(i / this.config.BATCH_SIZE) + 1} FAILED: ${error.message}`);
+        this.logger.error(`Batch ${Math.floor(i / this.config.BATCH_SIZE) + 1} FAILED`, error);
         this.stats.errors += batch.length;
       } else {
         inserted += batchInserts;
@@ -197,9 +199,9 @@ class VapiSupabaseSync {
       });
 
     if (error) {
-      this.log(`Assistants sync FAILED: ${error.message}`);
+      this.logger.error('Assistants sync FAILED', error);
       this.stats.errors += assistants.length;
-    } else {
+    } else{
       this.stats.assistants_synced = assistants.length;
       this.log(`Assistants synced: ${assistants.length}`);
     }
@@ -244,7 +246,7 @@ class VapiSupabaseSync {
           this.log(`Prompt change detected for ${assistant.name} (v${nextVersion})`);
         }
       } catch (error) {
-        this.log(`Error versioning prompt for ${assistant.id}: ${error.message}`);
+        this.logger.error(`Error versioning prompt for ${assistant.id}`, error);
       }
     }
   }
@@ -323,7 +325,7 @@ class VapiSupabaseSync {
       };
 
     } catch (error) {
-      this.log(`SYNC FAILED: ${error.message}`);
+      this.logger.error('SYNC FAILED', error);
 
       if (logId) {
         await this.supabase
