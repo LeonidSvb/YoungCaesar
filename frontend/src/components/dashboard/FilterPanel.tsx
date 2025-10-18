@@ -10,47 +10,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 
 type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all';
+type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
 
 interface FilterPanelProps {
   onTimeRangeChange: (range: TimeRange) => void;
   onAssistantChange: (assistantId: string) => void;
-  onFilterChange: (filters: {
-    hasTranscript: boolean;
-    hasQCI: boolean;
-    quality: boolean;
-  }) => void;
+  onQualityFilterChange: (filter: QualityFilter) => void;
 }
 
 export function FilterPanel({
   onTimeRangeChange,
   onAssistantChange,
-  onFilterChange,
+  onQualityFilterChange,
 }: FilterPanelProps) {
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30d');
-  const [hasTranscript, setHasTranscript] = useState(true);
-  const [hasQCI, setHasQCI] = useState(false);
-  const [quality, setQuality] = useState(false);
+  const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
 
   const handleTimeRangeClick = (range: TimeRange) => {
     setSelectedTimeRange(range);
     onTimeRangeChange(range);
   };
 
-  const handleFilterChange = (
-    filter: 'hasTranscript' | 'hasQCI' | 'quality',
-    value: boolean
-  ) => {
-    const newFilters = { hasTranscript, hasQCI, quality, [filter]: value };
-
-    if (filter === 'hasTranscript') setHasTranscript(value);
-    if (filter === 'hasQCI') setHasQCI(value);
-    if (filter === 'quality') setQuality(value);
-
-    onFilterChange(newFilters);
+  const handleQualityFilterChange = (value: QualityFilter) => {
+    setQualityFilter(value);
+    onQualityFilterChange(value);
   };
 
   const timeRanges: { value: TimeRange; label: string }[] = [
@@ -119,54 +106,42 @@ export function FilterPanel({
           </Select>
         </div>
 
-        {/* Additional Filters */}
-        <div className="flex items-end gap-3">
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="hasTranscript"
-              checked={hasTranscript}
-              onCheckedChange={(checked) =>
-                handleFilterChange('hasTranscript', checked as boolean)
-              }
-            />
-            <Label
-              htmlFor="hasTranscript"
-              className="text-sm font-normal cursor-pointer"
-            >
-              Has Transcript
+        {/* Quality Filter */}
+        <div className="flex items-end">
+          <div className="space-y-1">
+            <Label className="block text-sm font-medium text-gray-700">
+              Call Filter
             </Label>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="hasQCI"
-              checked={hasQCI}
-              onCheckedChange={(checked) =>
-                handleFilterChange('hasQCI', checked as boolean)
-              }
-            />
-            <Label
-              htmlFor="hasQCI"
-              className="text-sm font-normal cursor-pointer"
+            <RadioGroup
+              value={qualityFilter}
+              onValueChange={handleQualityFilterChange}
+              className="flex gap-4"
             >
-              Has QCI
-            </Label>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="quality"
-              checked={quality}
-              onCheckedChange={(checked) =>
-                handleFilterChange('quality', checked as boolean)
-              }
-            />
-            <Label
-              htmlFor="quality"
-              className="text-sm font-normal cursor-pointer"
-            >
-              &gt;30s
-            </Label>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="all" id="filter-all" />
+                <Label htmlFor="filter-all" className="text-sm font-normal cursor-pointer">
+                  All Calls
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="quality" id="filter-quality" />
+                <Label htmlFor="filter-quality" className="text-sm font-normal cursor-pointer">
+                  &gt;30s
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="with_transcript" id="filter-transcript" />
+                <Label htmlFor="filter-transcript" className="text-sm font-normal cursor-pointer">
+                  Has Transcript
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="with_qci" id="filter-qci" />
+                <Label htmlFor="filter-qci" className="text-sm font-normal cursor-pointer">
+                  Has QCI
+                </Label>
+              </div>
+            </RadioGroup>
           </div>
         </div>
       </div>

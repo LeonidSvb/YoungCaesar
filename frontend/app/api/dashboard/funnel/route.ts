@@ -43,7 +43,10 @@ export async function GET(request: NextRequest) {
 
     // TODO: Create get_sales_funnel() RPC function in Supabase
     // For now, using direct query
-    let query = supabase.from('vapi_calls_raw').select('duration_seconds, vapi_success_evaluation, raw_json');
+    let query = supabase
+      .from('vapi_calls_raw')
+      .select('duration_seconds, vapi_success_evaluation, raw_json')
+      .limit(100000); // Remove default 1000 limit
 
     if (assistantId) {
       query = query.eq('assistant_id', assistantId);
@@ -69,10 +72,22 @@ export async function GET(request: NextRequest) {
     const totalCalls = calls?.length || 0;
     const qualityCalls = calls?.filter(c => (c.duration_seconds || 0) > 30).length || 0;
     const engagedCalls = calls?.filter(c => (c.duration_seconds || 0) > 60).length || 0;
-    const meetingBooked = calls?.filter(c =>
-      c.vapi_success_evaluation?.toLowerCase().includes('booked') ||
-      c.vapi_success_evaluation?.toLowerCase().includes('meeting outcome: yes')
-    ).length || 0;
+
+    // Meeting Booked: check if calendar tool was called
+    const meetingBooked = calls?.filter(c => {
+      try {
+        const messages = c.raw_json?.artifact?.messages || [];
+        return messages.some((msg: any) => {
+          const toolCalls = msg.toolCalls || [];
+          return toolCalls.some((tool: any) => {
+            const toolName = tool.function?.name?.toLowerCase() || '';
+            return toolName.includes('calendar') || toolName.includes('book') || toolName.includes('schedule');
+          });
+        });
+      } catch (e) {
+        return false;
+      }
+    }).length || 0;
 
     const stages = [
       {

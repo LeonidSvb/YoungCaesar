@@ -245,9 +245,11 @@ export function CallsTable({
                     </td>
                     <td className="p-3">
                       <div className="flex gap-1">
-                        <Badge className={getQualityBadgeColor(call.quality)}>
-                          {call.quality}
-                        </Badge>
+                        {call.quality && (
+                          <Badge className={getQualityBadgeColor(call.quality)}>
+                            {call.quality}
+                          </Badge>
+                        )}
                         {call.has_qci && (
                           <Badge variant="outline" className="text-xs">
                             QCI

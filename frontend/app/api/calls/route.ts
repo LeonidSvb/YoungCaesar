@@ -47,8 +47,9 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
+    // Fix: Convert 'all' string to null for UUID field
     const { data: calls, error } = await supabase.rpc('get_calls_list', {
-      p_assistant_id: assistantId || null,
+      p_assistant_id: (assistantId && assistantId !== 'all') ? assistantId : null,
       p_date_from: dateFrom || null,
       p_date_to: dateTo || null,
       p_quality_filter: qualityFilter,

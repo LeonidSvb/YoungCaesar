@@ -9,15 +9,12 @@ import { CallsTable } from '@/components/dashboard/CallsTable';
 import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
 
 type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all';
+type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
 
 export default function DashboardPage() {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [assistantId, setAssistantId] = useState<string>('all');
-  const [additionalFilters, setAdditionalFilters] = useState({
-    hasTranscript: true,
-    hasQCI: false,
-    quality: false,
-  });
+  const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -75,14 +72,6 @@ export default function DashboardPage() {
 
   const { from: dateFrom, to: dateTo } = getDateRange();
 
-  // Build quality filter string for API
-  const getQualityFilter = () => {
-    if (additionalFilters.quality) return 'quality';
-    if (additionalFilters.hasQCI) return 'with_qci';
-    if (additionalFilters.hasTranscript) return 'with_transcript';
-    return 'all';
-  };
-
   const handleCallClick = (callId: string) => {
     setSelectedCallId(callId);
     setSidebarOpen(true);
@@ -107,7 +96,7 @@ export default function DashboardPage() {
       <FilterPanel
         onTimeRangeChange={setTimeRange}
         onAssistantChange={setAssistantId}
-        onFilterChange={setAdditionalFilters}
+        onQualityFilterChange={setQualityFilter}
       />
 
       {/* Metrics Grid */}
@@ -137,7 +126,7 @@ export default function DashboardPage() {
         assistantId={assistantId === 'all' ? null : assistantId}
         dateFrom={dateFrom}
         dateTo={dateTo}
-        qualityFilter={getQualityFilter()}
+        qualityFilter={qualityFilter}
         onCallClick={handleCallClick}
       />
 
