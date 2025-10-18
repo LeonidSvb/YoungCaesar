@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPI Analytics Dashboard - Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; }
+
+        /* Sidebar animation */
+        #callDetailsSidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #callDetailsSidebar.open {
+            transform: translateX(0);
+        }
+
+        /* Custom scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Main Container -->
+<div class="flex h-screen overflow-hidden">
+
+    <!-- Main Content -->
+    <div id="mainContent" class="flex-1 overflow-y-auto custom-scroll transition-all duration-300">
+        <div class="max-w-7xl mx-auto p-6">
+
+            <!-- Header -->
+            <header class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-900">VAPI Analytics Dashboard</h1>
+                <p class="text-gray-600 mt-1">Call performance tracking and QCI analysis</p>
+            </header>
+
+            <!-- Filters Panel -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+                <div class="flex flex-wrap gap-4">
+
+                    <!-- Time Range Filter -->
+                    <div class="flex-1 min-w-[200px]">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Time Range</label>
+                        <div class="flex gap-2">
+                            <button onclick="selectTimeRange('today')" class="time-btn px-3 py-2 text-sm border rounded hover:bg-gray-50">Today</button>
+                            <button onclick="selectTimeRange('yesterday')" class="time-btn px-3 py-2 text-sm border rounded hover:bg-gray-50">Yesterday</button>
+                            <button onclick="selectTimeRange('7d')" class="time-btn px-3 py-2 text-sm border rounded hover:bg-gray-50">7D</button>
+                            <button onclick="selectTimeRange('30d')" class="time-btn px-3 py-2 text-sm border rounded bg-blue-50 border-blue-500 text-blue-700">30D</button>
+                            <button onclick="selectTimeRange('90d')" class="time-btn px-3 py-2 text-sm border rounded hover:bg-gray-50">90D</button>
+                            <button onclick="selectTimeRange('all')" class="time-btn px-3 py-2 text-sm border rounded hover:bg-gray-50">All</button>
+                        </div>
+                    </div>
+
+                    <!-- Assistant Filter -->
+                    <div class="w-64">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Assistant</label>
+                        <select id="assistantFilter" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+                            <option value="all">All Assistants</option>
+                            <option value="35cd1a47">BIESSE - MS</option>
+                            <option value="10f76383">QC Advisor</option>
+                            <option value="8a51eae6">Alex1</option>
+                            <option value="0eddf4db">YC Assistant | HOT</option>
+                            <option value="8cd7551f">Riley</option>
+                        </select>
+                    </div>
+
+                    <!-- Additional Filters -->
+                    <div class="flex items-end gap-3">
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" class="mr-2 rounded" checked>
+                            <span>Has Transcript</span>
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" class="mr-2 rounded">
+                            <span>Has QCI</span>
+                        </label>
+                        <label class="flex items-center text-sm">
+                            <input type="checkbox" class="mr-2 rounded">
+                            <span>>30s</span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+
+                <!-- Total Calls -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Total Calls</div>
+                    <div class="text-2xl font-bold text-gray-900">8,559</div>
+                    <div class="text-xs text-gray-500 mt-1">Last 30 days</div>
+                </div>
+
+                <!-- Quality Rate -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Quality Rate</div>
+                    <div class="text-2xl font-bold text-green-600">62.4%</div>
+                    <div class="text-xs text-gray-500 mt-1">5,342 calls >30s</div>
+                </div>
+
+                <!-- Avg Duration -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Avg Duration</div>
+                    <div class="text-2xl font-bold text-gray-900">42s</div>
+                    <div class="text-xs text-gray-500 mt-1">Per call</div>
+                </div>
+
+                <!-- Avg QCI Score -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Avg QCI Score</div>
+                    <div class="text-2xl font-bold text-blue-600">48.2</div>
+                    <div class="text-xs text-gray-500 mt-1">Out of 100</div>
+                </div>
+
+                <!-- Analyzed Calls -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Analyzed</div>
+                    <div class="text-2xl font-bold text-purple-600">918</div>
+                    <div class="text-xs text-gray-500 mt-1">QCI analyses</div>
+                </div>
+
+                <!-- Active Assistants -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Assistants</div>
+                    <div class="text-2xl font-bold text-gray-900">13</div>
+                    <div class="text-xs text-gray-500 mt-1">Active</div>
+                </div>
+
+            </div>
+
+            <!-- Sales Funnel -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Sales Funnel</h2>
+
+                <div class="flex flex-col items-center space-y-2 max-w-xl mx-auto">
+
+                    <!-- Stage 1: All Calls -->
+                    <div class="w-full bg-blue-50 border border-blue-200 rounded-lg p-3">
+                        <div class="text-center">
+                            <div class="text-xs font-medium text-blue-900 mb-1">All Calls</div>
+                            <div class="text-2xl font-bold text-blue-900">8,559</div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Arrow -->
+                    <div class="flex flex-col items-center">
+                        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                        </svg>
+                        <div class="text-xs font-semibold text-gray-700">62.4%</div>
+                    </div>
+
+                    <!-- Stage 2: Quality Calls -->
+                    <div class="w-full bg-purple-50 border border-purple-200 rounded-lg p-3">
+                        <div class="text-center">
+                            <div class="text-xs font-medium text-purple-900 mb-1">Quality Calls (>30s)</div>
+                            <div class="text-2xl font-bold text-purple-900">5,342</div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Arrow -->
+                    <div class="flex flex-col items-center">
+                        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                        </svg>
+                        <div class="text-xs font-semibold text-gray-700">28.3%</div>
+                    </div>
+
+                    <!-- Stage 3: Engaged Calls -->
+                    <div class="w-full bg-green-50 border border-green-200 rounded-lg p-3">
+                        <div class="text-center">
+                            <div class="text-xs font-medium text-green-900 mb-1">Engaged Calls (>60s)</div>
+                            <div class="text-2xl font-bold text-green-900">1,512</div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Arrow -->
+                    <div class="flex flex-col items-center">
+                        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                        </svg>
+                        <div class="text-xs font-semibold text-gray-700">8.2%</div>
+                    </div>
+
+                    <!-- Stage 4: Meeting Booked -->
+                    <div class="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                        <div class="text-center">
+                            <div class="text-xs font-medium text-emerald-900 mb-1">Meeting Booked</div>
+                            <div class="text-2xl font-bold text-emerald-900">124</div>
+                        </div>
+                    </div>
+
+                    <!-- Overall Stats -->
+                    <div class="mt-3 pt-3 border-t border-gray-200 w-full">
+                        <div class="grid grid-cols-2 gap-3 text-center text-sm">
+                            <div>
+                                <div class="text-gray-500">Overall Conversion</div>
+                                <div class="font-bold text-gray-900">1.45%</div>
+                            </div>
+                            <div>
+                                <div class="text-gray-500">Pipeline</div>
+                                <div class="font-bold text-gray-900">1,388 active</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Call Analytics Chart -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Call Volume Analytics</h2>
+                    <div class="flex gap-2 text-sm">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" checked onchange="toggleChartLine('allCalls')">
+                            <span class="flex items-center">
+                                <span class="w-3 h-3 bg-blue-500 rounded-full mr-1"></span>
+                                All Calls
+                            </span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" checked onchange="toggleChartLine('analyzed')">
+                            <span class="flex items-center">
+                                <span class="w-3 h-3 bg-purple-500 rounded-full mr-1"></span>
+                                Analyzed
+                            </span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" checked onchange="toggleChartLine('quality')">
+                            <span class="flex items-center">
+                                <span class="w-3 h-3 bg-green-500 rounded-full mr-1"></span>
+                                Quality (>30s)
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div style="height: 300px;">
+                    <canvas id="callsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Calls Table -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Calls</h3>
+                            <p class="text-sm text-gray-600 mt-1">Last 30 days - 50 calls shown</p>
+                        </div>
+                        <select class="px-3 py-2 border rounded-md text-sm">
+                            <option>All Calls</option>
+                            <option>With QCI</option>
+                            <option>Quality Only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr>
+                                <th class="text-left p-3 font-medium text-gray-600">Date</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Duration</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Assistant</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Phone</th>
+                                <th class="text-left p-3 font-medium text-gray-600">QCI</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y" id="callsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Call Details Sidebar -->
+    <div id="callDetailsSidebar" class="fixed right-0 top-0 h-full w-96 bg-white border-l border-gray-200 shadow-2xl z-50 overflow-y-auto custom-scroll">
+        <div class="p-6">
+
+            <!-- Close Button -->
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-gray-900">Call Details</h2>
+                <button onclick="closeSidebar()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Audio Player -->
+            <div class="mb-6">
+                <div class="text-sm font-medium text-gray-700 mb-2">Audio Recording</div>
+                <audio controls class="w-full">
+                    <source src="" type="audio/wav">
+                    Your browser does not support audio playback.
+                </audio>
+            </div>
+
+            <!-- Transcript -->
+            <div class="mb-6">
+                <div class="text-sm font-medium text-gray-700 mb-2">Transcript</div>
+                <div class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-y-auto custom-scroll text-sm">
+                    <div class="space-y-2" id="transcriptContent">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- QCI Analysis -->
+            <div class="mb-6">
+                <button onclick="toggleSection('qci')" class="w-full flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                    <span>📊 QCI Analysis</span>
+                    <svg id="qciArrow" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+                <div id="qciSection" class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-center mb-4">
+                        <div class="text-3xl font-bold text-blue-600">45/100</div>
+                        <div class="text-xs text-gray-500">Total Score</div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Dynamics:</span>
+                            <span class="font-medium">12/30</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Objections:</span>
+                            <span class="font-medium">8/20</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Brand:</span>
+                            <span class="font-medium">10/20</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Outcome:</span>
+                            <span class="font-medium">15/30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coaching Tips -->
+            <div class="mb-6">
+                <button onclick="toggleSection('coaching')" class="w-full flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                    <span>💡 Coaching Tips</span>
+                    <svg id="coachingArrow" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+                <div id="coachingSection" class="hidden bg-gray-50 rounded-lg p-4">
+                    <ul class="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                        <li>Improve talk ratio - aim for 35-55% agent talk time</li>
+                        <li>Mention brand within first 10 seconds</li>
+                        <li>Better objection handling with empathy statements</li>
+                        <li>Reduce dead air - respond within 3 seconds</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Metadata -->
+            <div>
+                <button onclick="toggleSection('metadata')" class="w-full flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                    <span>ℹ️ Metadata</span>
+                    <svg id="metadataArrow" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+                <div id="metadataSection" class="hidden bg-gray-50 rounded-lg p-4 text-sm">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Duration:</span>
+                            <span class="font-medium" id="detailDuration">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Cost:</span>
+                            <span class="font-medium" id="detailCost">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Started:</span>
+                            <span class="font-medium" id="detailStarted">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Assistant:</span>
+                            <span class="font-medium" id="detailAssistant">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Phone:</span>
+                            <span class="font-medium font-mono text-xs" id="detailPhone">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Call ID:</span>
+                            <span class="font-medium font-mono text-xs" id="detailCallId">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Mock data based on real Supabase data
+const mockCalls = [
+    { id: '0199e991', date: '2025-10-15 20:30', duration: 55, assistant: 'QC Advisor', phone: '+1855569****', qci: null, hasQCI: false },
+    { id: '41821761', date: '2025-10-15 18:45', duration: 80, assistant: 'Alex1', phone: '+1234567****', qci: 45, hasQCI: true },
+    { id: 'abc12345', date: '2025-10-15 16:20', duration: 125, assistant: 'BIESSE - MS', phone: '+1987654****', qci: 62, hasQCI: true },
+    { id: 'def67890', date: '2025-10-15 14:30', duration: 42, assistant: 'Riley', phone: '+1555123****', qci: 38, hasQCI: true },
+    { id: 'ghi24680', date: '2025-10-15 12:15', duration: 15, assistant: 'YC Assistant | HOT', phone: '+1777888****', qci: null, hasQCI: false },
+    { id: 'jkl13579', date: '2025-10-15 10:45', duration: 93, assistant: 'Alex1', phone: '+1444555****', qci: 51, hasQCI: true },
+    { id: 'mno97531', date: '2025-10-15 09:20', duration: 67, assistant: 'QC Advisor', phone: '+1666777****', qci: 44, hasQCI: true },
+];
+
+// Populate calls table
+function populateCallsTable() {
+    const tbody = document.getElementById('callsTableBody');
+    tbody.innerHTML = mockCalls.map(call => `
+        <tr class="hover:bg-gray-50 cursor-pointer transition-colors" onclick="openCallDetails('${call.id}')">
+            <td class="p-3 text-gray-900">${call.date.split(' ')[1]}</td>
+            <td class="p-3 text-gray-900">${call.duration}s</td>
+            <td class="p-3 text-gray-900">${call.assistant}</td>
+            <td class="p-3 font-mono text-xs text-gray-600">${call.phone}</td>
+            <td class="p-3">
+                ${call.qci ? `<span class="font-medium">${call.qci}</span>` : '<span class="text-gray-400">-</span>'}
+            </td>
+            <td class="p-3">
+                <div class="flex gap-1">
+                    <span class="px-2 py-1 rounded-full text-xs font-medium ${call.duration > 60 ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'}">
+                        ${call.duration > 60 ? 'excellent' : 'average'}
+                    </span>
+                    ${call.hasQCI ? '<span class="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">QCI</span>' : ''}
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Chart.js setup
+let callsChart;
+function initChart() {
+    const ctx = document.getElementById('callsChart').getContext('2d');
+
+    // Mock timeline data (last 30 days)
+    const dates = [];
+    const allCallsData = [];
+    const analyzedData = [];
+    const qualityData = [];
+
+    for (let i = 29; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+
+        allCallsData.push(Math.floor(Math.random() * 150 + 200));
+        analyzedData.push(Math.floor(Math.random() * 30 + 10));
+        qualityData.push(Math.floor(Math.random() * 100 + 120));
+    }
+
+    callsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'All Calls',
+                    data: allCallsData,
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: 'Analyzed',
+                    data: analyzedData,
+                    borderColor: 'rgb(168, 85, 247)',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Quality (>30s)',
+                    data: qualityData,
+                    borderColor: 'rgb(34, 197, 94)',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    fill: false,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+}
+
+// Toggle chart lines
+function toggleChartLine(lineId) {
+    const index = { allCalls: 0, analyzed: 1, quality: 2 }[lineId];
+    const meta = callsChart.getDatasetMeta(index);
+    meta.hidden = !meta.hidden;
+    callsChart.update();
+}
+
+// Time range selection
+function selectTimeRange(range) {
+    document.querySelectorAll('.time-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-50', 'border-blue-500', 'text-blue-700');
+    });
+    event.target.classList.add('bg-blue-50', 'border-blue-500', 'text-blue-700');
+}
+
+// Sidebar functions
+function openCallDetails(callId) {
+    const call = mockCalls.find(c => c.id === callId);
+    if (!call) return;
+
+    // Update metadata
+    document.getElementById('detailDuration').textContent = call.duration + 's';
+    document.getElementById('detailCost').textContent = '$' + (call.duration * 0.002).toFixed(3);
+    document.getElementById('detailStarted').textContent = call.date;
+    document.getElementById('detailAssistant').textContent = call.assistant;
+    document.getElementById('detailPhone').textContent = call.phone;
+    document.getElementById('detailCallId').textContent = call.id + '...';
+
+    // Update transcript
+    document.getElementById('transcriptContent').innerHTML = `
+        <div><span class="font-medium text-blue-600">AI:</span> Hello, this is ${call.assistant}. How can I help you today?</div>
+        <div><span class="font-medium text-green-600">User:</span> Hi, yes I'm interested in your services.</div>
+        <div><span class="font-medium text-blue-600">AI:</span> Great! Let me tell you more about what we offer...</div>
+    `;
+
+    // Open sidebar
+    document.getElementById('callDetailsSidebar').classList.add('open');
+    document.getElementById('mainContent').classList.add('mr-96');
+}
+
+function closeSidebar() {
+    document.getElementById('callDetailsSidebar').classList.remove('open');
+    document.getElementById('mainContent').classList.remove('mr-96');
+}
+
+function toggleSection(sectionName) {
+    const section = document.getElementById(sectionName + 'Section');
+    const arrow = document.getElementById(sectionName + 'Arrow');
+
+    section.classList.toggle('hidden');
+    arrow.classList.toggle('rotate-180');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    populateCallsTable();
+    initChart();
+});
+</script>
+
+</body>
+</html>
