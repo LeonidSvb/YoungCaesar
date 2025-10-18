@@ -24,6 +24,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 interface TimelineDataPoint {
   date: string;
@@ -34,12 +35,16 @@ interface TimelineDataPoint {
 }
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+
   try {
     const { searchParams } = new URL(request.url);
     const assistantId = searchParams.get('assistant_id');
     const dateFrom = searchParams.get('date_from');
     const dateTo = searchParams.get('date_to');
     const granularity = searchParams.get('granularity') || 'day';
+
+    logger.info('GET /api/dashboard/chart', { assistantId, dateFrom, dateTo, granularity });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -62,11 +67,16 @@ export async function GET(request: NextRequest) {
     }
 
     // Return data directly for Recharts
+    const duration = Date.now() - startTime;
+    logger.api('GET', '/api/dashboard/chart', 200, duration, { dataPoints: data?.length || 0 });
+
     return NextResponse.json(data || []);
   } catch (error) {
-    console.error('Chart data API error:', error);
-
+    const duration = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    logger.error('Chart data API error', { error: errorMessage, duration });
+    logger.api('GET', '/api/dashboard/chart', 500, duration);
 
     return NextResponse.json(
       {

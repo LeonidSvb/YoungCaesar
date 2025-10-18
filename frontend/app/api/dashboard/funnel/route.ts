@@ -23,13 +23,18 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+
   try {
     const { searchParams } = new URL(request.url);
     const assistantId = searchParams.get('assistant_id');
     const dateFrom = searchParams.get('date_from');
     const dateTo = searchParams.get('date_to');
+
+    logger.info('GET /api/dashboard/funnel', { assistantId, dateFrom, dateTo });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -92,11 +97,16 @@ export async function GET(request: NextRequest) {
       }
     ];
 
+    const duration = Date.now() - startTime;
+    logger.api('GET', '/api/dashboard/funnel', 200, duration, { stagesCount: stages.length, totalCalls });
+
     return NextResponse.json({ stages });
   } catch (error) {
-    console.error('Sales funnel API error:', error);
-
+    const duration = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    logger.error('Sales funnel API error', { error: errorMessage, duration });
+    logger.api('GET', '/api/dashboard/funnel', 500, duration);
 
     return NextResponse.json(
       {

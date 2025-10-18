@@ -25,12 +25,17 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+
   try {
     const { searchParams } = new URL(request.url);
     const dateFrom = searchParams.get('date_from');
     const dateTo = searchParams.get('date_to');
+
+    logger.info('GET /api/assistants', { dateFrom, dateTo });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -43,19 +48,24 @@ export async function GET(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Supabase RPC error:', error);
+      logger.error('Supabase RPC error in /api/assistants', error);
       return NextResponse.json(
         { error: 'Failed to fetch assistants', details: error.message },
         { status: 500 }
       );
     }
 
+    const duration = Date.now() - startTime;
+    logger.api('GET', '/api/assistants', 200, duration, { assistantsCount: data?.length || 0 });
+
     // Already sorted by total_calls DESC in the RPC function
     return NextResponse.json(data || []);
   } catch (error) {
-    console.error('Assistants API error:', error);
-
+    const duration = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    logger.error('Assistants API error', { error: errorMessage, duration });
+    logger.api('GET', '/api/assistants', 500, duration);
 
     return NextResponse.json(
       {

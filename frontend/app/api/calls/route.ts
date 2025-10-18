@@ -26,8 +26,11 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+
   try {
     const { searchParams } = new URL(request.url);
     const assistantId = searchParams.get('assistant_id');
@@ -36,6 +39,8 @@ export async function GET(request: NextRequest) {
     const qualityFilter = searchParams.get('quality_filter') || 'all';
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
+
+    logger.info('GET /api/calls', { assistantId, dateFrom, dateTo, qualityFilter, limit, offset });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -74,6 +79,9 @@ export async function GET(request: NextRequest) {
 
     const { count: totalCount } = await countQuery;
 
+    const duration = Date.now() - startTime;
+    logger.api('GET', '/api/calls', 200, duration, { total: totalCount, shown: calls?.length, offset });
+
     return NextResponse.json({
       calls: calls || [],
       total: totalCount || 0,
@@ -81,9 +89,11 @@ export async function GET(request: NextRequest) {
       hasMore: (offset + (calls?.length || 0)) < (totalCount || 0)
     });
   } catch (error) {
-    console.error('Calls list API error:', error);
-
+    const duration = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    logger.error('Calls list API error', { error: errorMessage, duration });
+    logger.api('GET', '/api/calls', 500, duration);
 
     return NextResponse.json(
       {

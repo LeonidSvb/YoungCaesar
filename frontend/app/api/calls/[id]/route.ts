@@ -28,67 +28,55 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const startTime = Date.now();
+
   try {
     const { id: callId } = await params;
+
+    logger.info(`GET /api/calls/${callId}`, { callId });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Fetch call with assistant info
-    const { data: call, error: callError } = await supabase
-      .from('vapi_calls_raw')
-      .select(`
-        *,
-        assistant:vapi_assistants!vapi_calls_raw_assistant_id_fkey(name)
-      `)
-      .eq('id', callId)
-      .single();
+    // Use get_call_details SQL function
+    const { data, error } = await supabase.rpc('get_call_details', {
+      p_call_id: callId
+    });
 
-    if (callError) {
-      console.error('Supabase query error:', callError);
+    if (error) {
+      logger.error(`Supabase RPC error in /api/calls/${callId}`, error);
       return NextResponse.json(
-        { error: 'Call not found', details: callError.message },
+        { error: 'Call not found', details: error.message },
         { status: 404 }
       );
     }
 
-    // Fetch QCI analysis if exists
-    const { data: qci } = await supabase
-      .from('qci_analyses')
-      .select('*')
-      .eq('call_id', callId)
-      .single();
+    if (!data) {
+      logger.warn(`Call not found: ${callId}`);
+      return NextResponse.json(
+        { error: 'Call not found' },
+        { status: 404 }
+      );
+    }
 
-    // Build response
-    const response = {
-      id: call.id,
-      started_at: call.started_at,
-      ended_at: call.ended_at,
-      duration_seconds: call.duration_seconds,
-      cost: call.cost,
-      status: call.status,
-      ended_reason: call.ended_reason,
-      customer_phone_number: call.customer_phone_number,
-      transcript: call.transcript,
-      recording_url: call.recording_url,
-      vapi_success_evaluation: call.vapi_success_evaluation,
-      assistant: call.assistant,
-      qci: qci || null,
-      raw_json: call.raw_json
-    };
+    const duration = Date.now() - startTime;
+    logger.api('GET', `/api/calls/${callId}`, 200, duration);
 
-    return NextResponse.json(response);
+    return NextResponse.json(data);
   } catch (error) {
-    console.error('Call details API error:', error);
-
+    const duration = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    logger.error('Call details API error', { error: errorMessage, duration });
+    logger.api('GET', '/api/calls/[id]', 500, duration);
 
     return NextResponse.json(
       {
