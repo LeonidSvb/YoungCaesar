@@ -141,79 +141,81 @@
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Sales Funnel</h2>
 
-                <div class="flex flex-col items-center space-y-2 max-w-xl mx-auto">
+                <!-- Horizontal Funnel -->
+                <div class="flex items-center justify-between gap-3">
 
                     <!-- Stage 1: All Calls -->
-                    <div class="w-full bg-blue-50 border border-blue-200 rounded-lg p-3">
-                        <div class="text-center">
-                            <div class="text-xs font-medium text-blue-900 mb-1">All Calls</div>
-                            <div class="text-2xl font-bold text-blue-900">8,559</div>
-                        </div>
+                    <div class="flex-1 bg-blue-50 border-2 border-blue-300 rounded-lg p-4 text-center">
+                        <div class="text-xs font-medium text-blue-700 mb-1">All Calls</div>
+                        <div class="text-2xl font-bold text-blue-900">8,559</div>
+                        <div class="text-xs text-blue-600 mt-1">100%</div>
                     </div>
 
-                    <!-- Conversion Arrow -->
-                    <div class="flex flex-col items-center">
-                        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                    <!-- Arrow 1 -->
+                    <div class="flex flex-col items-center -mx-2">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                        <div class="text-xs font-semibold text-gray-700">62.4%</div>
+                        <div class="text-xs font-bold text-gray-700 mt-1">62.4%</div>
                     </div>
 
                     <!-- Stage 2: Quality Calls -->
-                    <div class="w-full bg-purple-50 border border-purple-200 rounded-lg p-3">
-                        <div class="text-center">
-                            <div class="text-xs font-medium text-purple-900 mb-1">Quality Calls (>30s)</div>
-                            <div class="text-2xl font-bold text-purple-900">5,342</div>
-                        </div>
+                    <div class="flex-1 bg-purple-50 border-2 border-purple-300 rounded-lg p-4 text-center">
+                        <div class="text-xs font-medium text-purple-700 mb-1">Quality (>30s)</div>
+                        <div class="text-2xl font-bold text-purple-900">5,342</div>
+                        <div class="text-xs text-purple-600 mt-1">62.4%</div>
                     </div>
 
-                    <!-- Conversion Arrow -->
-                    <div class="flex flex-col items-center">
-                        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                    <!-- Arrow 2 -->
+                    <div class="flex flex-col items-center -mx-2">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                        <div class="text-xs font-semibold text-gray-700">28.3%</div>
+                        <div class="text-xs font-bold text-gray-700 mt-1">28.3%</div>
                     </div>
 
                     <!-- Stage 3: Engaged Calls -->
-                    <div class="w-full bg-green-50 border border-green-200 rounded-lg p-3">
-                        <div class="text-center">
-                            <div class="text-xs font-medium text-green-900 mb-1">Engaged Calls (>60s)</div>
-                            <div class="text-2xl font-bold text-green-900">1,512</div>
-                        </div>
+                    <div class="flex-1 bg-green-50 border-2 border-green-300 rounded-lg p-4 text-center">
+                        <div class="text-xs font-medium text-green-700 mb-1">Engaged (>60s)</div>
+                        <div class="text-2xl font-bold text-green-900">1,512</div>
+                        <div class="text-xs text-green-600 mt-1">17.7%</div>
                     </div>
 
-                    <!-- Conversion Arrow -->
-                    <div class="flex flex-col items-center">
-                        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                    <!-- Arrow 3 -->
+                    <div class="flex flex-col items-center -mx-2">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                        <div class="text-xs font-semibold text-gray-700">8.2%</div>
+                        <div class="text-xs font-bold text-gray-700 mt-1">2.5%</div>
                     </div>
 
                     <!-- Stage 4: Meeting Booked -->
-                    <div class="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-3">
-                        <div class="text-center">
-                            <div class="text-xs font-medium text-emerald-900 mb-1">Meeting Booked</div>
-                            <div class="text-2xl font-bold text-emerald-900">124</div>
-                        </div>
-                    </div>
-
-                    <!-- Overall Stats -->
-                    <div class="mt-3 pt-3 border-t border-gray-200 w-full">
-                        <div class="grid grid-cols-2 gap-3 text-center text-sm">
-                            <div>
-                                <div class="text-gray-500">Overall Conversion</div>
-                                <div class="font-bold text-gray-900">1.45%</div>
-                            </div>
-                            <div>
-                                <div class="text-gray-500">Pipeline</div>
-                                <div class="font-bold text-gray-900">1,388 active</div>
-                            </div>
-                        </div>
+                    <div class="flex-1 bg-emerald-50 border-2 border-emerald-400 rounded-lg p-4 text-center">
+                        <div class="text-xs font-medium text-emerald-700 mb-1">Meeting Booked</div>
+                        <div class="text-2xl font-bold text-emerald-900">38</div>
+                        <div class="text-xs text-emerald-600 mt-1">0.44%</div>
                     </div>
 
                 </div>
+
+                <!-- Overall Stats -->
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                        <div>
+                            <div class="text-gray-500">Overall Conversion</div>
+                            <div class="font-bold text-gray-900">0.44%</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500">Engaged Rate</div>
+                            <div class="font-bold text-gray-900">17.7%</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500">Meeting Success</div>
+                            <div class="font-bold text-gray-900">2.5%</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Call Analytics Chart -->
@@ -255,13 +257,21 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900">Recent Calls</h3>
-                            <p class="text-sm text-gray-600 mt-1">Last 30 days - 50 calls shown</p>
+                            <p class="text-sm text-gray-600 mt-1" id="sortDescription">Sorted by date (newest first)</p>
                         </div>
-                        <select class="px-3 py-2 border rounded-md text-sm">
-                            <option>All Calls</option>
-                            <option>With QCI</option>
-                            <option>Quality Only</option>
-                        </select>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600">Sort by:</label>
+                            <select id="sortSelector" onchange="sortCalls()" class="px-3 py-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                                <option value="date-desc">Date (newest first)</option>
+                                <option value="date-asc">Date (oldest first)</option>
+                                <option value="duration-desc">Duration (longest first)</option>
+                                <option value="duration-asc">Duration (shortest first)</option>
+                                <option value="qci-desc">QCI Score (highest first)</option>
+                                <option value="qci-asc">QCI Score (lowest first)</option>
+                                <option value="cost-desc">Cost (highest first)</option>
+                                <option value="cost-asc">Cost (lowest first)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -280,6 +290,22 @@
                             <!-- Populated by JS -->
                         </tbody>
                     </table>
+                </div>
+
+                <!-- Pagination Controls -->
+                <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Showing <span id="callsShown" class="font-medium">50</span> of <span id="callsTotal" class="font-medium">8,559</span> calls
+                    </div>
+                    <button
+                        id="loadMoreBtn"
+                        onclick="loadMoreCalls()"
+                        class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <span>Load 25 More</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -415,21 +441,46 @@
 </div>
 
 <script>
-// Mock data based on real Supabase data
-const mockCalls = [
-    { id: '0199e991', date: '2025-10-15 20:30', duration: 55, assistant: 'QC Advisor', phone: '+1855569****', qci: null, hasQCI: false },
-    { id: '41821761', date: '2025-10-15 18:45', duration: 80, assistant: 'Alex1', phone: '+1234567****', qci: 45, hasQCI: true },
-    { id: 'abc12345', date: '2025-10-15 16:20', duration: 125, assistant: 'BIESSE - MS', phone: '+1987654****', qci: 62, hasQCI: true },
-    { id: 'def67890', date: '2025-10-15 14:30', duration: 42, assistant: 'Riley', phone: '+1555123****', qci: 38, hasQCI: true },
-    { id: 'ghi24680', date: '2025-10-15 12:15', duration: 15, assistant: 'YC Assistant | HOT', phone: '+1777888****', qci: null, hasQCI: false },
-    { id: 'jkl13579', date: '2025-10-15 10:45', duration: 93, assistant: 'Alex1', phone: '+1444555****', qci: 51, hasQCI: true },
-    { id: 'mno97531', date: '2025-10-15 09:20', duration: 67, assistant: 'QC Advisor', phone: '+1666777****', qci: 44, hasQCI: true },
-];
+// Generate mock data (simulating 120 calls)
+const assistants = ['QC Advisor', 'Alex1', 'BIESSE - MS', 'Riley', 'YC Assistant | HOT'];
+const mockCalls = [];
+
+for (let i = 0; i < 120; i++) {
+    const duration = Math.floor(Math.random() * 200) + 10;
+    const hasQCI = Math.random() > 0.4 && duration > 30;
+    const qci = hasQCI ? Math.floor(Math.random() * 60) + 20 : null;
+
+    const date = new Date();
+    date.setDate(date.getDate() - Math.floor(i / 4));
+    date.setHours(Math.floor(Math.random() * 24));
+    date.setMinutes(Math.floor(Math.random() * 60));
+
+    mockCalls.push({
+        id: Math.random().toString(36).substr(2, 8),
+        date: date.toISOString().slice(0, 16).replace('T', ' '),
+        duration: duration,
+        assistant: assistants[Math.floor(Math.random() * assistants.length)],
+        phone: `+1${Math.floor(Math.random() * 900000000) + 100000000}****`,
+        qci: qci,
+        hasQCI: hasQCI,
+        cost: duration * 0.002
+    });
+}
+
+// Sort by date descending (newest first) - initial state
+mockCalls.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// Pagination state
+let currentlyShown = 50;
+const totalCalls = mockCalls.length;
+const loadIncrement = 25;
 
 // Populate calls table
 function populateCallsTable() {
     const tbody = document.getElementById('callsTableBody');
-    tbody.innerHTML = mockCalls.map(call => `
+    const callsToShow = mockCalls.slice(0, currentlyShown);
+
+    tbody.innerHTML = callsToShow.map(call => `
         <tr class="hover:bg-gray-50 cursor-pointer transition-colors" onclick="openCallDetails('${call.id}')">
             <td class="p-3 text-gray-900">${call.date.split(' ')[1]}</td>
             <td class="p-3 text-gray-900">${call.duration}s</td>
@@ -448,6 +499,76 @@ function populateCallsTable() {
             </td>
         </tr>
     `).join('');
+
+    updatePaginationUI();
+}
+
+// Load more calls
+function loadMoreCalls() {
+    currentlyShown = Math.min(currentlyShown + loadIncrement, totalCalls);
+    populateCallsTable();
+}
+
+// Update pagination UI
+function updatePaginationUI() {
+    document.getElementById('callsShown').textContent = currentlyShown;
+    document.getElementById('callsTotal').textContent = totalCalls;
+
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (currentlyShown >= totalCalls) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'flex';
+        const remaining = totalCalls - currentlyShown;
+        const nextLoad = Math.min(loadIncrement, remaining);
+        loadMoreBtn.querySelector('span').textContent = `Load ${nextLoad} More`;
+    }
+}
+
+// Sort calls
+function sortCalls() {
+    const sortValue = document.getElementById('sortSelector').value;
+    const [field, order] = sortValue.split('-');
+
+    const sortDescriptions = {
+        'date-desc': 'Sorted by date (newest first)',
+        'date-asc': 'Sorted by date (oldest first)',
+        'duration-desc': 'Sorted by duration (longest first)',
+        'duration-asc': 'Sorted by duration (shortest first)',
+        'qci-desc': 'Sorted by QCI score (highest first)',
+        'qci-asc': 'Sorted by QCI score (lowest first)',
+        'cost-desc': 'Sorted by cost (highest first)',
+        'cost-asc': 'Sorted by cost (lowest first)'
+    };
+
+    document.getElementById('sortDescription').textContent = sortDescriptions[sortValue];
+
+    mockCalls.sort((a, b) => {
+        let aVal, bVal;
+
+        if (field === 'date') {
+            aVal = new Date(a.date);
+            bVal = new Date(b.date);
+        } else if (field === 'duration') {
+            aVal = a.duration;
+            bVal = b.duration;
+        } else if (field === 'qci') {
+            aVal = a.qci || -1;
+            bVal = b.qci || -1;
+        } else if (field === 'cost') {
+            aVal = a.cost;
+            bVal = b.cost;
+        }
+
+        if (order === 'desc') {
+            return bVal > aVal ? 1 : -1;
+        } else {
+            return aVal > bVal ? 1 : -1;
+        }
+    });
+
+    currentlyShown = 50;
+    populateCallsTable();
 }
 
 // Chart.js setup
