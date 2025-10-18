@@ -1,81 +1,152 @@
-import { createClient } from '@/lib/supabase/server';
-import { MetricCard } from '@/components/MetricCard';
+'use client';
+
+import { useState } from 'react';
+import { FilterPanel } from '@/components/dashboard/FilterPanel';
 import { MetricsGrid } from '@/components/dashboard/MetricsGrid';
+import { SalesFunnel } from '@/components/dashboard/SalesFunnel';
 import { TimelineChart } from '@/components/dashboard/TimelineChart';
-import { AssistantBreakdown } from '@/components/dashboard/AssistantBreakdown';
 import { CallsTable } from '@/components/dashboard/CallsTable';
+import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
 
-export default async function DashboardPage() {
-  const supabase = await createClient();
+type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all';
 
-  // Fetch dashboard metrics
-  const { data: metrics, error: metricsError } = await supabase.rpc(
-    'get_dashboard_metrics',
-    {
-      p_assistant_id: null,
-      p_date_from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-      p_date_to: new Date().toISOString(),
+export default function DashboardPage() {
+  const [timeRange, setTimeRange] = useState<TimeRange>('30d');
+  const [assistantId, setAssistantId] = useState<string>('all');
+  const [additionalFilters, setAdditionalFilters] = useState({
+    hasTranscript: true,
+    hasQCI: false,
+    quality: false,
+  });
+  const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Calculate date range based on timeRange
+  const getDateRange = () => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    switch (timeRange) {
+      case 'today':
+        return {
+          from: today.toISOString(),
+          to: now.toISOString(),
+        };
+      case 'yesterday':
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        return {
+          from: yesterday.toISOString(),
+          to: today.toISOString(),
+        };
+      case '7d':
+        const sevenDaysAgo = new Date(today);
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        return {
+          from: sevenDaysAgo.toISOString(),
+          to: now.toISOString(),
+        };
+      case '30d':
+        const thirtyDaysAgo = new Date(today);
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        return {
+          from: thirtyDaysAgo.toISOString(),
+          to: now.toISOString(),
+        };
+      case '90d':
+        const ninetyDaysAgo = new Date(today);
+        ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+        return {
+          from: ninetyDaysAgo.toISOString(),
+          to: now.toISOString(),
+        };
+      case 'all':
+        return {
+          from: new Date(2020, 0, 1).toISOString(),
+          to: now.toISOString(),
+        };
+      default:
+        return {
+          from: new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+          to: now.toISOString(),
+        };
     }
-  );
+  };
 
-  // Fetch timeline data
-  const { data: timeline, error: timelineError } = await supabase.rpc(
-    'get_timeline_data',
-    {
-      p_assistant_id: null,
-      p_date_from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-      p_date_to: new Date().toISOString(),
-      p_granularity: 'day',
-    }
-  );
+  const { from: dateFrom, to: dateTo } = getDateRange();
 
-  // Fetch assistant breakdown
-  const { data: assistants, error: assistantsError } = await supabase.rpc(
-    'get_assistant_breakdown',
-    {
-      p_date_from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-      p_date_to: new Date().toISOString(),
-    }
-  );
+  // Build quality filter string for API
+  const getQualityFilter = () => {
+    if (additionalFilters.quality) return 'quality';
+    if (additionalFilters.hasQCI) return 'with_qci';
+    if (additionalFilters.hasTranscript) return 'with_transcript';
+    return 'all';
+  };
 
-  if (metricsError || timelineError || assistantsError) {
-    return (
-      <div className="p-6">
-        <div className="text-red-600">
-          Error loading dashboard data. Please check your Supabase connection.
-        </div>
-        <pre className="mt-4 text-xs bg-gray-100 p-4 rounded">
-          {JSON.stringify({ metricsError, timelineError, assistantsError }, null, 2)}
-        </pre>
-      </div>
-    );
-  }
+  const handleCallClick = (callId: string) => {
+    setSelectedCallId(callId);
+    setSidebarOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false);
+    setSelectedCallId(null);
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Last 7 days analytics</p>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">VAPI Analytics Dashboard</h1>
+        <p className="text-gray-600 mt-2">
+          Real-time call analytics and quality insights
+        </p>
       </div>
+
+      {/* Filters */}
+      <FilterPanel
+        onTimeRangeChange={setTimeRange}
+        onAssistantChange={setAssistantId}
+        onFilterChange={setAdditionalFilters}
+      />
 
       {/* Metrics Grid */}
-      <MetricsGrid metrics={metrics} />
+      <MetricsGrid
+        assistantId={assistantId === 'all' ? null : assistantId}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+      />
+
+      {/* Sales Funnel */}
+      <SalesFunnel
+        assistantId={assistantId === 'all' ? null : assistantId}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+      />
 
       {/* Timeline Chart */}
-      <div className="mt-8">
-        <TimelineChart data={timeline || []} />
-      </div>
-
-      {/* Assistant Breakdown */}
-      <div className="mt-8">
-        <AssistantBreakdown assistants={assistants || []} />
-      </div>
+      <TimelineChart
+        assistantId={assistantId === 'all' ? null : assistantId}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        granularity="day"
+      />
 
       {/* Calls Table */}
-      <div className="mt-8">
-        <CallsTable />
-      </div>
+      <CallsTable
+        assistantId={assistantId === 'all' ? null : assistantId}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        qualityFilter={getQualityFilter()}
+        onCallClick={handleCallClick}
+      />
+
+      {/* Call Details Sidebar */}
+      <CallDetailsSidebar
+        callId={selectedCallId}
+        open={sidebarOpen}
+        onClose={handleCloseSidebar}
+      />
     </div>
   );
 }

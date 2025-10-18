@@ -25,6 +25,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+interface TimelineDataPoint {
+  date: string;
+  total_calls: number;
+  quality_calls: number;
+  engaged_calls: number;
+  analyzed_calls: number;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -53,24 +61,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Transform data for Chart.js format
-    const labels = data?.map((row: any) => row.date) || [];
-    const datasets = [
-      {
-        label: 'All Calls',
-        data: data?.map((row: any) => row.total_calls) || []
-      },
-      {
-        label: 'Quality (>30s)',
-        data: data?.map((row: any) => row.quality_calls) || []
-      },
-      {
-        label: 'Excellent (>60s)',
-        data: data?.map((row: any) => row.excellent_calls) || []
-      }
-    ];
-
-    return NextResponse.json({ labels, datasets });
+    // Return data directly for Recharts
+    return NextResponse.json(data || []);
   } catch (error) {
     console.error('Chart data API error:', error);
 
