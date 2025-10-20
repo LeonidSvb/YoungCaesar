@@ -5,15 +5,17 @@
  *
  * ПРОБЛЕМА:
  *   RPC функции используют таблицу "calls", но реальные данные в "vapi_calls_raw"
- *   Показывает только 713 звонков из 8559+ доступных
+ *   Показывает только 2,377 звонков из 8,559 доступных
  *
  * РЕШЕНИЕ:
  *   Заменить все ссылки на таблицы в RPC функциях:
  *   - calls → vapi_calls_raw
- *   - assistants → vapi_assistants
+ *   - Использовать правильную таблицу: assistants (не vapi_assistants)
+ *   - JOIN по правильной колонке: a.vapi_assistant_id (не a.id)
  *   - qci_analyses → qci_analyses (без изменений)
  *
  * Created: 2025-10-20
+ * Updated: 2025-10-20 - Fixed assistants table name and JOIN column
  * =====================================================================
  */
 
@@ -168,7 +170,7 @@ BEGIN
     END as quality,
     c.cost
   FROM vapi_calls_raw c
-  LEFT JOIN vapi_assistants a ON c.assistant_id = a.id
+  LEFT JOIN assistants a ON c.assistant_id = a.vapi_assistant_id
   LEFT JOIN qci_analyses q ON c.qci_analysis_id = q.id
   WHERE c.started_at >= COALESCE(p_date_from, NOW() - INTERVAL '90 days')
     AND c.started_at <= COALESCE(p_date_to, NOW())
