@@ -24,21 +24,62 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 - ✅ **72% звонков были скрыты:** 6,182 звонка имели NULL в поле started_at
 - ✅ **Dashboard показывал 2,377 вместо 8,559:** RPC функции фильтровали по started_at
 - ✅ **Решение:** Migration 014 использует COALESCE(started_at, created_at)
-- ✅ **Результат:** Все 8,559 звонков теперь доступны в dashboard
+- ✅ **Backend исправлен:** RPC функции в Supabase возвращают все 8,559 звонков
 
-**Исправленные RPC функции:**
-- `get_dashboard_metrics` - теперь возвращает 8,559 вместо 2,377
-- `get_calls_list` - показывает все звонки с фоллбэком на created_at
-- `get_timeline_data` - полный timeline без пропущенных звонков
+**Исправленные RPC функции (Supabase):**
+- `get_dashboard_metrics` - ✅ возвращает 8,559 вместо 2,377 (проверено через MCP)
+- `get_calls_list` - ✅ показывает все звонки с фоллбэком на created_at
+- `get_timeline_data` - ✅ полный timeline без пропущенных звонков
 
 **Файлы:**
 - `migrations/20251020_014_fix_null_started_at.sql` ✅ Применена через MCP
+- Git commit: `82d3f5d` ✅ Запушено в GitHub
 
-**Проверка:**
+**Проверка через SQL:**
 ```sql
 -- ДО: 2,377 звонков
 -- ПОСЛЕ: 8,559 звонков (100%)
 SELECT get_dashboard_metrics(NULL, '2020-01-01', NOW());
+-- Результат: {"totalCalls":8559} ✅
+```
+
+**⚠️ ОСТАЛОСЬ СДЕЛАТЬ (после спортзала):**
+
+1. **Frontend требует перезапуска:**
+   - Frontend кэширует старое Supabase подключение
+   - Dashboard показывает 2,377 (старые данные из кэша)
+   - **Решение:** Убить процессы на портах 3000-3010, перезапустить `npm run dev`
+
+2. **Очистить .next кэш:**
+   ```bash
+   cd frontend
+   rm -rf .next
+   npm run dev
+   ```
+
+3. **Проверить в браузере:**
+   - Открыть http://localhost:3XXX/dashboard
+   - Переключить Time Period на "All"
+   - Должно показать: **Total Calls: 8,559** ✅
+
+**Текущий статус:**
+- ✅ Database: 8,559 звонков
+- ✅ RPC Functions: Возвращают 8,559 звонков
+- ⚠️ Frontend: Показывает 2,377 (кэш, требует перезапуска)
+
+**Диагностика проблемы:**
+```sql
+-- Все звонки в базе
+SELECT COUNT(*) FROM vapi_calls_raw; -- 8,559 ✅
+
+-- Со started_at
+SELECT COUNT(*) FROM vapi_calls_raw WHERE started_at IS NOT NULL; -- 2,377
+
+-- С created_at (NULL started_at)
+SELECT COUNT(*) FROM vapi_calls_raw WHERE started_at IS NULL AND created_at IS NOT NULL; -- 6,182
+
+-- Доступны через COALESCE
+SELECT COUNT(*) FROM vapi_calls_raw WHERE COALESCE(started_at, created_at) IS NOT NULL; -- 8,559 ✅
 ```
 
 ---
