@@ -17,11 +17,30 @@ export default function DashboardPage() {
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [customDateRange, setCustomDateRange] = useState<{ from: Date; to: Date } | null>(null);
+
+  // Handle time range changes with custom date support
+  const handleTimeRangeChange = (range: TimeRange, custom?: { from: Date; to: Date }) => {
+    setTimeRange(range);
+    if (range === 'custom' && custom) {
+      setCustomDateRange(custom);
+    } else {
+      setCustomDateRange(null);
+    }
+  };
 
   // Calculate date range based on timeRange
   const getDateRange = () => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // Use custom date range if selected
+    if (timeRange === 'custom' && customDateRange) {
+      return {
+        from: customDateRange.from.toISOString(),
+        to: customDateRange.to.toISOString(),
+      };
+    }
 
     switch (timeRange) {
       case 'today':
@@ -94,7 +113,7 @@ export default function DashboardPage() {
 
       {/* Filters */}
       <FilterPanel
-        onTimeRangeChange={setTimeRange}
+        onTimeRangeChange={handleTimeRangeChange}
         onAssistantChange={setAssistantId}
         onQualityFilterChange={setQualityFilter}
       />

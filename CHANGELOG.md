@@ -6,15 +6,118 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 
 ## Current Status
 
-- **Total calls collected:** 2,612 (2,268 + 344 new)
-- **Calls with transcripts:** 916 (35%)
-- **Date range:** August 1 - September 9, 2025
-- **Total cost:** $104.23
-- **Airtable sync:** ✅ Up-to-date (364 records)
-- **n8n Integration:** ✅ 42 workflows analyzed and documented
-- **QCI Analysis System:** ✅ Complete with cost optimization
+- **Total calls in database:** 8,559 (vapi_calls_raw table)
+- **Calls with QCI analysis:** 918 (10.7% coverage)
+- **Date range:** Full history in Supabase
+- **Frontend Dashboard:** ✅ React/Next.js with shadcn/ui
+- **Custom Date Picker:** ✅ Calendar component with range selection
+- **API Integration:** ✅ All endpoints connected to Supabase
+- **Known Issue:** ⚠️ RPC functions show only 2,377 calls (migration 012 needs table name fix)
 
-## Latest Updates (October 18, 2025)
+## Latest Updates (October 20, 2025)
+
+### 🎨 Dashboard UI Improvements & Date Picker ✅
+
+**Основные достижения:**
+- ✅ **Custom Date Picker:** shadcn/ui Calendar component с выбором диапазона дат
+  - Кнопка "Custom" с иконкой календаря
+  - Popover с 2-месячным календарем
+  - Формат отображения: `dd.MM - dd.MM`
+  - Полная интеграция с dashboard page
+
+- ✅ **Компактный UI:** Уменьшены размеры всех элементов FilterPanel
+  - Кнопки: `h-7 px-2.5 text-xs` (было `h-8`)
+  - Лейблы: `text-xs` (было `text-sm`)
+  - Card padding: `p-3 mb-4` (было `p-4 mb-6`)
+  - Gaps: `gap-1.5` и `gap-3` вместо `gap-2` и `gap-4`
+
+- ✅ **Английский интерфейс:** Все лейблы переведены
+  - Time Period, Today, Yesterday, 7D, 30D, 90D, All, Custom
+  - Assistant, Quality, All, >30s, Has Text, Has QCI
+
+- ✅ **MCP Supabase Configuration:** Добавлены service role credentials
+  - Обновлен `.claude/mcp.json` с `SUPABASE_URL` и `SUPABASE_SERVICE_ROLE_KEY`
+  - Требуется перезапуск Claude Code для применения
+
+**Файлы изменены:**
+- `frontend/src/components/dashboard/FilterPanel.tsx` - добавлен date picker, компактный UI, английский
+- `frontend/app/dashboard/page.tsx` - поддержка custom date range
+- `frontend/src/components/ui/calendar.tsx` - новый компонент от shadcn/ui
+- `frontend/src/components/ui/popover.tsx` - новый компонент от shadcn/ui
+- `.claude/mcp.json` - добавлены Supabase credentials для SQL доступа
+
+**Создано:**
+- `data/migrations/012_fix_rpc_table_names.sql` - миграция для исправления RPC функций
+- `APPLY_MIGRATION_012.md` - инструкция по применению миграции
+- `scripts/utils/check-supabase-tables.cjs` - скрипт проверки таблиц
+
+---
+
+### ⚠️ Текущая проблема: RPC Functions Table Mismatch
+
+**Проблема:**
+Dashboard показывает только **2,377 звонков** из **8,559** в базе данных.
+
+**Причина:**
+RPC функции (`get_calls_list`, `get_dashboard_metrics`, `get_timeline_data`) используют таблицу `calls` вместо `vapi_calls_raw`.
+
+**Ошибка при миграции 012:**
+```
+Error: column a.id does not exist
+Details: LEFT JOIN vapi_assistants a ON c.assistant_id = a.id
+```
+
+**Что выяснили:**
+1. API endpoint `/api/calls` возвращает ошибку: `"column a.id does not exist"`
+2. Проблема в JOIN с таблицей assistants (неправильное название или структура)
+3. Миграция 012 применена, но работает с ошибкой
+
+**Что нужно для исправления (следующая сессия):**
+
+1. **Проверить структуру таблиц в Supabase Dashboard:**
+   ```sql
+   -- 1. Количество записей
+   SELECT
+     (SELECT COUNT(*) FROM vapi_calls_raw) as vapi_calls_raw_count,
+     (SELECT COUNT(*) FROM calls) as calls_count,
+     (SELECT COUNT(*) FROM vapi_assistants) as vapi_assistants_count,
+     (SELECT COUNT(*) FROM assistants) as assistants_count,
+     (SELECT COUNT(*) FROM qci_analyses) as qci_analyses_count;
+
+   -- 2. Структура таблицы ассистентов
+   SELECT column_name, data_type
+   FROM information_schema.columns
+   WHERE table_schema = 'public'
+     AND (table_name = 'vapi_assistants' OR table_name = 'assistants')
+   ORDER BY table_name, ordinal_position;
+   ```
+
+2. **Исправить миграцию 012:**
+   - Заменить `vapi_assistants` на правильное название таблицы
+   - Проверить какие колонки использовать для JOIN
+   - Обновить все 3 RPC функции: `get_calls_list`, `get_dashboard_metrics`, `get_timeline_data`
+
+3. **Применить исправленную миграцию:**
+   - Удалить существующие RPC функции через `DROP FUNCTION IF EXISTS`
+   - Создать заново с правильными таблицами
+   - Проверить что dashboard показывает все 8,559 звонков
+
+**Текущий статус:**
+- ✅ Frontend готов и работает
+- ✅ Custom date picker добавлен
+- ✅ UI компактный и на английском
+- ⚠️ Показывает только 2,377 из 8,559 звонков
+- ⚠️ Миграция 012 требует исправления JOIN с таблицей assistants
+
+**Dev Server:**
+- Running on http://localhost:3008/dashboard
+- Все компоненты работают без ошибок компиляции
+- Фильтры работают (time range, assistant, quality)
+- Проблема только с количеством данных из-за RPC функций
+
+---
+
+## Previous Updates (October 18, 2025)
 
 ### 🎨 Complete React Dashboard Integration with shadcn/ui ✅
 

@@ -12,12 +12,17 @@ import {
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { DateRange } from 'react-day-picker';
 
-type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all';
+type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
 type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
 
 interface FilterPanelProps {
-  onTimeRangeChange: (range: TimeRange) => void;
+  onTimeRangeChange: (range: TimeRange, customRange?: { from: Date; to: Date }) => void;
   onAssistantChange: (assistantId: string) => void;
   onQualityFilterChange: (filter: QualityFilter) => void;
 }
@@ -29,10 +34,24 @@ export function FilterPanel({
 }: FilterPanelProps) {
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30d');
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const handleTimeRangeClick = (range: TimeRange) => {
     setSelectedTimeRange(range);
-    onTimeRangeChange(range);
+    if (range !== 'custom') {
+      setDateRange(undefined);
+      onTimeRangeChange(range);
+    }
+  };
+
+  const handleCustomDateSelect = (range: DateRange | undefined) => {
+    setDateRange(range);
+    if (range?.from && range?.to) {
+      setSelectedTimeRange('custom');
+      onTimeRangeChange('custom', { from: range.from, to: range.to });
+      setIsCalendarOpen(false);
+    }
   };
 
   const handleQualityFilterChange = (value: QualityFilter) => {
@@ -50,39 +69,68 @@ export function FilterPanel({
   ];
 
   return (
-    <Card className="p-4 mb-6">
-      <div className="flex flex-wrap gap-4">
+    <Card className="p-3 mb-4">
+      <div className="flex flex-wrap gap-3 items-end">
         {/* Time Range Filter */}
-        <div className="flex-1 min-w-[200px]">
-          <Label className="block text-sm font-medium text-gray-700 mb-2">
-            Time Range
+        <div className="flex-1 min-w-[300px]">
+          <Label className="block text-xs font-medium text-gray-600 mb-1.5">
+            Time Period
           </Label>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             {timeRanges.map((range) => (
               <Button
                 key={range.value}
                 variant={selectedTimeRange === range.value ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => handleTimeRangeClick(range.value)}
-                className={
+                className={`text-xs h-7 px-2.5 ${
                   selectedTimeRange === range.value
-                    ? 'bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100'
-                    : ''
-                }
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'hover:bg-gray-100'
+                }`}
               >
                 {range.label}
               </Button>
             ))}
+
+            {/* Custom Date Picker */}
+            <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={selectedTimeRange === 'custom' ? 'default' : 'outline'}
+                  size="sm"
+                  className={`text-xs h-7 px-2.5 ${
+                    selectedTimeRange === 'custom'
+                      ? 'bg-blue-600 text-white hover:bg-blue-700'
+                      : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <CalendarIcon className="w-3 h-3 mr-1" />
+                  {dateRange?.from && dateRange?.to
+                    ? `${format(dateRange.from, 'dd.MM')} - ${format(dateRange.to, 'dd.MM')}`
+                    : 'Custom'}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="range"
+                  selected={dateRange}
+                  onSelect={handleCustomDateSelect}
+                  numberOfMonths={2}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
 
         {/* Assistant Filter */}
-        <div className="w-64">
-          <Label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="w-52">
+          <Label className="block text-xs font-medium text-gray-600 mb-1.5">
             Assistant
           </Label>
           <Select defaultValue="all" onValueChange={onAssistantChange}>
-            <SelectTrigger>
+            <SelectTrigger className="h-7 text-xs">
               <SelectValue placeholder="Select assistant" />
             </SelectTrigger>
             <SelectContent>
@@ -107,42 +155,40 @@ export function FilterPanel({
         </div>
 
         {/* Quality Filter */}
-        <div className="flex items-end">
-          <div className="space-y-1">
-            <Label className="block text-sm font-medium text-gray-700">
-              Call Filter
-            </Label>
-            <RadioGroup
-              value={qualityFilter}
-              onValueChange={handleQualityFilterChange}
-              className="flex gap-4"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="all" id="filter-all" />
-                <Label htmlFor="filter-all" className="text-sm font-normal cursor-pointer">
-                  All Calls
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="quality" id="filter-quality" />
-                <Label htmlFor="filter-quality" className="text-sm font-normal cursor-pointer">
-                  &gt;30s
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="with_transcript" id="filter-transcript" />
-                <Label htmlFor="filter-transcript" className="text-sm font-normal cursor-pointer">
-                  Has Transcript
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="with_qci" id="filter-qci" />
-                <Label htmlFor="filter-qci" className="text-sm font-normal cursor-pointer">
-                  Has QCI
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
+        <div>
+          <Label className="block text-xs font-medium text-gray-600 mb-1.5">
+            Quality
+          </Label>
+          <RadioGroup
+            value={qualityFilter}
+            onValueChange={handleQualityFilterChange}
+            className="flex gap-3"
+          >
+            <div className="flex items-center space-x-1.5">
+              <RadioGroupItem value="all" id="filter-all" />
+              <Label htmlFor="filter-all" className="text-xs font-normal cursor-pointer">
+                All
+              </Label>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <RadioGroupItem value="quality" id="filter-quality" />
+              <Label htmlFor="filter-quality" className="text-xs font-normal cursor-pointer">
+                &gt;30s
+              </Label>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <RadioGroupItem value="with_transcript" id="filter-transcript" />
+              <Label htmlFor="filter-transcript" className="text-xs font-normal cursor-pointer">
+                Has Text
+              </Label>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <RadioGroupItem value="with_qci" id="filter-qci" />
+              <Label htmlFor="filter-qci" className="text-xs font-normal cursor-pointer">
+                Has QCI
+              </Label>
+            </div>
+          </RadioGroup>
         </div>
       </div>
     </Card>
