@@ -24,26 +24,12 @@
 
 ## Приоритетные задачи на следующую сессию
 
-### 1. Интегрировать реальный VAPI sync в logger скрипт
+### 1. ✅ ВЫПОЛНЕНО: Интегрировать реальный VAPI sync в logger скрипт
 
-**Проблема:**
-Сейчас `scripts/sync-vapi-calls.js` использует mock данные:
-```javascript
-const mockData = { calls: [] }; // This would be: await vapiClient.getCalls(...)
-```
-
-**Решение:**
-Интегрировать существующий `production_scripts/vapi_collection/src/collect_vapi_data.js` в новый скрипт:
-
-1. **Создать `production_scripts/vapi_sync/sync_to_supabase.js`:**
-   - Использовать `lib/logger.js` для логирования
-   - Fetch новых звонков из VAPI API (последние N часов)
-   - Upsert в `vapi_calls_raw` таблицу
-   - Обновлять run статистику (records_fetched, records_inserted)
-
-2. **Обновить GitHub Actions workflow:**
-   - Заменить `node scripts/sync-vapi-calls.js`
-   - На `node production_scripts/vapi_sync/sync_to_supabase.js`
+**Создан:** `production_scripts/vapi_collection/src/sync_to_supabase_v2.js`
+**Протестировано:** 926 звонков синхронизировано, 24 лога записано, 52 секунды
+**GitHub Actions:** Обновлен на использование реального скрипта
+**Результат:** Полностью рабочая production система с логированием
 
 ### 2. QCI Analysis автоматизация
 

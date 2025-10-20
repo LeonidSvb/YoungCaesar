@@ -25,7 +25,8 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 **1. Система логирования полностью работает в production:**
 - ✅ **Миграции применены:** `runs` и `logs` таблицы созданы в Supabase
 - ✅ **Logger.js протестирован:** Универсальный логгер работает идеально
-- ✅ **Sync скрипт работает:** `scripts/sync-vapi-calls.js` пишет логи в базу
+- ✅ **Production sync:** `sync_to_supabase_v2.js` - 926 звонков синхронизировано за 52 секунды
+- ✅ **GitHub Actions обновлен:** Использует production скрипт вместо мока
 - ✅ **11 существующих записей сохранены** из старой `sync_logs` таблицы
 
 **2. Dashboard RPC функции исправлены (Migration 013):**
@@ -48,8 +49,10 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 - `migrations/20251020_transform_sync_logs_to_runs.sql` ✅ Применена
 - `migrations/20251020_create_logs_table.sql` ✅ Применена
 - `migrations/20251020_013_fix_rpc_correct_types.sql` ✅ Применена
-- `.github/workflows/sync-vapi-calls.yml` ✅ Создан
+- `.github/workflows/sync-vapi-calls.yml` ✅ Обновлен на production скрипт
 - `lib/logger.js` ✅ Исправлен и протестирован
+- `production_scripts/vapi_collection/src/sync_to_supabase_v2.js` ✅ Создан
+- `scripts/sync-vapi-calls.js` ❌ Удален (мок больше не нужен)
 
 **Проверочные запросы выполнены:**
 ```sql
