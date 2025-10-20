@@ -9,13 +9,13 @@
  *
  * РЕШЕНИЕ:
  *   Заменить все ссылки на таблицы в RPC функциях:
- *   - calls → vapi_calls_raw
- *   - Использовать правильную таблицу: assistants (не vapi_assistants)
- *   - JOIN по правильной колонке: a.vapi_assistant_id (не a.id)
+ *   - calls → vapi_calls_raw (реальная таблица, не VIEW)
+ *   - Использовать vapi_assistants (реальная таблица, не VIEW)
+ *   - JOIN по колонке: a.assistant_id (не a.id - это только в VIEW)
  *   - qci_analyses → qci_analyses (без изменений)
  *
  * Created: 2025-10-20
- * Updated: 2025-10-20 - Fixed assistants table name and JOIN column
+ * Updated: 2025-10-20 - Fixed to use real tables instead of VIEWs
  * =====================================================================
  */
 
@@ -170,7 +170,7 @@ BEGIN
     END as quality,
     c.cost
   FROM vapi_calls_raw c
-  LEFT JOIN assistants a ON c.assistant_id = a.vapi_assistant_id
+  LEFT JOIN vapi_assistants a ON c.assistant_id = a.assistant_id
   LEFT JOIN qci_analyses q ON c.qci_analysis_id = q.id
   WHERE c.started_at >= COALESCE(p_date_from, NOW() - INTERVAL '90 days')
     AND c.started_at <= COALESCE(p_date_to, NOW())
