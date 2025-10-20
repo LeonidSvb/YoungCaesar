@@ -18,6 +18,31 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 
 ## Latest Updates (October 20, 2025)
 
+### ✅ CRITICAL FIX: Dashboard Now Shows All 8,559 Calls (Migration 014)
+
+**Проблема найдена и решена:**
+- ✅ **72% звонков были скрыты:** 6,182 звонка имели NULL в поле started_at
+- ✅ **Dashboard показывал 2,377 вместо 8,559:** RPC функции фильтровали по started_at
+- ✅ **Решение:** Migration 014 использует COALESCE(started_at, created_at)
+- ✅ **Результат:** Все 8,559 звонков теперь доступны в dashboard
+
+**Исправленные RPC функции:**
+- `get_dashboard_metrics` - теперь возвращает 8,559 вместо 2,377
+- `get_calls_list` - показывает все звонки с фоллбэком на created_at
+- `get_timeline_data` - полный timeline без пропущенных звонков
+
+**Файлы:**
+- `migrations/20251020_014_fix_null_started_at.sql` ✅ Применена через MCP
+
+**Проверка:**
+```sql
+-- ДО: 2,377 звонков
+-- ПОСЛЕ: 8,559 звонков (100%)
+SELECT get_dashboard_metrics(NULL, '2020-01-01', NOW());
+```
+
+---
+
 ### ✅ Production Cron Logging System Complete + Dashboard RPC Fixed
 
 **Основные достижения:**
