@@ -12,9 +12,178 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 - **Frontend Dashboard:** ✅ React/Next.js with shadcn/ui
 - **Custom Date Picker:** ✅ Calendar component with range selection
 - **API Integration:** ✅ All endpoints connected to Supabase
-- **Known Issue:** ⚠️ RPC functions show only 2,377 calls (migration 012 needs table name fix)
+- **RPC Functions:** ✅ Fixed! All 8,559 calls accessible through dashboard
+- **Cron Logging System:** ✅ Production-ready with runs + logs tables
+- **GitHub Actions:** ✅ Automated sync every 6 hours
 
 ## Latest Updates (October 20, 2025)
+
+### ✅ Production Cron Logging System Complete + Dashboard RPC Fixed
+
+**Основные достижения:**
+
+**1. Система логирования полностью работает в production:**
+- ✅ **Миграции применены:** `runs` и `logs` таблицы созданы в Supabase
+- ✅ **Logger.js протестирован:** Универсальный логгер работает идеально
+- ✅ **Sync скрипт работает:** `scripts/sync-vapi-calls.js` пишет логи в базу
+- ✅ **11 существующих записей сохранены** из старой `sync_logs` таблицы
+
+**2. Dashboard RPC функции исправлены (Migration 013):**
+- ✅ **Проблема решена:** Исправлены типы данных (TEXT вместо UUID)
+- ✅ **Правильный JOIN:** `qci_analyses.call_id = vapi_calls_raw.id`
+- ✅ **Все 3 функции работают:** `get_dashboard_metrics`, `get_calls_list`, `get_timeline_data`
+- ✅ **713 звонков доступны** в dashboard (последние 30 дней)
+
+**3. GitHub Actions автоматизация готова:**
+- ✅ **Workflow создан:** `.github/workflows/sync-vapi-calls.yml`
+- ✅ **Расписание:** Каждые 6 часов автоматически
+- ✅ **Ручной запуск:** Через GitHub UI (workflow_dispatch)
+
+**Исправленные проблемы:**
+- 🐛 **Fixed:** `logger.js` - array destructuring error
+- 🐛 **Fixed:** `runs.batch_id` - сделан nullable
+- 🐛 **Fixed:** RPC функции - правильные типы данных и JOIN
+
+**Файлы созданы/обновлены:**
+- `migrations/20251020_transform_sync_logs_to_runs.sql` ✅ Применена
+- `migrations/20251020_create_logs_table.sql` ✅ Применена
+- `migrations/20251020_013_fix_rpc_correct_types.sql` ✅ Применена
+- `.github/workflows/sync-vapi-calls.yml` ✅ Создан
+- `lib/logger.js` ✅ Исправлен и протестирован
+
+**Проверочные запросы выполнены:**
+```sql
+-- ✅ Таблицы существуют
+SELECT * FROM runs ORDER BY started_at DESC LIMIT 5;
+SELECT * FROM logs WHERE run_id = '7e26a16b-ef5c-4856-99e3-5ef63b313732';
+
+-- ✅ RPC функции работают
+SELECT get_dashboard_metrics(NULL, NULL, NULL);
+SELECT * FROM get_calls_list(NULL, NULL, NULL, 'all', 5, 0);
+SELECT * FROM get_timeline_data(NULL, NOW() - INTERVAL '7 days', NOW(), 'day');
+```
+
+**Статистика после исправлений:**
+- Всего звонков в базе: 8,559 (vapi_calls_raw)
+- Звонков за 30 дней: 713 (доступны через RPC)
+- Качественных звонков (>30s): 363 (50.9%)
+- Проанализированных с QCI: 918 (10.7% от всех)
+
+---
+
+### 🤖 Cron Job Logging System + Migration Consolidation ✅
+
+**Основные достижения:**
+
+**1. Создана универсальная система логирования для cron jobs**
+- ✅ **Таблицы базы данных:**
+  - `runs` - трекинг выполнения всех cron скриптов (sync, QCI analysis, prompt optimization)
+  - `logs` - детальные step-by-step логи для каждого run
+
+- ✅ **Hybrid подход (лучшее из всех миров):**
+  - Базовые поля для всех типов операций
+  - Специализированные поля для data sync (`records_fetched`, `records_inserted`, etc.)
+  - Специализированные поля для QCI analysis (`calls_analyzed`, `api_cost`)
+  - JSONB `metadata` для гибкости
+
+- ✅ **Миграция sync_logs → runs:**
+  - Переименование существующей таблицы `sync_logs` → `runs`
+  - Добавление UUID primary key (сохранён старый `legacy_id`)
+  - Расширение для поддержки всех типов cron jobs
+  - **11 существующих записей сохранены**
+
+**2. Создан логгер по спецификации ChatGPT**
+- ✅ **lib/logger.js:**
+  - Класс `Logger` с методами `info()`, `error()`, `warning()`, `debug()`
+  - Helper функции `createRun()`, `updateRun()`
+  - Пишет в Supabase `runs` и `logs` таблицы
+  - Точно по спецификации ChatGPT для GitHub Actions
+
+**3. Создан пример cron скрипта**
+- ✅ **scripts/sync-vapi-calls.js:**
+  - Шаблон для GitHub Actions cron
+  - Использует lib/logger.js
+  - Детальное логирование каждого шага
+  - Обработка ошибок и обновление статусов
+
+**4. Консолидация всех миграций**
+- ✅ **Объединены все миграции в /migrations:**
+  - Переименованы в timestamp формат (YYYYMMDD_NNN_description.sql)
+  - Индустриальный стандарт (Supabase, Rails, Sequelize)
+  - **17 миграций** в хронологическом порядке
+  - Старые файлы архивированы в `archive/old_migrations/`
+
+- ✅ **Создан единый README.md:**
+  - История всех миграций с датами
+  - 3 способа применения (Dashboard, CLI, psql)
+  - Verification queries
+  - Rollback инструкции
+
+**Структура таблицы runs (14 полей):**
+```sql
+id uuid                      -- UUID primary key
+legacy_id integer            -- Старый ID из sync_logs
+script_name text             -- "vapi-sync", "qci-analysis", "prompt-optimizer"
+status text                  -- "running", "success", "error"
+started_at timestamptz
+finished_at timestamptz
+duration_ms integer
+error_message text
+triggered_by text            -- "manual", "cron", "api"
+batch_id uuid
+
+-- Data sync metrics:
+records_fetched integer
+records_inserted integer
+records_updated integer
+records_failed integer
+
+-- QCI analysis metrics:
+calls_analyzed integer
+api_cost numeric(10,4)       -- Tracking OpenAI costs
+
+-- Flexible:
+metadata jsonb
+```
+
+**Структура таблицы logs (7 полей):**
+```sql
+id uuid
+run_id uuid FK → runs(id)
+timestamp timestamptz
+level text                   -- "INFO", "ERROR", "WARNING", "DEBUG"
+step text                    -- "START", "FETCH", "SAVE", "END"
+message text
+meta jsonb
+```
+
+**Файлы созданы:**
+- `migrations/20251020_transform_sync_logs_to_runs.sql` - миграция runs
+- `migrations/20251020_create_logs_table.sql` - миграция logs
+- `lib/logger.js` - универсальный логгер
+- `scripts/sync-vapi-calls.js` - пример cron скрипта
+- `migrations/README.md` - полная документация миграций
+
+**Файлы перемещены:**
+- `data/migrations/*.sql` → `migrations/YYYYMMDD_NNN_*.sql` (13 файлов)
+- `data/migrations/` → `archive/old_migrations/data/migrations/` (архив)
+
+**Следующие шаги:**
+1. Перезапустить Claude Code (для применения MCP)
+2. Применить миграции через MCP:
+   - `20251020_transform_sync_logs_to_runs.sql`
+   - `20251020_create_logs_table.sql`
+3. Протестировать: `node scripts/sync-vapi-calls.js`
+4. Создать GitHub Actions workflows для автоматизации
+
+**Архитектурное решение:**
+Выбран **Single Table (hybrid)** подход вместо Multi-Table:
+- Одна таблица `runs` для всех типов cron jobs
+- Специализированные поля (nullable) для разных типов
+- JSONB для edge cases
+- Простота > over-engineering (принцип CLAUDE.md)
+
+---
 
 ### 🎨 Dashboard UI Improvements & Date Picker ✅
 

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCI Analysis - VAPI Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; }
+
+        #callDetailsSidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #callDetailsSidebar.open {
+            transform: translateX(0);
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .qci-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .qci-excellent { background: #dcfce7; color: #166534; }
+        .qci-good { background: #dbeafe; color: #1e40af; }
+        .qci-average { background: #fef3c7; color: #92400e; }
+        .qci-poor { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<div class="flex h-screen overflow-hidden">
+
+    <!-- Main Content -->
+    <div id="mainContent" class="flex-1 overflow-y-auto custom-scroll transition-all duration-300">
+        <div class="max-w-7xl mx-auto p-6">
+
+            <!-- Header with Navigation -->
+            <header class="mb-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <a href="prototype-dashboard.html" class="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                                </svg>
+                                Back to Dashboard
+                            </a>
+                        </div>
+                        <h1 class="text-3xl font-bold text-gray-900">QCI Analysis Management</h1>
+                        <p class="text-gray-600 mt-1">Quality Call Index scoring and insights</p>
+                    </div>
+                    <button onclick="openSettings()" class="px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Settings
+                    </button>
+                </div>
+            </header>
+
+            <!-- Status Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Analyzed</div>
+                    <div class="text-2xl font-bold text-purple-600">918</div>
+                    <div class="text-xs text-gray-500 mt-1">of 8,559 calls</div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Coverage</div>
+                    <div class="text-2xl font-bold text-gray-900">10.7%</div>
+                    <div class="text-xs text-green-600 mt-1">+45 today</div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Avg QCI Score</div>
+                    <div class="text-2xl font-bold text-blue-600">48.2</div>
+                    <div class="text-xs text-gray-500 mt-1">Out of 100</div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Pass Rate</div>
+                    <div class="text-2xl font-bold text-green-600">24.3%</div>
+                    <div class="text-xs text-gray-500 mt-1">QCI >= 70</div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Failed Calls</div>
+                    <div class="text-2xl font-bold text-red-600">67</div>
+                    <div class="text-xs text-gray-500 mt-1">Need review</div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <div class="text-sm text-gray-600 mb-1">Analysis Cost</div>
+                    <div class="text-2xl font-bold text-gray-900">$12.45</div>
+                    <div class="text-xs text-gray-500 mt-1">This month</div>
+                </div>
+
+            </div>
+
+            <!-- Filters & Batch Actions -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+
+                    <!-- Filters -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-3">Filters</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <select class="px-3 py-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                                <option>Last 30 days</option>
+                                <option>Last 7 days</option>
+                                <option>Today</option>
+                                <option>Custom range</option>
+                            </select>
+                            <select class="px-3 py-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                                <option>All Assistants</option>
+                                <option>BIESSE - MS</option>
+                                <option>QC Advisor</option>
+                                <option>Alex1</option>
+                            </select>
+                            <select class="px-3 py-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                                <option value="all">All Calls</option>
+                                <option value="analyzed">Has Analysis</option>
+                                <option value="no-analysis">No Analysis</option>
+                                <option value="failed">Failed Analysis</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-wrap gap-3 mt-2">
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" class="mr-2 rounded">
+                                Excellent (80-100)
+                            </label>
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" class="mr-2 rounded">
+                                Good (60-79)
+                            </label>
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" class="mr-2 rounded">
+                                Average (40-59)
+                            </label>
+                            <label class="flex items-center text-sm">
+                                <input type="checkbox" class="mr-2 rounded">
+                                Poor (&lt;40)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Batch Actions -->
+                    <div class="border-l pl-4">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-3">Batch Actions</h3>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
+                            <div class="text-sm font-medium text-blue-900 mb-2">Analyze Unanalyzed Calls</div>
+                            <div class="text-xs text-blue-700 mb-2">7,641 calls without QCI analysis</div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <select class="flex-1 px-2 py-1 border rounded text-xs">
+                                    <option>QCI Standard v1.0</option>
+                                    <option>QCI Hormozi v1.0</option>
+                                </select>
+                                <span class="text-xs text-blue-600 font-medium">Est: $11.46</span>
+                            </div>
+                            <button class="w-full px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors">
+                                Run Batch Analysis
+                            </button>
+                        </div>
+
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                            <div class="text-sm font-medium text-gray-900 mb-2">Re-analyze Selected</div>
+                            <div class="text-xs text-gray-600 mb-2">0 calls selected</div>
+                            <select class="w-full px-2 py-1 border rounded text-xs mb-2">
+                                <option>QCI Hormozi v1.0</option>
+                                <option>QCI Standard v1.0</option>
+                            </select>
+                            <button class="w-full px-3 py-2 bg-gray-300 text-gray-500 text-sm font-medium rounded cursor-not-allowed" disabled>
+                                Select calls first
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+
+                <!-- Quality by Assistant -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold text-gray-900">Quality by Assistant</h2>
+                        <select class="px-2 py-1 border rounded text-xs">
+                            <option>Sort by QCI</option>
+                            <option>Sort by Calls</option>
+                        </select>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="assistantQualityChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- QCI Score Distribution -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">QCI Score Distribution</h2>
+                    <div style="height: 300px;">
+                        <canvas id="scoreDistributionChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Top Coaching Tips -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Top Coaching Tips (Last 30 days)</h2>
+
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <div class="flex-shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-700 font-bold text-sm">
+                            1
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Improve talk ratio</div>
+                            <div class="text-sm text-gray-600">Found in 234 calls - Aim for 35-55% agent talk time</div>
+                        </div>
+                        <div class="text-sm text-gray-500">25.5%</div>
+                    </div>
+
+                    <div class="flex items-start gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-700 font-bold text-sm">
+                            2
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Brand mention missing</div>
+                            <div class="text-sm text-gray-600">Found in 187 calls - Mention "Young Caesar" within first 10 seconds</div>
+                        </div>
+                        <div class="text-sm text-gray-500">20.4%</div>
+                    </div>
+
+                    <div class="flex items-start gap-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                        <div class="flex-shrink-0 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-700 font-bold text-sm">
+                            3
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">No clear outcome</div>
+                            <div class="text-sm text-gray-600">Found in 156 calls - Always ask for meeting or specific next steps</div>
+                        </div>
+                        <div class="text-sm text-gray-500">17.0%</div>
+                    </div>
+
+                    <div class="flex items-start gap-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold text-sm">
+                            4
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Poor objection handling</div>
+                            <div class="text-sm text-gray-600">Found in 143 calls - Use empathy statements before responding to objections</div>
+                        </div>
+                        <div class="text-sm text-gray-500">15.6%</div>
+                    </div>
+
+                    <div class="flex items-start gap-3 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                        <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-700 font-bold text-sm">
+                            5
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">Long dead air periods</div>
+                            <div class="text-sm text-gray-600">Found in 98 calls - Respond within 3 seconds to maintain engagement</div>
+                        </div>
+                        <div class="text-sm text-gray-500">10.7%</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Analyzed Calls Table -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Analyzed Calls</h3>
+                            <p class="text-sm text-gray-600 mt-1" id="sortDescription">Sorted by QCI score (highest first)</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600">Sort by:</label>
+                            <select id="sortSelector" onchange="sortCalls()" class="px-3 py-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500">
+                                <option value="qci-desc">QCI Score (highest first)</option>
+                                <option value="qci-asc">QCI Score (lowest first)</option>
+                                <option value="date-desc">Date (newest first)</option>
+                                <option value="date-asc">Date (oldest first)</option>
+                            </select>
+                            <button class="px-3 py-2 border rounded-md text-sm hover:bg-gray-50">Export CSV</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-50 border-b">
+                            <tr>
+                                <th class="text-left p-3 font-medium text-gray-600">
+                                    <input type="checkbox" class="rounded">
+                                </th>
+                                <th class="text-left p-3 font-medium text-gray-600">Date</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Duration</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Assistant</th>
+                                <th class="text-left p-3 font-medium text-gray-600">QCI Score</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Breakdown</th>
+                                <th class="text-left p-3 font-medium text-gray-600">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y" id="callsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Showing <span id="callsShown" class="font-medium">50</span> of <span id="callsTotal" class="font-medium">918</span> analyzed calls
+                    </div>
+                    <button
+                        id="loadMoreBtn"
+                        onclick="loadMoreCalls()"
+                        class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <span>Load 25 More</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Call Details Sidebar -->
+    <div id="callDetailsSidebar" class="fixed right-0 top-0 h-full w-96 bg-white border-l border-gray-200 shadow-2xl z-50 overflow-y-auto custom-scroll">
+        <div class="p-6">
+
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-gray-900">Call Details</h2>
+                <button onclick="closeSidebar()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- QCI Score Display -->
+            <div class="mb-6">
+                <div class="text-sm font-medium text-gray-700 mb-3">QCI Score</div>
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 text-center border-2 border-blue-200">
+                    <div class="text-5xl font-bold text-blue-600" id="sidebarQciTotal">82</div>
+                    <div class="text-sm text-gray-600 mt-1">out of 100 points</div>
+                    <div class="mt-3">
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium" id="sidebarQciStatus">PASS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Breakdown -->
+            <div class="mb-6">
+                <div class="text-sm font-medium text-gray-700 mb-3">Score Breakdown</div>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Dynamics</span>
+                            <span class="font-medium" id="sidebarDynamics">24/30</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Objections</span>
+                            <span class="font-medium" id="sidebarObjections">18/20</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Brand</span>
+                            <span class="font-medium" id="sidebarBrand">20/20</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Outcome</span>
+                            <span class="font-medium" id="sidebarOutcome">20/30</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-orange-600 h-2 rounded-full" style="width: 67%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidence -->
+            <div class="mb-6">
+                <button onclick="toggleSection('evidence')" class="w-full flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                    <span>Evidence & Key Moments</span>
+                    <svg id="evidenceArrow" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+                <div id="evidenceSection" class="bg-gray-50 rounded-lg p-4 text-sm space-y-2">
+                    <div>
+                        <span class="font-medium text-gray-700">Talk Ratio:</span>
+                        <span class="text-gray-600"> 42% agent (target: 35-55%)</span>
+                    </div>
+                    <div>
+                        <span class="font-medium text-gray-700">Brand Mention:</span>
+                        <span class="text-gray-600"> "Young Caesar" at 0:05</span>
+                    </div>
+                    <div>
+                        <span class="font-medium text-gray-700">Outcome:</span>
+                        <span class="text-gray-600"> Meeting booked for next Tuesday</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coaching Tips -->
+            <div class="mb-6">
+                <button onclick="toggleSection('coaching')" class="w-full flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                    <span>Coaching Tips</span>
+                    <svg id="coachingArrow" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+                <div id="coachingSection" class="bg-gray-50 rounded-lg p-4">
+                    <ul class="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                        <li>Great brand mention timing - keep this up</li>
+                        <li>Could improve closing technique with assumptive close</li>
+                        <li>Reduce filler words for more professional tone</li>
+                        <li>Good job handling price objection with value reframe</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Audio Player -->
+            <div class="mb-6">
+                <div class="text-sm font-medium text-gray-700 mb-2">Audio Recording</div>
+                <audio controls class="w-full">
+                    <source src="" type="audio/wav">
+                    Your browser does not support audio playback.
+                </audio>
+            </div>
+
+            <!-- Transcript -->
+            <div class="mb-6">
+                <div class="text-sm font-medium text-gray-700 mb-2">Transcript</div>
+                <div class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-y-auto custom-scroll text-sm">
+                    <div class="space-y-2" id="transcriptContent">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="space-y-2">
+                <button class="w-full px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                    Re-analyze with Different Framework
+                </button>
+                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                    Compare with Similar Calls
+                </button>
+                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                    Export Full Report
+                </button>
+            </div>
+
+            <!-- Metadata -->
+            <div class="mt-6 pt-6 border-t">
+                <button onclick="toggleSection('metadata')" class="w-full flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
+                    <span>Metadata</span>
+                    <svg id="metadataArrow" class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </button>
+                <div id="metadataSection" class="hidden bg-gray-50 rounded-lg p-4 text-sm">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Duration:</span>
+                            <span class="font-medium" id="detailDuration">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Analysis Cost:</span>
+                            <span class="font-medium" id="detailAnalysisCost">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Model:</span>
+                            <span class="font-medium" id="detailModel">gpt-4o-mini</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Framework:</span>
+                            <span class="font-medium" id="detailFramework">QCI Standard v1.0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Analyzed:</span>
+                            <span class="font-medium" id="detailAnalyzedAt">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Call ID:</span>
+                            <span class="font-medium font-mono text-xs" id="detailCallId">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+const assistants = ['BIESSE - MS', 'QC Advisor', 'Alex1', 'Riley', 'YC Assistant | HOT'];
+const mockCalls = [];
+
+for (let i = 0; i < 120; i++) {
+    const duration = Math.floor(Math.random() * 150) + 30;
+    const qciTotal = Math.floor(Math.random() * 60) + 20;
+
+    const dynamics = Math.floor(Math.random() * 20) + 10;
+    const objections = Math.floor(Math.random() * 15) + 5;
+    const brand = Math.random() > 0.3 ? Math.floor(Math.random() * 10) + 10 : Math.floor(Math.random() * 10);
+    const outcome = qciTotal - dynamics - objections - brand;
+
+    const date = new Date();
+    date.setDate(date.getDate() - Math.floor(i / 4));
+    date.setHours(Math.floor(Math.random() * 24));
+    date.setMinutes(Math.floor(Math.random() * 60));
+
+    mockCalls.push({
+        id: Math.random().toString(36).substr(2, 8),
+        date: date.toISOString().slice(0, 16).replace('T', ' '),
+        duration: duration,
+        assistant: assistants[Math.floor(Math.random() * assistants.length)],
+        qciTotal: qciTotal,
+        dynamics: dynamics,
+        objections: objections,
+        brand: brand,
+        outcome: outcome,
+        status: qciTotal >= 70 ? 'pass' : qciTotal >= 40 ? 'review' : 'fail',
+        analysisCost: 0.0135
+    });
+}
+
+mockCalls.sort((a, b) => b.qciTotal - a.qciTotal);
+
+let currentlyShown = 50;
+const totalCalls = mockCalls.length;
+const loadIncrement = 25;
+
+function getQciBadgeClass(score) {
+    if (score >= 80) return 'qci-excellent';
+    if (score >= 60) return 'qci-good';
+    if (score >= 40) return 'qci-average';
+    return 'qci-poor';
+}
+
+function getStatusBadge(status) {
+    if (status === 'pass') return '<span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">PASS</span>';
+    if (status === 'review') return '<span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">REVIEW</span>';
+    return '<span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">FAIL</span>';
+}
+
+function populateCallsTable() {
+    const tbody = document.getElementById('callsTableBody');
+    const callsToShow = mockCalls.slice(0, currentlyShown);
+
+    tbody.innerHTML = callsToShow.map(call => `
+        <tr class="hover:bg-gray-50 cursor-pointer transition-colors" onclick="openCallDetails('${call.id}')">
+            <td class="p-3">
+                <input type="checkbox" class="rounded" onclick="event.stopPropagation()">
+            </td>
+            <td class="p-3 text-gray-900">${call.date.split(' ')[0]}</td>
+            <td class="p-3 text-gray-900">${call.duration}s</td>
+            <td class="p-3 text-gray-900">${call.assistant}</td>
+            <td class="p-3">
+                <div class="qci-badge ${getQciBadgeClass(call.qciTotal)}">${call.qciTotal}</div>
+            </td>
+            <td class="p-3 text-xs text-gray-600">
+                D:${call.dynamics} O:${call.objections}<br>
+                B:${call.brand} R:${call.outcome}
+            </td>
+            <td class="p-3">${getStatusBadge(call.status)}</td>
+        </tr>
+    `).join('');
+
+    updatePaginationUI();
+}
+
+function loadMoreCalls() {
+    currentlyShown = Math.min(currentlyShown + loadIncrement, totalCalls);
+    populateCallsTable();
+}
+
+function updatePaginationUI() {
+    document.getElementById('callsShown').textContent = currentlyShown;
+    document.getElementById('callsTotal').textContent = totalCalls;
+
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (currentlyShown >= totalCalls) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'flex';
+        const remaining = totalCalls - currentlyShown;
+        const nextLoad = Math.min(loadIncrement, remaining);
+        loadMoreBtn.querySelector('span').textContent = `Load ${nextLoad} More`;
+    }
+}
+
+function sortCalls() {
+    const sortValue = document.getElementById('sortSelector').value;
+    const [field, order] = sortValue.split('-');
+
+    const sortDescriptions = {
+        'qci-desc': 'Sorted by QCI score (highest first)',
+        'qci-asc': 'Sorted by QCI score (lowest first)',
+        'date-desc': 'Sorted by date (newest first)',
+        'date-asc': 'Sorted by date (oldest first)'
+    };
+
+    document.getElementById('sortDescription').textContent = sortDescriptions[sortValue];
+
+    mockCalls.sort((a, b) => {
+        let aVal, bVal;
+
+        if (field === 'date') {
+            aVal = new Date(a.date);
+            bVal = new Date(b.date);
+        } else if (field === 'qci') {
+            aVal = a.qciTotal;
+            bVal = b.qciTotal;
+        }
+
+        if (order === 'desc') {
+            return bVal > aVal ? 1 : -1;
+        } else {
+            return aVal > bVal ? 1 : -1;
+        }
+    });
+
+    currentlyShown = 50;
+    populateCallsTable();
+}
+
+let assistantQualityChart, scoreDistributionChart;
+
+function initCharts() {
+    const assistantCtx = document.getElementById('assistantQualityChart').getContext('2d');
+
+    const assistantData = assistants.map(name => {
+        const assistantCalls = mockCalls.filter(c => c.assistant === name);
+        const avgQci = assistantCalls.reduce((sum, c) => sum + c.qciTotal, 0) / assistantCalls.length;
+        return { name, avgQci: avgQci.toFixed(1), count: assistantCalls.length };
+    }).sort((a, b) => b.avgQci - a.avgQci);
+
+    assistantQualityChart = new Chart(assistantCtx, {
+        type: 'bar',
+        data: {
+            labels: assistantData.map(d => d.name),
+            datasets: [{
+                label: 'Avg QCI Score',
+                data: assistantData.map(d => d.avgQci),
+                backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                borderColor: 'rgb(59, 130, 246)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function(context) {
+                            const index = context.dataIndex;
+                            return `(${assistantData[index].count} calls analyzed)`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                },
+                y: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    const distributionCtx = document.getElementById('scoreDistributionChart').getContext('2d');
+
+    const ranges = [
+        { label: '0-10', min: 0, max: 10 },
+        { label: '11-20', min: 11, max: 20 },
+        { label: '21-30', min: 21, max: 30 },
+        { label: '31-40', min: 31, max: 40 },
+        { label: '41-50', min: 41, max: 50 },
+        { label: '51-60', min: 51, max: 60 },
+        { label: '61-70', min: 61, max: 70 },
+        { label: '71-80', min: 71, max: 80 },
+        { label: '81-90', min: 81, max: 90 },
+        { label: '91-100', min: 91, max: 100 }
+    ];
+
+    const distribution = ranges.map(range => {
+        return mockCalls.filter(c => c.qciTotal >= range.min && c.qciTotal <= range.max).length;
+    });
+
+    scoreDistributionChart = new Chart(distributionCtx, {
+        type: 'bar',
+        data: {
+            labels: ranges.map(r => r.label),
+            datasets: [{
+                label: 'Number of Calls',
+                data: distribution,
+                backgroundColor: [
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(249, 115, 22, 0.8)',
+                    'rgba(245, 158, 11, 0.8)',
+                    'rgba(234, 179, 8, 0.8)',
+                    'rgba(132, 204, 22, 0.8)',
+                    'rgba(34, 197, 94, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(20, 184, 166, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(99, 102, 241, 0.8)'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+}
+
+function openCallDetails(callId) {
+    const call = mockCalls.find(c => c.id === callId);
+    if (!call) return;
+
+    document.getElementById('sidebarQciTotal').textContent = call.qciTotal;
+    document.getElementById('sidebarQciStatus').textContent = call.status.toUpperCase();
+    document.getElementById('sidebarQciStatus').className = `px-3 py-1 rounded-full text-sm font-medium ${
+        call.status === 'pass' ? 'bg-green-100 text-green-800' :
+        call.status === 'review' ? 'bg-yellow-100 text-yellow-800' :
+        'bg-red-100 text-red-800'
+    }`;
+
+    document.getElementById('sidebarDynamics').textContent = `${call.dynamics}/30`;
+    document.getElementById('sidebarObjections').textContent = `${call.objections}/20`;
+    document.getElementById('sidebarBrand').textContent = `${call.brand}/20`;
+    document.getElementById('sidebarOutcome').textContent = `${call.outcome}/30`;
+
+    document.getElementById('detailDuration').textContent = call.duration + 's';
+    document.getElementById('detailAnalysisCost').textContent = '$' + call.analysisCost.toFixed(4);
+    document.getElementById('detailAnalyzedAt').textContent = call.date;
+    document.getElementById('detailCallId').textContent = call.id + '...';
+
+    document.getElementById('transcriptContent').innerHTML = `
+        <div><span class="font-medium text-blue-600">AI:</span> Hello, this is ${call.assistant}. How can I help you today?</div>
+        <div><span class="font-medium text-green-600">User:</span> Hi, yes I'm interested in your services.</div>
+        <div><span class="font-medium text-blue-600">AI:</span> Great! Let me tell you more about what we offer at Young Caesar...</div>
+    `;
+
+    document.getElementById('callDetailsSidebar').classList.add('open');
+    document.getElementById('mainContent').classList.add('mr-96');
+}
+
+function closeSidebar() {
+    document.getElementById('callDetailsSidebar').classList.remove('open');
+    document.getElementById('mainContent').classList.remove('mr-96');
+}
+
+function toggleSection(sectionName) {
+    const section = document.getElementById(sectionName + 'Section');
+    const arrow = document.getElementById(sectionName + 'Arrow');
+
+    section.classList.toggle('hidden');
+    arrow.classList.toggle('rotate-180');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    populateCallsTable();
+    initCharts();
+});
+</script>
+
+</body>
+</html>

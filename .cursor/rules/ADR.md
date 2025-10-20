@@ -55,6 +55,7 @@ END ADR_AGENT_PROTOCOL
 
 | ID   | Title                                                        | Date       | Status   | Supersedes | Superseded by |
 | ---- | ------------------------------------------------------------ | ---------- | -------- | ---------- | ------------- |
+| 0009 | [Structured Cron Job Logging System](#adr-0009)            | 2025-10-20 | Accepted | —          | —             |
 | 0008 | [VAPI Analytics Dashboard Architecture](#adr-0008)         | 2025-09-22 | Accepted | —          | —             |
 | 0007 | [Local Prompt Management Migration](#adr-0007)             | 2025-09-22 | Accepted | —          | —             |
 | 0006 | [Module-based Architecture with Shared Utilities](#adr-0006) | 2025-09-19 | Accepted | 0001       | —             |
@@ -381,6 +382,53 @@ Implement single-file HTML dashboard with embedded JavaScript and CSS, following
 ### Compliance / Verification
 
 Dashboard must follow modular structure under `production_scripts/`, work offline, handle 1000+ call records, provide assistant filtering, time period selection, and chart interactions without external dependencies.
+
+---
+
+## ADR-0009 — Structured Cron Job Logging System
+
+<a id="adr-0009"></a>
+**Date**: 2025-10-20
+**Status**: Accepted
+**Owner**: VAPI Team
+
+### Context
+
+Project requires automated cron jobs (VAPI sync, QCI analysis, prompt optimization) with execution tracking and debugging capabilities. Manual script runs lack visibility into failures, performance, and execution history. Need production-ready logging system for GitHub Actions and manual runs.
+
+### Alternatives
+
+- **Console.log only**: No persistence, impossible to debug historical failures
+- **File-based logs**: Difficult to query, no structured data, rotation management needed
+- **Single logs table**: Mixed execution metadata with log entries, poor query performance
+- **External logging service (Datadog/CloudWatch)**: Additional cost, vendor lock-in, complexity
+- **JSONB logs array in runs**: Cannot index timestamps, poor query performance
+
+### Decision
+
+Implement two-table structured logging system in Supabase: `runs` table for execution tracking with metrics, `logs` table for detailed step-by-step entries with timestamps. Universal `lib/logger.js` module for all cron scripts.
+
+**Architecture:**
+- `runs` table: execution metadata (status, duration, records processed, costs)
+- `logs` table: individual log entries (level, step, message, timestamp)
+- One run → many logs (1:N relationship)
+- Separate table for logs enables timestamp indexing and efficient queries
+
+**Script types standardized:**
+- `vapi-sync`: Data synchronization from VAPI API
+- `qci-analysis`: Quality Call Index analysis
+- `prompt-optimizer`: Prompt optimization runs
+
+### Consequences
+
+- **Pros**: Queryable history, efficient timestamp search, standardized logging, production-ready debugging, GitHub Actions compatible
+- **Cons / risks**: Two tables to maintain, requires foreign key integrity, slight storage overhead
+- **Supersedes**: —
+- **Superseded by**: —
+
+### Compliance / Verification
+
+All cron scripts must use `lib/logger.js` with `createRun()` and `Logger` class. Each run must update status (success/error) and metrics. Logs table must have timestamp index. Migration creates both tables with proper relationships.
 
 ---
 

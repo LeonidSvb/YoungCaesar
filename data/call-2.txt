@@ -1,0 +1,209 @@
+Impromptu Google Meet Meeting - October 20
+VIEW RECORDING - 35 mins (No highlights): https://fathom.video/share/6xoQ8Vrxxn5HxPkfjyw2uSdCVLRW7zFx
+
+---
+
+0:00 - Stanislav Uzunchev
+  Hello. Yeah, hi. How are you?
+
+0:04 - Leonid Shvorob (standartdevelop@gmail.com)
+  It was good. Are you in the sauna?
+
+0:08 - Stanislav Uzunchev
+  No, that's my home.
+
+0:11 - Leonid Shvorob (standartdevelop@gmail.com)
+  I just like food and natural things. Okay. So. Yeah, long time not see you. How was Colin's staff?
+
+0:29 - Stanislav Uzunchev
+  No, it didn't stop working. I just thought that when it was a payment problem, you disappeared and your payment is resolved.
+
+0:40 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay, so I will show you what's ready now and some questions that I need you to answer, like what's priorities, what's first, what's later, and so on.  Okay? Okay. you. So what I do now is like can... Okay. Thank And see all data from the WAPI, because in WAPI they're cutting, so limit like 100, and from here it's like I want, for example, every day.  It's run every day, or three times a day, or every two hours. What do you think is better?
+
+1:26 - Stanislav Uzunchev
+  Maybe daily, like I don't know if it will be like some stress on the system if we update this frequently.  How much time does it take to update everything? I've tried to pull up the database with Python and it was pretty fast.
+
+1:46 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, I think we can make it like every couple of hours. Yeah, like this should be like a daily task maybe to go over the dashboard, so...
+  ACTION ITEM: Set Vapi sync to 4-6h; add prompt versioning (Superbase) - WATCH: https://fathom.video/share/6xoQ8Vrxxn5HxPkfjyw2uSdCVLRW7zFx?timestamp=112.9999
+
+2:00 - Stanislav Uzunchev
+  Just not to be too much ahead of the time. So it could be like six hours, four hours, not with big delay, but not like too frequent, just to use unnecessary resources.
+
+2:16 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay. So when it's pull the data, I think we can add like how many meetings. So it's like how many time tools they call so you can see what's going on.  And like see performance for assistance. And like daily, they can make analysis for all calls. So in database, I make it in here.  So for example, this prompt that last we use. So we just take this prompt and run for all. So in database, we have the raw data.  So this is just what we take from Wapi. And now we have like 8000 calls. So I'm just store all this data in here.  And then we can like make different like analytics and stuff. So we just doesn't touch this. We just use this data to like make other stuff.  And for assistance, we have like all assistance, all prompts. So I was thinking it is how valuable it will be if just we can track, for example, BS assistant.  Yeah. And it's like every week if you will improve prompts. So it will like change results. Maybe it will be better.  Maybe it's worse. So I think we can Like, history of prompts, like BS version 1, version 2, version 3, and then we can add, like, in dashboards, when choose some kind of assistance, we can see, like, what is performance.  Yeah, for example, version 1 is, like, better, and so on.
+
+4:20 - Stanislav Uzunchev
+  Yeah, that's actually smart, because right now, we can't do that, actually. Like, if I change a prompt to an agent, I can't really evaluate the success, like, on such a large scale.  Like, right now, I'm going manually through the phone calls, but this would be much better for a big system, like, where you have thousands of calls and many different assistants.  I guess that's the way to go.
+
+4:49 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, so I was thinking, when we're doing synchronization, like, every couple of hours, it's also check if the prompt is different from...  This, it makes changing in here. So, like, it's just number like version two, version three, and so on. And how it can be looks in front end, for example, every like point, it's like version one, version two, version three, and you can just see it some way performing.
+
+5:24 - Stanislav Uzunchev
+  Yeah, guess that you need to do it locally, like to have in Superbase one version, and just compare the strings, because you don't get versions of the prompts from WAPI, so this needs to be some internal logic.  Like, because even if you change one letter in the prompt, it might be, it's entirely a different prompt, a different version.
+
+5:48 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, so what I'm thinking is just store prompts in database, and if it's synchronizing, synchronize, and it see that prompt was changed.  It's just make new version of Prompt. So it's like change.
+
+6:06 - Stanislav Uzunchev
+  Okay, that would work. Yeah.
+
+6:09 - Leonid Shvorob (standartdevelop@gmail.com)
+  So what else I was thinking? Yeah, how many seconds you need a quality call and filters? Because we can add just basic filters now, for example, according like price or like transcript, how long or like how many seconds.  But later we can add like filtering so you can more like play with it.
+
+6:39 - Stanislav Uzunchev
+  Usually the quality would not be determined only by the time. Because it happens many times that it might be a voicemail or like these calls are not really going straightforward always because you're just scraping some phone numbers and then you're calling these people and it's usually like gay.  Keepers like IVRs, like you need to dial an extension. So to consider something quality, usually the first step is like the algorithm of the prompt, like you need to find if it's the right person that you're looking for.  Is it a manager? Is it a person that is responsible for taking decisions? That's like the first step. If it's about time, usually it's should be at least more than a minute.  I haven't seen yet a call that's less than a minute and it can be considered any successful. Usually these that are just 30 seconds, they are just like some voicemail.  Picks it up and hang up again. So yeah, maybe it should be at least a minute. It's not humanly possible to finish the script or have any meaningful conversation less than a minute.  So it should be at least a minute talking and then we need to look for did we get any reply on the questions like did we get any variables like if it's the right person then we need to find the email ask for appointments usually most of the people they say like send me an email so that's considered like a partial success and the top level success if you have a book meeting directly into the calendar then you just need to appear on the meeting you don't need to do anything else mm-hmm okay yeah so I saw in the like data from WAPI we have like evaluation of WAPI if like customer and call if it's voicemail if it's like normal call so we can use this like baseline  Yeah, they return that data that should be used.
+
+9:08 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay, so we take like 60 seconds. And if it's not voicemail, we can like have it's like step in like final like quality call.
+
+9:18 - Stanislav Uzunchev
+  Yeah, also the I think we need to make some logic with the ended call reason it is either the agent hang up or is it either the person that you're calling.  And if it's a voicemail, I think it gets detected by WAPI and you get a different response from end of call.  Yeah, so you get like the errors that are not called for sure. It's like Twilio connection refused, customer didn't didn't want, didn't Customer busy.  Okay. Yeah. And Twilio connection refused. There is one more. So there is, like, four error messages that you get from this end of call reports.
+  ACTION ITEM: Analyze Vapi end-reasons; implement call-stage; build quality-calls dashboard (>=60s, no errors, voicemail included) - WATCH: https://fathom.video/share/6xoQ8Vrxxn5HxPkfjyw2uSdCVLRW7zFx?timestamp=615.9999  And anything else is probably they pick up the phone, and then we need to evaluate. Mm-hmm.
+
+10:24 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay. So I will need to analyze all the calls and, like, figure out what errors are. If you already know it, you can give me, like...
+
+10:37 - Stanislav Uzunchev
+  Like, if you go to Vapi, and you click Call Locked, and you can see the ended reason. That's what I'm looking at right now.  Like, we have, like, four error messages, and we almost don't need to process this because they are... They also have a start time not available.  So that means that this... Calls were never made. And then we need to only look for calls that was at least one second.
+
+11:12 - Leonid Shvorob (standartdevelop@gmail.com)
+  So at least one second. So you mean not error, not voicemail, and at least one second. It means this is like client answer, and it was some conversation.
+
+11:29 - Stanislav Uzunchev
+  Not conversation necessarily, but you don't get pick up the phone if it's like first if Twilio don't let you make the call.  For example, we have numbers that are in China, and we get Twilio connection refused because we cannot dial Chinese numbers, but we still get them on the list.  Then it's customer busy. I think that's when somebody like silence the phone, or they just press the red button, then you have silence.  ahead. Once timed out, what else? And these are the cases where the call didn't happen. But if it's a voicemail, it still means that somebody is picking up the phone, and we can leave messages.  So that's, yeah, we need to take voicemails like regular calls and just see if it was a voicemail, did the agent leave the correct message.  Because we can still drop a message that makes sense, like, I was trying to reach out for this and this reasons.
+
+12:45 - Leonid Shvorob (standartdevelop@gmail.com)
+  OK. So what stages you need to check? Like, errors, voicemail, normal call, and, like, quality call over one minute.  And yeah, I think that's the right order. Okay. So what will be your workflow? Like every day you go here and what you want to see?  How many calls? From these calls, how many of each stage? Yeah, or what else?
+
+13:19 - Stanislav Uzunchev
+  Right now, the biggest problem is that I still need to go to call logs. And this UI is not very convenient.  So I need to go through the pages and look manually for successful call. Then I need to click three times and listen to the actual call.  And I still don't know if it's a voicemail or what was it. So my log is flooded with many errors and calls that didn't make happen.  Like idealistically, you need to just open the dashboard and see all the successful calls. Like the noise should be filtered out.  We don't care about the errors, so we just need to see what calls were made today, what happens if somebody wanted an email, if somebody booked a meeting, or if somebody gave like a reference for someone else to call.  Usually it's either email or phone. I think that's it. Okay.
+
+14:26 - Leonid Shvorob (standartdevelop@gmail.com)
+  So, about tools. I know that tools like Google Calendar is like the best, but they have other tools like emails or like Twilio.  So, what do you think is good? Only Calendar or some other we can track also?
+
+14:46 - Stanislav Uzunchev
+  The bookings, the bookings are only made through, I think it's Calendly right now, and it's a tool that's described as an...  API call, API request. If you go to WAPI tools, you can see all the tools. And this end of code report is currently.  And it's called during the conversation, like you have temporary variables that WAPI is assigning manually, like for automatically. So first, have one time you get the, before the call, you get the variables from Airtable, that it can be some email, for example, like we scraped some email.
+
+15:36 - Leonid Shvorob (standartdevelop@gmail.com)
+  And then we are calling the person.
+
+15:38 - Stanislav Uzunchev
+  And we have this variable available. And we see the email. And then we are asking, is this still the correct email that you're using?  And it's saying the email that we scraped. And then usually the user is saying, yes, that's my right email.  Or he is going to say, no, it's another one. And it overwrites the email. And on the same logic, like during the call, this logic is described in the prompt.  If you have email approved time, then it's calling the tool Google Calendar. No, yeah, then it's calling this API request to make the booking.  It gets the response, and then the agent is saying, perfect, I booked a meeting. Like email function, we don't use in WAPI.  I had it in one workflow that I'm checking if during the call, if the ended reason was not booked, but give me more, yeah, it was more information requested or something like that.
+  ACTION ITEM: Store tool invocations (incl. HTTP codes) in Superbase; add tool filter - WATCH: https://fathom.video/share/6xoQ8Vrxxn5HxPkfjyw2uSdCVLRW7zFx?timestamp=1020.9999  And then I just sent an email through NA10. Thank you. Thank you. Thank you. Thank you. you. I'm not using the WAPI tools.  It's just through N18. I just see the status of the variable from end of call report.
+
+17:11 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay. So what you're saying, I think it's good to be more flexible. For example, in here we can have some filter by tools, what tools they use.  So you can just do it by yourself because maybe you will create other tools through N18 or others. So it's good if you can choose what tools.
+
+17:33 - Stanislav Uzunchev
+  Yeah, that makes sense also. And probably you need to record the tool response on everyone. Usually they respond with HTTP codes.  So if it's 200, because I had this book that sometimes, what was it? Like the time, you have a time problem with LOM.  So you need to use external function. Like if you Ask LOM, what's the time now? What's next Monday? They're hallucinating.  So you need to call external function to get the actual time. So I'm first getting the time. And during the call, I'm setting the time to the external time, so I know that it's the right time.  Because before that, I was making an appointment through Google Calendar. It gets, for example, next Friday. But the LOM is returning next Monday, like, 30 years in the past or something else.  So you need to make sure you have the right time. And yes, why I'm saying this is because of the error codes.  Because during the conversation, you can see what error codes, what response codes you get from the tool. Before the time, when the time was not right, it was like some error of 400.  And you see that from... the tool but the agent don't understand it because it was not described and it's saying oh i have a problem i can't access the tools or something else but i made an appointment like it was not making sense but now if you see response 200 it means that you have the appointment in the calendar and it's working so response code is important for all the tools because the agent is not stopping if it's calling a tool during the call and if you get the error of success the agent is still going to work despite of the two responses but you need to treat them properly you need to make sure it's right or wrong so what you're saying like in air table you cannot see what errors and what tools they uh this is not in air table it's uh runtime in wapi during the call
+
+20:00 - Leonid Shvorob (standartdevelop@gmail.com)
+  So if you see, like, some call that you're interested, then you need to go to Vapi and then, like, explore it in logs.
+
+20:13 - Stanislav Uzunchev
+  Yes. Actually, they're not logging the two responses. No, yeah, they're logging the two responses. Like, if you picked up something, like, like, when you pull a transcript and if it was any tools invoked, you are going to see it.  Just can't find proper example right now. Because it's not so easy to sort through these call logs here.
+
+20:44 - Leonid Shvorob (standartdevelop@gmail.com)
+  So in here, like, in Superbase, we store all the data. And in here, I think it should have...
+
+20:53 - Stanislav Uzunchev
+  You are going to have it, yeah. If it was a tool code, yeah, I think I saw it. Was it something success?  Evaluation? Yeah, Can you expand this? Has tool? Yeah, see, DTMF. Yeah.
+
+21:09 - Leonid Shvorob (standartdevelop@gmail.com)
+  What is DTMF?
+
+21:11 - Stanislav Uzunchev
+  DTMF is, you know, when you dial a number and they ask for customer service press 5. This is DTMF.  Dial, tone, some, what was it? It's a VIP function. It's a dial, tones, manually function. Maybe something like that.  Because sometimes the bot is picking up the phone and it's this IVR. IVR is this auto-recorded messages. Hello, you're connected to company.  Please, for customer service, press 1. For sales representative, press 2. And then it's understanding, like, it's understanding the mapping of this number.  And it can dial a number. That's what DTM is always doing. It can dial the right number. This is a WAPI building function.
+
+22:11 - Leonid Shvorob (standartdevelop@gmail.com)
+  It's like it's a big company and they have this stuff that...
+
+22:17 - Stanislav Uzunchev
+  Yeah, it's called IVR.
+
+22:20 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay. Yeah, I think it's important to add like filter for tools. So it's like you can just choose tools.  But success tools, as you say, is book call meeting and NA10 API requests. Yeah.
+
+22:43 - Stanislav Uzunchev
+  GetTimeNA10 is going to be called anytime when a user is giving a date during the conversation. GetTimeNA10 is doing, for example, next Monday, three weeks after, before these things.  Okay.
+
+23:00 - Leonid Shvorob (standartdevelop@gmail.com)
+  So usually... If they calculate the time, it means the meeting is successful, so call it successful.
+
+23:05 - Stanislav Uzunchev
+  Not necessarily, because it's calculating the time every time. If I say I don't have time this Monday or the next Monday, it's still going to call the function, get 1088 time.  But it's only making a booking when we have a time, when we have an email, and when the user confirmed that he's going to attend a meeting, and then the function is being called.  So if booking calendar is called, most likely it's a success. It only needs to be checked, yeah, probably the response, that the booking was actually successful.  It was not booked with other tools. That's important because we can, it's always going to call the book. meeting function, but we don't know if it's successful or not because these time bugs might occur again, or it can be, the other book is that if we have the right email from Airtable, and then if the user is saying, that's not my email, better email is, and he's like dictating the email, and then we're transcribing the email during the call with deep ground, but that's also not working very well sometimes, and then the email is going to be in invalid format, and if you, it's still going to call the function book calendar meeting, but with invalid email, and you're going to see, you're going to get a wrong response, but you're not going to see it, you're only going to see that the function has been called, so you need to check the response every time.  It's only one response.
+
+25:03 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, so I was like questioning like why when they dictate email and what is your email how is accurately because I think is when I dictate my email to someone is like very small chance that they will write it correctly.  Does it make sense to track or what you think?
+
+25:23 - Stanislav Uzunchev
+  Yeah, that's not working perfectly. It's not working perfectly like because most of the people they have accents. They talk like not very clear.  Like it's giving a lot of false positives, but many times the user is going to say, yeah, that's actually my correct email that we have on Airtable.  It's script and it's incorrect formats and then it's just going to pass on to the next thing like okay when it's convenient time and then it's looking for a set time appointments variable and  He's saying next Monday, and then it's calling book calendar with email, name, and the time it has been given.
+
+26:10 - Leonid Shvorob (standartdevelop@gmail.com)
+  So if it's like a rewrite an email, it's just you need to check it. And if you see that it's wrong, you can just call again manually.
+
+26:18 - Stanislav Uzunchev
+  Usually the LLM is catching this, like it's saying, sorry, I didn't get the email right. Is it like A, like alpha, G for, can you spell it?  So letter by letter, usually it's going somehow. Okay.
+
+26:37 - Leonid Shvorob (standartdevelop@gmail.com)
+  Like you just need to check the response codes. Mm hmm. Yeah. And what about like, do you have like CRM when you have all successful calls or how, what is your workflow now?
+
+26:50 - Stanislav Uzunchev
+  Uh, no, I just sort through the, I just sort through the air table and pass the leads. To the sales.  So. Like it's manual now, it's nothing, but we don't have still so many, like the biggest problem right now is to have like fluent calls and to track everything.  I still get many books sometimes. It's very common that, because how I debug prompts now, I pick up a few calls and I start writing notes on the site.  And I am saying, okay, like the bot is saying thank you too many times, the bot is saying hello too many times.  And then I go to chat Jupiter or something and I say, okay, I have this WAPI prompt and I post my existing prompt.  The problems that I have are still, and then I paste my notes, like rewrite me the prompt. But sometimes when it's rewriting the prompt, other things are going broken again.  So I still need to listen to everything and can't rely. Like if it's. Fixing one thing, another thing, it's not going to work.  For example, if you say optimize the prompt, it might drop some of your functions that are important, like this get time.  The big problem is to make sure that all the calls were made correctly. It needs to be fluent. You need to know that it was no hallucinations.  It was not iterating after every word to say, hello, thank you, thank you, thank you for that. I would just repeat the same phrases, because usually people don't know it's AI until it starts saying stupid things, like, thank you for that, thank you for that.  Nobody's saying thank you for that after every sentence.
+
+28:54 - Leonid Shvorob (standartdevelop@gmail.com)
+  OK, OK, I think I understand now what's needed. So for this. In like today, tomorrow, I will just add that you can see all quality calls from one place.  And what about QCI? Is it still a priority for you or how we need to implement it?
+
+29:22 - Stanislav Uzunchev
+  Yeah, everything is priority. Like, why do you ask about QCI specifically? Ah, QCI, this QCI. I was thinking about the client.  QCI, like that was just an algorithm that I drafted and I was thinking that it's going to work. But if you have some better suggestions, if you think it will be a better solution, like I'm open.  I was just thinking that this would be It was looking like a good algorithm at first.
+
+29:54 - Leonid Shvorob (standartdevelop@gmail.com)
+  To solve these problems that we have.
+
+29:57 - Stanislav Uzunchev
+  Because it was checking for some of these things that I mentioned. Like if... It's iterating the same phrases, if it's making too long pauses.
+
+30:09 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay, okay. Yeah, so I think if we need final result, like better prompts, so we need some data on what it will make the better prompts.  But maybe we can just analyze all calls and then just using like small portions. So yeah, I'm still thinking because if like we analyze 1000 calls, it's only take maybe worse and best and then make some analysis.  So it cannot analyze 1000 calls in one context.
+
+30:40 - Stanislav Uzunchev
+  So yeah, that's that's also important. Like one context doesn't make sense. And maybe this was very good idea with the Chrome versions that you suggested.  it. And if we have like some unified algorithm like this, QCI, it's like a standard
+
+31:04 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, so for these prompt versions, it's bit tricky because I need to think a logic, how it's working with database and so on.  So it for, I think, next time. For today, tomorrow, I won't finish just what we discussed, but it's that we like see what's do further.
+
+31:28 - Stanislav Uzunchev
+  Yes, maybe it looks a bit overcomplicated right now because we talked about the details that you are not thinking about, but actually it's the same thing.  Like you have already the transcripts. In the transcript, you have all the information that VAP is giving. You have the QCI working.  So probably you just need some two, three extra fields and one table to compare the prompts like you need to have.  A role for every version of the prompts, for every agent, and just compare if it was something changed.
+
+32:13 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, it's like the logic in database is not so complicated, but if you want to integrate it with frontend and with QCI and other stuff, so usually it needs some time to see how it works.
+
+32:30 - Stanislav Uzunchev
+  I know, I know. You know what's very, it's helping me a lot if I, sometimes when I'm thinking about something and I'm just like stuck, like, is it an algorithm how to do something?  You just start writing your idea. Okay, I have point A, point B, I need to do this and this.  How are you going to help me do it? It's like, help me write an algorithm. And usually the AOM is giving me like some basic algorithm and then my mind to me.  Immediately it starts flowing better, and I start to see it. I had it so many times, like, OK, I need to do this and that, and I can't really figure it out.  And I just type my thoughts, and I get algorithm that if I read, I see, OK, that's working, that's not working.  And I can just give two, three more suggestions, and I figure it out faster. It's like you're brainstorming with someone.  It's because sometimes when you think alone, it's harder. Yeah, yeah.
+
+33:34 - Leonid Shvorob (standartdevelop@gmail.com)
+  So I think first we just need to storage it in database, and then just find a way how to visualize it, and some logic can be figured out while doing this.
+
+33:47 - Stanislav Uzunchev
+  Yeah, take your time with this. OK.
+
+33:51 - Leonid Shvorob (standartdevelop@gmail.com)
+  So, yeah, thank you that you clarified everything. Today I finish, I hope, and tomorrow, all the filtering, so you can just...
+  ACTION ITEM: Automate QCI (Superbase); integrate into dashboard - WATCH: https://fathom.video/share/6xoQ8Vrxxn5HxPkfjyw2uSdCVLRW7zFx?timestamp=2036.9999  Check all the quality calls, go through them, and see the QCI ratings, and so on. For now, will just automate QCI, which will be only one framework, and it will be automatically analyzed.  So if you want to change it, you can just change it in Superbase, like this.
+
+34:21 - Stanislav Uzunchev
+  Okay. Yeah. Okay, perfect. Like, questions for me, or, like, other No, I think we need to, like, like, you need to just take your time, and I know that you're going to do it.  Okay.
+
+34:40 - Leonid Shvorob (standartdevelop@gmail.com)
+  Yeah, just need to take your time. Okay, that's a good stand, nice that, like, very excited about this project to be finished, because it's, like, really interesting, and yeah, I really want it working correctly by the end.
+
+34:55 - Stanislav Uzunchev
+  Yeah, yeah, that's, uh, it's a huge demand for especially this type of automations, and if it's... It's done the right way.
+
+35:07 - Leonid Shvorob (standartdevelop@gmail.com)
+  Okay, so... Okay. Thank you, Leon.
+
+35:10 - Stanislav Uzunchev
+  Have a nice day, and talk to you soon. Bye-bye. Okay, bye.
