@@ -34,7 +34,7 @@ interface Log {
   level: 'INFO' | 'ERROR' | 'WARNING' | 'DEBUG';
   step: string;
   message: string;
-  meta: any;
+  meta: Record<string, unknown> | null;
 }
 
 export default function ExecutionLogsPage() {

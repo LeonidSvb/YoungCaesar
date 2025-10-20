@@ -21,22 +21,22 @@ const modules: Module[] = [
     stats: '11/11 synced'
   },
   {
-    id: 'vapi-collection',
-    name: 'VAPI Collection',
-    description: 'Real-time call data collection from VAPI API with advanced filtering',
-    href: '/production_scripts/vapi_collection/dashboard/index.html',
+    id: 'dashboard',
+    name: 'Analytics Dashboard',
+    description: 'Complete VAPI analytics with real-time metrics and filtering',
+    href: '/dashboard',
     status: 'ready',
     color: 'bg-blue-500 hover:bg-blue-600',
-    stats: '2,612 calls'
+    stats: '8,559 calls'
   },
   {
-    id: 'qci-analysis',
-    name: 'QCI Analysis',
-    description: 'Quality Call Intelligence scoring with AI-powered insights and coaching',
-    href: '/dashboards/qci_analysis_comprehensive_dashboard.html',
+    id: 'execution-logs',
+    name: 'Execution Logs',
+    description: 'System execution logs with master-detail view',
+    href: '/execution-logs',
     status: 'ready',
     color: 'bg-green-500 hover:bg-green-600',
-    stats: '883 analyzed'
+    stats: 'Real-time'
   },
   {
     id: 'supabase-sync',

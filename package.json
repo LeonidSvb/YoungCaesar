@@ -24,14 +24,13 @@
     "vectorize": "python scripts/training/vector_embedder.py",
     "train": "python scripts/training/agent_trainer.py",
     "test": "echo \"All systems operational - use 'npm run sync-full' for complete data collection and sync\"",
-    "test:logging": "DRY_RUN=true node scripts/test_logging_dryrun.js",
-    "test:logging:real": "node scripts/test_logging_dryrun.js",
+    "test:logging": "DRY_RUN=true node scripts/utils/test_logging.js",
+    "test:logging:real": "node scripts/utils/test_logging.js",
     "logs:view": "cat logs/$(date +%Y-%m-%d).log 2>/dev/null || cat logs/2025-10-18.log",
     "logs:errors": "cat logs/errors/$(date +%Y-%m-%d).log 2>/dev/null || cat logs/errors/2025-10-18.log",
     "logs:watch": "tail -f logs/$(date +%Y-%m-%d).log",
-    "api": "node api/server.js",
     "frontend": "cd frontend && npm run dev",
-    "dev": "concurrently \"npm run api\" \"npm run frontend\""
+    "dev": "cd frontend && npm run dev"
   },
   "keywords": [
     "vapi",

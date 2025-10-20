@@ -51,45 +51,28 @@ docs/                   # Project documentation
 1. Clone repository
 2. Copy `.env.example` to `.env` and add API keys
 3. Install dependencies: `npm install`
-4. Collect data: `node scripts/collect_vapi_data.js 2025-09-01 2025-09-10`
-5. Sync to Airtable: `node scripts/sync_airtable.js upload`
-6. View dashboard: Open `dashboards/consolidation_report.html`
+4. Start frontend: `npm run dev` (opens http://localhost:3000)
+5. Access modules:
+   - **Analytics Dashboard**: http://localhost:3000/dashboard
+   - **Prompt Optimization**: http://localhost:3000/prompt-optimization
+   - **Execution Logs**: http://localhost:3000/execution-logs
 
-## 🚀 Live Dashboards
+## 🚀 React Frontend (Primary Interface)
 
-### Main Production Dashboards
-[![📊 VAPI Analytics](https://img.shields.io/badge/📊_VAPI_Analytics-PRODUCTION_READY-blue?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/vapi_analytics/dashboard/index.html)
-[![🎯 Prompt Optimization](https://img.shields.io/badge/🎯_Prompt_Optimization-CLAUDE_WINS-green?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/prompt_optimization/dashboard/index.html)
-[![📡 VAPI Collection](https://img.shields.io/badge/📡_VAPI_Collection-ACTIVE-brightgreen?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/vapi_collection/dashboard/index.html)
+### Start Development Server
+```bash
+npm run dev
+# Frontend runs on http://localhost:3000
+```
 
-**🎯 VAPI Analytics Features:**
-- Interactive assistant filtering (BIESSE-MS, QC Advisor, Alex1, etc.)
-- Time period selection (7D, 30D, 3M, All Time, Custom)
-- Click-to-filter assistant cards
-- Real-time call analytics and cost tracking
-- Upload your VAPI calls JSON file to view analytics
+### Main Modules
+- **📊 Analytics Dashboard** - Complete VAPI call analytics with real-time filtering (8,559 calls)
+- **🎯 Prompt Optimization** - AI-powered prompt analysis with Supabase sync (11/11 synced)
+- **📋 Execution Logs** - System execution logs with master-detail view
+- **💾 Supabase Integration** - Real-time database synchronization
 
-**🎯 Prompt Optimization Features:**
-- Claude vs OpenAI comparison (Claude wins significantly)
-- Real performance data analysis
-- Cost optimization recommendations
-- Interactive insights and metrics
-
-**📡 VAPI Collection Features:**
-- Complete VAPI call data collection (1,069+ calls)
-- Real-time analytics dashboard
-- Assistant filtering and time periods
-- Cost tracking ($0.03 average per collection)
-- Upload JSON data functionality
-
-### Additional Tools
-[![📈 QCI Analysis](https://img.shields.io/badge/📈_QCI-Analysis-orange?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/production_scripts/qci_analysis/dashboard/)
-[![🔄 Data Report](https://img.shields.io/badge/🔄_Data-Report-purple?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/dashboards/consolidation_report.html)
-[![📋 Complete Report](https://img.shields.io/badge/📋_Complete-Report-gray?style=flat-square)](https://LeonidSvb.github.io/YoungCaesar/reports/html/VAPI_Analytics_Complete_Report_EN.html)
-
-### Reports & Analysis
-[![📋 Complete VAPI Report](https://img.shields.io/badge/📋_Complete-VAPI_Report-red?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/reports/html/VAPI_Analytics_Complete_Report_EN.html)
-[![📞 Meeting Summary](https://img.shields.io/badge/📞_Meeting-Summary-teal?style=for-the-badge)](https://LeonidSvb.github.io/YoungCaesar/reports/html/meeting-summary-sep3-2025-en.html)
+### Legacy HTML Dashboards (archived)
+Static HTML prototypes moved to `archive/dashboards/` - replaced by React frontend
 
 ## 📚 Documentation
 
