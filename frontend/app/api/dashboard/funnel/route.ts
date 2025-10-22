@@ -77,9 +77,9 @@ export async function GET(request: NextRequest) {
     const meetingBooked = calls?.filter(c => {
       try {
         const messages = c.raw_json?.artifact?.messages || [];
-        return messages.some((msg: any) => {
+        return messages.some((msg: { toolCalls?: Array<{ function?: { name?: string } }> }) => {
           const toolCalls = msg.toolCalls || [];
-          return toolCalls.some((tool: any) => {
+          return toolCalls.some((tool) => {
             const toolName = tool.function?.name?.toLowerCase() || '';
             return toolName.includes('calendar') || toolName.includes('book') || toolName.includes('schedule');
           });

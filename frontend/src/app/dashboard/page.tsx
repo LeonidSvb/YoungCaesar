@@ -8,23 +8,39 @@ import { TimelineChart } from '@/components/dashboard/TimelineChart';
 import { CallsTable } from '@/components/dashboard/CallsTable';
 import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
 
-type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all';
+type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
+type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
 
 export default function DashboardPage() {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [assistantId, setAssistantId] = useState<string>('all');
-  const [additionalFilters, setAdditionalFilters] = useState({
-    hasTranscript: true,
-    hasQCI: false,
-    quality: false,
-  });
+  const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [customDateRange, setCustomDateRange] = useState<{ from: Date; to: Date } | null>(null);
+
+  // Handle time range changes with custom date support
+  const handleTimeRangeChange = (range: TimeRange, custom?: { from: Date; to: Date }) => {
+    setTimeRange(range);
+    if (range === 'custom' && custom) {
+      setCustomDateRange(custom);
+    } else {
+      setCustomDateRange(null);
+    }
+  };
 
   // Calculate date range based on timeRange
   const getDateRange = () => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // Use custom date range if selected
+    if (timeRange === 'custom' && customDateRange) {
+      return {
+        from: customDateRange.from.toISOString(),
+        to: customDateRange.to.toISOString(),
+      };
+    }
 
     switch (timeRange) {
       case 'today':
@@ -75,14 +91,6 @@ export default function DashboardPage() {
 
   const { from: dateFrom, to: dateTo } = getDateRange();
 
-  // Build quality filter string for API
-  const getQualityFilter = () => {
-    if (additionalFilters.quality) return 'quality';
-    if (additionalFilters.hasQCI) return 'with_qci';
-    if (additionalFilters.hasTranscript) return 'with_transcript';
-    return 'all';
-  };
-
   const handleCallClick = (callId: string) => {
     setSelectedCallId(callId);
     setSidebarOpen(true);
@@ -105,9 +113,9 @@ export default function DashboardPage() {
 
       {/* Filters */}
       <FilterPanel
-        onTimeRangeChange={setTimeRange}
+        onTimeRangeChange={handleTimeRangeChange}
         onAssistantChange={setAssistantId}
-        onFilterChange={setAdditionalFilters}
+        onQualityFilterChange={setQualityFilter}
       />
 
       {/* Metrics Grid */}
@@ -137,7 +145,7 @@ export default function DashboardPage() {
         assistantId={assistantId === 'all' ? null : assistantId}
         dateFrom={dateFrom}
         dateTo={dateTo}
-        qualityFilter={getQualityFilter()}
+        qualityFilter={qualityFilter}
         onCallClick={handleCallClick}
       />
 

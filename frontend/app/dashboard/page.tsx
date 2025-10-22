@@ -8,7 +8,7 @@ import { TimelineChart } from '@/components/dashboard/TimelineChart';
 import { CallsTable } from '@/components/dashboard/CallsTable';
 import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
 
-type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all';
+type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
 type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
 
 export default function DashboardPage() {

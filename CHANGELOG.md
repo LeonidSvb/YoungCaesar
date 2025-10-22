@@ -18,6 +18,57 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 
 ## Latest Updates (October 20, 2025)
 
+### ⚠️ ТЕКУЩАЯ СЕССИЯ: Vercel 404 Fix (В ПРОЦЕССЕ)
+
+**Проблема:**
+- Vercel deployment возвращает 404 на ВСЕХ страницах, включая новую `/logs`
+- Production build (`npm run build`) падает с TypeScript/ESLint errors
+
+**Корневая причина найдена:**
+- ESLint errors блокируют production build
+- Vercel не может задеплоить → все страницы показывают 404
+
+**Исправления выполнены (НЕ ЗАКОММИЧЕНО):**
+
+1. **`frontend/app/api/dashboard/funnel/route.ts` (строки 80, 82):**
+   ```typescript
+   // БЫЛО:
+   return messages.some((msg: any) => {
+     return toolCalls.some((tool: any) => {
+
+   // СТАЛО:
+   return messages.some((msg: { toolCalls?: Array<{ function?: { name?: string } }> }) => {
+     return toolCalls.some((tool) => {
+   ```
+
+2. **`frontend/app/dashboard/page.tsx` и `frontend/src/app/dashboard/page.tsx`:**
+   - Добавлен `'custom'` в тип `TimeRange`
+   - Добавлена функция `handleTimeRangeChange` для поддержки custom date range
+   - Добавлено состояние `customDateRange`
+
+3. **Обнаружен дубликат структуры:**
+   - `frontend/app/` (старая структура)
+   - `frontend/src/app/` (используется Next.js)
+   - Скопирован правильный файл dashboard/page.tsx в `src/app/`
+
+**Статус:**
+- ✅ `funnel/route.ts` - исправлено
+- ✅ `dashboard/page.tsx` - исправлено
+- ⏳ Production build - нужна проверка
+- ⏳ Commit и push - после проверки build
+
+**Следующие шаги:**
+1. Проверить `npm run build` - должен пройти без errors
+2. Удалить дубликат `frontend/app/` (оставить только `frontend/src/app/`)
+3. Закоммитить изменения
+4. Проверить Vercel deployment
+
+**Файлы с изменениями:**
+- `frontend/app/api/dashboard/funnel/route.ts`
+- `frontend/src/app/dashboard/page.tsx`
+
+---
+
 ### ✅ CRITICAL FIX: Dashboard Now Shows All 8,559 Calls (Migration 014)
 
 **Проблема найдена и решена:**
