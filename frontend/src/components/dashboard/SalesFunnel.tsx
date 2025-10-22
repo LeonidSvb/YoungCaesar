@@ -18,12 +18,14 @@ interface SalesFunnelProps {
   assistantId: string | null;
   dateFrom: string;
   dateTo: string;
+  onStageClick?: (stageName: string) => void;
 }
 
 export function SalesFunnel({
   assistantId,
   dateFrom,
   dateTo,
+  onStageClick,
 }: SalesFunnelProps) {
   const [data, setData] = useState<SalesFunnelData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,8 +58,8 @@ export function SalesFunnel({
     return (
       <Card className="p-6 mb-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Sales Funnel</h2>
-        <div className="flex items-center justify-between gap-3">
-          {[1, 2, 3, 4].map((i) => (
+        <div className="flex items-center justify-between gap-2">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="flex-1 h-24 bg-gray-100 animate-pulse rounded-lg" />
           ))}
         </div>
@@ -85,9 +87,11 @@ export function SalesFunnel({
 
   const stageColors = [
     { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-900', badge: 'text-blue-600' },
-    { bg: 'bg-purple-50', border: 'border-purple-300', text: 'text-purple-900', badge: 'text-purple-600' },
+    { bg: 'bg-red-50', border: 'border-red-300', text: 'text-red-900', badge: 'text-red-600' },
     { bg: 'bg-green-50', border: 'border-green-300', text: 'text-green-900', badge: 'text-green-600' },
-    { bg: 'bg-emerald-50', border: 'border-emerald-400', text: 'text-emerald-900', badge: 'text-emerald-600' },
+    { bg: 'bg-orange-50', border: 'border-orange-300', text: 'text-orange-900', badge: 'text-orange-600' },
+    { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-900', badge: 'text-emerald-600' },
+    { bg: 'bg-purple-50', border: 'border-purple-300', text: 'text-purple-900', badge: 'text-purple-600' },
   ];
 
   return (
@@ -95,29 +99,32 @@ export function SalesFunnel({
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Sales Funnel</h2>
 
       {/* Horizontal Funnel */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-2">
         {data.stages.map((stage, index) => (
           <div key={index} className="flex items-center flex-1">
             {/* Stage Box */}
             <div
-              className={`flex-1 ${stageColors[index].bg} border-2 ${stageColors[index].border} rounded-lg p-4 text-center`}
+              onClick={() => onStageClick?.(stage.name)}
+              className={`flex-1 ${stageColors[index].bg} border-2 ${stageColors[index].border} rounded-lg p-3 text-center min-w-0 transition-all ${
+                onStageClick ? 'cursor-pointer hover:shadow-md hover:scale-105' : ''
+              }`}
             >
-              <div className={`text-xs font-medium ${stageColors[index].badge} mb-1`}>
+              <div className={`text-[10px] font-medium ${stageColors[index].badge} mb-1 truncate`}>
                 {stage.name}
               </div>
-              <div className={`text-2xl font-bold ${stageColors[index].text}`}>
+              <div className={`text-xl font-bold ${stageColors[index].text}`}>
                 {stage.count.toLocaleString()}
               </div>
-              <div className={`text-xs ${stageColors[index].badge} mt-1`}>
+              <div className={`text-[10px] ${stageColors[index].badge} mt-1`}>
                 {stage.rate.toFixed(1)}%
               </div>
             </div>
 
             {/* Arrow (if not last stage) */}
             {index < data.stages.length - 1 && (
-              <div className="flex flex-col items-center -mx-2">
-                <ChevronRight className="w-6 h-6 text-gray-400" />
-                <div className="text-xs font-bold text-gray-700 mt-1">
+              <div className="flex flex-col items-center -mx-1 flex-shrink-0">
+                <ChevronRight className="w-4 h-4 text-gray-400" />
+                <div className="text-[9px] font-bold text-gray-700 mt-0.5">
                   {getConversionRate(index + 1)}%
                 </div>
               </div>
@@ -130,21 +137,21 @@ export function SalesFunnel({
       <div className="mt-4 pt-4 border-t border-gray-200">
         <div className="grid grid-cols-3 gap-4 text-center text-sm">
           <div>
-            <div className="text-gray-500">Overall Conversion</div>
-            <div className="font-bold text-gray-900">
-              {data.stages[3]?.rate.toFixed(2)}%
+            <div className="text-gray-500">Error Rate</div>
+            <div className="font-bold text-red-600">
+              {data.stages[1]?.rate.toFixed(1)}%
             </div>
           </div>
           <div>
-            <div className="text-gray-500">Engaged Rate</div>
-            <div className="font-bold text-gray-900">
-              {data.stages[2]?.rate.toFixed(1)}%
+            <div className="text-gray-500">Quality Rate</div>
+            <div className="font-bold text-emerald-600">
+              {data.stages[4]?.rate.toFixed(1)}%
             </div>
           </div>
           <div>
-            <div className="text-gray-500">Meeting Success</div>
-            <div className="font-bold text-gray-900">
-              {getConversionRate(3)}%
+            <div className="text-gray-500">Tools Used</div>
+            <div className="font-bold text-purple-600">
+              {data.stages[5]?.rate.toFixed(2)}%
             </div>
           </div>
         </div>

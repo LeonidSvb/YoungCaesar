@@ -10,11 +10,13 @@ import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
 
 type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
 type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
+type StageFilter = 'all' | 'errors' | 'no_errors' | 'short' | 'quality' | 'with_tools';
 
 export default function DashboardPage() {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [assistantId, setAssistantId] = useState<string>('all');
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
+  const [stageFilter, setStageFilter] = useState<StageFilter>('all');
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [customDateRange, setCustomDateRange] = useState<{ from: Date; to: Date } | null>(null);
@@ -101,6 +103,29 @@ export default function DashboardPage() {
     setSelectedCallId(null);
   };
 
+  const handleStageClick = (stage: string) => {
+    // Map funnel stage names to filter values
+    const stageMap: Record<string, StageFilter> = {
+      'All Calls': 'all',
+      'Errors': 'errors',
+      'No Errors': 'no_errors',
+      'Short (1-59s)': 'short',
+      'Quality (≥60s)': 'quality',
+      'With Tools': 'with_tools',
+    };
+
+    const filterValue = stageMap[stage] || 'all';
+    setStageFilter(filterValue);
+
+    // Scroll to table
+    setTimeout(() => {
+      const tableElement = document.querySelector('[data-calls-table]');
+      if (tableElement) {
+        tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       {/* Header */}
@@ -125,13 +150,6 @@ export default function DashboardPage() {
         dateTo={dateTo}
       />
 
-      {/* Sales Funnel */}
-      <SalesFunnel
-        assistantId={assistantId === 'all' ? null : assistantId}
-        dateFrom={dateFrom}
-        dateTo={dateTo}
-      />
-
       {/* Timeline Chart */}
       <TimelineChart
         assistantId={assistantId === 'all' ? null : assistantId}
@@ -140,12 +158,21 @@ export default function DashboardPage() {
         granularity="day"
       />
 
+      {/* Sales Funnel */}
+      <SalesFunnel
+        assistantId={assistantId === 'all' ? null : assistantId}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        onStageClick={handleStageClick}
+      />
+
       {/* Calls Table */}
       <CallsTable
         assistantId={assistantId === 'all' ? null : assistantId}
         dateFrom={dateFrom}
         dateTo={dateTo}
         qualityFilter={qualityFilter}
+        stageFilter={stageFilter}
         onCallClick={handleCallClick}
       />
 

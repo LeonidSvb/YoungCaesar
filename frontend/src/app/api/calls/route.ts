@@ -37,10 +37,11 @@ export async function GET(request: NextRequest) {
     const dateFrom = searchParams.get('date_from');
     const dateTo = searchParams.get('date_to');
     const qualityFilter = searchParams.get('quality_filter') || 'all';
+    const stageFilter = searchParams.get('stage_filter') || 'all';
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    logger.info('GET /api/calls', { assistantId, dateFrom, dateTo, qualityFilter, limit, offset });
+    logger.info('GET /api/calls', { assistantId, dateFrom, dateTo, qualityFilter, stageFilter, limit, offset });
 
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -65,6 +66,33 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Apply stage filter (client-side filtering after RPC)
+    let filteredCalls = calls || [];
+
+    if (stageFilter && stageFilter !== 'all') {
+      filteredCalls = filteredCalls.filter((call: any) => {
+        switch (stageFilter) {
+          case 'errors':
+            // Errors: duration_seconds IS NULL (RPC returns COALESCE for started_at)
+            return call.duration_seconds === null;
+          case 'no_errors':
+            // No errors: duration_seconds IS NOT NULL
+            return call.duration_seconds !== null;
+          case 'short':
+            // Short calls: 1-59 seconds
+            return call.duration_seconds !== null && call.duration_seconds >= 1 && call.duration_seconds < 60;
+          case 'quality':
+            // Quality calls: >= 60 seconds
+            return call.duration_seconds !== null && call.duration_seconds >= 60;
+          case 'with_tools':
+            // With tools: quality calls with has_qci indicator
+            return call.duration_seconds !== null && call.duration_seconds >= 60 && call.has_qci;
+          default:
+            return true;
+        }
+      });
+    }
+
     // Get total count for pagination
     let countQuery = supabase.from('vapi_calls_raw').select('id', { count: 'exact', head: true });
 
@@ -81,13 +109,13 @@ export async function GET(request: NextRequest) {
     const { count: totalCount } = await countQuery;
 
     const duration = Date.now() - startTime;
-    logger.api('GET', '/api/calls', 200, duration, { total: totalCount, shown: calls?.length, offset });
+    logger.api('GET', '/api/calls', 200, duration, { total: totalCount, shown: filteredCalls?.length, offset });
 
     return NextResponse.json({
-      calls: calls || [],
+      calls: filteredCalls || [],
       total: totalCount || 0,
-      shown: calls?.length || 0,
-      hasMore: (offset + (calls?.length || 0)) < (totalCount || 0)
+      shown: filteredCalls?.length || 0,
+      hasMore: (offset + (filteredCalls?.length || 0)) < (totalCount || 0)
     });
   } catch (error) {
     const duration = Date.now() - startTime;

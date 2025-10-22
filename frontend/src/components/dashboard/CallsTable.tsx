@@ -26,6 +26,7 @@ interface CallsTableProps {
   dateFrom: string;
   dateTo: string;
   qualityFilter?: string;
+  stageFilter?: string;
   onCallClick?: (callId: string) => void;
 }
 
@@ -36,6 +37,7 @@ export function CallsTable({
   dateFrom,
   dateTo,
   qualityFilter = 'all',
+  stageFilter = 'all',
   onCallClick,
 }: CallsTableProps) {
   const [calls, setCalls] = useState<Call[]>([]);
@@ -49,7 +51,7 @@ export function CallsTable({
 
   useEffect(() => {
     loadCalls(true);
-  }, [assistantId, dateFrom, dateTo, qualityFilter]);
+  }, [assistantId, dateFrom, dateTo, qualityFilter, stageFilter]);
 
   useEffect(() => {
     applySorting();
@@ -69,6 +71,7 @@ export function CallsTable({
       if (dateFrom) params.set('date_from', dateFrom);
       if (dateTo) params.set('date_to', dateTo);
       params.set('quality_filter', qualityFilter);
+      if (stageFilter && stageFilter !== 'all') params.set('stage_filter', stageFilter);
       params.set('limit', '50');
       params.set('offset', reset ? '0' : offset.toString());
 
@@ -162,7 +165,7 @@ export function CallsTable({
   };
 
   return (
-    <Card>
+    <Card data-calls-table>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
