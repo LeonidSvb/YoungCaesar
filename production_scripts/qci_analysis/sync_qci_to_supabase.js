@@ -1,4 +1,5 @@
-require('dotenv').config({ path: '../../.env' });
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 // ============================================================
 // QCI TO SUPABASE SYNC - CONFIGURATION SYSTEM
@@ -84,7 +85,7 @@ function getConfig(runtimeParams = null) {
 const { createClient } = require('@supabase/supabase-js');
 const { createLogger } = require('../shared/logger');
 const fs = require('fs');
-const path = require('path');
+// path уже импортирован выше
 
 class QciSupabaseSync {
     constructor(config = null) {
@@ -240,17 +241,9 @@ class QciSupabaseSync {
     }
 
     async syncQciRecord(qciRecord) {
-        const callId = this.getSupabaseCallId(qciRecord.call_id);
-
-        if (!callId) {
-            this.stats.calls_orphaned++;
-            if (this.config.SYNC.SKIP_ORPHANED_CALLS) {
-                this.stats.qci_records_skipped++;
-                return { status: 'skipped', reason: 'orphaned_call' };
-            }
-        } else {
-            this.stats.calls_matched++;
-        }
+        // call_id уже является правильным ID из vapi_calls_raw
+        const callId = qciRecord.call_id;
+        this.stats.calls_matched++;
 
         // Prepare QCI analysis data (matching Supabase schema)
         const qciData = {
@@ -448,10 +441,8 @@ class QciSupabaseSync {
             // Load QCI data
             const qciData = await this.loadQciData();
 
-            // Load calls cache for matching
-            if (this.config.SYNC.AUTO_MATCH_CALLS) {
-                await this.loadCallsCache();
-            }
+            // Note: call_id in QCI results already matches vapi_calls_raw.id
+            // No need to load calls cache for matching
 
             // Sync QCI data
             const results = await this.syncQciData(qciData);
