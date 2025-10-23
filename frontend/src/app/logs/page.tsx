@@ -144,7 +144,7 @@ export default function ExecutionLogsPage() {
 
   function formatTimestamp(timestamp: string) {
     const date = new Date(timestamp);
-    return date.toLocaleString('ru-RU', {
+    return date.toLocaleString('en-US', {
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
