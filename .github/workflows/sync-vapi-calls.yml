@@ -35,7 +35,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           VAPI_API_KEY: ${{ secrets.VAPI_API_KEY }}
-        run: node production_scripts/vapi_collection/src/sync_to_supabase_v2.js
+        run: node production_scripts/vapi_collection/src/sync_to_supabase_v2.js --mode=incremental
 
       - name: Check sync status
         if: failure()
