@@ -118,9 +118,10 @@ export async function GET(
     }
 
     const versions: PromptVersion[] = [];
+    const typedVersions = promptVersions as unknown as Array<{ version_number: number; changed_at: string; prompt?: string }>;
 
-    for (const version of promptVersions || []) {
-      const nextVersionDate = promptVersions?.find(v => v.version_number === version.version_number + 1)?.changed_at;
+    for (const version of typedVersions || []) {
+      const nextVersionDate = typedVersions?.find(v => v.version_number === version.version_number + 1)?.changed_at;
 
       let query = supabase
         .from('vapi_calls_raw')
@@ -139,7 +140,7 @@ export async function GET(
       const qciQuery = supabase
         .from('qci_scores')
         .select('total_score')
-        .in('call_id', calls?.map(c => (c as any).id) || []);
+        .in('call_id', calls?.map(c => (c as Record<string, unknown>).id as string) || []);
 
       const { data: qciScores } = await qciQuery;
 

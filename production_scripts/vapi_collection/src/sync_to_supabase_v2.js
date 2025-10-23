@@ -1,3 +1,19 @@
+/**
+ * VAPI to Supabase Synchronization Script
+ *
+ * Syncs call data from VAPI API to Supabase database with support for:
+ * - Full sync: All historical data from START_DATE
+ * - Incremental sync: Last 24 hours with overlap
+ * - Auto mode: Automatically chooses full or incremental based on existing data
+ *
+ * Usage:
+ *   node sync_to_supabase_v2.js [--mode=auto|full|incremental]
+ *
+ * Examples:
+ *   node sync_to_supabase_v2.js                     # Auto mode (default)
+ *   node sync_to_supabase_v2.js --mode=full         # Full sync from 2025-01-01
+ *   node sync_to_supabase_v2.js --mode=incremental  # Last 24h only
+ */
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
 const { createClient } = require('@supabase/supabase-js');
@@ -7,8 +23,21 @@ const { Logger, createRun, updateRun } = require('../../../lib/logger');
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
+function parseCliArgs() {
+  const args = process.argv.slice(2);
+  const modeArg = args.find(arg => arg.startsWith('--mode='));
+  const mode = modeArg ? modeArg.split('=')[1] : 'auto';
+
+  if (!['auto', 'full', 'incremental'].includes(mode)) {
+    console.error(`Invalid mode: ${mode}. Use --mode=auto, --mode=full, or --mode=incremental`);
+    process.exit(1);
+  }
+
+  return { SYNC_MODE: mode };
+}
+
 const DEFAULT_CONFIG = {
-  SYNC_MODE: 'auto', // auto | full
+  SYNC_MODE: 'auto',
   BATCH_SIZE: 100,
   START_DATE: '2025-01-01',
   END_DATE: new Date().toISOString().split('T')[0],
@@ -45,10 +74,33 @@ class VapiSupabaseSync {
 
   async getLastSyncPoint() {
     if (this.config.SYNC_MODE === 'full') {
-      await this.logger.info('MODE', 'Full sync mode enabled');
+      await this.logger.info('MODE', 'Full sync mode (--mode=full)');
       return {
         mode: 'full',
         startDate: this.config.START_DATE,
+        endDate: this.config.END_DATE
+      };
+    }
+
+    if (this.config.SYNC_MODE === 'incremental') {
+      const { data, error } = await this.supabase
+        .from('vapi_calls_raw')
+        .select('created_at')
+        .order('created_at', { ascending: false })
+        .limit(1);
+
+      if (error || !data || data.length === 0) {
+        await this.logger.error('MODE', 'Incremental mode requires existing data. Run --mode=full first.');
+        throw new Error('No existing data found. Run with --mode=full first to initialize.');
+      }
+
+      const lastDate = new Date(data[0].created_at);
+      const startDate = new Date(lastDate.getTime() - 24 * 60 * 60 * 1000);
+
+      await this.logger.info('MODE', 'Incremental sync mode (--mode=incremental, last 24h)');
+      return {
+        mode: 'incremental',
+        startDate: startDate.toISOString().split('T')[0],
         endDate: this.config.END_DATE
       };
     }
@@ -64,17 +116,16 @@ class VapiSupabaseSync {
 
       if (data && data.length > 0) {
         const lastDate = new Date(data[0].created_at);
-        // Берем данные за последние 24 часа (с небольшим перекрытием)
         const startDate = new Date(lastDate.getTime() - 24 * 60 * 60 * 1000);
 
-        await this.logger.info('MODE', 'Incremental sync mode (last 24h with overlap)');
+        await this.logger.info('MODE', 'Auto mode: data exists, using incremental (last 24h)');
         return {
           mode: 'incremental',
           startDate: startDate.toISOString().split('T')[0],
           endDate: this.config.END_DATE
         };
       } else {
-        await this.logger.info('MODE', 'No existing data found, using full sync');
+        await this.logger.info('MODE', 'Auto mode: no data found, using full sync');
         return {
           mode: 'full',
           startDate: this.config.START_DATE,
@@ -82,7 +133,7 @@ class VapiSupabaseSync {
         };
       }
     } catch (error) {
-      await this.logger.error('MODE', 'Auto-detect failed, falling back to full sync', { error: error.message });
+      await this.logger.error('MODE', 'Auto mode failed, falling back to full sync', { error: error.message });
       return {
         mode: 'full',
         startDate: this.config.START_DATE,
@@ -373,9 +424,12 @@ async function syncVapiToSupabase(config = {}) {
 }
 
 if (require.main === module) {
-  console.log('🚀 Starting VAPI → Supabase sync...\n');
+  const cliConfig = parseCliArgs();
+  const modeDisplay = cliConfig.SYNC_MODE === 'auto' ? 'auto (incremental if data exists)' : cliConfig.SYNC_MODE;
 
-  syncVapiToSupabase()
+  console.log(`🚀 Starting VAPI → Supabase sync (mode: ${modeDisplay})...\n`);
+
+  syncVapiToSupabase(cliConfig)
     .then((result) => {
       console.log('\n✅ Ready!');
       process.exit(result.success ? 0 : 1);

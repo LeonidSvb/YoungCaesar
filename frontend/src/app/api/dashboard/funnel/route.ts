@@ -117,11 +117,11 @@ export async function GET(request: NextRequest) {
 
       try {
         const messages = c.raw_json?.artifact?.messages || [];
-        return messages.some((msg: any) => {
-          const toolCalls = msg.toolCalls || [];
+        return messages.some((msg: Record<string, unknown>) => {
+          const toolCalls = (msg.toolCalls as unknown[]) || [];
           return toolCalls.length > 0;
         });
-      } catch (e) {
+      } catch {
         return false;
       }
     }).length || 0;

@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
     let filteredCalls = calls || [];
 
     if (stageFilter && stageFilter !== 'all') {
-      filteredCalls = filteredCalls.filter((call: any) => {
+      filteredCalls = filteredCalls.filter((call: Record<string, unknown>) => {
         switch (stageFilter) {
           case 'errors':
             // Errors: duration_seconds IS NULL (RPC returns COALESCE for started_at)
@@ -80,13 +80,13 @@ export async function GET(request: NextRequest) {
             return call.duration_seconds !== null;
           case 'short':
             // Short calls: 1-59 seconds
-            return call.duration_seconds !== null && call.duration_seconds >= 1 && call.duration_seconds < 60;
+            return typeof call.duration_seconds === 'number' && call.duration_seconds >= 1 && call.duration_seconds < 60;
           case 'quality':
             // Quality calls: >= 60 seconds
-            return call.duration_seconds !== null && call.duration_seconds >= 60;
+            return typeof call.duration_seconds === 'number' && call.duration_seconds >= 60;
           case 'with_tools':
             // With tools: quality calls with has_qci indicator
-            return call.duration_seconds !== null && call.duration_seconds >= 60 && call.has_qci;
+            return typeof call.duration_seconds === 'number' && call.duration_seconds >= 60 && call.has_qci;
           default:
             return true;
         }

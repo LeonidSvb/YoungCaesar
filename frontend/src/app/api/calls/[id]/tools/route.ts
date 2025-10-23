@@ -36,7 +36,7 @@ interface ToolInvocation {
   timestamp: string;
   http_code: number | null;
   success: boolean;
-  response: any;
+  response: Record<string, unknown>;
   error: string | null;
 }
 
