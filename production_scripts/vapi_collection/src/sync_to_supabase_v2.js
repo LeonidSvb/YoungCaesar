@@ -83,21 +83,30 @@ class VapiSupabaseSync {
     }
 
     if (this.config.SYNC_MODE === 'incremental') {
-      const { data, error } = await this.supabase
-        .from('vapi_calls_raw')
-        .select('created_at')
-        .order('created_at', { ascending: false })
-        .limit(1);
+      const { data: lastRun, error } = await this.supabase
+        .from('runs')
+        .select('finished_at')
+        .eq('script_name', 'vapi-sync')
+        .eq('status', 'success')
+        .order('finished_at', { ascending: false })
+        .limit(1)
+        .single();
 
-      if (error || !data || data.length === 0) {
-        await this.logger.error('MODE', 'Incremental mode requires existing data. Run --mode=full first.');
-        throw new Error('No existing data found. Run with --mode=full first to initialize.');
+      if (error || !lastRun || !lastRun.finished_at) {
+        await this.logger.error('MODE', 'Incremental mode requires previous successful run. Run --mode=full first.');
+        throw new Error('No previous successful sync found. Run with --mode=full first to initialize.');
       }
 
-      const lastDate = new Date(data[0].created_at);
-      const startDate = new Date(lastDate.getTime() - 24 * 60 * 60 * 1000);
+      const lastSyncTime = new Date(lastRun.finished_at);
+      const OVERLAP_HOURS = 2;
+      const startDate = new Date(lastSyncTime.getTime() - OVERLAP_HOURS * 60 * 60 * 1000);
 
-      await this.logger.info('MODE', 'Incremental sync mode (--mode=incremental, last 24h)');
+      await this.logger.info('MODE', `Incremental sync mode: syncing from last successful run`, {
+        last_sync: lastSyncTime.toISOString(),
+        overlap_hours: OVERLAP_HOURS,
+        sync_from: startDate.toISOString()
+      });
+
       return {
         mode: 'incremental',
         startDate: startDate.toISOString().split('T')[0],
@@ -106,32 +115,39 @@ class VapiSupabaseSync {
     }
 
     try {
-      const { data, error } = await this.supabase
-        .from('vapi_calls_raw')
-        .select('created_at')
-        .order('created_at', { ascending: false })
-        .limit(1);
+      const { data: lastRun, error } = await this.supabase
+        .from('runs')
+        .select('finished_at')
+        .eq('script_name', 'vapi-sync')
+        .eq('status', 'success')
+        .order('finished_at', { ascending: false })
+        .limit(1)
+        .single();
 
-      if (error) throw error;
-
-      if (data && data.length > 0) {
-        const lastDate = new Date(data[0].created_at);
-        const startDate = new Date(lastDate.getTime() - 24 * 60 * 60 * 1000);
-
-        await this.logger.info('MODE', 'Auto mode: data exists, using incremental (last 24h)');
-        return {
-          mode: 'incremental',
-          startDate: startDate.toISOString().split('T')[0],
-          endDate: this.config.END_DATE
-        };
-      } else {
-        await this.logger.info('MODE', 'Auto mode: no data found, using full sync');
+      if (error || !lastRun || !lastRun.finished_at) {
+        await this.logger.info('MODE', 'Auto mode: no previous sync found, using full sync');
         return {
           mode: 'full',
           startDate: this.config.START_DATE,
           endDate: this.config.END_DATE
         };
       }
+
+      const lastSyncTime = new Date(lastRun.finished_at);
+      const OVERLAP_HOURS = 2;
+      const startDate = new Date(lastSyncTime.getTime() - OVERLAP_HOURS * 60 * 60 * 1000);
+
+      await this.logger.info('MODE', `Auto mode: using incremental sync from last successful run`, {
+        last_sync: lastSyncTime.toISOString(),
+        overlap_hours: OVERLAP_HOURS,
+        sync_from: startDate.toISOString()
+      });
+
+      return {
+        mode: 'incremental',
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: this.config.END_DATE
+      };
     } catch (error) {
       await this.logger.error('MODE', 'Auto mode failed, falling back to full sync', { error: error.message });
       return {
@@ -202,7 +218,12 @@ class VapiSupabaseSync {
   }
 
   async syncCalls(calls) {
-    await this.logger.info('SAVE', `Syncing ${calls.length} calls to Supabase...`);
+    if (calls.length === 0) {
+      await this.logger.info('SAVE', 'No calls to sync - skipping');
+      return;
+    }
+
+    await this.logger.info('SAVE', `Analyzing ${calls.length} calls from VAPI...`);
 
     // Получить существующие ID
     const { data: existingRecords } = await this.supabase
@@ -212,6 +233,20 @@ class VapiSupabaseSync {
 
     const existingIds = new Set(existingRecords?.map(r => r.id) || []);
     const transformed = calls.map(c => this.transformCall(c));
+
+    const newCalls = transformed.filter(c => !existingIds.has(c.id));
+    const existingCalls = transformed.filter(c => existingIds.has(c.id));
+
+    await this.logger.info('SAVE', `Analysis complete: ${newCalls.length} new, ${existingCalls.length} existing`, {
+      total_fetched: calls.length,
+      new_calls: newCalls.length,
+      existing_calls: existingCalls.length
+    });
+
+    if (newCalls.length === 0 && existingCalls.length === 0) {
+      await this.logger.info('SAVE', 'No calls to process');
+      return;
+    }
 
     let inserted = 0;
     let updated = 0;
@@ -243,8 +278,12 @@ class VapiSupabaseSync {
         inserted += batchInserts;
         updated += batchUpdates;
 
-        await this.logger.info('SAVE', `Batch ${batchNum}/${totalBatches} saved`, {
-          inserted: batchInserts,
+        const batchType = batchInserts > 0 && batchUpdates > 0 ? 'mixed' :
+                          batchInserts > 0 ? 'insert' :
+                          'update';
+
+        await this.logger.info('SAVE', `Batch ${batchNum}/${totalBatches} (${batchType})`, {
+          new: batchInserts,
           updated: batchUpdates
         });
       }
@@ -259,9 +298,9 @@ class VapiSupabaseSync {
     this.stats.calls_updated = updated;
     this.stats.errors += errors;
 
-    await this.logger.info('SAVE', `Calls sync complete`, {
-      inserted,
-      updated,
+    await this.logger.info('SAVE', `Sync complete: ${inserted} new calls added, ${updated} calls updated`, {
+      new_calls: inserted,
+      updated_calls: updated,
       failed: errors
     });
   }

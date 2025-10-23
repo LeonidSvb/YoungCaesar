@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { AnalyzedCallsList } from '@/components/AnalyzedCallsList';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,6 +27,11 @@ interface Run {
   calls_analyzed: number | null;
   api_cost: number | null;
   error_message: string | null;
+  metadata: {
+    analyzed_call_ids?: string[];
+    avg_qci?: number;
+    failed?: number;
+  } | null;
 }
 
 interface Log {
@@ -44,6 +50,8 @@ export default function ExecutionLogsPage() {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterScript, setFilterScript] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [showCallsList, setShowCallsList] = useState(false);
+  const [selectedCallIds, setSelectedCallIds] = useState<string[]>([]);
 
   useEffect(() => {
     fetchRuns();
@@ -235,7 +243,19 @@ export default function ExecutionLogsPage() {
                             <div>📊 {run.records_fetched} records</div>
                           )}
                           {run.calls_analyzed !== null && (
-                            <div>🤖 {run.calls_analyzed} calls</div>
+                            <div
+                              className={run.metadata?.analyzed_call_ids ? 'cursor-pointer hover:text-blue-600 hover:underline' : ''}
+                              onClick={(e) => {
+                                if (run.metadata?.analyzed_call_ids) {
+                                  e.stopPropagation();
+                                  setSelectedCallIds(run.metadata.analyzed_call_ids);
+                                  setShowCallsList(true);
+                                }
+                              }}
+                            >
+                              🤖 {run.calls_analyzed} calls
+                              {run.metadata?.analyzed_call_ids && ' 🔍'}
+                            </div>
                           )}
                           <div className="text-gray-500">{getTimeAgo(run.started_at)}</div>
                         </div>
@@ -348,6 +368,12 @@ export default function ExecutionLogsPage() {
           )}
         </div>
       </div>
+
+      <AnalyzedCallsList
+        callIds={selectedCallIds}
+        isOpen={showCallsList}
+        onClose={() => setShowCallsList(false)}
+      />
     </div>
   );
 }

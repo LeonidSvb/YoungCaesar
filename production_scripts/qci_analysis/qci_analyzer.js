@@ -336,7 +336,8 @@ async function main() {
                 api_cost: analyzer.stats.totalCost,
                 metadata: {
                     failed: analyzer.stats.failed,
-                    avg_qci: analyzer.results.reduce((sum, r) => sum + r.qci_total, 0) / analyzer.results.length
+                    avg_qci: analyzer.results.reduce((sum, r) => sum + r.qci_total, 0) / analyzer.results.length,
+                    analyzed_call_ids: analyzer.results.map(r => r.call_id)
                 }
             }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
             await supabaseLogger.info('END', 'QCI Analysis completed successfully');
