@@ -1,0 +1,141 @@
+name: QCI Analysis - Automated Quality Scoring
+
+on:
+  schedule:
+    # Каждый день в 02:00 UTC (05:00 MSK)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Ручной запуск с опциями
+    inputs:
+      mode:
+        description: 'Analysis mode'
+        required: false
+        default: 'incremental'
+        type: choice
+        options:
+          - incremental  # Только новые звонки
+          - full         # Все звонки
+          - test         # Тестовый режим (50 звонков)
+
+jobs:
+  qci-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60  # QCI анализ может занять до 1 часа
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Debug environment
+        run: |
+          echo "Mode: ${{ github.event.inputs.mode || 'incremental' }}"
+          echo "SUPABASE_URL is set: ${{ secrets.SUPABASE_URL != '' }}"
+          echo "OPENAI_API_KEY is set: ${{ secrets.OPENAI_API_KEY != '' }}"
+
+      - name: Fetch calls from Supabase for QCI analysis
+        id: fetch_calls
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          # Создаем скрипт для получения звонков БЕЗ QCI
+          node << 'EOF'
+          const { createClient } = require('@supabase/supabase-js');
+          const fs = require('fs');
+
+          const supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY
+          );
+
+          async function fetchCallsForQCI() {
+            // Получить все звонки с транскриптом > 100 символов БЕЗ QCI
+            const { data: calls } = await supabase
+              .from('vapi_calls_raw')
+              .select('id, transcript, assistant_id, created_at')
+              .not('transcript', 'is', null);
+
+            const { data: existingQCI } = await supabase
+              .from('qci_analyses')
+              .select('call_id');
+
+            const qciSet = new Set(existingQCI.map(q => q.call_id));
+
+            const callsNeedingQCI = calls
+              .filter(c =>
+                c.transcript &&
+                c.transcript.length > 100 &&
+                !qciSet.has(c.id)
+              )
+              .map(c => ({
+                id: c.id,
+                assistantId: c.assistant_id,
+                transcript: c.transcript
+              }));
+
+            console.log(`Found ${callsNeedingQCI.length} calls needing QCI analysis`);
+
+            // Сохранить в файл для QCI analyzer
+            fs.writeFileSync(
+              'production_scripts/qci_analysis/results/calls_for_analysis.json',
+              JSON.stringify(callsNeedingQCI, null, 2)
+            );
+
+            return callsNeedingQCI.length;
+          }
+
+          fetchCallsForQCI().catch(console.error);
+          EOF
+
+      - name: Run QCI Analysis
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          # Обновить конфигурацию QCI analyzer для чтения из нового файла
+          cd production_scripts/qci_analysis
+
+          # Запустить QCI анализ
+          node qci_analyzer.js
+
+          echo "✅ QCI analysis completed"
+
+      - name: Sync QCI results to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          cd production_scripts/qci_analysis
+          node sync_qci_to_supabase.js
+
+          echo "✅ QCI results synced to Supabase"
+
+      - name: Upload QCI results as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qci-results-${{ github.run_number }}
+          path: production_scripts/qci_analysis/results/*.json
+          retention-days: 30
+
+      - name: Check QCI analysis status
+        if: failure()
+        run: |
+          echo "❌ QCI analysis failed! Check logs in Supabase runs table."
+          exit 1
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "✅ QCI Analysis Workflow Completed Successfully"
+          echo "📊 Check dashboard at: https://your-vercel-app.vercel.app/dashboard"

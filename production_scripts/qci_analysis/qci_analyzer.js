@@ -7,8 +7,9 @@ require('dotenv').config({ path: '../../.env' });
 const CONFIG = {
     // 📁 INPUT DATA - Which calls to analyze
     INPUT: {
-        // Path to JSON file with call data (from vapi_collection)
-        DATA_FILE: '../vapi_collection/results/2025-09-17T09-51-00_vapi_calls_2025-01-01_to_2025-09-17_cost-0.03.json',
+        // Path to JSON file with call data
+        // Default: calls from Supabase without QCI
+        DATA_FILE: 'results/calls_for_analysis.json',
 
         // Minimum transcript length to analyze (characters)
         // 💡 Recommended: 100+ chars = meaningful conversations
@@ -81,6 +82,7 @@ const path = require('path');
 const OpenAI = require('openai');
 const { loadPrompt } = require('../shared/prompt_parser');
 const { createLogger } = require('../shared/logger');
+const { createRun, updateRun, Logger } = require('../../lib/logger');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -299,16 +301,60 @@ class QCIAnalyzer {
 
 async function main() {
     const analyzer = new QCIAnalyzer();
+    let run = null;
+    let supabaseLogger = null;
 
     try {
-        const calls = await analyzer.loadCallData();
-        await analyzer.processBatch(calls);
-        const resultFile = await analyzer.saveResults();
+        // Create run in Supabase
+        if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+            run = await createRun(
+                'qci-analysis',
+                process.env.SUPABASE_URL,
+                process.env.SUPABASE_SERVICE_ROLE_KEY,
+                process.env.GITHUB_ACTIONS ? 'github-actions' : 'manual'
+            );
+            supabaseLogger = new Logger(run.id, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+            await supabaseLogger.info('START', 'QCI Analysis started');
+        }
 
+        const calls = await analyzer.loadCallData();
+        if (supabaseLogger) await supabaseLogger.info('LOAD', `Loaded ${calls.length} calls for analysis`);
+
+        await analyzer.processBatch(calls);
+        if (supabaseLogger) await supabaseLogger.info('ANALYZE', `Analyzed ${analyzer.stats.processed} calls`);
+
+        const resultFile = await analyzer.saveResults();
         analyzer.logger.info('Results saved', { file_path: resultFile });
+
+        // Update run with success
+        if (run) {
+            await updateRun(run.id, {
+                status: 'success',
+                finished_at: new Date().toISOString(),
+                duration_ms: Date.now() - analyzer.stats.startTime,
+                calls_analyzed: analyzer.stats.processed,
+                api_cost: analyzer.stats.totalCost,
+                metadata: {
+                    failed: analyzer.stats.failed,
+                    avg_qci: analyzer.results.reduce((sum, r) => sum + r.qci_total, 0) / analyzer.results.length
+                }
+            }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+            await supabaseLogger.info('END', 'QCI Analysis completed successfully');
+        }
 
     } catch (error) {
         analyzer.logger.error('Analysis failed', error);
+
+        // Update run with error
+        if (run) {
+            await updateRun(run.id, {
+                status: 'error',
+                finished_at: new Date().toISOString(),
+                error_message: error.message
+            }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+            await supabaseLogger.error('ERROR', error.message);
+        }
+
         process.exit(1);
     }
 }
