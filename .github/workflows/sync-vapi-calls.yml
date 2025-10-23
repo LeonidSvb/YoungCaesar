@@ -23,6 +23,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Debug environment variables
+        run: |
+          echo "SUPABASE_URL is set: ${{ secrets.SUPABASE_URL != '' }}"
+          echo "SUPABASE_SERVICE_ROLE_KEY is set: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY != '' }}"
+          echo "VAPI_API_KEY is set: ${{ secrets.VAPI_API_KEY != '' }}"
+
       - name: Run VAPI sync with logging
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
