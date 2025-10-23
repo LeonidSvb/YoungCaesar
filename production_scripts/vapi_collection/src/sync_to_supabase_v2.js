@@ -75,10 +75,14 @@ class VapiSupabaseSync {
   async getLastSyncPoint() {
     if (this.config.SYNC_MODE === 'full') {
       await this.logger.info('MODE', 'Full sync mode (--mode=full)');
+      const startTimestamp = new Date(`${this.config.START_DATE}T00:00:00.000Z`);
+      const endTimestamp = new Date();
       return {
         mode: 'full',
         startDate: this.config.START_DATE,
-        endDate: this.config.END_DATE
+        endDate: this.config.END_DATE,
+        startTimestamp: startTimestamp.toISOString(),
+        endTimestamp: endTimestamp.toISOString()
       };
     }
 
@@ -107,10 +111,13 @@ class VapiSupabaseSync {
         sync_from: startDate.toISOString()
       });
 
+      const endDate = new Date();
       return {
         mode: 'incremental',
         startDate: startDate.toISOString().split('T')[0],
-        endDate: this.config.END_DATE
+        endDate: this.config.END_DATE,
+        startTimestamp: startDate.toISOString(),
+        endTimestamp: endDate.toISOString()
       };
     }
 
@@ -126,10 +133,14 @@ class VapiSupabaseSync {
 
       if (error || !lastRun || !lastRun.finished_at) {
         await this.logger.info('MODE', 'Auto mode: no previous sync found, using full sync');
+        const startTimestamp = new Date(`${this.config.START_DATE}T00:00:00.000Z`);
+        const endTimestamp = new Date();
         return {
           mode: 'full',
           startDate: this.config.START_DATE,
-          endDate: this.config.END_DATE
+          endDate: this.config.END_DATE,
+          startTimestamp: startTimestamp.toISOString(),
+          endTimestamp: endTimestamp.toISOString()
         };
       }
 
@@ -143,17 +154,24 @@ class VapiSupabaseSync {
         sync_from: startDate.toISOString()
       });
 
+      const endDate = new Date();
       return {
         mode: 'incremental',
         startDate: startDate.toISOString().split('T')[0],
-        endDate: this.config.END_DATE
+        endDate: this.config.END_DATE,
+        startTimestamp: startDate.toISOString(),
+        endTimestamp: endDate.toISOString()
       };
     } catch (error) {
       await this.logger.error('MODE', 'Auto mode failed, falling back to full sync', { error: error.message });
+      const startTimestamp = new Date(`${this.config.START_DATE}T00:00:00.000Z`);
+      const endTimestamp = new Date();
       return {
         mode: 'full',
         startDate: this.config.START_DATE,
-        endDate: this.config.END_DATE
+        endDate: this.config.END_DATE,
+        startTimestamp: startTimestamp.toISOString(),
+        endTimestamp: endTimestamp.toISOString()
       };
     }
   }
@@ -384,6 +402,7 @@ class VapiSupabaseSync {
 
       // 2. Определить режим sync
       const syncPoint = await this.getLastSyncPoint();
+      this.syncPoint = syncPoint;
       await this.logger.info('START', `Sync mode: ${syncPoint.mode}`, {
         start_date: syncPoint.startDate,
         end_date: syncPoint.endDate
@@ -415,7 +434,10 @@ class VapiSupabaseSync {
         records_fetched: this.stats.calls_fetched,
         records_inserted: this.stats.calls_inserted,
         records_updated: this.stats.calls_updated,
-        records_failed: this.stats.errors
+        records_failed: this.stats.errors,
+        sync_mode: syncPoint.mode,
+        sync_start_date: syncPoint.startTimestamp,
+        sync_end_date: syncPoint.endTimestamp
       }, SUPABASE_URL, SUPABASE_KEY);
 
       await this.logger.info('END', `Sync completed in ${Math.round(duration / 1000)}s`);
@@ -448,7 +470,10 @@ class VapiSupabaseSync {
         status: 'error',
         finished_at: new Date().toISOString(),
         duration_ms: duration,
-        error_message: error.message
+        error_message: error.message,
+        sync_mode: this.syncPoint?.mode || null,
+        sync_start_date: this.syncPoint?.startTimestamp || null,
+        sync_end_date: this.syncPoint?.endTimestamp || null
       }, SUPABASE_URL, SUPABASE_KEY);
 
       console.error('\n❌ SYNC FAILED:', error.message);
