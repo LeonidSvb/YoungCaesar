@@ -33,22 +33,28 @@ interface AnalyzedCallsListProps {
 }
 
 export function AnalyzedCallsList({ callIds, isOpen, onClose }: AnalyzedCallsListProps) {
-  const supabase = useMemo(() => createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  ), []);
-
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   const [calls, setCalls] = useState<Call[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCall, setSelectedCall] = useState<Call | null>(null);
 
   useEffect(() => {
-    if (isOpen && callIds.length > 0) {
+    if (typeof window !== 'undefined') {
+      setSupabase(createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      ));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && callIds.length > 0 && supabase) {
       fetchCalls();
     }
-  }, [isOpen, callIds]);
+  }, [isOpen, callIds, supabase]);
 
   async function fetchCalls() {
+    if (!supabase) return;
     setLoading(true);
     try {
       const { data, error } = await supabase

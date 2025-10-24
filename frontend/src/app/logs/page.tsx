@@ -41,11 +41,7 @@ interface Log {
 }
 
 export default function ExecutionLogsPage() {
-  const supabase = useMemo(() => createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  ), []);
-
+  const [supabase, setSupabase] = useState<ReturnType<typeof createClient> | null>(null);
   const [runs, setRuns] = useState<Run[]>([]);
   const [selectedRun, setSelectedRun] = useState<Run | null>(null);
   const [logs, setLogs] = useState<Log[]>([]);
@@ -56,16 +52,28 @@ export default function ExecutionLogsPage() {
   const [selectedCallIds, setSelectedCallIds] = useState<string[]>([]);
 
   useEffect(() => {
-    fetchRuns();
-  }, [filterStatus, filterScript]);
+    if (typeof window !== 'undefined') {
+      setSupabase(createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      ));
+    }
+  }, []);
 
   useEffect(() => {
-    if (selectedRun) {
+    if (supabase) {
+      fetchRuns();
+    }
+  }, [filterStatus, filterScript, supabase]);
+
+  useEffect(() => {
+    if (selectedRun && supabase) {
       fetchLogs(selectedRun.id);
     }
-  }, [selectedRun]);
+  }, [selectedRun, supabase]);
 
   async function fetchRuns() {
+    if (!supabase) return;
     setLoading(true);
     let query = supabase
       .from('runs')
@@ -95,6 +103,7 @@ export default function ExecutionLogsPage() {
   }
 
   async function fetchLogs(runId: string) {
+    if (!supabase) return;
     const { data, error } = await supabase
       .from('logs')
       .select('*')
