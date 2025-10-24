@@ -48,65 +48,81 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Fix: Convert 'all' string to null for UUID field
-    const { data: calls, error } = await supabase.rpc('get_calls_list', {
-      p_assistant_id: (assistantId && assistantId !== 'all') ? assistantId : null,
-      p_date_from: dateFrom || null,
-      p_date_to: dateTo || null,
-      p_quality_filter: qualityFilter,
-      p_limit: limit,
-      p_offset: offset
-    });
+    // Build query using calls_enriched view
+    let query = supabase
+      .from('calls_enriched')
+      .select('id, started_at, duration_seconds, cost, assistant_name, customer_phone_number, qci_score, has_transcript, has_qci, status', { count: 'exact' });
+
+    // Filter by assistant
+    if (assistantId && assistantId !== 'all') {
+      query = query.eq('assistant_id', assistantId);
+    }
+
+    // Filter by date
+    if (dateFrom) {
+      query = query.gte('effective_date', dateFrom);
+    }
+    if (dateTo) {
+      query = query.lte('effective_date', dateTo);
+    }
+
+    // Apply stage filter using boolean flags (DATABASE SIDE, not client!)
+    if (stageFilter && stageFilter !== 'all') {
+      switch (stageFilter) {
+        case 'errors':
+          query = query.eq('is_not_started', true);
+          break;
+        case 'no_errors':
+          query = query.eq('is_not_started', false);
+          break;
+        case 'short':
+          query = query.eq('is_short_call', true);
+          break;
+        case 'quality':
+          query = query.eq('is_quality_call', true);
+          break;
+        case 'with_tools':
+          query = query.eq('has_calendar_booking', true);
+          break;
+      }
+    }
+
+    // Apply quality filter
+    if (qualityFilter && qualityFilter !== 'all') {
+      switch (qualityFilter) {
+        case 'with_transcript':
+          query = query.eq('has_transcript', true);
+          break;
+        case 'with_qci':
+          query = query.eq('has_qci', true);
+          break;
+        case 'quality':
+          query = query.eq('is_quality_call', true);
+          break;
+      }
+    }
+
+    // Pagination and sorting
+    const { data: calls, error, count: totalCount } = await query
+      .order('effective_date', { ascending: false })
+      .range(offset, offset + limit - 1);
 
     if (error) {
-      console.error('Supabase RPC error:', error);
+      console.error('Supabase query error:', error);
       return NextResponse.json(
         { error: 'Failed to fetch calls list', details: error.message },
         { status: 500 }
       );
     }
 
-    // Apply stage filter (client-side filtering after RPC)
-    let filteredCalls = calls || [];
-
-    if (stageFilter && stageFilter !== 'all') {
-      filteredCalls = filteredCalls.filter((call: Record<string, unknown>) => {
-        switch (stageFilter) {
-          case 'errors':
-            // Errors: duration_seconds IS NULL (RPC returns COALESCE for started_at)
-            return call.duration_seconds === null;
-          case 'no_errors':
-            // No errors: duration_seconds IS NOT NULL
-            return call.duration_seconds !== null;
-          case 'short':
-            // Short calls: 1-59 seconds
-            return typeof call.duration_seconds === 'number' && call.duration_seconds >= 1 && call.duration_seconds < 60;
-          case 'quality':
-            // Quality calls: >= 60 seconds
-            return typeof call.duration_seconds === 'number' && call.duration_seconds >= 60;
-          case 'with_tools':
-            // With tools: quality calls with has_qci indicator
-            return typeof call.duration_seconds === 'number' && call.duration_seconds >= 60 && call.has_qci;
-          default:
-            return true;
-        }
-      });
-    }
-
-    // Get total count for pagination
-    let countQuery = supabase.from('vapi_calls_raw').select('id', { count: 'exact', head: true });
-
-    if (assistantId) {
-      countQuery = countQuery.eq('assistant_id', assistantId);
-    }
-    if (dateFrom) {
-      countQuery = countQuery.gte('started_at', dateFrom);
-    }
-    if (dateTo) {
-      countQuery = countQuery.lte('started_at', dateTo);
-    }
-
-    const { count: totalCount } = await countQuery;
+    // Format calls for frontend (add quality field and customer_number for compatibility)
+    const filteredCalls = calls?.map(call => ({
+      ...call,
+      customer_number: call.customer_phone_number,
+      quality: call.qci_score && call.qci_score > 70 ? 'excellent' :
+               call.qci_score && call.qci_score > 50 ? 'good' :
+               call.qci_score ? 'average' : 'poor'
+    }));
 
     const duration = Date.now() - startTime;
     logger.api('GET', '/api/calls', 200, duration, { total: totalCount, shown: filteredCalls?.length, offset });

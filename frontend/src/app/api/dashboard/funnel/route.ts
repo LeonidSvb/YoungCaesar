@@ -51,27 +51,25 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Get all calls with minimal fields (started_at needed for errors detection)
-    // Use count: 'exact' to get total, then fetch in batches if needed
+    // Use calls_enriched view with boolean flags
     let query = supabase
-      .from('vapi_calls_raw')
-      .select('started_at, duration_seconds, raw_json', { count: 'exact' });
+      .from('calls_enriched')
+      .select('is_not_started, is_short_call, is_quality_call, is_voicemail, has_calendar_booking', { count: 'exact' });
 
     // Filter by assistant
     if (assistantId && assistantId !== 'all') {
       query = query.eq('assistant_id', assistantId);
     }
 
-    // Filter by date - use created_at (always present) for consistency
+    // Filter by date
     if (dateFrom) {
-      query = query.gte('created_at', dateFrom);
+      query = query.gte('effective_date', dateFrom);
     }
     if (dateTo) {
-      query = query.lte('created_at', dateTo);
+      query = query.lte('effective_date', dateTo);
     }
 
-    // Set explicit large limit to avoid default 1000 rows limit
-    const { data: calls, error, count: totalCount } = await query.limit(50000);
+    const { data: calls, error, count: totalCount } = await query;
 
     if (error) {
       console.error('Supabase query error:', error);
@@ -81,50 +79,13 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Calculate funnel stages
-    const totalCalls = calls?.length || 0;
-
-    // Log actual vs total count
-    if (totalCount && totalCount > totalCalls) {
-      logger.warn('Funnel query truncated', {
-        returned: totalCalls,
-        total: totalCount,
-        message: 'Increase limit if needed'
-      });
-    }
-
-    // Stage 1: Errors (started_at = NULL)
-    const errorCalls = calls?.filter(c => !c.started_at).length || 0;
-
-    // Stage 2: No Errors (started_at exists)
+    // Calculate funnel stages using boolean flags
+    const totalCalls = totalCount || 0;
+    const errorCalls = calls?.filter(c => c.is_not_started).length || 0;
     const noErrorCalls = totalCalls - errorCalls;
-
-    // Stage 3: Short calls (1-59s)
-    const shortCalls = calls?.filter(c => {
-      const duration = c.duration_seconds || 0;
-      return c.started_at && duration >= 1 && duration < 60;
-    }).length || 0;
-
-    // Stage 4: Quality calls (≥60s)
-    const qualityCalls = calls?.filter(c => {
-      const duration = c.duration_seconds || 0;
-      return c.started_at && duration >= 60;
-    }).length || 0;
-
-    // Stage 5: With Tools (any tool called in quality calls)
-    const withTools = calls?.filter(c => {
-      if (!c.started_at || (c.duration_seconds || 0) < 60) return false;
-
-      try {
-        const messages = c.raw_json?.artifact?.messages || [];
-        return messages.some((msg: Record<string, unknown>) => {
-          const toolCalls = (msg.toolCalls as unknown[]) || [];
-          return toolCalls.length > 0;
-        });
-      } catch {
-        return false;
-      }
-    }).length || 0;
+    const shortCalls = calls?.filter(c => c.is_short_call).length || 0;
+    const qualityCalls = calls?.filter(c => c.is_quality_call).length || 0;
+    const withTools = calls?.filter(c => c.has_calendar_booking).length || 0;
 
     const stages = [
       {

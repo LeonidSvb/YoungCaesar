@@ -51,26 +51,60 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    const { data, error } = await supabase.rpc('get_timeline_data', {
-      p_assistant_id: assistantId || null,
-      p_date_from: dateFrom || null,
-      p_date_to: dateTo || null,
-      p_granularity: granularity
-    });
+    let query = supabase.from('calls_enriched').select('effective_date, is_quality_call, has_calendar_booking, has_qci');
+
+    if (assistantId && assistantId !== 'all') {
+      query = query.eq('assistant_id', assistantId);
+    }
+
+    if (dateFrom) {
+      query = query.gte('effective_date', dateFrom);
+    }
+
+    if (dateTo) {
+      query = query.lte('effective_date', dateTo);
+    }
+
+    const { data: calls, error } = await query.order('effective_date', { ascending: true });
 
     if (error) {
-      console.error('Supabase RPC error:', error);
+      console.error('Supabase query error:', error);
       return NextResponse.json(
         { error: 'Failed to fetch chart data', details: error.message },
         { status: 500 }
       );
     }
 
-    // Return data directly for Recharts
-    const duration = Date.now() - startTime;
-    logger.api('GET', '/api/dashboard/chart', 200, duration, { dataPoints: data?.length || 0 });
+    // Group by date and calculate metrics
+    const groupedData = new Map<string, TimelineDataPoint>();
 
-    return NextResponse.json(data || []);
+    calls?.forEach(call => {
+      const dateStr = call.effective_date?.split('T')[0] || '';
+      if (!dateStr) return;
+
+      if (!groupedData.has(dateStr)) {
+        groupedData.set(dateStr, {
+          date: dateStr,
+          total_calls: 0,
+          quality_calls: 0,
+          engaged_calls: 0,
+          analyzed_calls: 0
+        });
+      }
+
+      const point = groupedData.get(dateStr)!;
+      point.total_calls++;
+      if (call.is_quality_call) point.quality_calls++;
+      if (call.is_quality_call) point.engaged_calls++;
+      if (call.has_qci) point.analyzed_calls++;
+    });
+
+    const data = Array.from(groupedData.values()).sort((a, b) => a.date.localeCompare(b.date));
+
+    const duration = Date.now() - startTime;
+    logger.api('GET', '/api/dashboard/chart', 200, duration, { dataPoints: data.length });
+
+    return NextResponse.json(data);
   } catch (error) {
     const duration = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';

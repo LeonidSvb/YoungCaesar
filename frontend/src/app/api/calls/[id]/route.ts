@@ -46,26 +46,66 @@ export async function GET(
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Use get_call_details SQL function
-    const { data, error } = await supabase.rpc('get_call_details', {
-      p_call_id: callId
-    });
+    // Query calls_enriched view for call details
+    const { data: callData, error } = await supabase
+      .from('calls_enriched')
+      .select('*')
+      .eq('id', callId)
+      .single();
 
     if (error) {
-      logger.error(`Supabase RPC error in /api/calls/${callId}`, error);
+      logger.error(`Supabase query error in /api/calls/${callId}`, error);
       return NextResponse.json(
         { error: 'Call not found', details: error.message },
         { status: 404 }
       );
     }
 
-    if (!data) {
+    if (!callData) {
       logger.warn(`Call not found: ${callId}`);
       return NextResponse.json(
         { error: 'Call not found' },
         { status: 404 }
       );
     }
+
+    // Format response to match frontend expectations
+    const data = {
+      id: callData.id,
+      started_at: callData.started_at,
+      ended_at: callData.ended_at,
+      duration_seconds: callData.duration_seconds,
+      cost: callData.cost,
+      status: callData.status,
+      ended_reason: callData.ended_reason,
+      transcript: callData.transcript,
+      recording_url: callData.recording_url,
+      has_transcript: callData.has_transcript,
+      has_recording: callData.has_recording,
+      has_qci: callData.has_qci,
+      assistant: {
+        id: callData.assistant_id,
+        name: callData.assistant_name
+      },
+      customer: {
+        id: callData.customer_id,
+        phone_number: callData.customer_phone_number
+      },
+      quality: callData.qci_score && callData.qci_score > 70 ? 'excellent' :
+               callData.qci_score && callData.qci_score > 50 ? 'good' :
+               callData.qci_score ? 'average' : 'poor',
+      qci: callData.has_qci ? {
+        total_score: callData.qci_score,
+        dynamics_score: callData.dynamics_score,
+        objections_score: callData.objections_score,
+        brand_score: callData.brand_score,
+        outcome_score: callData.outcome_score,
+        coaching_tips: callData.coaching_tips,
+        key_issues: callData.key_issues,
+        recommendations: callData.recommendations,
+        call_classification: callData.call_classification
+      } : null
+    };
 
     const duration = Date.now() - startTime;
     logger.api('GET', `/api/calls/${callId}`, 200, duration);
