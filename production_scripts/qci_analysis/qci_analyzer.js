@@ -5,14 +5,9 @@ require('dotenv').config({ path: '../../.env' });
 // ============================================================
 
 const CONFIG = {
-    // 📁 INPUT DATA - Which calls to analyze
+    // 🔍 INPUT FILTERS - Which calls to analyze
     INPUT: {
-        // Path to JSON file with call data
-        // Default: calls from Supabase without QCI
-        DATA_FILE: 'results/calls_for_analysis.json',
-
         // Minimum transcript length to analyze (characters)
-        // 💡 Recommended: 100+ chars = meaningful conversations
         MIN_TRANSCRIPT_LENGTH: 100
     },
 
@@ -22,7 +17,6 @@ const CONFIG = {
         ENABLED: false,
 
         // How many calls to test with (sorted by longest first)
-        // 💡 Start with 10, then 50, then disable testing for full run
         BATCH_SIZE: 50,
 
         // Test specific call ID (leave empty for longest calls)
@@ -32,13 +26,9 @@ const CONFIG = {
     // 🤖 OPENAI API SETTINGS
     OPENAI: {
         // Model to use for analysis
-        // 💰 Cost comparison:
-        //   • gpt-4o-mini: $0.15/1M input, $0.60/1M output (cheapest, good quality)
-        //   • gpt-4o: $2.50/1M input, $10.00/1M output (expensive, best quality)
         MODEL: "gpt-4o-mini",
 
         // Temperature (0 = deterministic, 1 = creative)
-        // 💡 Keep at 0.1 for consistent scoring
         TEMPERATURE: 0.1,
 
         // Maximum response tokens
@@ -48,9 +38,6 @@ const CONFIG = {
     // ⚡ PERFORMANCE SETTINGS
     PROCESSING: {
         // How many calls to analyze simultaneously
-        // 💡 Safe limits:
-        //   • Tier 1 OpenAI: 3-5 concurrent
-        //   • Tier 2+ OpenAI: 10-50 concurrent
         CONCURRENCY: 15,
 
         // Delay between batches (milliseconds)
@@ -65,30 +52,35 @@ const CONFIG = {
 
     // 📊 OUTPUT SETTINGS
     OUTPUT: {
-        // Where to save results
-        RESULTS_DIR: 'results',
-
         // Show detailed progress in console?
-        VERBOSE: true
+        VERBOSE: true,
+
+        // Save JSON artifact for GitHub Actions
+        SAVE_ARTIFACT: process.env.GITHUB_ACTIONS === 'true'
     }
 };
 
 // ============================================================
-// MAIN SCRIPT - NO NEED TO CHANGE BELOW
+// MAIN SCRIPT - Direct Supabase Integration
 // ============================================================
 
 const fs = require('fs');
 const path = require('path');
 const OpenAI = require('openai');
-const { loadPrompt } = require('../shared/prompt_parser');
-const { createLogger } = require('../shared/logger');
+const { createClient } = require('@supabase/supabase-js');
 const { createRun, updateRun, Logger } = require('../../lib/logger');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 class QCIAnalyzer {
     constructor() {
-        this.logger = createLogger('qci-analyzer');
+        this.supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY
+        );
+
+        this.logger = null;
+        this.runId = null;
         this.results = [];
         this.stats = {
             processed: 0,
@@ -99,35 +91,99 @@ class QCIAnalyzer {
         };
     }
 
-    async loadCallData() {
-        const inputPath = path.resolve(__dirname, CONFIG.INPUT.DATA_FILE);
-        const allCalls = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+    async initLogger() {
+        const run = await createRun(
+            'qci-analysis',
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY,
+            process.env.GITHUB_ACTIONS ? 'github-actions' : 'manual'
+        );
 
-        let calls = allCalls
-            .filter(call => call.transcript && call.transcript.length > CONFIG.INPUT.MIN_TRANSCRIPT_LENGTH)
-            .sort((a, b) => (b.transcript?.length || 0) - (a.transcript?.length || 0));
+        this.runId = run.id;
+        this.logger = new Logger(
+            run.id,
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY
+        );
 
+        await this.logger.info('START', 'QCI Analysis started');
+        return run;
+    }
+
+    async loadPromptFromSupabase() {
+        await this.logger.info('LOAD', 'Loading QCI prompt from database');
+
+        const { data: framework, error } = await this.supabase
+            .from('qci_frameworks')
+            .select('prompt_template, model_config')
+            .eq('name', 'QCI Standard')
+            .eq('is_active', true)
+            .single();
+
+        if (error) {
+            throw new Error(`Failed to load QCI framework: ${error.message}`);
+        }
+
+        await this.logger.info('LOAD', 'QCI framework loaded successfully');
+        return framework;
+    }
+
+    async fetchCallsFromSupabase() {
+        await this.logger.info('FETCH', 'Fetching calls without QCI from Supabase');
+
+        // Get all calls with transcript > MIN_LENGTH
+        const { data: callsWithTranscript, error: callsError } = await this.supabase
+            .from('vapi_calls_raw')
+            .select('id, transcript, assistant_id, created_at')
+            .not('transcript', 'is', null);
+
+        if (callsError) {
+            throw new Error(`Failed to fetch calls: ${callsError.message}`);
+        }
+
+        // Get existing QCI analyses
+        const { data: existingQCI, error: qciError } = await this.supabase
+            .from('qci_analyses')
+            .select('call_id');
+
+        if (qciError) {
+            throw new Error(`Failed to fetch existing QCI: ${qciError.message}`);
+        }
+
+        const qciSet = new Set(existingQCI.map(q => q.call_id));
+
+        // Filter calls that need QCI analysis
+        let calls = callsWithTranscript
+            .filter(call =>
+                call.transcript.length >= CONFIG.INPUT.MIN_TRANSCRIPT_LENGTH &&
+                !qciSet.has(call.id)
+            )
+            .sort((a, b) => b.transcript.length - a.transcript.length);
+
+        await this.logger.info('FETCH', `Found ${calls.length} calls needing QCI analysis`, {
+            total_with_transcript: callsWithTranscript.length,
+            already_analyzed: qciSet.size,
+            needs_analysis: calls.length
+        });
+
+        // Apply testing filters
         if (CONFIG.TESTING.ENABLED) {
             if (CONFIG.TESTING.SPECIFIC_CALL_ID) {
                 calls = calls.filter(c => c.id === CONFIG.TESTING.SPECIFIC_CALL_ID);
-                this.logger.info('SPECIFIC CALL TEST', { call_id: CONFIG.TESTING.SPECIFIC_CALL_ID.substring(0,8) });
+                await this.logger.info('TEST', `Testing specific call: ${CONFIG.TESTING.SPECIFIC_CALL_ID.substring(0,8)}`);
             } else {
                 calls = calls.slice(0, CONFIG.TESTING.BATCH_SIZE);
-                this.logger.info('TEST MODE', { analyzing_calls: calls.length, mode: 'longest' });
+                await this.logger.info('TEST', `Test mode: analyzing ${calls.length} longest calls`);
             }
         }
 
-        this.logger.info('Loaded calls for analysis', { total_calls: calls.length });
         return calls;
     }
 
-    async analyzeCall(callData, retryCount = 0) {
+    async analyzeCall(callData, promptTemplate, retryCount = 0) {
         try {
-            // Load prompt from local prompts.md
-            const promptsPath = require('path').resolve(__dirname, './prompts.md');
-            const prompt = loadPrompt(promptsPath, 'QCI_ANALYSIS_PROMPT', {
-                transcript: callData.transcript
-            });
+            // Prepare prompt with transcript
+            const prompt = promptTemplate.replace('{transcript}', callData.transcript);
 
             const response = await openai.chat.completions.create({
                 model: CONFIG.OPENAI.MODEL,
@@ -136,7 +192,8 @@ class QCIAnalyzer {
                 max_tokens: CONFIG.OPENAI.MAX_TOKENS
             });
 
-            this.stats.totalCost += this.calculateCost(response.usage);
+            const cost = this.calculateCost(response.usage);
+            this.stats.totalCost += cost;
 
             // Clean any markdown formatting
             let jsonContent = response.choices[0].message.content.trim();
@@ -148,68 +205,97 @@ class QCIAnalyzer {
 
             return {
                 call_id: callData.id,
-                assistant_id: callData.assistantId,
+                assistant_id: callData.assistant_id,
                 transcript_length: callData.transcript.length,
-                qci_total: analysis.qci_total_score || 0,
-                dynamics: analysis.dynamics_total || 0,
-                objections: analysis.objections_total || 0,
-                brand: analysis.brand_total || 0,
-                outcome: analysis.outcome_total || 0,
-                status: this.determineStatus(analysis.qci_total_score || 0),
-                ai_analysis: analysis,
-                cost: this.calculateCost(response.usage),
-                tokens: response.usage.total_tokens,
-                timestamp: new Date().toISOString()
+                total_score: analysis.qci_total_score || 0,
+                dynamics_score: analysis.dynamics_total || 0,
+                objections_score: analysis.objections_total || 0,
+                brand_score: analysis.brand_total || 0,
+                outcome_score: analysis.outcome_total || 0,
+                coaching_tips: analysis.coaching_tips || [],
+                key_issues: analysis.evidence || {},
+                call_classification: this.determineClassification(analysis.qci_total_score || 0),
+                analysis_model: CONFIG.OPENAI.MODEL,
+                analysis_cost: cost,
+                analyzed_at: new Date().toISOString(),
+                full_analysis: analysis
             };
 
         } catch (error) {
             if (retryCount < CONFIG.PROCESSING.RETRY_ATTEMPTS) {
-                this.logger.warn('Retrying call analysis', {
-                    retry: retryCount + 1,
-                    max_retries: CONFIG.PROCESSING.RETRY_ATTEMPTS,
-                    call_id: callData.id.substring(0, 8)
-                });
+                await this.logger.info('RETRY', `Retrying call ${callData.id.substring(0, 8)} (attempt ${retryCount + 1})`);
                 await new Promise(resolve => setTimeout(resolve, CONFIG.PROCESSING.RETRY_DELAY * (retryCount + 1)));
-                return this.analyzeCall(callData, retryCount + 1);
+                return this.analyzeCall(callData, promptTemplate, retryCount + 1);
             }
 
-            this.logger.error(`Failed to analyze call ${callData.id.substring(0, 8)}`, error);
+            await this.logger.error('ANALYZE', `Failed to analyze call ${callData.id.substring(0, 8)}: ${error.message}`);
             this.stats.failed++;
             this.stats.errors.push({ id: callData.id, error: error.message });
             return null;
         }
     }
 
-    async processBatch(calls) {
-        this.logger.info('Processing calls batch', { total_calls: calls.length, concurrency: CONFIG.PROCESSING.CONCURRENCY });
+    async saveResultToSupabase(result) {
+        try {
+            const { error } = await this.supabase
+                .from('qci_analyses')
+                .insert({
+                    call_id: result.call_id,
+                    total_score: result.total_score,
+                    dynamics_score: result.dynamics_score,
+                    objections_score: result.objections_score,
+                    brand_score: result.brand_score,
+                    outcome_score: result.outcome_score,
+                    coaching_tips: result.coaching_tips,
+                    key_issues: result.key_issues,
+                    call_classification: result.call_classification,
+                    analysis_model: result.analysis_model,
+                    analysis_cost: result.analysis_cost,
+                    analyzed_at: result.analyzed_at
+                });
 
-        const results = [];
+            if (error) {
+                throw error;
+            }
+
+            this.stats.processed++;
+            await this.logger.info('SAVE', `Saved QCI for call ${result.call_id.substring(0, 8)}`, {
+                qci_score: result.total_score
+            });
+
+        } catch (error) {
+            await this.logger.error('SAVE', `Failed to save QCI: ${error.message}`);
+            this.stats.failed++;
+            this.stats.errors.push({ id: result.call_id, error: error.message });
+        }
+    }
+
+    async processBatch(calls, promptTemplate) {
+        await this.logger.info('PROCESS', `Processing ${calls.length} calls in batches`, {
+            concurrency: CONFIG.PROCESSING.CONCURRENCY
+        });
 
         for (let i = 0; i < calls.length; i += CONFIG.PROCESSING.CONCURRENCY) {
             const chunk = calls.slice(i, Math.min(i + CONFIG.PROCESSING.CONCURRENCY, calls.length));
-            const chunkPromises = chunk.map(call => this.analyzeCall(call));
+            const chunkPromises = chunk.map(call => this.analyzeCall(call, promptTemplate));
             const chunkResults = await Promise.all(chunkPromises);
 
-            chunkResults.forEach(result => {
+            // Save results to Supabase immediately
+            for (const result of chunkResults) {
                 if (result) {
-                    results.push(result);
-                    this.stats.processed++;
-                    this.logger.info('Call analyzed', { call_id: result.call_id.substring(0, 8), qci_score: result.qci_total });
+                    await this.saveResultToSupabase(result);
+                    this.results.push(result);
                 }
-            });
+            }
 
-            this.logger.info('Batch progress', {
-                processed: Math.min(i + CONFIG.PROCESSING.CONCURRENCY, calls.length),
-                total: calls.length
-            });
+            await this.logger.info('PROGRESS', `Processed ${Math.min(i + CONFIG.PROCESSING.CONCURRENCY, calls.length)}/${calls.length} calls`);
 
             if (i + CONFIG.PROCESSING.CONCURRENCY < calls.length) {
                 await new Promise(resolve => setTimeout(resolve, CONFIG.PROCESSING.BATCH_DELAY));
             }
         }
 
-        this.results = results;
-        return results;
+        return this.results;
     }
 
     calculateCost(usage) {
@@ -218,150 +304,157 @@ class QCIAnalyzer {
         return inputCost + outputCost;
     }
 
-    determineStatus(score) {
-        if (score >= 80) return 'pass';
-        if (score >= 60) return 'review';
-        return 'fail';
+    determineClassification(score) {
+        if (score >= 80) return 'excellent';
+        if (score >= 60) return 'good';
+        if (score >= 40) return 'needs_improvement';
+        return 'poor';
     }
 
-    async saveResults() {
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19);
-        const mode = CONFIG.TESTING.ENABLED ? `test_${CONFIG.TESTING.BATCH_SIZE}` : 'full';
-        const filename = `qci_${mode}_calls_${timestamp}.json`;
-        const filepath = path.join(__dirname, CONFIG.OUTPUT.RESULTS_DIR, filename);
-
-        if (!fs.existsSync(path.join(__dirname, CONFIG.OUTPUT.RESULTS_DIR))) {
-            fs.mkdirSync(path.join(__dirname, CONFIG.OUTPUT.RESULTS_DIR), { recursive: true });
+    async saveArtifact() {
+        if (!CONFIG.OUTPUT.SAVE_ARTIFACT) {
+            return;
         }
 
-        const totalTime = (Date.now() - this.stats.startTime) / 1000;
-        const avgQCI = this.results.reduce((sum, r) => sum + r.qci_total, 0) / this.results.length;
-
-        const data = {
-            config: CONFIG,
-            stats: {
-                ...this.stats,
-                totalTime,
-                avgTimePerCall: totalTime / this.stats.processed,
-                avgCostPerCall: this.stats.totalCost / this.stats.processed,
-                avgQCI: avgQCI,
-                successRate: (this.stats.processed / (this.stats.processed + this.stats.failed) * 100).toFixed(1)
-            },
-            results: this.results,
-            summary: {
-                total_calls: this.results.length,
-                avg_qci: avgQCI.toFixed(1),
-                pass_rate: (this.results.filter(r => r.status === 'pass').length / this.results.length * 100).toFixed(1),
-                total_cost: this.stats.totalCost.toFixed(4),
-                total_time: `${Math.floor(totalTime / 60)}m ${Math.floor(totalTime % 60)}s`
+        try {
+            const resultsDir = path.join(__dirname, 'results');
+            if (!fs.existsSync(resultsDir)) {
+                fs.mkdirSync(resultsDir, { recursive: true });
             }
-        };
 
-        fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19);
+            const filename = `qci_analysis_${timestamp}.json`;
+            const filepath = path.join(resultsDir, filename);
 
-        this.logger.info('ANALYSIS COMPLETE', {
-            analyzed_calls: this.results.length,
-            avg_qci: parseFloat(avgQCI.toFixed(1)),
-            success_rate: parseFloat(data.stats.successRate),
-            total_cost: parseFloat(this.stats.totalCost.toFixed(4)),
-            time: data.summary.total_time,
-            results_file: filename
-        });
+            const totalTime = (Date.now() - this.stats.startTime) / 1000;
+            const avgQCI = this.results.length > 0
+                ? this.results.reduce((sum, r) => sum + r.total_score, 0) / this.results.length
+                : 0;
 
-        // Update latest file link for dashboard
-        const latestPath = path.join(__dirname, CONFIG.OUTPUT.RESULTS_DIR, 'qci_full_calls_with_assistants_latest.json');
-        fs.writeFileSync(latestPath, JSON.stringify(data, null, 2));
-        this.logger.info('Dashboard link updated', { file: 'qci_full_calls_with_assistants_latest.json' });
+            const artifact = {
+                run_id: this.runId,
+                timestamp: new Date().toISOString(),
+                config: CONFIG,
+                stats: {
+                    ...this.stats,
+                    totalTime,
+                    avgQCI: avgQCI.toFixed(1),
+                    successRate: ((this.stats.processed / (this.stats.processed + this.stats.failed)) * 100).toFixed(1)
+                },
+                results: this.results.map(r => ({
+                    call_id: r.call_id,
+                    total_score: r.total_score,
+                    classification: r.call_classification,
+                    cost: r.analysis_cost
+                }))
+            };
 
-        // Generate dashboards
-        const dashboardTemplatePath = path.join(__dirname, 'dashboard', 'qci_dashboard_template.html');
-        const dashboardOutputPath = path.join(__dirname, 'dashboard', `qci_dashboard_${timestamp}.html`);
+            fs.writeFileSync(filepath, JSON.stringify(artifact, null, 2));
+            await this.logger.info('ARTIFACT', `Results saved to ${filename}`);
 
-        if (fs.existsSync(dashboardTemplatePath)) {
-            // Interactive dashboard (needs local server)
-            fs.copyFileSync(dashboardTemplatePath, dashboardOutputPath);
-            this.logger.info('Interactive dashboard created', {
-                file: `dashboard/qci_dashboard_${timestamp}.html`,
-                server: 'http://localhost:8080'
+            // Also save as latest.json
+            const latestPath = path.join(resultsDir, 'qci_latest.json');
+            fs.writeFileSync(latestPath, JSON.stringify(artifact, null, 2));
+
+        } catch (error) {
+            await this.logger.error('ARTIFACT', `Failed to save artifact: ${error.message}`);
+        }
+    }
+
+    async run() {
+        try {
+            // 1. Initialize logger
+            await this.initLogger();
+
+            // 2. Load prompt from database
+            const framework = await this.loadPromptFromSupabase();
+
+            // 3. Fetch calls from Supabase
+            const calls = await this.fetchCallsFromSupabase();
+
+            if (calls.length === 0) {
+                await this.logger.info('END', 'No calls to analyze');
+                await updateRun(this.runId, {
+                    status: 'success',
+                    finished_at: new Date().toISOString(),
+                    duration_ms: Date.now() - this.stats.startTime,
+                    calls_analyzed: 0
+                }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+                return;
+            }
+
+            // 4. Process batch
+            await this.processBatch(calls, framework.prompt_template);
+
+            // 5. Save artifact for GitHub Actions
+            await this.saveArtifact();
+
+            // 6. Update run with success
+            const duration = Date.now() - this.stats.startTime;
+            const avgQCI = this.results.length > 0
+                ? this.results.reduce((sum, r) => sum + r.total_score, 0) / this.results.length
+                : 0;
+
+            await updateRun(this.runId, {
+                status: 'success',
+                finished_at: new Date().toISOString(),
+                duration_ms: duration,
+                calls_analyzed: this.stats.processed,
+                api_cost: this.stats.totalCost,
+                metadata: {
+                    failed: this.stats.failed,
+                    avg_qci: parseFloat(avgQCI.toFixed(1)),
+                    analyzed_call_ids: this.results.map(r => r.call_id)
+                }
+            }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+            await this.logger.info('END', 'QCI Analysis completed successfully', {
+                analyzed: this.stats.processed,
+                failed: this.stats.failed,
+                avg_qci: parseFloat(avgQCI.toFixed(1)),
+                total_cost: parseFloat(this.stats.totalCost.toFixed(4)),
+                duration_sec: Math.round(duration / 1000)
             });
 
-            // Static dashboard (GitHub Pages ready)
-            try {
-                const createStaticDashboard = require('./create_static_dashboard');
-                createStaticDashboard();
-                this.logger.info('Static dashboard created for GitHub Pages');
-            } catch (error) {
-                this.logger.warn('Could not create static dashboard', { error: error.message });
-            }
-        }
+            // Display summary
+            console.log('\n' + '='.repeat(60));
+            console.log('✅ QCI ANALYSIS COMPLETED');
+            console.log('='.repeat(60));
+            console.log(`📊 Analyzed: ${this.stats.processed} calls`);
+            console.log(`❌ Failed: ${this.stats.failed} calls`);
+            console.log(`🎯 Average QCI: ${avgQCI.toFixed(1)}`);
+            console.log(`💰 Total Cost: $${this.stats.totalCost.toFixed(4)}`);
+            console.log(`⏱  Duration: ${Math.round(duration / 1000)}s`);
+            console.log('='.repeat(60));
 
-        return filepath;
+        } catch (error) {
+            await this.logger.error('ERROR', error.message, { stack: error.stack });
+
+            await updateRun(this.runId, {
+                status: 'error',
+                finished_at: new Date().toISOString(),
+                duration_ms: Date.now() - this.stats.startTime,
+                error_message: error.message
+            }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+            console.error('\n❌ QCI ANALYSIS FAILED:', error.message);
+            throw error;
+        }
     }
 }
 
 async function main() {
     const analyzer = new QCIAnalyzer();
-    let run = null;
-    let supabaseLogger = null;
-
-    try {
-        // Create run in Supabase
-        if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            run = await createRun(
-                'qci-analysis',
-                process.env.SUPABASE_URL,
-                process.env.SUPABASE_SERVICE_ROLE_KEY,
-                process.env.GITHUB_ACTIONS ? 'github-actions' : 'manual'
-            );
-            supabaseLogger = new Logger(run.id, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-            await supabaseLogger.info('START', 'QCI Analysis started');
-        }
-
-        const calls = await analyzer.loadCallData();
-        if (supabaseLogger) await supabaseLogger.info('LOAD', `Loaded ${calls.length} calls for analysis`);
-
-        await analyzer.processBatch(calls);
-        if (supabaseLogger) await supabaseLogger.info('ANALYZE', `Analyzed ${analyzer.stats.processed} calls`);
-
-        const resultFile = await analyzer.saveResults();
-        analyzer.logger.info('Results saved', { file_path: resultFile });
-
-        // Update run with success
-        if (run) {
-            await updateRun(run.id, {
-                status: 'success',
-                finished_at: new Date().toISOString(),
-                duration_ms: Date.now() - analyzer.stats.startTime,
-                calls_analyzed: analyzer.stats.processed,
-                api_cost: analyzer.stats.totalCost,
-                metadata: {
-                    failed: analyzer.stats.failed,
-                    avg_qci: analyzer.results.reduce((sum, r) => sum + r.qci_total, 0) / analyzer.results.length,
-                    analyzed_call_ids: analyzer.results.map(r => r.call_id)
-                }
-            }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-            await supabaseLogger.info('END', 'QCI Analysis completed successfully');
-        }
-
-    } catch (error) {
-        analyzer.logger.error('Analysis failed', error);
-
-        // Update run with error
-        if (run) {
-            await updateRun(run.id, {
-                status: 'error',
-                finished_at: new Date().toISOString(),
-                error_message: error.message
-            }, process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-            await supabaseLogger.error('ERROR', error.message);
-        }
-
-        process.exit(1);
-    }
+    await analyzer.run();
 }
 
 if (require.main === module) {
-    main();
+    main()
+        .then(() => process.exit(0))
+        .catch(error => {
+            console.error('Fatal error:', error);
+            process.exit(1);
+        });
 }
 
 module.exports = QCIAnalyzer;
