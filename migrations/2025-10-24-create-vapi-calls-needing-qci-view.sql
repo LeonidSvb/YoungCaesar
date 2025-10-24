@@ -15,7 +15,7 @@ SELECT
 FROM vapi_calls_raw v
 LEFT JOIN qci_analyses q
     ON v.id = q.call_id
-    AND q.framework_id = 1
+    AND q.framework_id = (SELECT id FROM analysis_frameworks WHERE name = 'QCI Standard' AND is_active = true LIMIT 1)
 WHERE v.transcript IS NOT NULL
   AND LENGTH(v.transcript) >= 100
   AND q.id IS NULL;

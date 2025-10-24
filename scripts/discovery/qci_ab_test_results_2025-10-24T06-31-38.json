@@ -1,0 +1,1970 @@
+{
+  "timestamp": "2025-10-24T06-31-38",
+  "results": [
+    {
+      "config_name": "temp_0_tokens_2000",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020655,
+      "avg_cost": 0.00020655,
+      "avg_response_time": 4227,
+      "avg_quality": 86.74786666666667,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 203,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the services offered.",
+                "AI invites the user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a conversational flow.",
+              "Train the agent to recognize and address potential objections or concerns.",
+              "Ensure the agent mentions the brand name to improve brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 203,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020655,
+          "responseTime": 4227,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 201,
+            "total_tokens": 774,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0_tokens_3000",
+      "temperature": 0,
+      "max_tokens": 3000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00021975,
+      "avg_cost": 0.00021975,
+      "avg_response_time": 3742,
+      "avg_quality": 93.42813333333334,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 5,
+      "avg_evidence_length": 237,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 0
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hello?",
+                "User: Voice mail system. Extension 6 5 9 5 is not available.",
+                "User: Please leave a message.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a conversational flow.",
+              "Train the agent to recognize and address potential objections or concerns.",
+              "Ensure the agent mentions the brand name to improve brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 5,
+            "evidence_total_length": 237,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00021975,
+          "responseTime": 3742,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 223,
+            "total_tokens": 796,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0_tokens_5000",
+      "temperature": 0,
+      "max_tokens": 5000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00021014999999999999,
+      "avg_cost": 0.00021014999999999999,
+      "avg_response_time": 3773,
+      "avg_quality": 86.74786666666667,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 203,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the services offered.",
+                "AI invites the user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a two-way conversation.",
+              "Train the agent to recognize and address potential objections or concerns from the user.",
+              "Ensure the agent mentions the brand name to improve brand recognition and scoring."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 203,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00021014999999999999,
+          "responseTime": 3773,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 207,
+            "total_tokens": 780,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0_tokens_8000",
+      "temperature": 0,
+      "max_tokens": 8000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00021315,
+      "avg_cost": 0.00021315,
+      "avg_response_time": 3982,
+      "avg_quality": 80.09,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 225,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r.",
+                "AI: I was hoping to connect to introduce our quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a two-way conversation.",
+              "Train the agent to recognize and address potential objections or concerns from the user.",
+              "Ensure the agent mentions the brand name to improve brand recognition and scoring."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 225,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00021315,
+          "responseTime": 3982,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 212,
+            "total_tokens": 785,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0_tokens_10000",
+      "temperature": 0,
+      "max_tokens": 10000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020655,
+      "avg_cost": 0.00020655,
+      "avg_response_time": 3657,
+      "avg_quality": 86.74786666666667,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 203,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 0
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the services offered.",
+                "AI invites the user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a conversational flow.",
+              "Train the agent to recognize and address potential objections or concerns.",
+              "Ensure the agent mentions the brand name to improve brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 203,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020655,
+          "responseTime": 3657,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 201,
+            "total_tokens": 774,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.2_tokens_2000",
+      "temperature": 0.2,
+      "max_tokens": 2000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00022455,
+      "avg_cost": 0.00022455,
+      "avg_response_time": 3891,
+      "avg_quality": 86.78386666666665,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 293,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hello?",
+                "User: Voice mail system. Extension 6 5 9 5 is not available.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r. I was hoping to connect to introduce our quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Ensure to mention the brand name 'Young Caesar' to improve brand recognition.",
+              "Engage more with the user to create a conversational flow.",
+              "Aim for a specific outcome such as scheduling a meeting or obtaining a callback."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 293,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00022455,
+          "responseTime": 3891,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 231,
+            "total_tokens": 804,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.2_tokens_3000",
+      "temperature": 0.2,
+      "max_tokens": 3000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020774999999999998,
+      "avg_cost": 0.00020774999999999998,
+      "avg_response_time": 4341,
+      "avg_quality": 86.74786666666667,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 203,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 0
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the services offered.",
+                "AI invites the user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to mention the brand name to improve brand recognition.",
+              "Work on engaging the user more effectively to improve conversation dynamics.",
+              "Aim for a specific outcome, such as scheduling a meeting or obtaining a callback."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 203,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020774999999999998,
+          "responseTime": 4341,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 203,
+            "total_tokens": 776,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.2_tokens_5000",
+      "temperature": 0.2,
+      "max_tokens": 5000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00021855,
+      "avg_cost": 0.00021855,
+      "avg_response_time": 3097,
+      "avg_quality": 86.76866666666666,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 255,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 0
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r.",
+                "AI: I was hoping to connect to introduce our quality control services for apparel brands.",
+                "User: Please leave a message."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a two-way conversation.",
+              "Train the agent to recognize and address potential objections or concerns from the user.",
+              "Ensure the agent mentions the brand name to improve brand recognition and scoring."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 255,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00021855,
+          "responseTime": 3097,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 221,
+            "total_tokens": 794,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.2_tokens_8000",
+      "temperature": 0.2,
+      "max_tokens": 8000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020535,
+      "avg_cost": 0.00020535,
+      "avg_response_time": 3336,
+      "avg_quality": 86.74906666666666,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 206,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the services offered.",
+                "AI encourages the user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a conversational flow.",
+              "Include brand mentions to improve scoring.",
+              "Aim for a specific outcome such as scheduling a meeting or obtaining a callback."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 206,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020535,
+          "responseTime": 3336,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 199,
+            "total_tokens": 772,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.2_tokens_10000",
+      "temperature": 0.2,
+      "max_tokens": 10000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019995,
+      "avg_cost": 0.00019995,
+      "avg_response_time": 3570,
+      "avg_quality": 80.0684,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 171,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI mentions quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a conversational flow.",
+              "Include specific brand mentions to enhance brand recognition.",
+              "Aim for a clear outcome, such as scheduling a meeting or obtaining a callback."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 171,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019995,
+          "responseTime": 3570,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 190,
+            "total_tokens": 763,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.5_tokens_2000",
+      "temperature": 0.5,
+      "max_tokens": 2000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020595,
+      "avg_cost": 0.00020595,
+      "avg_response_time": 3653,
+      "avg_quality": 80.09,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 225,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 15,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 5
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r.",
+                "AI: I was hoping to connect to introduce our quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more dynamically with the user.",
+              "Train the agent to recognize and address potential objections.",
+              "Ensure the agent mentions the brand name to strengthen brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 225,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020595,
+          "responseTime": 3653,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 200,
+            "total_tokens": 773,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.5_tokens_3000",
+      "temperature": 0.5,
+      "max_tokens": 3000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019815,
+      "avg_cost": 0.00019815,
+      "avg_response_time": 2865,
+      "avg_quality": 80.0772,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 193,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User's call is being forwarded to a Mitel voice mail system.",
+                "Voice mail system. Extension 6 5 9 5 is not available.",
+                "AI introduced quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Ensure to mention the brand name to improve scoring.",
+              "Engage more effectively with potential objections.",
+              "Aim to secure a specific outcome, such as scheduling a meeting."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 193,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019815,
+          "responseTime": 2865,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 187,
+            "total_tokens": 760,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.5_tokens_5000",
+      "temperature": 0.5,
+      "max_tokens": 5000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020295,
+      "avg_cost": 0.00020295,
+      "avg_response_time": 3662,
+      "avg_quality": 86.74706666666665,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 201,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 15,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 5
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the services offered.",
+                "AI invites the user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to mention the brand name to improve brand score.",
+              "Work on engaging the user more to enhance conversation dynamics.",
+              "Aim for clearer call outcomes to avoid vague results."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 201,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020295,
+          "responseTime": 3662,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 195,
+            "total_tokens": 768,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.5_tokens_8000",
+      "temperature": 0.5,
+      "max_tokens": 8000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00021915,
+      "avg_cost": 0.00021915,
+      "avg_response_time": 3455,
+      "avg_quality": 93.42813333333334,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 5,
+      "avg_evidence_length": 237,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hello?",
+                "User: Voice mail system. Extension 6 5 9 5 is not available.",
+                "User: Please leave a message.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more with the user to create a more dynamic conversation.",
+              "Train the agent to recognize and address customer concerns directly.",
+              "Ensure the agent includes brand mentions to enhance brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 5,
+            "evidence_total_length": 237,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00021915,
+          "responseTime": 3455,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 222,
+            "total_tokens": 795,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.5_tokens_10000",
+      "temperature": 0.5,
+      "max_tokens": 10000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019454999999999999,
+      "avg_cost": 0.00019454999999999999,
+      "avg_response_time": 3291,
+      "avg_quality": 80.0676,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 169,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 15,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 5
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI mentions quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to engage more dynamically with the user.",
+              "Train the agent to recognize and address potential objections.",
+              "Ensure the agent mentions the brand name in the introduction."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 169,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019454999999999999,
+          "responseTime": 3291,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 181,
+            "total_tokens": 754,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.7_tokens_2000",
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019755,
+      "avg_cost": 0.00019755,
+      "avg_response_time": 2914,
+      "avg_quality": 80.0952,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 238,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User: Your call is being forwarded to a Mitel voice mail system.",
+                "AI: Hi there. This is Jessica from QCA d v I s o r.",
+                "AI: We we help avoid bad suppliers and costly defects with independent factory audits and inspections."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Improve conversation flow by reducing filler words.",
+              "Acknowledge and address potential customer concerns more explicitly.",
+              "Include brand name in the introduction to strengthen brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 238,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019755,
+          "responseTime": 2914,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 186,
+            "total_tokens": 759,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.7_tokens_3000",
+      "temperature": 0.7,
+      "max_tokens": 3000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019755,
+      "avg_cost": 0.00019755,
+      "avg_response_time": 3281,
+      "avg_quality": 80.07,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 175,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User's call is being forwarded to a Mitel voice mail system.",
+                "Extension 6 5 9 5 is not available.",
+                "AI introduces itself and mentions quality control services."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage agents to engage more with the user to improve dynamics.",
+              "Train agents to recognize and handle potential customer objections.",
+              "Ensure agents mention the brand to improve brand recognition scores."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 175,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019755,
+          "responseTime": 3281,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 186,
+            "total_tokens": 759,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.7_tokens_5000",
+      "temperature": 0.7,
+      "max_tokens": 5000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020475,
+      "avg_cost": 0.00020475,
+      "avg_response_time": 4011,
+      "avg_quality": 80.0632,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 158,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to voice mail system",
+                "AI introduces itself and the services offered",
+                "AI requests the user to reach out or reply to an email"
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Incorporate the brand name 'Young Caesar' into the conversation to improve brand recognition.",
+              "Seek to engage the user with questions or prompts to encourage two-way dialogue.",
+              "Aim for a specific outcome, such as scheduling a meeting, to enhance the effectiveness of the call."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 158,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020475,
+          "responseTime": 4011,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 198,
+            "total_tokens": 771,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.7_tokens_8000",
+      "temperature": 0.7,
+      "max_tokens": 8000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019214999999999998,
+      "avg_cost": 0.00019214999999999998,
+      "avg_response_time": 3478,
+      "avg_quality": 86.74266666666666,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 190,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 15,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 5
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to voicemail",
+                "AI introduces itself as Jessica from QCA d v I s o r",
+                "AI discusses quality control services",
+                "AI invites user to reach out or reply to an email"
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to provide a more engaging introduction",
+              "Incorporate recognition of potential customer objections",
+              "Aim for a clearer call to action to secure a follow-up"
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 190,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019214999999999998,
+          "responseTime": 3478,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 177,
+            "total_tokens": 750,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_0.7_tokens_10000",
+      "temperature": 0.7,
+      "max_tokens": 10000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019935,
+      "avg_cost": 0.00019935,
+      "avg_response_time": 3536,
+      "avg_quality": 80.074,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 185,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is directed to a voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains the purpose of the call regarding quality control services."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage agents to engage more with the user to create a conversational flow.",
+              "Train agents to recognize and address potential objections from users.",
+              "Ensure agents mention the brand name to enhance brand recognition."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 185,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019935,
+          "responseTime": 3536,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 189,
+            "total_tokens": 762,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_1_tokens_2000",
+      "temperature": 1,
+      "max_tokens": 2000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00018495,
+      "avg_cost": 0.00018495,
+      "avg_response_time": 2787,
+      "avg_quality": 80.05199999999999,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 130,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User's call is being forwarded.",
+                "AI introduces itself and the purpose of the call.",
+                "AI mentions services offered."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage more engagement by asking questions.",
+              "Seek to identify and address potential customer objections.",
+              "Mention the brand to create more relevance and connection."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 130,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00018495,
+          "responseTime": 2787,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 165,
+            "total_tokens": 738,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_1_tokens_3000",
+      "temperature": 1,
+      "max_tokens": 3000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020595,
+      "avg_cost": 0.00020595,
+      "avg_response_time": 4794,
+      "avg_quality": 86.76146666666666,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 237,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 15,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 5
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is directed to a voice mail system.",
+                "AI identifies itself as Jessica from QCA d v I s o r.",
+                "AI describes the purpose of the call regarding quality control services.",
+                "AI invites user to reach out or reply to an email."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Increase engagement by asking open-ended questions to the user.",
+              "Seek to acknowledge any potential objections from the user.",
+              "Aim for a clear call to action to generate a specific outcome."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 237,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020595,
+          "responseTime": 4794,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 200,
+            "total_tokens": 773,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_1_tokens_5000",
+      "temperature": 1,
+      "max_tokens": 5000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00020894999999999998,
+      "avg_cost": 0.00020894999999999998,
+      "avg_response_time": 3693,
+      "avg_quality": 86.76466666666667,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 4,
+      "avg_evidence_length": 245,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 15,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 5
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User connects to Mitel voice mail system.",
+                "AI introduces itself as Jessica from QCA d v I s o r.",
+                "AI explains services offered: quality control services for apparel brands.",
+                "AI mentions independent factory audits and inspections."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the agent to mention the brand name to improve brand recognition score.",
+              "Work on engaging with the user to create a smoother conversation flow.",
+              "Aim to achieve specific outcomes such as scheduling a meeting or securing a callback."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 4,
+            "evidence_total_length": 245,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00020894999999999998,
+          "responseTime": 3693,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 205,
+            "total_tokens": 778,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_1_tokens_8000",
+      "temperature": 1,
+      "max_tokens": 8000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00018734999999999997,
+      "avg_cost": 0.00018734999999999997,
+      "avg_response_time": 3341,
+      "avg_quality": 80.0524,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 131,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 0
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "User is forwarded to a voice mail system.",
+                "AI introduces itself and its services.",
+                "A message is left for the user."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage the user to engage further during the call.",
+              "Address any potential objections regarding the services offered.",
+              "Ensure the brand is mentioned to increase connection."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 131,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00018734999999999997,
+          "responseTime": 3341,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 169,
+            "total_tokens": 742,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config_name": "temp_1_tokens_10000",
+      "temperature": 1,
+      "max_tokens": 10000,
+      "total_tests": 1,
+      "successful_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100,
+      "total_cost": 0.00019935,
+      "avg_cost": 0.00019935,
+      "avg_response_time": 2968,
+      "avg_quality": 80.0752,
+      "avg_evidence_completeness": 100,
+      "avg_brand_mentions": 0,
+      "avg_outcomes": 1,
+      "avg_key_moments": 3,
+      "avg_evidence_length": 188,
+      "avg_consistency": 100,
+      "results": [
+        {
+          "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+          "transcript_length": 529,
+          "success": true,
+          "analysis": {
+            "qci_total_score": 10,
+            "scores": {
+              "dynamics": 10,
+              "objections": 0,
+              "brand": 0,
+              "outcome": 10
+            },
+            "evidence": {
+              "brand_mentions": [],
+              "outcomes": [
+                "No concrete outcome"
+              ],
+              "key_moments": [
+                "Call is being forwarded to a Mitel voice mail system.",
+                "Voice mail system. Extension 6 5 9 5 is not available.",
+                "Introduction of quality control services for apparel brands."
+              ],
+              "agent_talk_ratio": "100%"
+            },
+            "coaching_tips": [
+              "Encourage active engagement by asking questions to the listener.",
+              "Provide a clearer call to action, such as scheduling a meeting.",
+              "Address potential concerns or objections that the listener may have."
+            ]
+          },
+          "quality": {
+            "evidence_completeness": 100,
+            "brand_mentions_count": 0,
+            "outcomes_count": 1,
+            "key_moments_count": 3,
+            "evidence_total_length": 188,
+            "consistency_score": 100,
+            "has_all_required_fields": true
+          },
+          "cost": 0.00019935,
+          "responseTime": 2968,
+          "tokens": {
+            "prompt_tokens": 573,
+            "completion_tokens": 189,
+            "total_tokens": 762,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

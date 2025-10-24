@@ -114,7 +114,7 @@ class QCIAnalyzer {
         await this.logger.info('LOAD', 'Loading QCI prompt from database');
 
         const { data: framework, error } = await this.supabase
-            .from('qci_frameworks')
+            .from('analysis_frameworks')
             .select('id, prompt_template, model_config')
             .eq('name', 'QCI Standard')
             .eq('is_active', true)
@@ -124,8 +124,19 @@ class QCIAnalyzer {
             throw new Error(`Failed to load QCI framework: ${error.message}`);
         }
 
-        await this.logger.info('LOAD', 'QCI framework loaded successfully');
+        await this.logger.info('LOAD', 'QCI framework loaded successfully', {
+            model: framework.model_config?.model || 'not specified',
+            temperature: framework.model_config?.temperature ?? 'not specified',
+            max_tokens: framework.model_config?.max_tokens || 'not specified'
+        });
+
         this.frameworkId = framework.id;
+        this.modelConfig = framework.model_config || {
+            model: CONFIG.OPENAI.MODEL,
+            temperature: CONFIG.OPENAI.TEMPERATURE,
+            max_tokens: CONFIG.OPENAI.MAX_TOKENS
+        };
+
         return framework;
     }
 
@@ -166,10 +177,10 @@ class QCIAnalyzer {
             const prompt = promptTemplate.replace('{transcript}', callData.transcript);
 
             const response = await openai.chat.completions.create({
-                model: CONFIG.OPENAI.MODEL,
+                model: this.modelConfig.model,
                 messages: [{ role: "user", content: prompt }],
-                temperature: CONFIG.OPENAI.TEMPERATURE,
-                max_tokens: CONFIG.OPENAI.MAX_TOKENS
+                temperature: this.modelConfig.temperature,
+                max_tokens: this.modelConfig.max_tokens
             });
 
             const cost = this.calculateCost(response.usage);
@@ -195,7 +206,7 @@ class QCIAnalyzer {
                 coaching_tips: analysis.coaching_tips || [],
                 key_issues: analysis.evidence || {},
                 call_classification: this.determineClassification(analysis.qci_total_score || 0),
-                analysis_model: CONFIG.OPENAI.MODEL,
+                analysis_model: this.modelConfig.model,
                 analysis_cost: cost,
                 analyzed_at: new Date().toISOString(),
                 full_analysis: analysis
