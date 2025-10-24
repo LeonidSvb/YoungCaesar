@@ -130,52 +130,30 @@ class QCIAnalyzer {
     }
 
     async fetchCallsFromSupabase() {
-        await this.logger.info('FETCH', 'Fetching calls without QCI from Supabase');
+        await this.logger.info('FETCH', 'Fetching calls from VIEW vapi_calls_needing_qci');
 
-        // Get all calls with transcript > MIN_LENGTH
-        const { data: callsWithTranscript, error: callsError } = await this.supabase
-            .from('vapi_calls_raw')
-            .select('id, transcript, assistant_id, created_at')
-            .not('transcript', 'is', null);
+        // Use VIEW instead of manual filtering - much more efficient
+        const { data: calls, error } = await this.supabase
+            .from('vapi_calls_needing_qci')
+            .select('*')
+            .order('created_at', { ascending: false });
 
-        if (callsError) {
-            throw new Error(`Failed to fetch calls: ${callsError.message}`);
+        if (error) {
+            throw new Error(`Failed to fetch calls: ${error.message}`);
         }
 
-        // Get existing QCI analyses for this framework
-        const { data: existingQCI, error: qciError } = await this.supabase
-            .from('qci_analyses')
-            .select('call_id')
-            .eq('framework_id', this.frameworkId);
-
-        if (qciError) {
-            throw new Error(`Failed to fetch existing QCI: ${qciError.message}`);
-        }
-
-        const qciSet = new Set(existingQCI.map(q => q.call_id));
-
-        // Filter calls that need QCI analysis
-        let calls = callsWithTranscript
-            .filter(call =>
-                call.transcript.length >= CONFIG.INPUT.MIN_TRANSCRIPT_LENGTH &&
-                !qciSet.has(call.id)
-            )
-            .sort((a, b) => b.transcript.length - a.transcript.length);
-
-        await this.logger.info('FETCH', `Found ${calls.length} calls needing QCI analysis`, {
-            total_with_transcript: callsWithTranscript.length,
-            already_analyzed: qciSet.size,
-            needs_analysis: calls.length
-        });
+        await this.logger.info('FETCH', `Found ${calls.length} calls needing QCI analysis`);
 
         // Apply testing filters
         if (CONFIG.TESTING.ENABLED) {
             if (CONFIG.TESTING.SPECIFIC_CALL_ID) {
-                calls = calls.filter(c => c.id === CONFIG.TESTING.SPECIFIC_CALL_ID);
+                const filtered = calls.filter(c => c.id === CONFIG.TESTING.SPECIFIC_CALL_ID);
                 await this.logger.info('TEST', `Testing specific call: ${CONFIG.TESTING.SPECIFIC_CALL_ID.substring(0,8)}`);
+                return filtered;
             } else {
-                calls = calls.slice(0, CONFIG.TESTING.BATCH_SIZE);
-                await this.logger.info('TEST', `Test mode: analyzing ${calls.length} longest calls`);
+                const limited = calls.slice(0, CONFIG.TESTING.BATCH_SIZE);
+                await this.logger.info('TEST', `Test mode: analyzing ${limited.length} longest calls`);
+                return limited;
             }
         }
 
