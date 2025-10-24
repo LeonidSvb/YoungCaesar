@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       query = query.lte('effective_date', dateTo);
     }
 
-    const { data: calls, error } = await query;
+    const { data: calls, error } = await query.range(0, 99999);
 
     if (error) {
       console.error('Supabase query error:', error);

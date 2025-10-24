@@ -33,59 +33,74 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    let query = supabase.from('calls_enriched').select('*');
+    // Build base query for counting
+    const buildQuery = (select: string) => {
+      let q = supabase.from('calls_enriched').select(select, { count: 'exact' });
 
-    if (assistantId && assistantId !== 'all') {
-      query = query.eq('assistant_id', assistantId);
-    }
+      if (assistantId && assistantId !== 'all') {
+        q = q.eq('assistant_id', assistantId);
+      }
+      if (dateFrom) {
+        q = q.gte('effective_date', dateFrom);
+      }
+      if (dateTo) {
+        q = q.lte('effective_date', dateTo);
+      }
 
-    if (dateFrom) {
-      query = query.gte('effective_date', dateFrom);
-    }
+      return q;
+    };
 
-    if (dateTo) {
-      query = query.lte('effective_date', dateTo);
-    }
+    // Get total calls count
+    const { count: totalCalls, error: totalError } = await buildQuery('id');
 
-    const { data: calls, error } = await query;
-
-    if (error) {
-      logger.error('Supabase query error in /api/dashboard/metrics', error);
+    if (totalError) {
+      logger.error('Supabase query error in /api/dashboard/metrics (total)', totalError);
       return NextResponse.json(
-        { error: 'Failed to fetch metrics from database', details: error.message },
+        { error: 'Failed to fetch metrics from database', details: totalError.message },
         { status: 500 }
       );
     }
 
-    const totalCalls = calls?.length || 0;
-    const qualityCalls = calls?.filter(c => c.is_quality_call).length || 0;
-    const engagedCalls = calls?.filter(c => c.duration_seconds >= 60).length || 0;
-    const analyzedCalls = calls?.filter(c => c.has_qci).length || 0;
-    const withTools = calls?.filter(c => c.has_calendar_booking).length || 0;
+    // Get quality calls count
+    const { count: qualityCalls } = await buildQuery('id').eq('is_quality_call', true);
 
-    const callsWithDuration = calls?.filter(c => c.duration_seconds > 0) || [];
+    // Get engaged calls count (duration >= 60s)
+    const { count: engagedCalls } = await buildQuery('id').gte('duration_seconds', 60);
+
+    // Get analyzed calls count
+    const { count: analyzedCalls } = await buildQuery('id').eq('has_qci', true);
+
+    // Get calls with tools count
+    const { count: withTools } = await buildQuery('id').eq('has_calendar_booking', true);
+
+    // Get average duration and QCI - need to fetch actual data but only necessary fields
+    // Using range to get more data for accurate averages
+    const { data: statsData } = await buildQuery('duration_seconds, qci_score, assistant_id')
+      .range(0, 99999);
+
+    const callsWithDuration = statsData?.filter(c => c.duration_seconds > 0) || [];
     const avgDuration = callsWithDuration.length > 0
       ? Math.round(callsWithDuration.reduce((sum, c) => sum + c.duration_seconds, 0) / callsWithDuration.length)
       : 0;
 
-    const callsWithQci = calls?.filter(c => c.qci_score !== null) || [];
+    const callsWithQci = statsData?.filter(c => c.qci_score !== null) || [];
     const avgQCI = callsWithQci.length > 0
       ? Math.round(callsWithQci.reduce((sum, c) => sum + (c.qci_score || 0), 0) / callsWithQci.length * 10) / 10
       : 0;
 
-    const qualityRate = totalCalls > 0
-      ? Math.round((qualityCalls / totalCalls) * 1000) / 10
+    const qualityRate = (totalCalls || 0) > 0
+      ? Math.round(((qualityCalls || 0) / (totalCalls || 0)) * 1000) / 10
       : 0;
 
-    const uniqueAssistants = new Set(calls?.map(c => c.assistant_id).filter(Boolean));
+    const uniqueAssistants = new Set(statsData?.map(c => c.assistant_id).filter(Boolean));
     const totalAssistants = uniqueAssistants.size;
 
     const metrics = {
-      totalCalls,
-      qualityCalls,
-      engagedCalls,
-      analyzedCalls,
-      withTools,
+      totalCalls: totalCalls || 0,
+      qualityCalls: qualityCalls || 0,
+      engagedCalls: engagedCalls || 0,
+      analyzedCalls: analyzedCalls || 0,
+      withTools: withTools || 0,
       avgDuration,
       avgQCI,
       qualityRate,
@@ -93,7 +108,7 @@ export async function GET(request: NextRequest) {
     };
 
     const duration = Date.now() - startTime;
-    logger.api('GET', '/api/dashboard/metrics', 200, duration, { totalCalls });
+    logger.api('GET', '/api/dashboard/metrics', 200, duration, { totalCalls: metrics.totalCalls });
 
     return NextResponse.json(metrics);
   } catch (error) {

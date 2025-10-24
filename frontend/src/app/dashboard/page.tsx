@@ -103,13 +103,13 @@ export default function DashboardPage() {
     setSelectedCallId(null);
   };
 
-  const tabs: { value: CallTab; label: string; icon: string }[] = [
-    { value: 'all', label: 'All Calls', icon: '📋' },
-    { value: 'quality', label: 'Quality ≥60s', icon: '✅' },
-    { value: 'short', label: 'Short 1-59s', icon: '⏱️' },
-    { value: 'tools', label: 'With Tools', icon: '🛠️' },
-    { value: 'voicemail', label: 'Voicemail', icon: '📞' },
-    { value: 'errors', label: 'Errors', icon: '❌' },
+  const tabs: { value: CallTab; label: string }[] = [
+    { value: 'all', label: 'All Calls' },
+    { value: 'quality', label: 'Quality ≥60s' },
+    { value: 'short', label: 'Short 1-59s' },
+    { value: 'tools', label: 'With Tools' },
+    { value: 'voicemail', label: 'Voicemail' },
+    { value: 'errors', label: 'Errors' },
   ];
 
   return (
@@ -171,7 +171,6 @@ export default function DashboardPage() {
                   : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
-              <span className="mr-2">{tab.icon}</span>
               {tab.label}
             </Button>
           ))}
