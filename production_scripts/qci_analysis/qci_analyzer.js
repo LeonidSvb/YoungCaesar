@@ -115,7 +115,7 @@ class QCIAnalyzer {
 
         const { data: framework, error } = await this.supabase
             .from('qci_frameworks')
-            .select('prompt_template, model_config')
+            .select('id, prompt_template, model_config')
             .eq('name', 'QCI Standard')
             .eq('is_active', true)
             .single();
@@ -125,6 +125,7 @@ class QCIAnalyzer {
         }
 
         await this.logger.info('LOAD', 'QCI framework loaded successfully');
+        this.frameworkId = framework.id;
         return framework;
     }
 
@@ -141,10 +142,11 @@ class QCIAnalyzer {
             throw new Error(`Failed to fetch calls: ${callsError.message}`);
         }
 
-        // Get existing QCI analyses
+        // Get existing QCI analyses for this framework
         const { data: existingQCI, error: qciError } = await this.supabase
             .from('qci_analyses')
-            .select('call_id');
+            .select('call_id')
+            .eq('framework_id', this.frameworkId);
 
         if (qciError) {
             throw new Error(`Failed to fetch existing QCI: ${qciError.message}`);
@@ -239,8 +241,9 @@ class QCIAnalyzer {
         try {
             const { error } = await this.supabase
                 .from('qci_analyses')
-                .insert({
+                .upsert({
                     call_id: result.call_id,
+                    framework_id: this.frameworkId,
                     total_score: result.total_score,
                     dynamics_score: result.dynamics_score,
                     objections_score: result.objections_score,
@@ -252,6 +255,9 @@ class QCIAnalyzer {
                     analysis_model: result.analysis_model,
                     analysis_cost: result.analysis_cost,
                     analyzed_at: result.analyzed_at
+                }, {
+                    onConflict: 'call_id,framework_id',
+                    ignoreDuplicates: false
                 });
 
             if (error) {
