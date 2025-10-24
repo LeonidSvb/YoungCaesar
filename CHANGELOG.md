@@ -16,7 +16,63 @@ Collects and analyzes call data from VAPI API for business intelligence and opti
 - **Cron Logging System:** ✅ Production-ready with runs + logs tables
 - **GitHub Actions:** ✅ Automated sync every 6 hours
 
-## Latest Updates (October 20, 2025)
+## Latest Updates (October 24, 2025)
+
+### ✅ Business Logic Views Created (Migration Complete)
+
+**Created optimized database views with single source of truth for call analysis:**
+
+**New Views:**
+1. **`calls_enriched`** - Main view with all business logic
+   - JOIN to qci_analyses + vapi_assistants
+   - Call categorization (error/voicemail/quality/short/failed)
+   - Quality level assessment (excellent/good/average/poor)
+   - Computed flags (has_transcript, has_qci, has_tools)
+   - Effective date handling (COALESCE started_at, created_at)
+
+2. **`quality_calls`** - Quality calls only (>=60s, no errors)
+   - 411 calls (4.8% of total)
+   - Main view for daily operations
+   - Client's primary use case
+
+3. **`error_calls`** - Error calls for debugging
+   - 6,392 calls (74.7% of total)
+   - System health monitoring
+
+4. **`voicemail_calls`** - Voicemail analysis
+   - 218 calls (2.5% of total)
+   - Message quality review
+
+5. **`calls_with_tools`** - Quality calls with tool usage
+   - 140 calls (1.6% of total)
+   - Success tracking (calendar bookings, etc)
+
+**Call Categorization Results:**
+- Error: 6,392 (74.7%) - connection failures, busy, no answer
+- Short: 1,182 (13.8%) - 1-59 seconds
+- Quality: 411 (4.8%) - >=60 seconds, real conversations
+- Failed: 356 (4.2%) - no duration
+- Voicemail: 218 (2.5%) - voicemail detection
+
+**Strategy:**
+- ✅ Views contain all business logic (single source of truth)
+- ✅ RPC functions NOT touched (zero risk)
+- ✅ Existing API continues to work
+- ✅ New features use views directly
+
+**Files:**
+- Migration: `migrations/2025-10-24-create-business-logic-views.sql`
+- Documentation: `docs/VIEWS_DOCUMENTATION.md`
+- Commit: `b6cf86b`
+
+**Next Steps:**
+- Create new API endpoints using views
+- Update frontend to use quality_calls for main dashboard
+- Gradual migration from RPC to views (optional)
+
+---
+
+## Previous Updates (October 20, 2025)
 
 ### ⚠️ ТЕКУЩАЯ СЕССИЯ: Vercel 404 Fix (В ПРОЦЕССЕ)
 
