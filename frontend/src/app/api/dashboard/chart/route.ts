@@ -34,6 +34,18 @@ interface TimelineDataPoint {
   analyzed_calls: number;
 }
 
+// Calculate smart granularity based on date range
+function getSmartGranularity(dateFrom: string, dateTo: string): 'hour' | 'day' | 'week' | 'month' {
+  const from = new Date(dateFrom);
+  const to = new Date(dateTo);
+  const days = Math.ceil((to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24));
+
+  if (days <= 2) return 'hour';
+  if (days <= 30) return 'day';
+  if (days <= 90) return 'week';
+  return 'month';
+}
+
 export async function GET(request: NextRequest) {
   const startTime = Date.now();
 
@@ -42,7 +54,10 @@ export async function GET(request: NextRequest) {
     const assistantId = searchParams.get('assistant_id');
     const dateFrom = searchParams.get('date_from');
     const dateTo = searchParams.get('date_to');
-    const granularity = searchParams.get('granularity') || 'day';
+
+    const granularity = dateFrom && dateTo
+      ? getSmartGranularity(dateFrom, dateTo)
+      : 'day';
 
     logger.info('GET /api/dashboard/chart', { assistantId, dateFrom, dateTo, granularity });
 
@@ -75,16 +90,35 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Group by date and calculate metrics
+    // Group by date with granularity and calculate metrics
     const groupedData = new Map<string, TimelineDataPoint>();
 
     calls?.forEach(call => {
-      const dateStr = call.effective_date?.split('T')[0] || '';
-      if (!dateStr) return;
+      if (!call.effective_date) return;
 
-      if (!groupedData.has(dateStr)) {
-        groupedData.set(dateStr, {
-          date: dateStr,
+      const date = new Date(call.effective_date);
+      let groupKey: string;
+
+      switch (granularity) {
+        case 'hour':
+          groupKey = `${date.toISOString().split('T')[0]}T${date.getHours().toString().padStart(2, '0')}:00`;
+          break;
+        case 'week': {
+          const weekStart = new Date(date);
+          weekStart.setDate(date.getDate() - date.getDay());
+          groupKey = weekStart.toISOString().split('T')[0];
+          break;
+        }
+        case 'month':
+          groupKey = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-01`;
+          break;
+        default:
+          groupKey = call.effective_date.split('T')[0];
+      }
+
+      if (!groupedData.has(groupKey)) {
+        groupedData.set(groupKey, {
+          date: groupKey,
           total_calls: 0,
           quality_calls: 0,
           engaged_calls: 0,
@@ -92,7 +126,7 @@ export async function GET(request: NextRequest) {
         });
       }
 
-      const point = groupedData.get(dateStr)!;
+      const point = groupedData.get(groupKey)!;
       point.total_calls++;
       if (call.is_quality_call) point.quality_calls++;
       if (call.is_quality_call) point.engaged_calls++;

@@ -6,12 +6,8 @@ import { MetricCard } from '@/components/MetricCard';
 interface DashboardMetrics {
   totalCalls: number;
   qualityCalls: number;
-  engagedCalls: number;
-  analyzedCalls: number;
-  avgDuration: number;
+  withTools: number;
   avgQCI: number;
-  qualityRate: number;
-  totalAssistants: number;
 }
 
 interface MetricsGridProps {
@@ -50,8 +46,8 @@ export function MetricsGrid({ assistantId, dateFrom, dateTo }: MetricsGridProps)
 
   if (loading || !metrics) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
-        {[...Array(6)].map((_, i) => (
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {[...Array(4)].map((_, i) => (
           <div key={i} className="h-32 bg-gray-100 animate-pulse rounded-lg" />
         ))}
       </div>
@@ -59,7 +55,7 @@ export function MetricsGrid({ assistantId, dateFrom, dateTo }: MetricsGridProps)
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <MetricCard
         title="Total Calls"
         value={metrics.totalCalls}
@@ -68,17 +64,17 @@ export function MetricsGrid({ assistantId, dateFrom, dateTo }: MetricsGridProps)
       />
 
       <MetricCard
-        title="Quality Rate"
-        value={metrics.qualityRate}
-        format="percentage"
-        subtitle={`${metrics.qualityCalls} calls >30s`}
+        title="Quality Calls"
+        value={metrics.qualityCalls}
+        format="number"
+        subtitle="≥60s duration"
       />
 
       <MetricCard
-        title="Avg Duration"
-        value={metrics.avgDuration}
-        format="duration"
-        subtitle="Average call length"
+        title="With Tools"
+        value={metrics.withTools}
+        format="number"
+        subtitle="Calendar bookings"
       />
 
       <MetricCard
@@ -86,20 +82,6 @@ export function MetricsGrid({ assistantId, dateFrom, dateTo }: MetricsGridProps)
         value={metrics.avgQCI}
         format="number"
         subtitle="Quality Call Index"
-      />
-
-      <MetricCard
-        title="Engaged Calls"
-        value={metrics.engagedCalls}
-        format="number"
-        subtitle=">60s duration"
-      />
-
-      <MetricCard
-        title="Active Assistants"
-        value={metrics.totalAssistants}
-        format="number"
-        subtitle="AI assistants in use"
       />
     </div>
   );

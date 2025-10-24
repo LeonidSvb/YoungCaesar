@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
@@ -19,21 +18,17 @@ import { format } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
 type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
-type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
 
 interface FilterPanelProps {
   onTimeRangeChange: (range: TimeRange, customRange?: { from: Date; to: Date }) => void;
   onAssistantChange: (assistantId: string) => void;
-  onQualityFilterChange: (filter: QualityFilter) => void;
 }
 
 export function FilterPanel({
   onTimeRangeChange,
   onAssistantChange,
-  onQualityFilterChange,
 }: FilterPanelProps) {
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('30d');
-  const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
@@ -52,11 +47,6 @@ export function FilterPanel({
       onTimeRangeChange('custom', { from: range.from, to: range.to });
       setIsCalendarOpen(false);
     }
-  };
-
-  const handleQualityFilterChange = (value: QualityFilter) => {
-    setQualityFilter(value);
-    onQualityFilterChange(value);
   };
 
   const timeRanges: { value: TimeRange; label: string }[] = [
@@ -152,43 +142,6 @@ export function FilterPanel({
               </SelectItem>
             </SelectContent>
           </Select>
-        </div>
-
-        {/* Quality Filter */}
-        <div>
-          <Label className="block text-xs font-medium text-gray-600 mb-1.5">
-            Quality
-          </Label>
-          <RadioGroup
-            value={qualityFilter}
-            onValueChange={handleQualityFilterChange}
-            className="flex gap-3"
-          >
-            <div className="flex items-center space-x-1.5">
-              <RadioGroupItem value="all" id="filter-all" />
-              <Label htmlFor="filter-all" className="text-xs font-normal cursor-pointer">
-                All
-              </Label>
-            </div>
-            <div className="flex items-center space-x-1.5">
-              <RadioGroupItem value="quality" id="filter-quality" />
-              <Label htmlFor="filter-quality" className="text-xs font-normal cursor-pointer">
-                &gt;30s
-              </Label>
-            </div>
-            <div className="flex items-center space-x-1.5">
-              <RadioGroupItem value="with_transcript" id="filter-transcript" />
-              <Label htmlFor="filter-transcript" className="text-xs font-normal cursor-pointer">
-                Has Text
-              </Label>
-            </div>
-            <div className="flex items-center space-x-1.5">
-              <RadioGroupItem value="with_qci" id="filter-qci" />
-              <Label htmlFor="filter-qci" className="text-xs font-normal cursor-pointer">
-                Has QCI
-              </Label>
-            </div>
-          </RadioGroup>
         </div>
       </div>
     </Card>

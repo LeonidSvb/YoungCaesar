@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
     const qualityCalls = calls?.filter(c => c.is_quality_call).length || 0;
     const engagedCalls = calls?.filter(c => c.duration_seconds >= 60).length || 0;
     const analyzedCalls = calls?.filter(c => c.has_qci).length || 0;
+    const withTools = calls?.filter(c => c.has_calendar_booking).length || 0;
 
     const callsWithDuration = calls?.filter(c => c.duration_seconds > 0) || [];
     const avgDuration = callsWithDuration.length > 0
@@ -84,6 +85,7 @@ export async function GET(request: NextRequest) {
       qualityCalls,
       engagedCalls,
       analyzedCalls,
+      withTools,
       avgDuration,
       avgQCI,
       qualityRate,

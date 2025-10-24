@@ -81,8 +81,11 @@ export async function GET(request: NextRequest) {
         case 'quality':
           query = query.eq('is_quality_call', true);
           break;
-        case 'with_tools':
+        case 'tools':
           query = query.eq('has_calendar_booking', true);
+          break;
+        case 'voicemail':
+          query = query.eq('is_voicemail', true);
           break;
       }
     }

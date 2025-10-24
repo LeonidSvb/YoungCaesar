@@ -25,7 +25,6 @@ interface CallsTableProps {
   assistantId: string | null;
   dateFrom: string;
   dateTo: string;
-  qualityFilter?: string;
   stageFilter?: string;
   onCallClick?: (callId: string) => void;
 }
@@ -36,7 +35,6 @@ export function CallsTable({
   assistantId,
   dateFrom,
   dateTo,
-  qualityFilter = 'all',
   stageFilter = 'all',
   onCallClick,
 }: CallsTableProps) {
@@ -51,7 +49,7 @@ export function CallsTable({
 
   useEffect(() => {
     loadCalls(true);
-  }, [assistantId, dateFrom, dateTo, qualityFilter, stageFilter]);
+  }, [assistantId, dateFrom, dateTo, stageFilter]);
 
   useEffect(() => {
     applySorting();
@@ -70,7 +68,6 @@ export function CallsTable({
       if (assistantId && assistantId !== 'all') params.set('assistant_id', assistantId);
       if (dateFrom) params.set('date_from', dateFrom);
       if (dateTo) params.set('date_to', dateTo);
-      params.set('quality_filter', qualityFilter);
       if (stageFilter && stageFilter !== 'all') params.set('stage_filter', stageFilter);
       params.set('limit', '50');
       params.set('offset', reset ? '0' : offset.toString());

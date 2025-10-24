@@ -3,20 +3,20 @@
 import { useState } from 'react';
 import { FilterPanel } from '@/components/dashboard/FilterPanel';
 import { MetricsGrid } from '@/components/dashboard/MetricsGrid';
-import { SalesFunnel } from '@/components/dashboard/SalesFunnel';
 import { TimelineChart } from '@/components/dashboard/TimelineChart';
+import { AssistantDonutChart } from '@/components/dashboard/AssistantDonutChart';
+import { CallTypesBarChart } from '@/components/dashboard/CallTypesBarChart';
 import { CallsTable } from '@/components/dashboard/CallsTable';
 import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
+import { Button } from '@/components/ui/button';
 
 type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
-type QualityFilter = 'all' | 'with_transcript' | 'with_qci' | 'quality';
-type StageFilter = 'all' | 'errors' | 'no_errors' | 'short' | 'quality' | 'with_tools';
+type CallTab = 'all' | 'quality' | 'short' | 'tools' | 'voicemail' | 'errors';
 
 export default function DashboardPage() {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [assistantId, setAssistantId] = useState<string>('all');
-  const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
-  const [stageFilter, setStageFilter] = useState<StageFilter>('all');
+  const [activeTab, setActiveTab] = useState<CallTab>('all');
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [customDateRange, setCustomDateRange] = useState<{ from: Date; to: Date } | null>(null);
@@ -103,28 +103,14 @@ export default function DashboardPage() {
     setSelectedCallId(null);
   };
 
-  const handleStageClick = (stage: string) => {
-    // Map funnel stage names to filter values
-    const stageMap: Record<string, StageFilter> = {
-      'All Calls': 'all',
-      'Errors': 'errors',
-      'No Errors': 'no_errors',
-      'Short (1-59s)': 'short',
-      'Quality (≥60s)': 'quality',
-      'With Tools': 'with_tools',
-    };
-
-    const filterValue = stageMap[stage] || 'all';
-    setStageFilter(filterValue);
-
-    // Scroll to table
-    setTimeout(() => {
-      const tableElement = document.querySelector('[data-calls-table]');
-      if (tableElement) {
-        tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
-  };
+  const tabs: { value: CallTab; label: string; icon: string }[] = [
+    { value: 'all', label: 'All Calls', icon: '📋' },
+    { value: 'quality', label: 'Quality ≥60s', icon: '✅' },
+    { value: 'short', label: 'Short 1-59s', icon: '⏱️' },
+    { value: 'tools', label: 'With Tools', icon: '🛠️' },
+    { value: 'voicemail', label: 'Voicemail', icon: '📞' },
+    { value: 'errors', label: 'Errors', icon: '❌' },
+  ];
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -140,7 +126,6 @@ export default function DashboardPage() {
       <FilterPanel
         onTimeRangeChange={handleTimeRangeChange}
         onAssistantChange={setAssistantId}
-        onQualityFilterChange={setQualityFilter}
       />
 
       {/* Metrics Grid */}
@@ -158,21 +143,47 @@ export default function DashboardPage() {
         granularity="day"
       />
 
-      {/* Sales Funnel */}
-      <SalesFunnel
-        assistantId={assistantId === 'all' ? null : assistantId}
-        dateFrom={dateFrom}
-        dateTo={dateTo}
-        onStageClick={handleStageClick}
-      />
+      {/* Assistant & Call Types Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <AssistantDonutChart
+          assistantId={assistantId === 'all' ? null : assistantId}
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+        />
+        <CallTypesBarChart
+          assistantId={assistantId === 'all' ? null : assistantId}
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+        />
+      </div>
+
+      {/* Call Type Tabs */}
+      <div className="mb-6">
+        <div className="flex gap-2 border-b border-gray-200">
+          {tabs.map((tab) => (
+            <Button
+              key={tab.value}
+              variant="ghost"
+              onClick={() => setActiveTab(tab.value)}
+              className={`px-4 py-2 rounded-t-lg border-b-2 transition-colors ${
+                activeTab === tab.value
+                  ? 'border-blue-600 text-blue-600 bg-blue-50'
+                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              }`}
+            >
+              <span className="mr-2">{tab.icon}</span>
+              {tab.label}
+            </Button>
+          ))}
+        </div>
+      </div>
 
       {/* Calls Table */}
       <CallsTable
         assistantId={assistantId === 'all' ? null : assistantId}
         dateFrom={dateFrom}
         dateTo={dateTo}
-        qualityFilter={qualityFilter}
-        stageFilter={stageFilter}
+        stageFilter={activeTab}
         onCallClick={handleCallClick}
       />
 

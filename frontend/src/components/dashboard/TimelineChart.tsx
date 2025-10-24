@@ -39,8 +39,8 @@ export function TimelineChart({
   const [data, setData] = useState<TimelineDataPoint[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAllCalls, setShowAllCalls] = useState(true);
-  const [showAnalyzed, setShowAnalyzed] = useState(true);
   const [showQuality, setShowQuality] = useState(true);
+  const [showAnalyzed, setShowAnalyzed] = useState(true);
 
   useEffect(() => {
     fetchChartData();
@@ -74,8 +74,8 @@ export function TimelineChart({
       day: 'numeric',
     }),
     'All Calls': point.total_calls,
+    'Quality (≥60s)': point.quality_calls,
     Analyzed: point.analyzed_calls,
-    'Quality (>30s)': point.quality_calls,
   }));
 
   return (
@@ -102,6 +102,20 @@ export function TimelineChart({
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
+                id="quality"
+                checked={showQuality}
+                onCheckedChange={(checked) => setShowQuality(checked as boolean)}
+              />
+              <Label
+                htmlFor="quality"
+                className="flex items-center cursor-pointer font-normal"
+              >
+                <span className="w-3 h-3 bg-green-500 rounded-full mr-1.5"></span>
+                Quality (≥60s)
+              </Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
                 id="analyzed"
                 checked={showAnalyzed}
                 onCheckedChange={(checked) => setShowAnalyzed(checked as boolean)}
@@ -112,20 +126,6 @@ export function TimelineChart({
               >
                 <span className="w-3 h-3 bg-purple-500 rounded-full mr-1.5"></span>
                 Analyzed
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="quality"
-                checked={showQuality}
-                onCheckedChange={(checked) => setShowQuality(checked as boolean)}
-              />
-              <Label
-                htmlFor="quality"
-                className="flex items-center cursor-pointer font-normal"
-              >
-                <span className="w-3 h-3 bg-green-500 rounded-full mr-1.5"></span>
-                Quality ({'>'}30s)
               </Label>
             </div>
           </div>
@@ -174,6 +174,18 @@ export function TimelineChart({
                 />
               )}
 
+              {/* Quality Calls - Green */}
+              {showQuality && (
+                <Line
+                  type="monotone"
+                  dataKey="Quality (≥60s)"
+                  stroke="#22c55e"
+                  strokeWidth={2}
+                  dot={{ fill: '#22c55e', r: 3 }}
+                  activeDot={{ r: 5 }}
+                />
+              )}
+
               {/* Analyzed - Purple */}
               {showAnalyzed && (
                 <Line
@@ -182,18 +194,6 @@ export function TimelineChart({
                   stroke="#a855f7"
                   strokeWidth={2}
                   dot={{ fill: '#a855f7', r: 3 }}
-                  activeDot={{ r: 5 }}
-                />
-              )}
-
-              {/* Quality Calls - Green */}
-              {showQuality && (
-                <Line
-                  type="monotone"
-                  dataKey="Quality (>30s)"
-                  stroke="#22c55e"
-                  strokeWidth={2}
-                  dot={{ fill: '#22c55e', r: 3 }}
                   activeDot={{ r: 5 }}
                 />
               )}
