@@ -51,30 +51,49 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    let query = supabase.from('calls_enriched').select('effective_date, is_quality_call, has_calendar_booking, has_qci');
+    // Load all data with pagination to bypass 1000 row limit
+    const allCalls: any[] = [];
+    let offset = 0;
+    const limit = 1000;
+    let hasMore = true;
 
-    if (assistantId && assistantId !== 'all') {
-      query = query.eq('assistant_id', assistantId);
-    }
+    while (hasMore) {
+      let query = supabase.from('calls_enriched').select('effective_date, is_quality_call, has_calendar_booking, has_qci');
 
-    if (dateFrom) {
-      query = query.gte('effective_date', dateFrom);
-    }
+      if (assistantId && assistantId !== 'all') {
+        query = query.eq('assistant_id', assistantId);
+      }
 
-    if (dateTo) {
-      query = query.lte('effective_date', dateTo);
-    }
+      if (dateFrom) {
+        query = query.gte('effective_date', dateFrom);
+      }
 
-    const { data: calls, error } = await query
-      .order('effective_date', { ascending: true })
-      .range(0, 99999);
+      if (dateTo) {
+        query = query.lte('effective_date', dateTo);
+      }
 
-    if (error) {
-      console.error('Supabase query error:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch chart data', details: error.message },
-        { status: 500 }
-      );
+      const { data: calls, error: pageError } = await query
+        .order('effective_date', { ascending: true })
+        .range(offset, offset + limit - 1);
+
+      if (pageError) {
+        console.error('Supabase query error:', pageError);
+        return NextResponse.json(
+          { error: 'Failed to fetch chart data', details: pageError.message },
+          { status: 500 }
+        );
+      }
+
+      if (!calls || calls.length === 0) {
+        hasMore = false;
+      } else {
+        allCalls.push(...calls);
+        if (calls.length < limit) {
+          hasMore = false;
+        } else {
+          offset += limit;
+        }
+      }
     }
 
     // Calculate the number of days in range
@@ -82,8 +101,7 @@ export async function GET(request: NextRequest) {
     const end = dateTo ? new Date(dateTo) : new Date();
     const daysDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
 
-    // Only fill in all dates if range is reasonable (< 90 days)
-    // For longer periods, show only dates with actual data
+    // Only fill in all dates if range is reasonable (<= 90 days)
     const fillAllDates = daysDiff <= 90;
 
     const allDates = new Map<string, TimelineDataPoint>();
@@ -91,7 +109,11 @@ export async function GET(request: NextRequest) {
     if (fillAllDates && dateFrom && dateTo) {
       // Generate all dates for short periods (inclusive of both start and end)
       const current = new Date(start);
-      while (current <= end) {
+      current.setHours(0, 0, 0, 0);
+      const endDate = new Date(end);
+      endDate.setHours(0, 0, 0, 0);
+
+      while (current <= endDate) {
         const dateStr = current.toISOString().split('T')[0];
         allDates.set(dateStr, {
           date: dateStr,
@@ -105,7 +127,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Fill in the actual call data
-    calls?.forEach(call => {
+    allCalls.forEach(call => {
       const dateStr = call.effective_date?.split('T')[0] || '';
       if (!dateStr) return;
 
