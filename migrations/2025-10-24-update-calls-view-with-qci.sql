@@ -13,7 +13,7 @@ SELECT
     v.duration_seconds,
     v.transcript,
     v.cost,
-    v.customer_number,
+    v.customer_phone_number,
     v.recording_url,
 
     -- QCI Analytics (LEFT JOIN so all calls are shown)
