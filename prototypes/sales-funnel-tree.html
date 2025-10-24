@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Funnel Tree - VAPI Analytics</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .toggle-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .toggle-btn {
+      padding: 8px 16px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toggle-btn:hover {
+      border-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    .toggle-btn.active {
+      border-color: #3b82f6;
+      background: #3b82f6;
+      color: white;
+    }
+
+    .toggle-btn.active:hover {
+      background: #2563eb;
+    }
+
+    .tools-multiselect {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      background: white;
+      transition: all 0.2s;
+    }
+
+    .tool-checkbox:hover {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    .tool-checkbox.checked {
+      border-color: #10b981;
+      background: #10b981;
+      color: white;
+    }
+
+    .tool-checkbox input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    #sankey-container {
+      width: 100%;
+      height: 700px;
+      margin-bottom: 24px;
+      background: #fafafa;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      padding: 16px;
+      background: #fafafa;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .stat-pct {
+      font-size: 14px;
+      color: #666;
+      margin-left: 8px;
+    }
+
+    .node-label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .link {
+      fill: none;
+      stroke-opacity: 0.3;
+    }
+
+    .link:hover {
+      stroke-opacity: 0.6;
+    }
+
+    .node rect {
+      cursor: pointer;
+      stroke: #fff;
+      stroke-width: 2px;
+    }
+
+    .node rect:hover {
+      opacity: 0.8;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 1000;
+    }
+
+    .expandable-section {
+      margin-top: 24px;
+      border-top: 2px solid #e0e0e0;
+      padding-top: 24px;
+    }
+
+    .expand-btn {
+      padding: 10px 20px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .expand-btn:hover {
+      background: #2563eb;
+    }
+
+    .details-panel {
+      margin-top: 16px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .details-panel.visible {
+      display: block;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .detail-item {
+      padding: 12px;
+      background: white;
+      border-radius: 6px;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Sales Funnel Tree</h1>
+    <p class="subtitle">Иерархическое распределение звонков по стадиям</p>
+
+    <!-- Stats Overview -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total Calls</div>
+        <div class="stat-value" id="stat-total">8,559</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Without Errors</div>
+        <div class="stat-value" id="stat-no-errors">2,377 <span class="stat-pct">27.8%</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Quality Calls (≥60s)</div>
+        <div class="stat-value" id="stat-quality">571 <span class="stat-pct">24%</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Meetings Booked</div>
+        <div class="stat-value" id="stat-meetings">11 <span class="stat-pct">1.9%</span></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="control-group">
+        <label>Показать/Скрыть ветки</label>
+        <div class="toggle-buttons">
+          <button class="toggle-btn active" data-branch="errors">
+            ❌ Errors
+          </button>
+          <button class="toggle-btn active" data-branch="voicemail">
+            📪 Voicemail
+          </button>
+          <button class="toggle-btn active" data-branch="short">
+            📞 Short Calls
+          </button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>Фильтр по инструментам</label>
+        <div class="tools-multiselect">
+          <label class="tool-checkbox">
+            <input type="checkbox" value="google_calendar_tool" checked>
+            📅 Calendar
+          </label>
+          <label class="tool-checkbox">
+            <input type="checkbox" value="dtmf_tool">
+            📞 DTMF
+          </label>
+          <label class="tool-checkbox">
+            <input type="checkbox" value="n8n_get_time">
+            ⏰ Get Time
+          </label>
+          <label class="tool-checkbox">
+            <input type="checkbox" value="google_sheets_tool">
+            📊 Sheets
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sankey Diagram -->
+    <div id="sankey-container"></div>
+
+    <!-- Expandable Details -->
+    <div class="expandable-section">
+      <button class="expand-btn" onclick="toggleDetails()">
+        🔍 Показать детальную статистику
+      </button>
+
+      <div class="details-panel" id="details-panel">
+        <h3 style="margin-bottom: 16px; color: #1a1a1a;">Распределение по стадиям</h3>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">With Errors</div>
+            <div class="detail-value">6,182 (72.2%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Voicemail</div>
+            <div class="detail-value">0 (0%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">No Pickup (&lt;1s)</div>
+            <div class="detail-value">24 (1%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Short (1-59s)</div>
+            <div class="detail-value">1,782 (75%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Quality (≥60s)</div>
+            <div class="detail-value">571 (24%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">With Tools</div>
+            <div class="detail-value">119 (20.8%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    // Данные из реального анализа
+    const DATA = {
+      nodes: [
+        { id: 'all', name: 'All Calls', value: 8559, color: '#3b82f6' },
+        { id: 'errors', name: 'With Errors', value: 6182, color: '#ef4444' },
+        { id: 'no_errors', name: 'Without Errors', value: 2377, color: '#10b981' },
+        { id: 'voicemail', name: 'Voicemail', value: 0, color: '#f59e0b' },
+        { id: 'not_voicemail', name: 'Not Voicemail', value: 2377, color: '#10b981' },
+        { id: 'no_pickup', name: 'No Pickup (<1s)', value: 24, color: '#6b7280' },
+        { id: 'real', name: 'Real Conversation', value: 2353, color: '#8b5cf6' },
+        { id: 'short', name: 'Short (1-59s)', value: 1782, color: '#f59e0b' },
+        { id: 'quality', name: 'Quality (≥60s)', value: 571, color: '#10b981' },
+        { id: 'no_tools', name: 'Without Tools', value: 452, color: '#6b7280' },
+        { id: 'with_tools', name: 'With Tools', value: 119, color: '#8b5cf6' },
+        { id: 'meeting', name: 'Meeting Booked', value: 11, color: '#10b981' }
+      ],
+      links: [
+        { source: 'all', target: 'errors', value: 6182 },
+        { source: 'all', target: 'no_errors', value: 2377 },
+        { source: 'no_errors', target: 'voicemail', value: 0 },
+        { source: 'no_errors', target: 'not_voicemail', value: 2377 },
+        { source: 'not_voicemail', target: 'no_pickup', value: 24 },
+        { source: 'not_voicemail', target: 'real', value: 2353 },
+        { source: 'real', target: 'short', value: 1782 },
+        { source: 'real', target: 'quality', value: 571 },
+        { source: 'quality', target: 'no_tools', value: 452 },
+        { source: 'quality', target: 'with_tools', value: 119 },
+        { source: 'with_tools', target: 'meeting', value: 11 }
+      ]
+    };
+
+    let visibleBranches = {
+      errors: true,
+      voicemail: true,
+      short: true
+    };
+
+    // Инициализация
+    function init() {
+      setupToggles();
+      setupToolCheckboxes();
+      renderSankey();
+    }
+
+    function setupToggles() {
+      document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('active');
+          const branch = btn.dataset.branch;
+          visibleBranches[branch] = btn.classList.contains('active');
+          renderSankey();
+        });
+      });
+    }
+
+    function setupToolCheckboxes() {
+      document.querySelectorAll('.tool-checkbox input').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          checkbox.parentElement.classList.toggle('checked', checkbox.checked);
+          // В реальном приложении здесь будет фильтрация
+          console.log('Selected tools:', getSelectedTools());
+        });
+      });
+    }
+
+    function getSelectedTools() {
+      return Array.from(document.querySelectorAll('.tool-checkbox input:checked'))
+        .map(cb => cb.value);
+    }
+
+    function getFilteredData() {
+      let nodes = DATA.nodes.filter(n => {
+        if (!visibleBranches.errors && n.id === 'errors') return false;
+        if (!visibleBranches.voicemail && n.id === 'voicemail') return false;
+        if (!visibleBranches.short && n.id === 'short') return false;
+        return true;
+      });
+
+      let links = DATA.links.filter(l => {
+        const sourceNode = nodes.find(n => n.id === l.source);
+        const targetNode = nodes.find(n => n.id === l.target);
+        return sourceNode && targetNode && l.value > 0;
+      });
+
+      return { nodes, links };
+    }
+
+    function renderSankey() {
+      const container = document.getElementById('sankey-container');
+      container.innerHTML = '';
+
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      const svg = d3.select('#sankey-container')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+      const { nodes, links } = getFilteredData();
+
+      const sankey = d3.sankey()
+        .nodeWidth(20)
+        .nodePadding(20)
+        .extent([[40, 40], [width - 40, height - 40]]);
+
+      const { nodes: sankeyNodes, links: sankeyLinks } = sankey({
+        nodes: nodes.map(d => ({ ...d })),
+        links: links.map(d => ({ ...d }))
+      });
+
+      // Links
+      svg.append('g')
+        .selectAll('path')
+        .data(sankeyLinks)
+        .join('path')
+        .attr('class', 'link')
+        .attr('d', d3.sankeyLinkHorizontal())
+        .attr('stroke', d => d.source.color)
+        .attr('stroke-width', d => Math.max(1, d.width))
+        .on('mouseover', function(event, d) {
+          showTooltip(event, `${d.source.name} → ${d.target.name}: ${d.value.toLocaleString()} calls`);
+        })
+        .on('mouseout', hideTooltip);
+
+      // Nodes
+      const node = svg.append('g')
+        .selectAll('g')
+        .data(sankeyNodes)
+        .join('g')
+        .attr('class', 'node')
+        .on('click', (event, d) => handleNodeClick(d))
+        .on('mouseover', function(event, d) {
+          const pct = ((d.value / 8559) * 100).toFixed(1);
+          showTooltip(event, `${d.name}: ${d.value.toLocaleString()} (${pct}%)`);
+        })
+        .on('mouseout', hideTooltip);
+
+      node.append('rect')
+        .attr('x', d => d.x0)
+        .attr('y', d => d.y0)
+        .attr('height', d => d.y1 - d.y0)
+        .attr('width', d => d.x1 - d.x0)
+        .attr('fill', d => d.color);
+
+      node.append('text')
+        .attr('class', 'node-label')
+        .attr('x', d => d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6)
+        .attr('y', d => (d.y1 + d.y0) / 2)
+        .attr('dy', '0.35em')
+        .attr('text-anchor', d => d.x0 < width / 2 ? 'start' : 'end')
+        .text(d => `${d.name} (${d.value.toLocaleString()})`);
+    }
+
+    function handleNodeClick(node) {
+      console.log('Clicked node:', node.name);
+      alert(`Клик на "${node.name}"\n\nЗдесь будет фильтрация таблицы звонков по этой стадии.\n\nПараметры фильтра:\n- Stage: ${node.id}\n- Count: ${node.value} calls`);
+    }
+
+    function showTooltip(event, text) {
+      const tooltip = document.getElementById('tooltip');
+      tooltip.textContent = text;
+      tooltip.style.left = event.pageX + 10 + 'px';
+      tooltip.style.top = event.pageY + 10 + 'px';
+      tooltip.style.opacity = 1;
+    }
+
+    function hideTooltip() {
+      document.getElementById('tooltip').style.opacity = 0;
+    }
+
+    function toggleDetails() {
+      const panel = document.getElementById('details-panel');
+      panel.classList.toggle('visible');
+
+      const btn = document.querySelector('.expand-btn');
+      btn.textContent = panel.classList.contains('visible')
+        ? '🔼 Скрыть детальную статистику'
+        : '🔍 Показать детальную статистику';
+    }
+
+    // Запуск при загрузке
+    init();
+
+    // Перерисовка при изменении размера окна
+    window.addEventListener('resize', () => {
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(renderSankey, 250);
+    });
+  </script>
+</body>
+</html>

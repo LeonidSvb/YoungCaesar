@@ -1,0 +1,242 @@
+{
+  "config": {
+    "INPUT": {
+      "DATA_FILE": "results/calls_for_analysis.json",
+      "MIN_TRANSCRIPT_LENGTH": 100
+    },
+    "TESTING": {
+      "ENABLED": true,
+      "BATCH_SIZE": 5,
+      "SPECIFIC_CALL_ID": ""
+    },
+    "OPENAI": {
+      "MODEL": "gpt-4o-mini",
+      "TEMPERATURE": 0.1,
+      "MAX_TOKENS": 2000
+    },
+    "PROCESSING": {
+      "CONCURRENCY": 15,
+      "BATCH_DELAY": 1000,
+      "RETRY_ATTEMPTS": 2,
+      "RETRY_DELAY": 3000
+    },
+    "OUTPUT": {
+      "RESULTS_DIR": "results",
+      "VERBOSE": true
+    }
+  },
+  "stats": {
+    "processed": 5,
+    "failed": 0,
+    "totalCost": 0.004630649999999999,
+    "startTime": 1761200050033,
+    "errors": [],
+    "totalTime": 6.988,
+    "avgTimePerCall": 1.3976000000000002,
+    "avgCostPerCall": 0.0009261299999999998,
+    "avgQCI": 61,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "call_id": "0199bc7c-889b-7bb5-a2ac-3dc70fd2f9b7",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "transcript_length": 4540,
+      "qci_total": 55,
+      "dynamics": 18,
+      "objections": 5,
+      "brand": 15,
+      "outcome": 17,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 18,
+        "objections_total": 5,
+        "brand_total": 15,
+        "outcome_total": 17,
+        "evidence": {
+          "agent_talk_ratio": "45%",
+          "brand_mentions": [
+            "Hi. This is Lea Dell from Young Caesar."
+          ],
+          "outcomes": [
+            "I'll reach out to Servi at the confirmed email and phone number 9 8 1 0 0 0 4 5 3 9."
+          ],
+          "key_moments": [
+            "Could you spell the email clearly"
+          ]
+        },
+        "coaching_tips": [
+          "Improve flow by minimizing interruptions and confirming information more efficiently.",
+          "Enhance engagement by asking more open-ended questions.",
+          "Ensure clarity in communication to avoid confusion over details."
+        ]
+      },
+      "cost": 0.0011866499999999998,
+      "tokens": 7374,
+      "timestamp": "2025-10-23T06:14:15.504Z"
+    },
+    {
+      "call_id": "0199b9ae-4a68-7224-ab47-6dab6ecbddab",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "transcript_length": 4324,
+      "qci_total": 55,
+      "dynamics": 18,
+      "objections": 10,
+      "brand": 15,
+      "outcome": 12,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 18,
+        "objections_total": 10,
+        "brand_total": 15,
+        "outcome_total": 12,
+        "evidence": {
+          "agent_talk_ratio": "45%",
+          "brand_mentions": [
+            "I'm calling from Young Caesar about helping you win more customers for your gluing solutions without trade shows or cold outreach."
+          ],
+          "outcomes": [
+            "Information exchanged: 'If it looks useful, we can book a quick walkthrough later.'"
+          ],
+          "key_moments": [
+            "User confirmed their email: 'Okay. I'm going to spell it. M a r t e t e n d at m e l e r dot e u.'"
+          ]
+        },
+        "coaching_tips": [
+          "Improve flow by minimizing repetition and clarifying questions.",
+          "Enhance objection handling by acknowledging user concerns more effectively.",
+          "Increase engagement by asking more open-ended questions."
+        ]
+      },
+      "cost": 0.00103125,
+      "tokens": 6272,
+      "timestamp": "2025-10-23T06:14:15.585Z"
+    },
+    {
+      "call_id": "0199bc7b-9b8d-7889-9b2c-b51fd18873ec",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "transcript_length": 3218,
+      "qci_total": 70,
+      "dynamics": 20,
+      "objections": 10,
+      "brand": 15,
+      "outcome": 25,
+      "status": "review",
+      "ai_analysis": {
+        "qci_total_score": 70,
+        "dynamics_total": 20,
+        "objections_total": 10,
+        "brand_total": 15,
+        "outcome_total": 25,
+        "evidence": {
+          "agent_talk_ratio": "60%",
+          "brand_mentions": [
+            "Hi. This is Paisley Edwards from Young Caesar.",
+            "Thanks. This is Paisley Edwards from Young Caesar."
+          ],
+          "outcomes": [
+            "I'll send a clear 1 page checklist to help capture the customer's detailed requirements for AMR robot systems plus next steps."
+          ],
+          "key_moments": [
+            "I'll email a 1 page checklist to confirm the customer's detailed requirements and gaps before we proceed."
+          ]
+        },
+        "coaching_tips": [
+          "Improve engagement by asking more open-ended questions.",
+          "Reduce repetition in responses to enhance flow.",
+          "Clarify next steps more assertively to drive commitment."
+        ]
+      },
+      "cost": 0.0008170499999999999,
+      "tokens": 4874,
+      "timestamp": "2025-10-23T06:14:16.395Z"
+    },
+    {
+      "call_id": "0199b986-773b-7dd7-9056-7be6ff585d8d",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "transcript_length": 3005,
+      "qci_total": 55,
+      "dynamics": 20,
+      "objections": 0,
+      "brand": 15,
+      "outcome": 20,
+      "status": "fail",
+      "ai_analysis": {
+        "qci_total_score": 55,
+        "dynamics_total": 20,
+        "objections_total": 0,
+        "brand_total": 15,
+        "outcome_total": 20,
+        "evidence": {
+          "agent_talk_ratio": "45%",
+          "brand_mentions": [
+            "Hi. This is Samantha Evans from Young Caesar.",
+            "Hey, David. This is Samantha Evans from Young Caesar.",
+            "Hey, David. Samantha Evans from Young Caesar."
+          ],
+          "outcomes": [
+            "Callback arranged: 'You can call me back or I can send an invite.'"
+          ],
+          "key_moments": [
+            "It's regarding a quick follow-up on an email about bringing in more clients for your industrial walk in oven."
+          ]
+        },
+        "coaching_tips": [
+          "Improve objection handling by recognizing and addressing potential concerns from the user.",
+          "Enhance engagement by asking more open-ended questions to encourage dialogue.",
+          "Ensure clarity in communication to avoid confusion in message recording."
+        ]
+      },
+      "cost": 0.0008050499999999999,
+      "tokens": 4752,
+      "timestamp": "2025-10-23T06:14:14.176Z"
+    },
+    {
+      "call_id": "0199b961-d9f7-7aa9-8ca9-4bde86f9a620",
+      "assistant_id": "1a9692a3-bc41-4d9f-b1db-a45170e9fbfe",
+      "transcript_length": 2968,
+      "qci_total": 70,
+      "dynamics": 22,
+      "objections": 15,
+      "brand": 15,
+      "outcome": 18,
+      "status": "review",
+      "ai_analysis": {
+        "qci_total_score": 70,
+        "dynamics_total": 22,
+        "objections_total": 15,
+        "brand_total": 15,
+        "outcome_total": 18,
+        "evidence": {
+          "agent_talk_ratio": "55%",
+          "brand_mentions": [
+            "Hi. This is Audrey Long from Young Caesar."
+          ],
+          "outcomes": [
+            "I'll send a short summary with how we source and qualify horizontal machining centers leads."
+          ],
+          "key_moments": [
+            "You're right to feel that way. Really sorry we dropped the ball."
+          ]
+        },
+        "coaching_tips": [
+          "Improve flow by minimizing interruptions.",
+          "Clarify the value proposition earlier in the call.",
+          "Ensure to confirm the email address accurately without confusion."
+        ]
+      },
+      "cost": 0.00079065,
+      "tokens": 4782,
+      "timestamp": "2025-10-23T06:14:14.941Z"
+    }
+  ],
+  "summary": {
+    "total_calls": 5,
+    "avg_qci": "61.0",
+    "pass_rate": "0.0",
+    "total_cost": "0.0046",
+    "total_time": "0m 6s"
+  }
+}

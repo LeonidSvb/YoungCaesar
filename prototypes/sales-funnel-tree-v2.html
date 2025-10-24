@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Funnel Tree - VAPI Analytics</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .toggle-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .toggle-btn {
+      padding: 8px 16px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn:hover {
+      border-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    .toggle-btn.active {
+      border-color: #3b82f6;
+      background: #3b82f6;
+      color: white;
+    }
+
+    .tools-multiselect {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      background: white;
+    }
+
+    .tool-checkbox.checked {
+      border-color: #10b981;
+      background: #10b981;
+      color: white;
+    }
+
+    #sankey-container {
+      width: 100%;
+      height: 700px;
+      margin-bottom: 24px;
+      background: #fafafa;
+      border-radius: 8px;
+      padding: 20px;
+      border: 2px dashed #e0e0e0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      padding: 16px;
+      background: #fafafa;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .stat-pct {
+      font-size: 14px;
+      color: #666;
+      margin-left: 8px;
+    }
+
+    .sankey-node {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .sankey-node:hover {
+      opacity: 0.8;
+    }
+
+    .sankey-node rect {
+      stroke: #fff;
+      stroke-width: 2px;
+    }
+
+    .sankey-link {
+      fill: none;
+      stroke-opacity: 0.3;
+    }
+
+    .sankey-link:hover {
+      stroke-opacity: 0.6;
+    }
+
+    .node-label {
+      font-size: 13px;
+      font-weight: 600;
+      fill: #1a1a1a;
+      pointer-events: none;
+    }
+
+    .error-message {
+      padding: 20px;
+      background: #fee;
+      border: 2px solid #f88;
+      border-radius: 8px;
+      color: #c00;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .loading {
+      padding: 40px;
+      text-align: center;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .expand-btn {
+      padding: 10px 20px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .expand-btn:hover {
+      background: #2563eb;
+    }
+
+    .details-panel {
+      margin-top: 16px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .details-panel.visible {
+      display: block;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .detail-item {
+      padding: 12px;
+      background: white;
+      border-radius: 6px;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Sales Funnel Tree</h1>
+    <p class="subtitle">Иерархическое распределение звонков по стадиям</p>
+
+    <div class="error-message" id="error-message"></div>
+
+    <!-- Stats Overview -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total Calls</div>
+        <div class="stat-value">8,559</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Without Errors</div>
+        <div class="stat-value">2,377 <span class="stat-pct">27.8%</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Quality Calls (≥60s)</div>
+        <div class="stat-value">571 <span class="stat-pct">24%</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Meetings Booked</div>
+        <div class="stat-value">11 <span class="stat-pct">1.9%</span></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="control-group">
+        <label>Показать/Скрыть ветки</label>
+        <div class="toggle-buttons">
+          <button class="toggle-btn active" data-branch="errors">❌ Errors</button>
+          <button class="toggle-btn active" data-branch="voicemail">📪 Voicemail</button>
+          <button class="toggle-btn active" data-branch="short">📞 Short Calls</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>Фильтр по инструментам</label>
+        <div class="tools-multiselect">
+          <label class="tool-checkbox checked">
+            <input type="checkbox" value="google_calendar_tool" checked>
+            📅 Calendar
+          </label>
+          <label class="tool-checkbox">
+            <input type="checkbox" value="dtmf_tool">
+            📞 DTMF
+          </label>
+          <label class="tool-checkbox">
+            <input type="checkbox" value="n8n_get_time">
+            ⏰ Get Time
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sankey Diagram -->
+    <div id="sankey-container">
+      <div class="loading">⏳ Загрузка диаграммы...</div>
+    </div>
+
+    <!-- Expandable Details -->
+    <div style="margin-top: 24px; border-top: 2px solid #e0e0e0; padding-top: 24px;">
+      <button class="expand-btn" onclick="toggleDetails()">🔍 Показать детальную статистику</button>
+
+      <div class="details-panel" id="details-panel">
+        <h3 style="margin-bottom: 16px;">Распределение по стадиям</h3>
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-label">With Errors</div>
+            <div class="detail-value">6,182 (72.2%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Short (1-59s)</div>
+            <div class="detail-value">1,782 (75%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Quality (≥60s)</div>
+            <div class="detail-value">571 (24%)</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">With Tools</div>
+            <div class="detail-value">119 (20.8%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Загружаем библиотеки -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-sankey@0.12"></script>
+
+  <script>
+    console.log('🚀 Script started');
+    console.log('D3 version:', d3.version);
+    console.log('D3 Sankey available:', typeof d3.sankey);
+
+    // Данные из реального анализа
+    const DATA = {
+      nodes: [
+        { name: 'All Calls\n8,559' },
+        { name: 'Errors\n6,182' },
+        { name: 'No Errors\n2,377' },
+        { name: 'Voicemail\n0' },
+        { name: 'Not Voicemail\n2,377' },
+        { name: 'No Pickup\n24' },
+        { name: 'Real Conv.\n2,353' },
+        { name: 'Short 1-59s\n1,782' },
+        { name: 'Quality ≥60s\n571' },
+        { name: 'No Tools\n452' },
+        { name: 'With Tools\n119' }
+      ],
+      links: [
+        { source: 0, target: 1, value: 6182 },
+        { source: 0, target: 2, value: 2377 },
+        { source: 2, target: 3, value: 0 },
+        { source: 2, target: 4, value: 2377 },
+        { source: 4, target: 5, value: 24 },
+        { source: 4, target: 6, value: 2353 },
+        { source: 6, target: 7, value: 1782 },
+        { source: 6, target: 8, value: 571 },
+        { source: 8, target: 9, value: 452 },
+        { source: 8, target: 10, value: 119 }
+      ]
+    };
+
+    const colors = [
+      '#3b82f6', // All Calls
+      '#ef4444', // Errors
+      '#10b981', // No Errors
+      '#f59e0b', // Voicemail
+      '#10b981', // Not Voicemail
+      '#6b7280', // No Pickup
+      '#8b5cf6', // Real
+      '#f59e0b', // Short
+      '#10b981', // Quality
+      '#6b7280', // No Tools
+      '#8b5cf6'  // With Tools
+    ];
+
+    let visibleBranches = {
+      errors: true,
+      voicemail: true,
+      short: true
+    };
+
+    function showError(message) {
+      const errorEl = document.getElementById('error-message');
+      errorEl.textContent = '❌ ' + message;
+      errorEl.style.display = 'block';
+      console.error(message);
+    }
+
+    function renderSankey() {
+      console.log('📊 Rendering Sankey...');
+
+      try {
+        const container = document.getElementById('sankey-container');
+        container.innerHTML = '';
+
+        const width = container.clientWidth - 40;
+        const height = container.clientHeight - 40;
+
+        console.log('Container size:', width, 'x', height);
+
+        if (width < 100 || height < 100) {
+          showError('Container too small: ' + width + 'x' + height);
+          return;
+        }
+
+        const svg = d3.select('#sankey-container')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .attr('viewBox', [0, 0, width, height]);
+
+        // Создаем Sankey generator
+        const sankey = d3.sankey()
+          .nodeWidth(20)
+          .nodePadding(30)
+          .extent([[20, 20], [width - 20, height - 20]]);
+
+        // Применяем к данным
+        const graph = sankey({
+          nodes: DATA.nodes.map(d => Object.assign({}, d)),
+          links: DATA.links.map(d => Object.assign({}, d))
+        });
+
+        console.log('Graph generated:', graph);
+
+        // Рисуем links
+        svg.append('g')
+          .attr('class', 'links')
+          .selectAll('path')
+          .data(graph.links)
+          .join('path')
+          .attr('class', 'sankey-link')
+          .attr('d', d3.sankeyLinkHorizontal())
+          .attr('stroke', d => colors[d.source.index])
+          .attr('stroke-width', d => Math.max(1, d.width))
+          .append('title')
+          .text(d => `${d.source.name} → ${d.target.name}\n${d.value.toLocaleString()}`);
+
+        // Рисуем nodes
+        const node = svg.append('g')
+          .attr('class', 'nodes')
+          .selectAll('g')
+          .data(graph.nodes)
+          .join('g')
+          .attr('class', 'sankey-node')
+          .on('click', (event, d) => {
+            alert('Клик на: ' + d.name);
+          });
+
+        node.append('rect')
+          .attr('x', d => d.x0)
+          .attr('y', d => d.y0)
+          .attr('height', d => d.y1 - d.y0)
+          .attr('width', d => d.x1 - d.x0)
+          .attr('fill', (d, i) => colors[i])
+          .append('title')
+          .text(d => d.name);
+
+        // Добавляем labels
+        node.append('text')
+          .attr('class', 'node-label')
+          .attr('x', d => d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6)
+          .attr('y', d => (d.y1 + d.y0) / 2)
+          .attr('dy', '0.35em')
+          .attr('text-anchor', d => d.x0 < width / 2 ? 'start' : 'end')
+          .text(d => d.name);
+
+        console.log('✅ Sankey rendered successfully!');
+
+      } catch (error) {
+        showError('Error rendering Sankey: ' + error.message);
+        console.error('Full error:', error);
+      }
+    }
+
+    function setupToggles() {
+      document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('active');
+          const branch = btn.dataset.branch;
+          visibleBranches[branch] = btn.classList.contains('active');
+          renderSankey();
+        });
+      });
+    }
+
+    function setupToolCheckboxes() {
+      document.querySelectorAll('.tool-checkbox input').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          checkbox.parentElement.classList.toggle('checked', checkbox.checked);
+        });
+      });
+    }
+
+    function toggleDetails() {
+      const panel = document.getElementById('details-panel');
+      panel.classList.toggle('visible');
+
+      const btn = event.target;
+      btn.textContent = panel.classList.contains('visible')
+        ? '🔼 Скрыть детальную статистику'
+        : '🔍 Показать детальную статистику';
+    }
+
+    // Проверяем загрузку библиотек
+    function init() {
+      console.log('🎬 Initializing...');
+
+      if (typeof d3 === 'undefined') {
+        showError('D3.js не загрузился!');
+        return;
+      }
+
+      if (typeof d3.sankey === 'undefined') {
+        showError('D3 Sankey не загрузился!');
+        return;
+      }
+
+      setupToggles();
+      setupToolCheckboxes();
+
+      // Небольшая задержка чтобы контейнер успел отрендериться
+      setTimeout(renderSankey, 100);
+    }
+
+    // Запуск при загрузке
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Перерисовка при изменении размера
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(renderSankey, 250);
+    });
+  </script>
+</body>
+</html>

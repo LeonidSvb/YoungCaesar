@@ -1,0 +1,1511 @@
+{
+  "success": false,
+  "timestamp": "2025-10-23T05:52:41.922Z",
+  "config": {
+    "INPUT": {
+      "QCI_DATA_FILE": "results/qci_full_calls_with_assistants_latest.json",
+      "MIN_QCI_SCORE": 0,
+      "INCLUDE_FAILED": true,
+      "MIN_TRANSCRIPT_LENGTH": 100
+    },
+    "SYNC": {
+      "MODE": "incremental",
+      "UPDATE_EXISTING": true,
+      "SKIP_ORPHANED_CALLS": false,
+      "AUTO_MATCH_CALLS": true
+    },
+    "OUTPUT": {
+      "VERBOSE": true,
+      "LOG_PROGRESS": true,
+      "SAVE_RESULTS": true,
+      "RESULTS_DIR": "results/sync_logs"
+    },
+    "PROCESSING": {
+      "BATCH_SIZE": 25,
+      "CONCURRENT_REQUESTS": 3,
+      "RETRY_ATTEMPTS": 3,
+      "RETRY_DELAY": 2000,
+      "TEST_LIMIT": null
+    }
+  },
+  "stats": {
+    "qci_records_loaded": 291,
+    "qci_records_processed": 291,
+    "qci_records_synced": 0,
+    "qci_records_updated": 0,
+    "qci_records_skipped": 0,
+    "qci_records_failed": 291,
+    "calls_matched": 291,
+    "calls_orphaned": 0,
+    "processing_time": 13244,
+    "errors": [
+      {
+        "call_id": "0199bc7b-9b8d-7889-9b2c-b51fd18873ec",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.799Z"
+      },
+      {
+        "call_id": "0199b961-d9f7-7aa9-8ca9-4bde86f9a620",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.800Z"
+      },
+      {
+        "call_id": "0199b965-8427-7ff2-b443-1d04de5ec22f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.814Z"
+      },
+      {
+        "call_id": "0199b970-f5c5-7bbf-8361-508e0f87d9f7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.825Z"
+      },
+      {
+        "call_id": "0199b974-9d3c-777a-bd5d-6ffd794c04ca",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.825Z"
+      },
+      {
+        "call_id": "0199b9ae-4a68-7224-ab47-6dab6ecbddab",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.826Z"
+      },
+      {
+        "call_id": "0199b962-c4fa-777a-bd4c-341538cfe23c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.826Z"
+      },
+      {
+        "call_id": "0199b97f-9cd0-799e-b33e-fd2110eb072b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.846Z"
+      },
+      {
+        "call_id": "0199b976-01cf-7333-a4ea-79312bf69439",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.856Z"
+      },
+      {
+        "call_id": "0199b97c-6588-7eea-89f4-b44c5e39bbed",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.856Z"
+      },
+      {
+        "call_id": "0199e00c-8f59-7cc4-8f3e-872279a43b75",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.857Z"
+      },
+      {
+        "call_id": "0199ea93-9f44-7114-93a1-1846d059eab0",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.857Z"
+      },
+      {
+        "call_id": "0199eacf-96e8-7111-96ce-22c69ce9ca3f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.857Z"
+      },
+      {
+        "call_id": "0199a014-0809-7aa6-943e-6834d0cb52e2",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.857Z"
+      },
+      {
+        "call_id": "0199e03c-2956-7222-affb-ba12a1736b4a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.857Z"
+      },
+      {
+        "call_id": "0199aa05-a789-7880-95ad-f8b8a76220e1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.858Z"
+      },
+      {
+        "call_id": "0199bc7c-889b-7bb5-a2ac-3dc70fd2f9b7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.858Z"
+      },
+      {
+        "call_id": "0199b966-6ec5-7dd1-b230-a3dd0815cf77",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:29.866Z"
+      },
+      {
+        "call_id": "0199b9a8-cc89-7333-a521-897ca94588a4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.142Z"
+      },
+      {
+        "call_id": "0199e03f-1f09-7337-a7a2-cb52193d8f05",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.154Z"
+      },
+      {
+        "call_id": "0199b986-773b-7dd7-9056-7be6ff585d8d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.163Z"
+      },
+      {
+        "call_id": "0199b98a-2229-7eea-8a00-455f85e6101f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.170Z"
+      },
+      {
+        "call_id": "bfbcfb8c-ce31-46c0-955f-c47a67aed383",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.215Z"
+      },
+      {
+        "call_id": "ff645a93-697b-4ef6-bec1-c057c49d037a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.647Z"
+      },
+      {
+        "call_id": "e7856e07-6d07-4124-a1bf-51510493929e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:30.945Z"
+      },
+      {
+        "call_id": "0199ea76-55d4-7cc0-827c-d88b826c7ee5",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.702Z"
+      },
+      {
+        "call_id": "0199ea6e-8d64-7eeb-b424-7cf47b72d748",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.710Z"
+      },
+      {
+        "call_id": "0199ea63-cc6d-722e-9528-bdb6ea1656b9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.710Z"
+      },
+      {
+        "call_id": "0199b980-f96b-7dd7-9051-538dda89ba11",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.730Z"
+      },
+      {
+        "call_id": "0199e03b-eea1-7443-a265-14330b0fed82",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.730Z"
+      },
+      {
+        "call_id": "0199e038-42ff-7113-89b9-b865c79bc957",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.730Z"
+      },
+      {
+        "call_id": "0199eabd-4720-7772-8d59-d7d29b4db8bc",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.730Z"
+      },
+      {
+        "call_id": "0199b985-17d1-7aa8-8eac-c67bba2ef136",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.731Z"
+      },
+      {
+        "call_id": "0199ea59-f3a0-722e-9524-deb0f283e24d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.731Z"
+      },
+      {
+        "call_id": "0199aa07-f18c-7ee2-bb79-7ec48b56e6ea",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.731Z"
+      },
+      {
+        "call_id": "0199e00a-bf17-7220-bcbf-f88dc65b7f8c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.742Z"
+      },
+      {
+        "call_id": "0199b97b-7e2c-7333-a4ec-de17a2f87cb4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.742Z"
+      },
+      {
+        "call_id": "0199b96c-61ad-7ff2-b448-791f2b0771db",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.748Z"
+      },
+      {
+        "call_id": "0199b962-4fad-7550-9d84-b162c03d99df",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.748Z"
+      },
+      {
+        "call_id": "0199b95e-a661-7ddf-a70c-92ae0af2d5ef",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.748Z"
+      },
+      {
+        "call_id": "0199b980-0f29-788b-bcb5-8e65ff4eea54",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.749Z"
+      },
+      {
+        "call_id": "0199ea8e-2123-7558-b5bf-4e3d92f566e4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.749Z"
+      },
+      {
+        "call_id": "0199b9a6-f7cc-700e-acb0-c321e4ea536d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.752Z"
+      },
+      {
+        "call_id": "0199eaa7-14ea-722e-954c-77bcfe2ae8be",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.752Z"
+      },
+      {
+        "call_id": "0199ea68-d55d-744a-af90-4d27fb486e2b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.757Z"
+      },
+      {
+        "call_id": "0199eaa4-1aa2-755a-bd3a-f118ca47c098",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.758Z"
+      },
+      {
+        "call_id": "0199ea89-c95d-7cc0-8289-23f7957c672c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.758Z"
+      },
+      {
+        "call_id": "0199bc58-d551-7118-b47b-204f50f5d6c1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.774Z"
+      },
+      {
+        "call_id": "0199eac5-0fc6-7778-93ee-a4896ee72bf7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:31.774Z"
+      },
+      {
+        "call_id": "0199b9db-9cb1-7bb6-9bcc-b0b835249f1a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.114Z"
+      },
+      {
+        "call_id": "0199e67d-6512-7665-9e18-dee256e566be",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.848Z"
+      },
+      {
+        "call_id": "0199eae8-4d5c-722e-955c-6cdfad2d7e34",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.851Z"
+      },
+      {
+        "call_id": "0199ea96-5e52-7770-a6d4-6ff55e0dd9f3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.854Z"
+      },
+      {
+        "call_id": "0199ea61-0d54-7887-a1ce-3298f5dd4ad6",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.858Z"
+      },
+      {
+        "call_id": "0199bc1c-6686-7449-ba94-b98487425d08",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.859Z"
+      },
+      {
+        "call_id": "0199ea9e-6207-7aad-a408-0e9385ba61b0",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.861Z"
+      },
+      {
+        "call_id": "0199ea87-f438-700a-b752-6e5a34830b00",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.861Z"
+      },
+      {
+        "call_id": "6884485a-91e7-4a53-9b4c-8f7281f8c049",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.863Z"
+      },
+      {
+        "call_id": "0199ea75-e0e7-7778-93d7-fb6b9140a162",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.867Z"
+      },
+      {
+        "call_id": "0199ea73-5c11-7990-b532-64164885a187",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.870Z"
+      },
+      {
+        "call_id": "0199eae8-88b3-7bb5-8325-97357b7a5d8d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.870Z"
+      },
+      {
+        "call_id": "0199b95d-bbe1-7000-8000-47d3acfbedce",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.870Z"
+      },
+      {
+        "call_id": "0199ea6e-c8e8-7999-8a7b-68cd6a7b3041",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.875Z"
+      },
+      {
+        "call_id": "fb969f40-f4c3-4949-890e-744cf13f78e0",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.876Z"
+      },
+      {
+        "call_id": "10d35404-9660-4bdc-8863-7e98fe94b3a4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.876Z"
+      },
+      {
+        "call_id": "0199eaab-334b-7ccd-99e8-37ba3e4d341a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.876Z"
+      },
+      {
+        "call_id": "0199b9e5-aee0-7aa9-8d16-e165362ba266",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.887Z"
+      },
+      {
+        "call_id": "0199ea7e-013e-744a-af99-1298dfc164f7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.887Z"
+      },
+      {
+        "call_id": "0199ea70-61ad-7770-a6c4-de1be87c1fab",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.887Z"
+      },
+      {
+        "call_id": "0199ea73-2221-7118-8832-ebc500422937",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.887Z"
+      },
+      {
+        "call_id": "0199ea7b-d3b0-7ccd-99d5-e9b954662437",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.887Z"
+      },
+      {
+        "call_id": "0199e679-4571-7556-9da4-8d68f5e364a3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.888Z"
+      },
+      {
+        "call_id": "0199eada-9408-7cc3-8984-c3070594d47f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.888Z"
+      },
+      {
+        "call_id": "f828aef6-b532-43db-a086-1ae25428c52e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.889Z"
+      },
+      {
+        "call_id": "0199e682-6f05-700c-950b-36d8cb715a95",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:32.889Z"
+      },
+      {
+        "call_id": "0199ea9d-0506-788c-b68d-1b78fe2bc5be",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.630Z"
+      },
+      {
+        "call_id": "0199ea65-daaa-722e-9529-ee11028e07eb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.642Z"
+      },
+      {
+        "call_id": "0199b99c-70dc-7dd2-a749-ba56dac38069",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.642Z"
+      },
+      {
+        "call_id": "0199ea71-c1af-7118-8832-67a255b7cbdc",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.648Z"
+      },
+      {
+        "call_id": "0199eab0-eafd-7ee3-88a8-80c8ec8cb396",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.648Z"
+      },
+      {
+        "call_id": "0199b975-125a-7008-a866-18ae68dc7059",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.652Z"
+      },
+      {
+        "call_id": "0199b983-42d2-7aa8-8eab-2b59df6a4abb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.652Z"
+      },
+      {
+        "call_id": "0199b983-b87b-7dd0-82be-433be11682d4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.652Z"
+      },
+      {
+        "call_id": "0199bc16-e822-744f-9638-d45db64baa76",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.653Z"
+      },
+      {
+        "call_id": "0199b987-d6fb-7112-87aa-b8daec7610b6",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.654Z"
+      },
+      {
+        "call_id": "0199e048-fa36-7220-bf5c-9b7841617fba",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.654Z"
+      },
+      {
+        "call_id": "0199b965-f975-744f-8a1f-7564f674109e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.671Z"
+      },
+      {
+        "call_id": "0193ea2c-07f0-4911-ba29-f14d11b1b134",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.671Z"
+      },
+      {
+        "call_id": "33c0cc78-31dd-4ba2-ae47-f63237921938",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.671Z"
+      },
+      {
+        "call_id": "38a80afc-fd48-49ef-a6ad-420efac1c6a7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.671Z"
+      },
+      {
+        "call_id": "0199b9e4-4ec0-700e-acda-13c6610711fe",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.671Z"
+      },
+      {
+        "call_id": "0199eabb-390a-7cc7-a31e-4e40db3d941c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.671Z"
+      },
+      {
+        "call_id": "0199b979-a692-7118-b8b0-348bd37c54a4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.672Z"
+      },
+      {
+        "call_id": "0199ea5b-538f-722e-9525-80926dffd14e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.678Z"
+      },
+      {
+        "call_id": "0199bfc4-0fdf-700c-97a8-6efaf294a848",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.678Z"
+      },
+      {
+        "call_id": "0199b9a6-828e-7ff9-bd04-0c1e5b2b625d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.679Z"
+      },
+      {
+        "call_id": "0199ea82-3a5e-7cc0-8281-d559901c782e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.679Z"
+      },
+      {
+        "call_id": "0199ea59-b9cf-7558-b5a1-f6eb91b0cf1f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:33.679Z"
+      },
+      {
+        "call_id": "0199b97d-4fce-7bb6-9b82-03465489f3a5",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.011Z"
+      },
+      {
+        "call_id": "0199e15b-26d0-7111-b37f-412c591e1b9b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.051Z"
+      },
+      {
+        "call_id": "0199e158-6871-7aaf-9393-1c3678b56b0b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.787Z"
+      },
+      {
+        "call_id": "2723de64-cc45-46f6-bb25-955b7d28580c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.790Z"
+      },
+      {
+        "call_id": "0199ea69-f9d2-7ccd-99cd-6e65cb6a11f9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.793Z"
+      },
+      {
+        "call_id": "0199e991-344d-7aad-ba91-33546abf0f16",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.806Z"
+      },
+      {
+        "call_id": "0199b986-023b-700d-82b8-e5c838159a00",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.806Z"
+      },
+      {
+        "call_id": "0199b9d5-339d-7aa8-8ee7-73e2f435702a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.806Z"
+      },
+      {
+        "call_id": "0199ea7a-af45-700a-b749-3fd0a3de3bbb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.809Z"
+      },
+      {
+        "call_id": "0199b968-b7fb-7005-89b2-eac9628944a1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.809Z"
+      },
+      {
+        "call_id": "0199ea7d-6c60-7cc0-827e-68465d29cdc0",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.810Z"
+      },
+      {
+        "call_id": "0199a013-9342-733b-96ec-d367390e45b2",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.820Z"
+      },
+      {
+        "call_id": "5ee3f732-4df6-4225-b166-9a9a3bd7e270",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.840Z"
+      },
+      {
+        "call_id": "0199e159-5214-7993-8842-1738211dbf66",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.840Z"
+      },
+      {
+        "call_id": "0199bfce-2233-7dd8-9f43-9e52b087e3ed",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.840Z"
+      },
+      {
+        "call_id": "e807dfd1-4ed1-4f2f-9706-e42a8934c3bc",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.841Z"
+      },
+      {
+        "call_id": "0199b982-5902-7334-9255-2e15d980fd61",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.841Z"
+      },
+      {
+        "call_id": "0199bc25-18cf-7449-ba97-8beb2f2ddd29",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.846Z"
+      },
+      {
+        "call_id": "83207a51-454e-41ca-bdd9-3ade3d6a3e47",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.846Z"
+      },
+      {
+        "call_id": "ff8c966e-1b7c-4b87-8a8f-0855d866fad5",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.846Z"
+      },
+      {
+        "call_id": "0199df39-f515-7111-a35b-7c3f52a27da5",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.847Z"
+      },
+      {
+        "call_id": "0199ea8c-8798-7778-93df-ae20b3c714cf",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.847Z"
+      },
+      {
+        "call_id": "0199b960-f095-777d-b8a6-a1668e9d8132",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.847Z"
+      },
+      {
+        "call_id": "5f1e8411-013c-496b-b6cb-87ca49e41cdc",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.847Z"
+      },
+      {
+        "call_id": "0199e14f-b550-7aaf-938e-4eb91ab2e46c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.848Z"
+      },
+      {
+        "call_id": "91ff0252-4cfb-4a7f-8d27-a15d60807add",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.848Z"
+      },
+      {
+        "call_id": "0199b968-434e-799e-b32f-ffb88fb0b826",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:34.861Z"
+      },
+      {
+        "call_id": "34d4257e-527b-4bc7-b61e-aa736ddc4aeb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.598Z"
+      },
+      {
+        "call_id": "0199b996-07f4-7dd7-905e-a6da0b364e7d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.598Z"
+      },
+      {
+        "call_id": "7b613eb7-a21c-47d4-ab14-7840bdb4a990",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.605Z"
+      },
+      {
+        "call_id": "0199b967-ce2c-7bb6-9b75-cc190bf74114",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.605Z"
+      },
+      {
+        "call_id": "01999fa2-814d-7aa4-b01c-4180a92281f9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.614Z"
+      },
+      {
+        "call_id": "3a1f87e8-b51c-4983-be6d-cbb5e3e05d9f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.614Z"
+      },
+      {
+        "call_id": "0199b97e-af43-799e-b33d-372ead84f308",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.614Z"
+      },
+      {
+        "call_id": "0199ea59-44ff-7cc4-ba2b-fa95ef0c1105",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.616Z"
+      },
+      {
+        "call_id": "9ee837cd-5e72-4ac9-970b-39ea761dd308",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.616Z"
+      },
+      {
+        "call_id": "0199aa09-15ce-7ee2-bb7b-39cd720d9f8b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.617Z"
+      },
+      {
+        "call_id": "0199b975-8798-7dd1-b23b-1f1244136e9b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.623Z"
+      },
+      {
+        "call_id": "324a676a-0202-45db-96f1-21b22e762ed4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.623Z"
+      },
+      {
+        "call_id": "fbbb7c32-ab5a-4c4e-ad0e-3588af492c08",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.625Z"
+      },
+      {
+        "call_id": "0199ea96-a3c8-7eeb-b432-f20f7756edae",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.627Z"
+      },
+      {
+        "call_id": "0199e681-82ce-7111-8102-d8e5018f409c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.627Z"
+      },
+      {
+        "call_id": "0199eae4-69ec-722e-955b-5b9ce557c962",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.628Z"
+      },
+      {
+        "call_id": "0199ea66-c4c2-7558-b5aa-1faac8a9caef",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.628Z"
+      },
+      {
+        "call_id": "78603274-6722-45f7-92e6-76e385cbbc13",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.629Z"
+      },
+      {
+        "call_id": "0199ea63-1be5-7ccd-99cb-185c5f1fff02",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.634Z"
+      },
+      {
+        "call_id": "0199bc10-f4cc-744f-9637-22c40ce2e0fa",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.634Z"
+      },
+      {
+        "call_id": "0199b989-36c1-7bbf-8374-c00629f604f5",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.637Z"
+      },
+      {
+        "call_id": "0199bc3b-135a-7ee0-bae6-96a40ff480a4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.653Z"
+      },
+      {
+        "call_id": "0199e03d-0d39-7337-a7a1-6ecf5dfa6e69",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.662Z"
+      },
+      {
+        "call_id": "0199e153-d394-7444-905a-fe6de4fb177f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:35.988Z"
+      },
+      {
+        "call_id": "0199ea82-0050-7999-8a84-cbabef135ac7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.014Z"
+      },
+      {
+        "call_id": "0199c27e-9c3b-7660-b267-dddf0f4a3476",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.759Z"
+      },
+      {
+        "call_id": "0199ea62-3156-7554-9ef4-8132adaa723a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.765Z"
+      },
+      {
+        "call_id": "a60157ec-4f98-4fd9-98f8-5fd8218d886f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.765Z"
+      },
+      {
+        "call_id": "0199e01a-be5d-7ddc-b964-90c76ab2c707",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.766Z"
+      },
+      {
+        "call_id": "0199b9d4-be5f-7333-a539-3c1f94b498ce",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.773Z"
+      },
+      {
+        "call_id": "0199b993-bdca-7112-87b0-f807102b2ee7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.774Z"
+      },
+      {
+        "call_id": "81e4386e-ba1b-4728-8165-9df8958c87be",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.776Z"
+      },
+      {
+        "call_id": "0199bc2e-40f2-744f-9644-a0162c7a31ee",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.789Z"
+      },
+      {
+        "call_id": "0199df34-edcf-7cc7-b20c-00a52d49dbeb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.789Z"
+      },
+      {
+        "call_id": "719765f3-c0cf-4327-821f-201900fa4b52",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.789Z"
+      },
+      {
+        "call_id": "0199bfce-994d-7994-853e-ce07e0fe7be3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.793Z"
+      },
+      {
+        "call_id": "e45c0204-d54c-48e5-a857-fcbd002d3fe3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.793Z"
+      },
+      {
+        "call_id": "21844f4f-40e2-44aa-8ec2-7587a237a541",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.793Z"
+      },
+      {
+        "call_id": "0199b989-ac1c-7bb6-9b8c-27304a331836",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.810Z"
+      },
+      {
+        "call_id": "0199ea84-0f0e-7770-a6cb-60ad92a03dbf",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.821Z"
+      },
+      {
+        "call_id": "6f1480ed-b863-4873-8710-c60b79257769",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.821Z"
+      },
+      {
+        "call_id": "0199b987-621c-700e-ac86-7d81fdc90020",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.822Z"
+      },
+      {
+        "call_id": "0199ea54-75b4-722e-9522-316396d2fc44",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.824Z"
+      },
+      {
+        "call_id": "0199df3e-fdac-7ffb-98e6-cb15612670ce",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.824Z"
+      },
+      {
+        "call_id": "0199aa0c-100e-7aa6-ba49-5d3ce5cdd5a6",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.824Z"
+      },
+      {
+        "call_id": "bd02f634-8909-4752-ad1a-562bbc6eaa80",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.825Z"
+      },
+      {
+        "call_id": "fcf4963e-447e-4306-a01a-db5decd0d102",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.825Z"
+      },
+      {
+        "call_id": "ede3f839-1320-4d57-b2e7-5b362463ba92",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.825Z"
+      },
+      {
+        "call_id": "0199b966-e421-7aa6-813c-b48232e7f785",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.825Z"
+      },
+      {
+        "call_id": "3448222c-ebf2-4666-812d-cedfd44f9c56",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:36.826Z"
+      },
+      {
+        "call_id": "62c631d4-37a7-4485-99b0-b6d876689a90",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.565Z"
+      },
+      {
+        "call_id": "0199b976-7216-7eea-89ee-8d80359d2d10",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.566Z"
+      },
+      {
+        "call_id": "0199c296-6a38-7bb1-9bb8-8a86b1de820f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.576Z"
+      },
+      {
+        "call_id": "0199dddf-6de7-7338-b7ec-67056e8afe8a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.576Z"
+      },
+      {
+        "call_id": "0199b9d5-a8a9-799d-b1ac-2487c870373b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.576Z"
+      },
+      {
+        "call_id": "0199e15f-bade-7ee0-81c4-7d55e94ad7f8",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.576Z"
+      },
+      {
+        "call_id": "0199e330-5c55-7115-b426-addb23b79510",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.576Z"
+      },
+      {
+        "call_id": "0199b96a-8cc5-7aa9-8cb8-a7c896cc75b2",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.578Z"
+      },
+      {
+        "call_id": "0199dde4-01dc-755c-85df-3dcaf94a680a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.579Z"
+      },
+      {
+        "call_id": "a4c1c0f3-b6ec-4cd0-8e36-7ecc4f5588db",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.579Z"
+      },
+      {
+        "call_id": "0199c271-cc36-7aab-820b-fb0029a67957",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.586Z"
+      },
+      {
+        "call_id": "0199e061-e9a2-799f-a328-e8635a3c7987",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.586Z"
+      },
+      {
+        "call_id": "0199c799-869f-766b-a23e-ec08eaed8e88",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.590Z"
+      },
+      {
+        "call_id": "66983f11-abeb-48e7-8f99-05664216b760",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.590Z"
+      },
+      {
+        "call_id": "0199ea69-0f54-7aac-9ccb-dc95a37006e2",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.592Z"
+      },
+      {
+        "call_id": "0199eaa3-2fdf-7aab-bdad-ca7d132747de",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.592Z"
+      },
+      {
+        "call_id": "0199b96f-964c-7005-89b7-f40bf714ffe7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.592Z"
+      },
+      {
+        "call_id": "afcdb9b5-bb8a-471a-822c-902626a41338",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.592Z"
+      },
+      {
+        "call_id": "0199ea8a-ecac-7558-b5bd-9b3461a15077",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.593Z"
+      },
+      {
+        "call_id": "0199df35-d5ca-7eef-a9d4-e8fc8a90f82c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.595Z"
+      },
+      {
+        "call_id": "0199ea5e-ca18-700a-b741-bbf44d0edf2f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.595Z"
+      },
+      {
+        "call_id": "5e76fee7-3aad-4f83-9bbf-0dbc15bdf79e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.595Z"
+      },
+      {
+        "call_id": "c7ae57c5-488f-4925-b099-e01bac27cdd6",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.599Z"
+      },
+      {
+        "call_id": "0b173041-1732-4f7f-8f13-dcca199b4ca9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.948Z"
+      },
+      {
+        "call_id": "0199e329-7e5b-7dd1-a9ba-834d372b7422",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:37.985Z"
+      },
+      {
+        "call_id": "0199ea9a-b926-722e-9548-d48e52e82f63",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.741Z"
+      },
+      {
+        "call_id": "0199b97e-3a29-7334-924f-9c0c98020fb8",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.741Z"
+      },
+      {
+        "call_id": "0199ea6f-b3a8-744c-9e68-0adb50d0322e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.741Z"
+      },
+      {
+        "call_id": "0199ea9b-a532-755a-bd37-50419d122f6e",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.741Z"
+      },
+      {
+        "call_id": "0199df16-b72f-711b-839c-b3a591888c3c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.748Z"
+      },
+      {
+        "call_id": "0199e160-a59d-7ff3-9e16-3e706a2ae121",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.748Z"
+      },
+      {
+        "call_id": "0199e161-8f3d-7ee0-81c5-1822cacaae2b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.754Z"
+      },
+      {
+        "call_id": "49dfb6b8-f9a0-4af6-a16e-09a9e2435438",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.754Z"
+      },
+      {
+        "call_id": "0199eaa2-0bec-722e-954b-95798eabc4c5",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.755Z"
+      },
+      {
+        "call_id": "b2a03ef2-8e0e-4b64-ae2c-d22c5785ebca",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.755Z"
+      },
+      {
+        "call_id": "41f691cb-daf1-4904-b889-77f8f2288098",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.755Z"
+      },
+      {
+        "call_id": "0199ea7a-7434-7778-93d9-2deaddbd2e99",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.763Z"
+      },
+      {
+        "call_id": "0199df3a-ebad-7cc6-8933-d727c1f053a1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.763Z"
+      },
+      {
+        "call_id": "0199ea5d-27e2-7cc4-ba2e-aae04fae3771",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.763Z"
+      },
+      {
+        "call_id": "0199e03f-9437-7dd2-9b02-0309e15ac0e9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.763Z"
+      },
+      {
+        "call_id": "a5e9bcba-317d-464a-afbc-5c4a549a8b3c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.768Z"
+      },
+      {
+        "call_id": "0199ea74-8084-722e-952f-85115094ce18",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.768Z"
+      },
+      {
+        "call_id": "01999f8a-b3b3-7aa3-a9f1-ddde25f8e222",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.768Z"
+      },
+      {
+        "call_id": "0199e67f-47b9-7556-9da9-f7116bde10ea",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.769Z"
+      },
+      {
+        "call_id": "c6b08ef7-4fac-483c-a443-46e5df766688",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.769Z"
+      },
+      {
+        "call_id": "297d8b9d-2960-4cb2-bef7-9f2a94bcc54b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.771Z"
+      },
+      {
+        "call_id": "dc9cbb8c-58fb-4e14-968c-63727189a2de",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.771Z"
+      },
+      {
+        "call_id": "0199b9e5-391b-7772-917f-994e70fbe2f9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.771Z"
+      },
+      {
+        "call_id": "58f0638e-b787-48f8-b631-a8755740ab48",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:38.771Z"
+      },
+      {
+        "call_id": "0199df35-6102-766e-bb89-7106c7ead8cb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.116Z"
+      },
+      {
+        "call_id": "0006a320-5358-4dbc-919d-b330df4e9463",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.840Z"
+      },
+      {
+        "call_id": "0199ea86-1f60-7778-93dd-17a1f2e5aa7a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.844Z"
+      },
+      {
+        "call_id": "0199e14e-ccb8-788f-896a-ec66a697ef01",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.849Z"
+      },
+      {
+        "call_id": "4281ef41-2298-4242-853a-59d513e36201",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.853Z"
+      },
+      {
+        "call_id": "0199bc05-10c7-7aac-839b-f60fe327f0ef",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.857Z"
+      },
+      {
+        "call_id": "0199e03d-4c58-7ee7-aa0a-ba5837228bd7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.861Z"
+      },
+      {
+        "call_id": "e495163a-1413-4c4f-88df-c8e76bfad7fb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.877Z"
+      },
+      {
+        "call_id": "0199ea7b-5f4b-766a-b71b-680470b0c017",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.878Z"
+      },
+      {
+        "call_id": "907f83b7-a1b1-435b-9f49-5f79f1dfd008",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.878Z"
+      },
+      {
+        "call_id": "0199ea6a-e3c7-7558-b5ac-74edf9f51707",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.878Z"
+      },
+      {
+        "call_id": "93c668ce-74a7-4a2e-bf33-552f65eff6b3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.878Z"
+      },
+      {
+        "call_id": "0199ea56-fb37-722e-9523-794817b0e0bf",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.878Z"
+      },
+      {
+        "call_id": "f706cd64-30cf-4129-bb96-b5d86d29e2dd",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.878Z"
+      },
+      {
+        "call_id": "0199ea5d-9d68-7cc0-8270-da1119ccb217",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.896Z"
+      },
+      {
+        "call_id": "0199e150-9f5c-733f-83b3-02e1b3ad3d2b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.896Z"
+      },
+      {
+        "call_id": "4430ffbd-6212-4a74-96d8-b330cfc95a50",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.897Z"
+      },
+      {
+        "call_id": "0199e32f-e6a9-7228-94b0-bf4f03f060f1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.897Z"
+      },
+      {
+        "call_id": "0199df3a-69e6-7eef-a9d8-8259f69a5ec8",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.897Z"
+      },
+      {
+        "call_id": "0199df33-8e0e-7113-88fa-be4b7d34bb1d",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.897Z"
+      },
+      {
+        "call_id": "0199b9d6-1de2-7dd2-a771-419b33f702a4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.897Z"
+      },
+      {
+        "call_id": "0199c501-4f9b-7335-a9e6-fcfd1da458a9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.897Z"
+      },
+      {
+        "call_id": "8f60930d-00fd-4d67-b88e-c37abf858442",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:39.898Z"
+      },
+      {
+        "call_id": "340bd366-f4fa-4ae5-b099-eafa59a75e5f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:40.218Z"
+      },
+      {
+        "call_id": "8a2b2534-2970-4da2-8cd1-40d456a352f1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:40.222Z"
+      },
+      {
+        "call_id": "b7df3aec-ebe2-4a0c-8b47-30a4be0ab97a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:40.261Z"
+      },
+      {
+        "call_id": "cd2befa4-d683-417f-8cb3-343449583236",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.007Z"
+      },
+      {
+        "call_id": "0199ea95-3a72-700a-b75a-abe7ae798098",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.008Z"
+      },
+      {
+        "call_id": "0199ea6f-ecf3-7118-8831-a985c7a63b47",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.008Z"
+      },
+      {
+        "call_id": "01b4745e-4484-4541-a0e5-a6c2ced8db74",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.025Z"
+      },
+      {
+        "call_id": "0199b96e-3695-700d-82aa-54df154473c3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.025Z"
+      },
+      {
+        "call_id": "0199e035-8405-7ccb-94f8-2052c5dd7e61",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.026Z"
+      },
+      {
+        "call_id": "0199e05f-9f29-755a-8381-77c77fd08ab4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.026Z"
+      },
+      {
+        "call_id": "a04e5a52-2500-488d-a3aa-23efc39c1306",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.026Z"
+      },
+      {
+        "call_id": "8240c76d-e6a0-4627-bcba-0b48858c7306",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.036Z"
+      },
+      {
+        "call_id": "28237197-3332-48fb-b640-f07113d3ebf7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.036Z"
+      },
+      {
+        "call_id": "e738f3a3-c41a-42ae-97c5-4dd300152816",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.036Z"
+      },
+      {
+        "call_id": "0199ea8d-36b8-722e-9543-2ba0175fe9c9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.036Z"
+      },
+      {
+        "call_id": "2ff5b285-e575-439c-89e5-eef02c323166",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.036Z"
+      },
+      {
+        "call_id": "0199b98d-ca61-7333-a4fd-60c57f6f351c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.037Z"
+      },
+      {
+        "call_id": "0199bc87-0d1d-777a-b3cc-954bfe397c5c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.037Z"
+      },
+      {
+        "call_id": "0199e00f-4f7d-7bb9-8470-e7a4e8c5a79b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.037Z"
+      },
+      {
+        "call_id": "69a3be5e-c66c-4e56-a6a9-f23e277b847a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.041Z"
+      },
+      {
+        "call_id": "e50362e9-8c86-47c1-a4b2-ad42a1a57ca3",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.041Z"
+      },
+      {
+        "call_id": "0199ea53-51cb-7770-a6ba-be3f84e55fb8",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.042Z"
+      },
+      {
+        "call_id": "a54df100-4548-44ab-88e3-4b332340b03f",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.042Z"
+      },
+      {
+        "call_id": "b4dec697-db05-4c06-b6a3-15ee27271b71",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.042Z"
+      },
+      {
+        "call_id": "6165b088-db00-4a41-9c74-b66d0411e583",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.042Z"
+      },
+      {
+        "call_id": "c91b050d-8352-4b7f-a276-f5f48c3c81a7",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.043Z"
+      },
+      {
+        "call_id": "d70fbc76-aed9-451f-906f-5082197ec21c",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.043Z"
+      },
+      {
+        "call_id": "0199ea94-4fcf-7ccd-99e0-2e661c79cb57",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.055Z"
+      },
+      {
+        "call_id": "317cf70d-b971-4e19-9e1b-f4f7625c7f97",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.808Z"
+      },
+      {
+        "call_id": "60c443f1-da3e-49e2-8ff2-f06924358652",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.818Z"
+      },
+      {
+        "call_id": "0199e67f-adf0-766f-9894-01a77527c60b",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.830Z"
+      },
+      {
+        "call_id": "0199bfcd-aceb-7ff7-b5aa-127deb6304bd",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.832Z"
+      },
+      {
+        "call_id": "0199ead5-8abc-7cc3-8982-d9ae37f52890",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.838Z"
+      },
+      {
+        "call_id": "0199e161-1aa3-7993-8846-339f58b76fd9",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.853Z"
+      },
+      {
+        "call_id": "e36ad044-6d82-440f-a06c-1ff84f46f2af",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.856Z"
+      },
+      {
+        "call_id": "f23ef4e7-fd24-4207-b844-23a740c8407a",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.864Z"
+      },
+      {
+        "call_id": "d8bf1107-1fbc-445c-a22e-9bc0975f8731",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.866Z"
+      },
+      {
+        "call_id": "c54e1b2c-5227-4819-8768-feec5f4a7153",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.892Z"
+      },
+      {
+        "call_id": "e3228ac9-c0a5-4dcf-96e1-8c63e1a2a7f1",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.894Z"
+      },
+      {
+        "call_id": "0199b98e-b568-7dd0-82c8-f31dabd8b185",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.896Z"
+      },
+      {
+        "call_id": "89052427-7258-4f77-91e3-f6ef259977be",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.908Z"
+      },
+      {
+        "call_id": "0199ea62-e196-744c-9e63-1b83cc215b47",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.908Z"
+      },
+      {
+        "call_id": "0199e15e-5bb7-744b-9fb6-37d019f1ebc4",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.908Z"
+      },
+      {
+        "call_id": "0199e00b-272c-7aa8-833e-f03c638ad1cb",
+        "error": "Could not find the 'qci_total_score' column of 'qci_analyses' in the schema cache",
+        "timestamp": "2025-10-23T05:52:41.921Z"
+      }
+    ]
+  },
+  "summary": {
+    "total_loaded": 291,
+    "total_processed": 291,
+    "synced": 0,
+    "updated": 0,
+    "skipped": 0,
+    "failed": 291,
+    "success_rate": "0.0%",
+    "processing_time": "13.2s",
+    "calls_matched": 291,
+    "calls_orphaned": 0
+  }
+}
