@@ -263,9 +263,17 @@ class PromptOptimizer {
     async optimizePrompt(assistant, performance, framework, sampleCalls) {
         await this.logger.info('OPTIMIZE', `Optimizing prompt for ${assistant.name}`);
 
+        // Clean transcripts from control characters
+        const cleanTranscript = (text) => {
+            return text
+                .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control chars
+                .replace(/\s+/g, ' ')  // Normalize whitespace
+                .trim();
+        };
+
         // Format sample calls for prompt
         const sampleCallsText = sampleCalls
-            .map((call, idx) => `Call ${idx + 1} (QCI: ${call.qci_score}):\n${call.transcript.substring(0, 500)}...`)
+            .map((call, idx) => `Call ${idx + 1} (QCI: ${call.qci_score}):\n${cleanTranscript(call.transcript).substring(0, 500)}...`)
             .join('\n\n');
 
         // Replace template variables
@@ -318,11 +326,11 @@ class PromptOptimizer {
     // ============================================================
     // STEP 6: Save result to database
     // ============================================================
-    async saveResult(assistantId, performance, optimization) {
+    async saveResult(assistant, performance, optimization) {
         const { error } = await this.supabase
             .from('prompt_analysis_results')
             .insert({
-                assistant_id: assistantId,
+                assistant_id: assistant.assistant_id,
                 current_prompt: performance.current_prompt,
                 proposed_prompt: optimization.proposed_prompt,
                 current_qci: performance.avg_qci,
@@ -341,7 +349,7 @@ class PromptOptimizer {
         }
 
         this.stats.processed++;
-        await this.logger.info('SAVE', `Saved optimization result for assistant ${assistantId}`);
+        await this.logger.info('SAVE', `Saved optimization result for assistant ${assistant.assistant_id}`);
     }
 
     // ============================================================
@@ -476,7 +484,7 @@ ${optimization.proposed_prompt}
                     optimization.top_reasons.forEach((r, i) => console.log(`   ${i + 1}. ${r}`));
 
                     // Save to database
-                    await this.saveResult(assistant.assistant_id, performance, optimization);
+                    await this.saveResult(assistant, performance, optimization);
 
                     // Generate markdown
                     await this.generateMarkdownReport(assistant, performance, optimization);
