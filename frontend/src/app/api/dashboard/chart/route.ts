@@ -52,7 +52,12 @@ export async function GET(request: NextRequest) {
     );
 
     // Load all data with pagination to bypass 1000 row limit
-    const allCalls: any[] = [];
+    const allCalls: Array<{
+      effective_date: string | null;
+      is_quality_call: boolean | null;
+      has_calendar_booking: boolean | null;
+      has_qci: boolean | null;
+    }> = [];
     let offset = 0;
     const limit = 1000;
     let hasMore = true;
