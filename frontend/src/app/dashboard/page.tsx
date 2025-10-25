@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { FilterPanel } from '@/components/dashboard/FilterPanel';
 import { MetricsGrid } from '@/components/dashboard/MetricsGrid';
 import { TimelineChart } from '@/components/dashboard/TimelineChart';
@@ -41,7 +41,7 @@ export default function DashboardPage() {
   };
 
   // Calculate date range based on timeRange
-  const getDateRange = () => {
+  const { from: dateFrom, to: dateTo } = useMemo(() => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -98,15 +98,9 @@ export default function DashboardPage() {
           to: now.toISOString(),
         };
     }
-  };
+  }, [timeRange, customDateRange]);
 
-  const { from: dateFrom, to: dateTo } = getDateRange();
-
-  useEffect(() => {
-    loadTabCounts();
-  }, [assistantId, dateFrom, dateTo]);
-
-  const loadTabCounts = async () => {
+  const loadTabCounts = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (assistantId && assistantId !== 'all') params.set('assistant_id', assistantId);
@@ -121,7 +115,11 @@ export default function DashboardPage() {
     } catch (error) {
       console.error('Failed to load tab counts:', error);
     }
-  };
+  }, [assistantId, dateFrom, dateTo]);
+
+  useEffect(() => {
+    loadTabCounts();
+  }, [loadTabCounts]);
 
   const handleCallClick = (callId: string) => {
     setSelectedCallId(callId);

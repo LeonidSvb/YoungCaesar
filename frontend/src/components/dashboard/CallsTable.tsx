@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -47,19 +47,13 @@ export function CallsTable({
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+  const offsetRef = useRef(0);
 
-  useEffect(() => {
-    loadCalls(true);
-  }, [assistantId, dateFrom, dateTo, stageFilter]);
-
-  useEffect(() => {
-    applySorting();
-  }, [sortField, sortDirection, allCalls]);
-
-  const loadCalls = async (reset: boolean = false) => {
+  const loadCalls = useCallback(async (reset: boolean = false) => {
     if (reset) {
       setLoading(true);
       setOffset(0);
+      offsetRef.current = 0;
     } else {
       setLoadingMore(true);
     }
@@ -71,7 +65,7 @@ export function CallsTable({
       if (dateTo) params.set('date_to', dateTo);
       if (stageFilter && stageFilter !== 'all') params.set('stage_filter', stageFilter);
       params.set('limit', '50');
-      params.set('offset', reset ? '0' : offset.toString());
+      params.set('offset', reset ? '0' : offsetRef.current.toString());
 
       const res = await fetch(`/api/calls?${params.toString()}`);
       if (res.ok) {
@@ -79,10 +73,14 @@ export function CallsTable({
 
         if (reset) {
           setAllCalls(data.calls || []);
-          setOffset(data.shown || 0);
+          const newOffset = data.shown || 0;
+          setOffset(newOffset);
+          offsetRef.current = newOffset;
         } else {
           setAllCalls(prev => [...prev, ...(data.calls || [])]);
-          setOffset(prev => prev + (data.shown || 0));
+          const newOffset = offsetRef.current + (data.shown || 0);
+          setOffset(newOffset);
+          offsetRef.current = newOffset;
         }
 
         setTotal(data.total || 0);
@@ -94,9 +92,9 @@ export function CallsTable({
       setLoading(false);
       setLoadingMore(false);
     }
-  };
+  }, [assistantId, dateFrom, dateTo, stageFilter]);
 
-  const applySorting = () => {
+  const applySorting = useCallback(() => {
     if (!sortDirection) {
       setCalls([...allCalls]);
       return;
@@ -134,7 +132,15 @@ export function CallsTable({
     });
 
     setCalls(sorted);
-  };
+  }, [sortField, sortDirection, allCalls]);
+
+  useEffect(() => {
+    loadCalls(true);
+  }, [loadCalls]);
+
+  useEffect(() => {
+    applySorting();
+  }, [applySorting]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
