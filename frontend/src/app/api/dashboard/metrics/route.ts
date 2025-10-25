@@ -81,15 +81,17 @@ export async function GET(request: NextRequest) {
 
     // Get average duration and QCI - need to fetch actual data but only necessary fields
     // Using range to get more data for accurate averages
-    const { data: statsData }: { data: StatsDataPoint[] | null } = await buildQuery('duration_seconds, qci_score, assistant_id')
+    const { data: statsData } = await buildQuery('duration_seconds, qci_score, assistant_id')
       .range(0, 99999);
 
-    const callsWithDuration = statsData?.filter(c => c.duration_seconds && c.duration_seconds > 0) || [];
+    const typedStatsData = statsData as StatsDataPoint[] | null;
+
+    const callsWithDuration = typedStatsData?.filter(c => c.duration_seconds && c.duration_seconds > 0) || [];
     const avgDuration = callsWithDuration.length > 0
       ? Math.round(callsWithDuration.reduce((sum, c) => sum + (c.duration_seconds || 0), 0) / callsWithDuration.length)
       : 0;
 
-    const callsWithQci = statsData?.filter(c => c.qci_score !== null) || [];
+    const callsWithQci = typedStatsData?.filter(c => c.qci_score !== null) || [];
     const avgQCI = callsWithQci.length > 0
       ? Math.round(callsWithQci.reduce((sum, c) => sum + (c.qci_score || 0), 0) / callsWithQci.length * 10) / 10
       : 0;
@@ -98,7 +100,7 @@ export async function GET(request: NextRequest) {
       ? Math.round(((qualityCalls || 0) / (totalCalls || 0)) * 1000) / 10
       : 0;
 
-    const uniqueAssistants = new Set(statsData?.map(c => c.assistant_id).filter(Boolean));
+    const uniqueAssistants = new Set(typedStatsData?.map(c => c.assistant_id).filter(Boolean));
     const totalAssistants = uniqueAssistants.size;
 
     const metrics = {
