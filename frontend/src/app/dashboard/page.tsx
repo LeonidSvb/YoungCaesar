@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FilterPanel } from '@/components/dashboard/FilterPanel';
 import { MetricsGrid } from '@/components/dashboard/MetricsGrid';
 import { TimelineChart } from '@/components/dashboard/TimelineChart';
@@ -8,6 +8,7 @@ import { AssistantDonutChart } from '@/components/dashboard/AssistantDonutChart'
 import { CallTypesBarChart } from '@/components/dashboard/CallTypesBarChart';
 import { CallsTable } from '@/components/dashboard/CallsTable';
 import { CallDetailsSidebar } from '@/components/dashboard/CallDetailsSidebar';
+import { QueryInspector } from '@/components/dashboard/QueryInspector';
 import { Button } from '@/components/ui/button';
 
 type TimeRange = 'today' | 'yesterday' | '7d' | '30d' | '90d' | 'all' | 'custom';
@@ -20,6 +21,14 @@ export default function DashboardPage() {
   const [selectedCallId, setSelectedCallId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [customDateRange, setCustomDateRange] = useState<{ from: Date; to: Date } | null>(null);
+  const [tabCounts, setTabCounts] = useState<Record<CallTab, number>>({
+    all: 0,
+    quality: 0,
+    short: 0,
+    tools: 0,
+    voicemail: 0,
+    errors: 0,
+  });
 
   // Handle time range changes with custom date support
   const handleTimeRangeChange = (range: TimeRange, custom?: { from: Date; to: Date }) => {
@@ -93,6 +102,27 @@ export default function DashboardPage() {
 
   const { from: dateFrom, to: dateTo } = getDateRange();
 
+  useEffect(() => {
+    loadTabCounts();
+  }, [assistantId, dateFrom, dateTo]);
+
+  const loadTabCounts = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (assistantId && assistantId !== 'all') params.set('assistant_id', assistantId);
+      if (dateFrom) params.set('date_from', dateFrom);
+      if (dateTo) params.set('date_to', dateTo);
+
+      const res = await fetch(`/api/dashboard/tab-counts?${params.toString()}`);
+      if (res.ok) {
+        const data = await res.json();
+        setTabCounts(data);
+      }
+    } catch (error) {
+      console.error('Failed to load tab counts:', error);
+    }
+  };
+
   const handleCallClick = (callId: string) => {
     setSelectedCallId(callId);
     setSidebarOpen(true);
@@ -161,18 +191,33 @@ export default function DashboardPage() {
       <div className="mb-6">
         <div className="flex gap-2 border-b border-gray-200">
           {tabs.map((tab) => (
-            <Button
-              key={tab.value}
-              variant="ghost"
-              onClick={() => setActiveTab(tab.value)}
-              className={`px-4 py-2 rounded-t-lg border-b-2 transition-colors ${
-                activeTab === tab.value
-                  ? 'border-blue-600 text-blue-600 bg-blue-50'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              {tab.label}
-            </Button>
+            <div key={tab.value} className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                onClick={() => setActiveTab(tab.value)}
+                className={`px-4 py-2 rounded-t-lg border-b-2 transition-colors ${
+                  activeTab === tab.value
+                    ? 'border-blue-600 text-blue-600 bg-blue-50'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                <span>
+                  {tab.label}
+                  {tabCounts[tab.value] > 0 && (
+                    <span className="ml-1 text-xs opacity-70">
+                      ({tabCounts[tab.value].toLocaleString()})
+                    </span>
+                  )}
+                </span>
+              </Button>
+              <QueryInspector
+                tab={tab.value}
+                assistantId={assistantId === 'all' ? null : assistantId}
+                dateFrom={dateFrom}
+                dateTo={dateTo}
+                count={tabCounts[tab.value]}
+              />
+            </div>
           ))}
         </div>
       </div>

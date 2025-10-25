@@ -120,7 +120,7 @@ export function CallDetailsSidebar({
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent className="w-96 overflow-y-auto">
+      <SheetContent className="w-[700px] overflow-y-auto">
         <SheetHeader className="mb-6">
           <SheetTitle>Call Details</SheetTitle>
         </SheetHeader>
@@ -258,42 +258,42 @@ export function CallDetailsSidebar({
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="bg-gray-50 rounded-lg p-4 text-sm">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Duration:</span>
-                      <span className="font-medium">
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-gray-600 mb-1">Duration:</div>
+                      <div className="font-medium">
                         {formatDuration(details.duration_seconds)}
-                      </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Cost:</span>
-                      <span className="font-medium">
+                    <div>
+                      <div className="text-gray-600 mb-1">Cost:</div>
+                      <div className="font-medium">
                         ${details.cost.toFixed(2)}
-                      </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Started:</span>
-                      <span className="font-medium">
+                    <div>
+                      <div className="text-gray-600 mb-1">Started:</div>
+                      <div className="font-medium break-words">
                         {formatDate(details.started_at)}
-                      </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Assistant:</span>
-                      <span className="font-medium">
+                    <div>
+                      <div className="text-gray-600 mb-1">Assistant:</div>
+                      <div className="font-medium break-words">
                         {details.assistant.name}
-                      </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Phone:</span>
-                      <span className="font-medium font-mono text-xs">
+                    <div>
+                      <div className="text-gray-600 mb-1">Phone:</div>
+                      <div className="font-medium font-mono text-xs break-all">
                         {details.customer.phone_number}
-                      </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Call ID:</span>
-                      <span className="font-medium font-mono text-xs">
-                        {details.id.substring(0, 8)}...
-                      </span>
+                    <div>
+                      <div className="text-gray-600 mb-1">Call ID:</div>
+                      <div className="font-medium font-mono text-xs break-all">
+                        {details.id}
+                      </div>
                     </div>
                   </div>
                 </div>

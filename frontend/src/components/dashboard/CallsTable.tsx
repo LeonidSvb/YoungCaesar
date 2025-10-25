@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 
 interface Call {
   id: string;
@@ -29,7 +28,8 @@ interface CallsTableProps {
   onCallClick?: (callId: string) => void;
 }
 
-type SortOption = 'date-desc' | 'date-asc' | 'duration-desc' | 'duration-asc' | 'qci-desc' | 'qci-asc' | 'cost-desc' | 'cost-asc';
+type SortField = 'date' | 'duration' | 'qci' | 'cost';
+type SortDirection = 'asc' | 'desc' | null;
 
 export function CallsTable({
   assistantId,
@@ -42,7 +42,8 @@ export function CallsTable({
   const [allCalls, setAllCalls] = useState<Call[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [sortBy, setSortBy] = useState<SortOption>('date-desc');
+  const [sortField, setSortField] = useState<SortField>('date');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
   const [hasMore, setHasMore] = useState(false);
@@ -53,7 +54,7 @@ export function CallsTable({
 
   useEffect(() => {
     applySorting();
-  }, [sortBy, allCalls]);
+  }, [sortField, sortDirection, allCalls]);
 
   const loadCalls = async (reset: boolean = false) => {
     if (reset) {
@@ -96,54 +97,74 @@ export function CallsTable({
   };
 
   const applySorting = () => {
-    const sorted = [...allCalls];
-
-    switch (sortBy) {
-      case 'date-desc':
-        sorted.sort((a, b) => new Date(b.started_at).getTime() - new Date(a.started_at).getTime());
-        break;
-      case 'date-asc':
-        sorted.sort((a, b) => new Date(a.started_at).getTime() - new Date(b.started_at).getTime());
-        break;
-      case 'duration-desc':
-        sorted.sort((a, b) => b.duration_seconds - a.duration_seconds);
-        break;
-      case 'duration-asc':
-        sorted.sort((a, b) => a.duration_seconds - b.duration_seconds);
-        break;
-      case 'qci-desc':
-        sorted.sort((a, b) => (b.qci_score || 0) - (a.qci_score || 0));
-        break;
-      case 'qci-asc':
-        sorted.sort((a, b) => (a.qci_score || 0) - (b.qci_score || 0));
-        break;
-      case 'cost-desc':
-        sorted.sort((a, b) => b.cost - a.cost);
-        break;
-      case 'cost-asc':
-        sorted.sort((a, b) => a.cost - b.cost);
-        break;
+    if (!sortDirection) {
+      setCalls([...allCalls]);
+      return;
     }
 
+    const sorted = [...allCalls];
+    const multiplier = sortDirection === 'asc' ? 1 : -1;
+
+    sorted.sort((a, b) => {
+      let aVal: number;
+      let bVal: number;
+
+      switch (sortField) {
+        case 'date':
+          aVal = new Date(a.started_at).getTime();
+          bVal = new Date(b.started_at).getTime();
+          break;
+        case 'duration':
+          aVal = a.duration_seconds;
+          bVal = b.duration_seconds;
+          break;
+        case 'qci':
+          aVal = a.qci_score || 0;
+          bVal = b.qci_score || 0;
+          break;
+        case 'cost':
+          aVal = a.cost;
+          bVal = b.cost;
+          break;
+        default:
+          return 0;
+      }
+
+      return (aVal - bVal) * multiplier;
+    });
+
     setCalls(sorted);
+  };
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      if (sortDirection === 'desc') {
+        setSortDirection('asc');
+      } else if (sortDirection === 'asc') {
+        setSortDirection(null);
+        setSortField('date');
+      } else {
+        setSortDirection('desc');
+      }
+    } else {
+      setSortField(field);
+      setSortDirection('desc');
+    }
   };
 
   const handleLoadMore = () => {
     loadCalls(false);
   };
 
-  const getSortDescription = () => {
-    switch (sortBy) {
-      case 'date-desc': return 'Sorted by date (newest first)';
-      case 'date-asc': return 'Sorted by date (oldest first)';
-      case 'duration-desc': return 'Sorted by duration (longest first)';
-      case 'duration-asc': return 'Sorted by duration (shortest first)';
-      case 'qci-desc': return 'Sorted by QCI score (highest first)';
-      case 'qci-asc': return 'Sorted by QCI score (lowest first)';
-      case 'cost-desc': return 'Sorted by cost (highest first)';
-      case 'cost-asc': return 'Sorted by cost (lowest first)';
-      default: return 'Sorted by date (newest first)';
+  const getSortIcon = (field: SortField) => {
+    if (sortField !== field || !sortDirection) {
+      return <ArrowUpDown className="w-4 h-4 text-gray-400" />;
     }
+    return sortDirection === 'asc' ? (
+      <ArrowUp className="w-4 h-4 text-blue-600" />
+    ) : (
+      <ArrowDown className="w-4 h-4 text-blue-600" />
+    );
   };
 
   const getQualityBadgeColor = (quality: string) => {
@@ -164,33 +185,10 @@ export function CallsTable({
   return (
     <Card data-calls-table>
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle>Recent Calls</CardTitle>
-            <p className="text-sm text-gray-600 mt-1">
-              {getSortDescription()}
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-600">Sort by:</label>
-            <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
-              <SelectTrigger className="w-56">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="date-desc">Date (newest first)</SelectItem>
-                <SelectItem value="date-asc">Date (oldest first)</SelectItem>
-                <SelectItem value="duration-desc">Duration (longest first)</SelectItem>
-                <SelectItem value="duration-asc">Duration (shortest first)</SelectItem>
-                <SelectItem value="qci-desc">QCI Score (highest first)</SelectItem>
-                <SelectItem value="qci-asc">QCI Score (lowest first)</SelectItem>
-                <SelectItem value="cost-desc">Cost (highest first)</SelectItem>
-                <SelectItem value="cost-asc">Cost (lowest first)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+        <CardTitle>Recent Calls</CardTitle>
+        <p className="text-sm text-gray-600 mt-1">
+          Click on column headers to sort
+        </p>
       </CardHeader>
       <CardContent>
         {loading ? (
@@ -206,11 +204,35 @@ export function CallsTable({
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="text-left p-3 font-medium text-gray-600">Time</th>
-                  <th className="text-left p-3 font-medium text-gray-600">Duration</th>
+                  <th
+                    className="text-left p-3 font-medium text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors select-none"
+                    onClick={() => handleSort('date')}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Time</span>
+                      {getSortIcon('date')}
+                    </div>
+                  </th>
+                  <th
+                    className="text-left p-3 font-medium text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors select-none"
+                    onClick={() => handleSort('duration')}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Duration</span>
+                      {getSortIcon('duration')}
+                    </div>
+                  </th>
                   <th className="text-left p-3 font-medium text-gray-600">Assistant</th>
                   <th className="text-left p-3 font-medium text-gray-600">Phone</th>
-                  <th className="text-left p-3 font-medium text-gray-600">QCI</th>
+                  <th
+                    className="text-left p-3 font-medium text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors select-none"
+                    onClick={() => handleSort('qci')}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>QCI</span>
+                      {getSortIcon('qci')}
+                    </div>
+                  </th>
                   <th className="text-left p-3 font-medium text-gray-600">Status</th>
                 </tr>
               </thead>
