@@ -18,6 +18,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 
+interface StatsDataPoint {
+  duration_seconds: number | null;
+  qci_score: number | null;
+  assistant_id: string | null;
+}
+
 export async function GET(request: NextRequest) {
   const startTime = Date.now();
   const { searchParams } = new URL(request.url);
@@ -75,12 +81,12 @@ export async function GET(request: NextRequest) {
 
     // Get average duration and QCI - need to fetch actual data but only necessary fields
     // Using range to get more data for accurate averages
-    const { data: statsData } = await buildQuery('duration_seconds, qci_score, assistant_id')
+    const { data: statsData }: { data: StatsDataPoint[] | null } = await buildQuery('duration_seconds, qci_score, assistant_id')
       .range(0, 99999);
 
-    const callsWithDuration = statsData?.filter(c => c.duration_seconds > 0) || [];
+    const callsWithDuration = statsData?.filter(c => c.duration_seconds && c.duration_seconds > 0) || [];
     const avgDuration = callsWithDuration.length > 0
-      ? Math.round(callsWithDuration.reduce((sum, c) => sum + c.duration_seconds, 0) / callsWithDuration.length)
+      ? Math.round(callsWithDuration.reduce((sum, c) => sum + (c.duration_seconds || 0), 0) / callsWithDuration.length)
       : 0;
 
     const callsWithQci = statsData?.filter(c => c.qci_score !== null) || [];
